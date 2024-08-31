@@ -1,0 +1,320 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    outputs:
+      version: ${{ steps.properties.outputs.version }}
+      changelog: ${{ steps.properties.outputs.changelog }}
+      pluginVerifierHomeDir: ${{ steps.properties.outputs.pluginVerifierHomeDir }}
+    
+    steps:
+      -
+        name: Fetch sources
+        uses: actions/checkout@v4
+      -
+        name: Gradle wrapper validation
+        uses: gradle/actions/wrapper-validation@v4
+      -
+        name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      -
+        name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      -
+        name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+      -
+        name: Export properties
+        id: properties
+        shell: bash
+        run: |
+          chmod +x ./gradlew
+          PROPERTIES="$(./gradlew properties --console=plain -q)"
+          VERSION="$(echo "$PROPERTIES" | grep "^version:" | cut -f2- -d ' ')"
+          CHANGELOG="$(python .scripts/changelog.py $VERSION)"
+          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "pluginVerifierHomeDir=~/.pluginVerifier" >> $GITHUB_OUTPUT
+          
+          # Avoid "not exported" false positive error
+          # echo "changelog=$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      -
+        name: Build plugin
+        run: |
+          ./gradlew buildPlugin
+      -
+        name: Push ZIP to the "build" branch
+        uses: s0/git-publish-subdir-action@develop
+        if: github.event_name == 'push'
+        env:
+          REPO: self
+          BRANCH: build
+          FOLDER: build/distributions/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "{msg} ({sha})"
+      -
+        name: Prepare plugin artifact
+        id: artifact
+        shell: bash
+        run: |
+          cd ${{ github.workspace }}/build/distributions
+          FILENAME=`ls *.zip`
+          unzip "$FILENAME" -d content
+          
+          echo "filename=${FILENAME:0:-4}" >> $GITHUB_OUTPUT
+      -
+        name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.artifact.outputs.filename }}
+          path: ./build/distributions/content/*/*
+  
+  changelog:
+    name: Sync changelogs
+    if: github.event_name != 'pull_request'
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      -
+        name: Fetch sources
+        uses: actions/checkout@v4
+      -
+        name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      -
+        name: Edit old release notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python .scripts/edit_releases.py ${{ needs.build.outputs.version }}
+  
+  test:
+    name: Test
+    needs: [ build ]
+    
+    strategy:
+      matrix:
+        platform: [ ubuntu-latest, macos-latest, windows-latest ]
+    
+    permissions:
+      actions: write
+    
+    runs-on: ${{ matrix.platform }}
+    
+    steps:
+      -
+        name: Fetch sources
+        uses: actions/checkout@v4
+      -
+        name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      -
+        name: Clear Gradle home cache
+        if: matrix.platform == 'windows-latest'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh cache list --json "key" --limit 1000 \
+            -q '.[].key | select(startswith("gradle-home") and contains("Windows"))' | \
+            xargs -I '{}' gh cache delete '{}'
+      -
+        name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+      -
+        name: Run tests
+        run: |
+          chmod +x ./gradlew
+          ./gradlew check
+      -
+        name: Upload result
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tests-result
+          path: ${{ github.workspace }}/build/reports/tests
+  
+  inspect:
+    name: Inspect
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      checks: write
+      pull-requests: write
+    
+    steps:
+      -
+        name: Maximize build space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          large-packages: false
+      -
+        name: Fetch sources
+        uses: actions/checkout@v4
+      -
+        name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      -
+        name: Run Qodana
+        uses: JetBrains/qodana-action@v2024.1.9
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+        with:
+          cache-default-branch-only: true
+  
+  verify:
+    name: Verify
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    
+    steps:
+      -
+        name: Maximize build space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          large-packages: false
+      -
+        name: Fetch sources
+        uses: actions/checkout@v4
+      -
+        name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      -
+        name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+      -
+        name: Set up IDEs cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ needs.build.outputs.pluginVerifierHomeDir }}/ides
+          key: plugin-verifier-${{ hashFiles('build/listProductsReleases.txt') }}
+      -
+        name: Run verifier
+        run: |
+          chmod +x ./gradlew
+          ./gradlew verifyPlugin -Dplugin.verifier.home.dir=${{ needs.build.outputs.pluginVerifierHomeDir }}
+      -
+        name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pluginVerifier-result
+          path: ${{ github.workspace }}/build/reports/pluginVerifier
+  
+  draft:
+    name: Release draft
+    if: github.event_name != 'pull_request'
+    needs: [ build, test, verify ]
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      -
+        name: Fetch sources
+        uses: actions/checkout@v4
+        with:
+          ref: build
+      -
+        name: Remove old release drafts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/{owner}/{repo}/releases \
+            --jq '.[] | select(.draft == true) | .id' \
+            | xargs -I '{}' gh api -X DELETE repos/{owner}/{repo}/releases/{}
+      -
+        name: Create new release draft
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ needs.build.outputs.version }}" ./*.zip \
+            --draft \
+            --title "v${{ needs.build.outputs.version }}" \
+            --notes "$(cat << 'EOM'
+          ${{ needs.build.outputs.changelog }}
+          EOM
+          )"
+  
+  nightly:
+    name: Publish nightly version
+    if: github.event_name != 'pull_request'
+    needs: [ build, test, verify ]
+    runs-on: ubuntu-latest
+    environment: jetbrains-marketplace
+    continue-on-error: true
+    
+    steps:
+      -
+        name: Fetch sources
+        uses: actions/checkout@v4
+      -
+        name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      -
+        name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      -
+        name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+      -
+        name: Publish plugin to Nightly channel
+        env:
+          PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+          CERTIFICATE_CHAIN: ${{ secrets.CERTIFICATE_CHAIN }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
+        run: |
+          chmod +x ./gradlew
+          NIGHTLY_VERSION=$(python .scripts/modify_version_for_nightly.py)
+          ./gradlew publishPlugin -Pchannel=Nightly -PpluginVersion=${NIGHTLY_VERSION}

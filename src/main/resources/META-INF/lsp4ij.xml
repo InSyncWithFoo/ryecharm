@@ -1,0 +1,19 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
+		<!--suppress PluginXmlCapitalization -->
+		<server
+			id="insyncwithfoo.ryecharm.ruff"
+			bundle="messages.ryecharm"
+			nameKey="languageServer.presentableName"
+			descriptionKey="languageServer.description"
+			factoryClass="insyncwithfoo.ryecharm.ruff.lsp4ij.RuffServerFactory"
+		/>
+		
+		<languageMapping
+			serverId="insyncwithfoo.ryecharm.ruff"
+			language="Python"
+			languageId="python"
+			documentMatcher="insyncwithfoo.ryecharm.ruff.lsp4ij.RuffServerDocumentMatcher"
+		/>
+	</extensions>
+</idea-plugin>

@@ -1,0 +1,355 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+	<!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+	<id>insyncwithfoo.ryecharm</id>
+	
+	<!-- Public plugin name should be written in Title Case.
+		 Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+	<!--suppress PluginXmlCapitalization -->
+	<name>RyeCharm</name>
+	
+	<!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+	<vendor email="insyncwithfoo@gmail.com" url="https://github.com/InSyncWithFoo">InSync</vendor>
+	
+	<!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+		 Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+		 Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+	<!-- <description><![CDATA[]]></description> -->
+	
+	<!-- Product and plugin compatibility requirements.
+		 Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+	<depends>com.intellij.modules.lang</depends>
+	<depends>com.intellij.modules.python</depends>
+	<depends>com.intellij.modules.platform</depends>
+	<depends>org.toml.lang</depends>
+	
+	<depends optional="true" config-file="lsp4ij.xml">com.redhat.devtools.lsp4ij</depends>
+	<depends optional="true" config-file="ultimate.xml">com.intellij.modules.ultimate</depends>
+	
+	<!-- <resource-bundle>messages.ryecharm</resource-bundle> -->
+	
+	<!-- Extension points defined by the plugin.
+		 Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+	<extensions defaultExtensionNs="com.intellij">
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.main.Global"
+			parentId="tools"
+			bundle="messages.ryecharm"
+			key="configurations.main.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.main.MainConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.main.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			groupWeight="1"
+			instance="insyncwithfoo.ryecharm.configurations.main.MainProjectConfigurable"
+		/>
+		
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.ruff.Global"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.ruff.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.ruff.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.ruff.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.ruff.RuffProjectConfigurable"
+		/>
+		
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.rye.Global"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.rye.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.rye.RyeConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.rye.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.rye.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.rye.RyeProjectConfigurable"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.uv.Global"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.uv.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.uv.UVConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.uv.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.uv.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.uv.UVProjectConfigurable"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
+		<notificationGroup
+			id="insyncwithfoo.ryecharm"
+			displayType="BALLOON"
+			bundle="messages.ryecharm"
+			key="notifications.group.displayName"
+		/>
+		
+		<fileIconProvider
+			id="insyncwithfoo.ryecharm.icons.RyeCharmFilesIconProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.icons.RyeCharmFilesIconProvider"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectMajorVersion</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectMinorVersion</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectPatchVersion</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.uv.intentions.SyncFromPyprojectToml</className>
+			<category>RyeCharm</category>
+			<skipBeforeAfter>true</skipBeforeAfter>
+		</intentionAction>
+	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
+		<externalAnnotator
+			id="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
+			language="Python"
+			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
+		/>
+		
+		<localInspection
+			id="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+			suppressId="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+			shortName="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+			
+			language="Python"
+			groupName="RyeCharm"
+			
+			bundle="messages.ryecharm"
+			key="inspections.ruff.displayName"
+			
+			enabledByDefault="true"
+			level="WARNING"
+			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+		/>
+		
+		<formattingService
+			id="insyncwithfoo.ryecharm.ruff.formatting.RuffFormatter"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.ruff.formatting.RuffFormatter"
+		/>
+		
+		<lang.importOptimizer
+			id="insyncwithfoo.ryecharm.ruff.formatting.RuffImportOptimizer"
+			language="Python"
+			order="first"
+			implementationClass="insyncwithfoo.ryecharm.ruff.formatting.RuffImportOptimizer"
+		/>
+		
+		<postStartupActivity
+			id="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable.ProjectActivity"
+			implementation="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
+		/>
+		
+		<platform.backend.documentation.targetProvider
+			id="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCodeDocumentationTargetProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCodeDocumentationTargetProvider"
+		/>
+		
+		<platform.backend.documentation.psiTargetProvider
+			id="insyncwithfoo.ryecharm.ruff.documentation.toml.RuffOptionDocumentationTargetProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.toml.RuffOptionDocumentationTargetProvider"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
+		<directoryProjectGenerator
+			id="insyncwithfoo.ryecharm.uv.generator.UVProjectGenerator"
+			implementation="insyncwithfoo.ryecharm.uv.generator.UVProjectGenerator"
+		/>
+		
+		<editorNotificationProvider
+			id="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
+			implementation="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
+		/>
+		
+		<fileType
+			name="TOML"
+			fileNames="uv.lock"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="Pythonid">
+		<pythonFlavorProvider
+			id="insyncwithfoo.ryecharm.uv.sdk.UVSDKFlavorProvider"
+			implementation="insyncwithfoo.ryecharm.uv.sdk.UVSDKFlavorProvider"
+		/>
+		
+		<!--suppress PluginXmlValidity -->
+		<pySdkProvider
+			id="insyncwithfoo.ryecharm.uv.sdk.UVSDKProvider"
+			implementation="insyncwithfoo.ryecharm.uv.sdk.UVSDKProvider"
+		/>
+		
+		<!--suppress PluginXmlValidity -->
+		<pythonPackageManagerProvider
+			id="insyncwithfoo.ryecharm.uv.managing.UVPackageManagerProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.uv.managing.UVPackageManagerProvider"
+		/>
+		
+		<PythonPackagingToolwindowActionProvider
+			id="insyncwithfoo.ryecharm.uv.managing.UVPackagingToolwindowActionProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.uv.managing.UVPackagingToolwindowActionProvider"
+		/>
+	</extensions>
+	
+	<actions>
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.ShowExecutable"
+			class="insyncwithfoo.ryecharm.ruff.actions.ShowExecutable"
+			text="Ruff: Show executable"
+			description="Show the Ruff executable that would be used for related operations"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.ShowVersion"
+			class="insyncwithfoo.ryecharm.ruff.actions.ShowVersion"
+			text="Ruff: Show version"
+			description="Show the output of `ruff version`"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.CleanCache"
+			class="insyncwithfoo.ryecharm.ruff.actions.CleanCache"
+			text="Ruff: Clean project cache"
+			description="Clean all caches for this project"
+			icon="com.intellij.icons.ExpUiIcons.Actions.ClearCash"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.ShowLinters"
+			class="insyncwithfoo.ryecharm.ruff.actions.ShowLinters"
+			text="Ruff: Show upstream linters"
+			description="Show a table of all upstream linters that Ruff supports"
+			icon="com.intellij.icons.ExpUiIcons.Status.InfoOutline"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.ClearPluginCache"
+			class="insyncwithfoo.ryecharm.ruff.actions.ClearPluginCache"
+			text="Ruff: Clear plugin cache"
+			description="Clear all internal cache stored by the plugin"
+			icon="com.intellij.icons.ExpUiIcons.Actions.ClearCash"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable.Action"
+			class="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
+			text="Ruff: Suggest project executable"
+			description="Find a Ruff executable in the virtual environment and suggest setting that as the project executable"
+			icon="AllIcons.Actions.Search"
+		/>
+	</actions>
+	
+	<actions>
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.rye.actions.ShowExecutable"
+			class="insyncwithfoo.ryecharm.rye.actions.ShowExecutable"
+			text="Rye: Show executable"
+			description="Show the Rye executable that would be used for related operations"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.rye.actions.OpenConfigurationFile"
+			class="insyncwithfoo.ryecharm.rye.actions.OpenConfigurationFile"
+			text="Rye: Open configuration file"
+			description="Open the file at the path returned by `rye config --show-path`"
+			icon="AllIcons.Actions.Edit"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.rye.actions.ShowProjectInformation"
+			class="insyncwithfoo.ryecharm.rye.actions.ShowProjectInformation"
+			text="Rye: Show project information"
+			description="See project information as output by Rye in editor"
+			icon="AllIcons.General.ShowInfos"
+		/>
+	</actions>
+	
+	<actions>
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.uv.actions.ShowExecutable"
+			class="insyncwithfoo.ryecharm.uv.actions.ShowExecutable"
+			text="uv: Show executable"
+			description="Show the uv executable that would be used for related operations"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.uv.actions.ShowVersion"
+			class="insyncwithfoo.ryecharm.uv.actions.ShowVersion"
+			text="uv: Show version"
+			description="Show the output of `uv version`"
+			icon="AllIcons.General.ShowInfos"
+		/>
+	</actions>
+	
+	<projectListeners>
+		<listener
+			class="insyncwithfoo.ryecharm.ruff.formatting.RuffOnSaveFormatter"
+			topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"
+		/>
+		<listener
+			class="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
+			topic="com.jetbrains.python.packaging.common.PythonPackageManagementListener"
+		/>
+	</projectListeners>
+</idea-plugin>

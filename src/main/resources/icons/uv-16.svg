@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg
+	version="1.1"
+	width="16"
+	height="16"
+	viewBox="0 0 330 330"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<rect height="100%" width="100%" rx="66" fill="#26102f"/>
+	<path
+		style="fill: #d256dc;"
+		d="M 65,65 h80 v130 h40 v-130 h80 v180 a20,20 0 0 1 -20,20 h-160 a20,20 0 0 1 -20,-20 z"
+	/>
+</svg>

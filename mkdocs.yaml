@@ -1,0 +1,99 @@
+site_name: RyeCharm
+site_description: The all-in-one PyCharm plugin for Astral-backed Python tools.
+site_url: https://insyncwithfoo.github.io/ryecharm
+
+repo_name: InSyncWithFoo/ryecharm
+repo_url: https://github.com/InSyncWithFoo/ryecharm
+
+edit_uri: blob/master/docs/
+
+exclude_docs: |
+  /requirements.txt
+
+theme:
+  name: material
+  favicon: assets/icon-black.svg
+  logo: assets/icon-white.svg
+  palette:
+    -
+      media: "(prefers-color-scheme: light)"
+      scheme: astral-light
+      toggle:
+        icon: octicons/sun-16
+        name: "Switch to dark mode"
+    -
+      media: "(prefers-color-scheme: dark)"
+      scheme: astral-dark
+      toggle:
+        icon: octicons/moon-16
+        name: "Switch to light mode"
+  features:
+    - content.action.edit
+    - content.action.view
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - search.suggest
+
+markdown_extensions:
+  admonition:
+  codehilite:
+  md_in_html:
+  pymdownx.details:
+  pymdownx.tabbed:
+    alternate_style: true
+    combine_header_slug: true
+    slugify: !!python/object/apply:pymdownx.slugs.slugify
+      kwds:
+        case: lower
+  pymdownx.smartsymbols:
+    arrows: true
+    care_of: false
+    copyright: false
+    fractions: false
+    notequal: false
+    ordinal_numbers: false
+    plusminus: false
+    registered: false
+    trademark: false
+  pymdownx.superfences:
+  toc:
+    permalink: '#'
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Overview: index.md
+  - Features: features.md
+  - Ruff:
+    - Ruff integration: ruff/index.md
+    - Linting: ruff/linting.md
+    - Formatting: ruff/formatting.md
+    - Documentation: ruff/documentation.md
+    - Actions: ruff/actions.md
+  - uv:
+    - uv integration: uv/index.md
+    - Generating new projects: uv/generating.md
+    - Managing packages: uv/managing.md
+    - Actions: uv/actions.md
+    - Intentions: uv/intentions.md
+    - Inspections: uv/inspections.md
+  - Rye:
+    - Rye integration: rye/index.md
+    - Actions: rye/actions.md
+    - Intentions: rye/intentions.md
+  - Configurations:
+    - Configurations overview: configurations/index.md
+    - Ruff: configurations/ruff.md
+    - uv: configurations/uv.md
+    - Rye: configurations/rye.md
+  - Other features: other-features.md
+  - FAQ: faq.md
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+
+strict: true

@@ -1,0 +1,46 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      -
+        name: Fetch sources
+        uses: actions/checkout@v4
+      -
+        name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+          architecture: x64
+      -
+        name: Set up cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('docs/requirements.txt') }}
+      -
+        name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r docs/requirements.txt
+      -
+        name: Build with MkDocs
+        run: |
+          mkdocs build --verbose --clean --strict
+      -
+        name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site

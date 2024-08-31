@@ -1,0 +1,35 @@
+name: Feature request
+description: Have an idea for a new feature or enhancement?
+labels: [ "enhancement" ]
+assignees:
+  - InSyncWithFoo
+
+body:
+  -
+    type: textarea
+    id: cause
+    attributes:
+      label: Feature or enhancement
+      description: A description of what the need or problem is.
+    validations:
+      required: true
+  -
+    type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: A description of what you want to happen.
+    validations:
+      required: true
+  -
+    type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What have you tried to accomplish the goal?
+  -
+    type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else relevant, including screenshots/screencasts.

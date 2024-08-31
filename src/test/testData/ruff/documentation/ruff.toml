@@ -1,0 +1,10 @@
+preview = true
+
+format = { preview }
+
+foo . bar
+
+[lint]
+preview
+
+
