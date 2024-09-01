@@ -1,5 +1,7 @@
 package insyncwithfoo.ryecharm.uv.intentions
 
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
@@ -9,6 +11,7 @@ import insyncwithfoo.ryecharm.WriteIntentionAction
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInBackground
@@ -19,7 +22,7 @@ import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.uv
 
 
-internal class SyncFromPyprojectToml : ExternalIntentionAction, WriteIntentionAction, DumbAware {
+internal class SynchronizeProject : AnAction(), ExternalIntentionAction, WriteIntentionAction, DumbAware {
     
     override fun getFamilyName() = message("intentions.uv.sync.familyName")
     
@@ -32,6 +35,13 @@ internal class SyncFromPyprojectToml : ExternalIntentionAction, WriteIntentionAc
         val uv = project.uv ?: return project.unableToRunCommand()
         
         fileDocumentManager.saveAllDocumentsAsIs()
+        project.runUVSyncAndReport(uv)
+    }
+    
+    override fun actionPerformed(event: AnActionEvent) {
+        val project = event.project ?: return noProjectFound()
+        val uv = project.uv ?: return project.unableToRunCommand()
+        
         project.runUVSyncAndReport(uv)
     }
     

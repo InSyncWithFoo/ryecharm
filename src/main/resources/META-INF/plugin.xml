@@ -134,7 +134,7 @@
 		
 		<intentionAction>
 			<language/>
-			<className>insyncwithfoo.ryecharm.uv.intentions.SyncFromPyprojectToml</className>
+			<className>insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject</className>
 			<category>RyeCharm</category>
 			<skipBeforeAfter>true</skipBeforeAfter>
 		</intentionAction>
@@ -339,6 +339,15 @@
 			text="uv: Show version"
 			description="Show the output of `uv version`"
 			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
+			class="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
+			text="uv: Synchronize project"
+			description="Run `uv sync`"
+			icon="com.intellij.icons.ExpUiIcons.General.Refresh"
 		/>
 	</actions>
 	
