@@ -41,7 +41,7 @@ internal class OptionInfoRenderer(private val project: Project) {
     
     fun render(optionName: OptionName, optionInfo: OptionInfo): HTML {
         val style = HtmlChunk.styleTag("th { white-space: pre; }")
-        val body = project.documentationPopupForOption(optionName, optionInfo)
+        val body = documentationPopupForOption(optionName, optionInfo)
         
         return "${style}${body}"
     }
@@ -56,7 +56,7 @@ internal class OptionInfoRenderer(private val project: Project) {
         "[$text]($url)"
     }
     
-    private fun Project.documentationPopupForOption(name: OptionName, info: OptionInfo) = popup {
+    private fun documentationPopupForOption(name: OptionName, info: OptionInfo) = popup {
         val definition = name.wrappedInCodeBlock("toml")
             .let { markdownToHTML(it) }
             .removeSurroundingTag("pre")

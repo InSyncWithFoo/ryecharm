@@ -30,8 +30,7 @@ and the [`configuration`][1] language server setting.
 
 ## Running mode
 
-This setting controls the manner in which
-[linting diagnostics][2] are provided.
+The manner in which [linting diagnostics][2] are provided.
 
 Default: <i>Command line</i>
 
