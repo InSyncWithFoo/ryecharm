@@ -20,10 +20,10 @@ internal class ShowVersion : AnAction(), DumbAware {
         val project = event.project ?: defaultProject
         val uv = project.uv ?: return project.unableToRunCommand()
         
-        project.runUVVersionAndShowOutput(uv)
+        project.runCommandAndShowOutput(uv)
     }
     
-    private fun Project.runUVVersionAndShowOutput(uv: UV) = runAction {
+    private fun Project.runCommandAndShowOutput(uv: UV) = runAction {
         val command = uv.version()
         
         runInBackground(command) { output ->

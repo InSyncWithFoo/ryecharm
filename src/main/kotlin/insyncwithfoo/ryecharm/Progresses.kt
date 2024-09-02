@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.application.EDT
+import com.intellij.openapi.command.writeCommandAction
 import com.intellij.openapi.project.Project
 import com.intellij.platform.ide.progress.ModalTaskOwner
 import com.intellij.platform.ide.progress.TaskCancellation
@@ -57,6 +58,11 @@ internal suspend fun <T> Project.runInBackground(
     action: suspend CoroutineScope.() -> T
 ) =
     withBackgroundProgress(this, title, cancellable, action)
+
+
+@Suppress("UnstableApiUsage")
+internal suspend fun <T> Project.runWriteCommandAction(title: String, action: () -> T) =
+    writeCommandAction(this, title, action)
 
 
 internal enum class ProgressContext(private val context: CoroutineContext) {

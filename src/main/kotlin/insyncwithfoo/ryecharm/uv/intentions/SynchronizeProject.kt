@@ -47,11 +47,10 @@ internal class SynchronizeProject : AnAction(), ExternalIntentionAction, WriteIn
     
     private fun Project.runUVSyncAndReport(uv: UV) = runIntention {
         val command = uv.sync()
+        val output = runInBackground(command)
         
-        runInBackground(command) { output ->
-            notifyIfProcessIsUnsuccessfulOr(command, output) {
-                processCompletedSuccessfully(message("notifications.environmentSynchronized.body"))
-            }
+        notifyIfProcessIsUnsuccessfulOr(command, output) {
+            processCompletedSuccessfully(message("notifications.environmentSynchronized.body"))
         }
     }
     

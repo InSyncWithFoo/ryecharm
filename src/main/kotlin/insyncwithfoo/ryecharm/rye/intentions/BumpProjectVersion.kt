@@ -1,15 +1,12 @@
 package insyncwithfoo.ryecharm.rye.intentions
 
 import com.intellij.execution.process.ProcessOutput
-import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.ExternalIntentionAction
-import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.WriteIntentionAction
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isPyprojectToml
@@ -18,7 +15,6 @@ import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.runIntention
-import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.VersionBumpType
 import insyncwithfoo.ryecharm.rye.commands.rye
 import insyncwithfoo.ryecharm.unableToRunCommand
@@ -37,39 +33,26 @@ internal abstract class BumpProjectVersion(val bumpType: VersionBumpType) :
         editor != null && file?.virtualFile?.isPyprojectToml == true
     
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
+        val document = file!!.viewProvider.document ?: return
         val rye = project.rye ?: return project.unableToRunCommand()
+        val command = rye.version(bumpType)
         
-        invoke(project, rye, file!!, editor!!.document)
-    }
-    
-    private fun invoke(project: Project, rye: Rye, file: PsiFile, document: Document) {
         fileDocumentManager.saveDocumentAsIs(document)
-        
-        project.runIntention {
-            val command = rye.version(bumpType)
-            
-            project.runInForeground(command) { output ->
-                file.virtualFile?.refresh()
-                project.handleOutput(command, output)
-            }
-        }
+        project.runCommandAndLoadOutput(command, file)
     }
     
-    private suspend fun VirtualFile.refresh() {
+    private fun Project.runCommandAndLoadOutput(command: Command, file: PsiFile) = runIntention {
+        val output = runInForeground(command)
         val (asynchronous, recursive) = Pair(false, false)
         
-        ProgressContext.IO.launch {
-            refresh(asynchronous, recursive)
-        }
-    }
-    
-    private fun Project.handleOutput(command: Command, output: ProcessOutput) {
+        file.virtualFile?.refresh(asynchronous, recursive)
+        
         notifyIfProcessIsUnsuccessfulOr(command, output) {
-            extractNewVersionAndNotify(command, output)
+            notifyNewVersion(command, output)
         }
     }
     
-    private fun Project.extractNewVersionAndNotify(command: Command, output: ProcessOutput) {
+    private fun Project.notifyNewVersion(command: Command, output: ProcessOutput) {
         val newVersion = extractNewVersion(output.stdout)
             ?: return unknownError(command, output)
         

@@ -20,10 +20,10 @@ internal class ShowProjectInformation : AnAction(), DumbAware {
         val project = event.project ?: return noProjectFound()
         val rye = project.rye ?: return project.unableToRunCommand()
         
-        project.runRyeShowAndShowOutput(rye)
+        project.runCommandAndShowOutput(rye)
     }
     
-    private fun Project.runRyeShowAndShowOutput(rye: Rye) = runAction {
+    private fun Project.runCommandAndShowOutput(rye: Rye) = runAction {
         val command = rye.show()
         
         runInBackground(command) { output ->

@@ -24,7 +24,7 @@ internal class OptimizeImportsCommand(
         get() {
             val arguments = mutableListOf(
                 "--fix", "--exit-zero", "--quiet",
-                "--select", "I",
+                "--select", "I,F401",
             )
             
             if (stdinFilename != null) {

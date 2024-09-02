@@ -1,8 +1,8 @@
 package insyncwithfoo.ryecharm.ruff.formatting
 
 import com.intellij.lang.ImportOptimizer
-import com.intellij.openapi.command.writeCommandAction
-import com.intellij.openapi.editor.Document
+import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
@@ -11,10 +11,21 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
-import insyncwithfoo.ryecharm.psiDocumentManager
+import insyncwithfoo.ryecharm.paste
 import insyncwithfoo.ryecharm.ruff.commands.ruff
-import insyncwithfoo.ryecharm.ruff.runFormattingOperation
 import insyncwithfoo.ryecharm.runInBackground
+import insyncwithfoo.ryecharm.runWriteCommandAction
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+
+
+@Service(Service.Level.PROJECT)
+private class RuffImportOptimizerCoroutine(val scope: CoroutineScope)
+
+
+private fun Project.runTask(action: suspend CoroutineScope.() -> Unit) {
+    service<RuffImportOptimizerCoroutine>().scope.launch(block = action)
+}
 
 
 internal class RuffImportOptimizer : ImportOptimizer {
@@ -30,29 +41,24 @@ internal class RuffImportOptimizer : ImportOptimizer {
         val document = viewProvider.document ?: return null
         val path = virtualFile?.toNioPathOrNull()
         
-        val command = ruff.optimizeImports(document.text, path)
-        
         return Runnable {
-            project.optimizeImportsAndLoadResult(command, document)
+            val command = ruff.optimizeImports(document.text, path)
+            project.runCommandAndLoadResult(command, this)
         }
     }
     
-    private fun Project.optimizeImportsAndLoadResult(command: Command, document: Document) = runFormattingOperation {
+    private fun Project.runCommandAndLoadResult(command: Command, file: PsiFile) = runTask {
         val output = runInBackground(command)
         val newText = output.stdout
         
         notifyIfProcessIsUnsuccessfulOr(command, output) {
-            if (!newText.contentEquals(document.charsSequence)) {
-                writeNewTextBack(document, output.stdout)
-            }
+            writeNewTextBack(file, newText)
         }
     }
     
-    @Suppress("UnstableApiUsage", "DialogTitleCapitalization")
-    private fun Project.writeNewTextBack(document: Document, newText: String) = runFormattingOperation {
-        writeCommandAction(this@writeNewTextBack, message("progresses.command.ruff.optimizeImports")) {
-            document.replaceString(0, document.textLength, newText)
-            psiDocumentManager.commitDocument(document)
+    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = runTask {
+        runWriteCommandAction(message("progresses.command.ruff.optimizeImports")) {
+            file.paste(newText)
         }
     }
     
