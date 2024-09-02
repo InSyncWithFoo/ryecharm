@@ -30,6 +30,7 @@ internal class RuffOnSaveFormatter(private val project: Project) : FileDocumentM
         val configurations = project.ruffConfigurations
         
         when {
+            !configurations.formatting -> return
             !configurations.formatOnSave -> return
             configurations.formatOnSaveProjectFilesOnly && virtualFile !in project -> return
             !file.isSupportedByRuff -> return

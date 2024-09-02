@@ -14,42 +14,39 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     @Test
     fun `test - shape`() {
         doShapeTest(expectedSize = 26) {
-            assertEquals(RunningMode.COMMAND_LINE, runningMode)
-            
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
             assertEquals(null, configurationFile)
             
+            assertEquals(RunningMode.COMMAND_LINE, runningMode)
+            
+            assertEquals(true, linting)
+            assertEquals(false, showSyntaxErrors)
             assertEquals(TooltipFormat.RULE_MESSAGE, tooltipFormat)
             
-            assertEquals(true, formatOnSave)
-            assertEquals(true, formatOnSaveProjectFilesOnly)
-            assertEquals(true, formatOnReformat)
-            assertEquals(true, optimizeImports)
-            
-            assertEquals(true, showDocumentationForNoqaCodes)
-            assertEquals(true, showDocumentationForTOMLOptions)
-            
-            assertEquals(true, autoRestartServer)
-            
-            assertEquals(true, hoverSupport)
-            
-            assertEquals(true, formattingSupport)
-            
-            assertEquals(true, diagnosticsSupport)
-            assertEquals(false, showSyntaxErrors)
-            
-            assertEquals(true, codeActionsSupport)
+            assertEquals(true, quickFixes)
             assertEquals(true, fixAll)
             assertEquals(true, organizeImports)
             assertEquals(true, disableRuleComment)
             assertEquals(true, fixViolation)
+            
+            assertEquals(true, formatting)
+            assertEquals(true, formatOnReformat)
+            assertEquals(true, formatOnOptimizeImports)
+            assertEquals(true, formatOnSave)
+            assertEquals(true, formatOnSaveProjectFilesOnly)
+            
+            assertEquals(true, documentationPopups)
+            assertEquals(true, documentationPopupsForNoqaComments)
+            assertEquals(true, documentationPopupsForTOMLOptions)
             
             assertEquals(LogLevel.INFO, logLevel)
             assertEquals(null, logFile)
             
             assertEquals(true, suggestExecutableOnProjectOpen)
             assertEquals(true, suggestExecutableOnPackagesChange)
+            
+            assertEquals(true, autoRestartServers)
             
             assertEquals(emptyMap<SettingName, MillisecondsOrNoLimit>(), timeouts)
         }

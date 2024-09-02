@@ -23,7 +23,7 @@ private val Project.lspServerManager: LspServerManager
 
 @Suppress("UnstableApiUsage")
 private fun Project.restartNativeServersIfSoChoose() {
-    if (lspIsAvailable && this.isNormal && ruffConfigurations.autoRestartServer) {
+    if (lspIsAvailable && this.isNormal && ruffConfigurations.autoRestartServers) {
         lspServerManager.stopAndRestartIfNeeded(RuffServerSupportProvider::class.java)
     }
 }
@@ -52,7 +52,7 @@ private fun Project.startLSP4IJServers(enable: Boolean = false) {
 
 
 private fun Project.toggleLSP4IJServersAccordingly() {
-    if (!lsp4ijIsAvailable) {
+    if (!lsp4ijIsAvailable || !ruffConfigurations.autoRestartServers) {
         return
     }
     

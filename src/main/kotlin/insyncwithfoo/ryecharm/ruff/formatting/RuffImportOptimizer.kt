@@ -19,11 +19,8 @@ import insyncwithfoo.ryecharm.runInBackground
 
 internal class RuffImportOptimizer : ImportOptimizer {
     
-    override fun supports(file: PsiFile): Boolean {
-        val configurations = file.project.ruffConfigurations
-        
-        return configurations.optimizeImports && file.isSupportedByRuff
-    }
+    override fun supports(file: PsiFile) =
+        file.project.ruffConfigurations.run { formatting && formatOnOptimizeImports && file.isSupportedByRuff }
     
     override fun processFile(file: PsiFile) =
         file.makeProcessor() ?: Runnable {}

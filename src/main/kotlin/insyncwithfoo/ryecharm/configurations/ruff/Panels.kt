@@ -50,56 +50,20 @@ private fun Panel.makeRunningModeInputGroup(block: Panel.() -> Unit) =
     buttonsGroup(init = block)
 
 
-private fun Row.makeTooltipFormatInput(block: Cell<ComboBox<TooltipFormat>>.() -> Unit) =
-    comboBox<TooltipFormat>().apply(block)
-
-
-private fun Row.makeFormatOnSaveInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.formatOnSave.label")).apply(block)
-
-
-private fun Row.makeFormatOnSaveProjectFilesOnlyInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.formatOnSaveProjectFilesOnly.label")).apply(block)
-
-
-private fun Row.makeFormatOnReformatInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.formatOnReformat.label")).apply(block)
-
-
-private fun Row.makeOptimizeImportsInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.optimizeImports.label")).apply(block)
-
-
-private fun Row.makeShowDocumentationForNoqaCodesInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.showDocumentationForNoqaCodes.label")).apply(block)
-
-
-private fun Row.makeShowDocumentationForTOMLOptionsInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.showDocumentationForTOMLOptions.label")).apply(block)
-
-
-private fun Row.makeAutoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.autoRestartServer.label")).apply(block)
-
-
-private fun Row.makeHoverSupportInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.hoverSupport.label")).apply(block)
-
-
-private fun Row.makeFormattingSupportInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.formattingSupport.label")).apply(block)
-
-
-private fun Row.makeDiagnosticsSupportInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.diagnosticsSupport.label")).apply(block)
+private fun Row.makeLintingInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.linting.label")).apply(block)
 
 
 private fun Row.makeShowSyntaxErrorsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.showSyntaxErrors.label")).apply(block)
 
 
-private fun Row.makeCodeActionsSupportInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.codeActionsSupport.label")).apply(block)
+private fun Row.makeTooltipFormatInput(block: Cell<ComboBox<TooltipFormat>>.() -> Unit) =
+    comboBox<TooltipFormat>().label(message("configurations.ruff.tooltipFormat.label")).apply(block)
+
+
+private fun Row.makeQuickFixesInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.quickFixes.label")).apply(block)
 
 
 private fun Row.makeFixAllInput(block: Cell<JBCheckBox>.() -> Unit) =
@@ -118,6 +82,38 @@ private fun Row.makeFixViolationInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.fixViolation.label")).apply(block)
 
 
+private fun Row.makeFormattingInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.formatting.label")).apply(block)
+
+
+private fun Row.makeFormatOnReformatInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.formatOnReformat.label")).apply(block)
+
+
+private fun Row.makeFormatOnOptimizeImportsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.formatOnOptimizeImports.label")).apply(block)
+
+
+private fun Row.makeFormatOnSaveInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.formatOnSave.label")).apply(block)
+
+
+private fun Row.makeFormatOnSaveProjectFilesOnlyInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.formatOnSaveProjectFilesOnly.label")).apply(block)
+
+
+private fun Row.makeDocumentationPopupsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.documentationPopups.label")).apply(block)
+
+
+private fun Row.makeDocumentationPopupsForNoqaCommentsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.documentationPopupsForNoqaComments.label")).apply(block)
+
+
+private fun Row.makeDocumentationPopupsForTOMLOptionsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.documentationPopupsForTOMLOptions.label")).apply(block)
+
+
 private fun Row.makeLogLevelInput(block: Cell<ComboBox<LogLevel>>.() -> Unit) =
     comboBox<LogLevel>().apply(block)
 
@@ -132,6 +128,10 @@ private fun Row.makeSuggestExecutableOnProjectOpenInput(block: Cell<JBCheckBox>.
 
 private fun Row.makeSuggestExecutableOnPackagesChangeInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.suggestExecutableOnPackagesChange.label")).apply(block)
+
+
+private fun Row.makeAutoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.autoRestartServers.label")).apply(block)
 
 
 @Suppress("DialogTitleCapitalization")
@@ -159,7 +159,6 @@ private fun RuffPanel.makeComponent() = panel {
     
     val runningModeInputGroup = makeRunningModeInputGroup {
         row(message("configurations.ruff.runningMode.label")) {
-            radioButtonFor(RunningMode.NO_LINTING)
             radioButtonFor(RunningMode.COMMAND_LINE)
             radioButtonFor(RunningMode.LSP4IJ) { label ->
                 message("configurations.ruff.runningMode.unavailable", label).takeUnless { lsp4ijIsAvailable }
@@ -173,88 +172,26 @@ private fun RuffPanel.makeComponent() = panel {
     }
     runningModeInputGroup.bindSelected(state::runningMode)
     
-    group(message("configurations.ruff.groups.tooltips")) {
-        row(message("configurations.ruff.tooltipFormat.label")) {
-            makeTooltipFormatInput { bindItem(state::tooltipFormat) }
-            makeOverrideCheckboxIfApplicable(state::tooltipFormat)
-        }
-    }
-    
-    group(message("configurations.ruff.groups.formatting")) {
-        row {
-            label(message("configurations.ruff.groups.formatting.groupLabel"))
-        }
-        indent {
-            row {
-                makeFormatOnSaveInput { bindSelected(state::formatOnSave) }
-                makeOverrideCheckboxIfApplicable(state::formatOnSave)
-            }
-            indent {
-                row {
-                    makeFormatOnSaveProjectFilesOnlyInput { bindSelected(state::formatOnSaveProjectFilesOnly) }
-                    makeOverrideCheckboxIfApplicable(state::formatOnSaveProjectFilesOnly)
-                }
-            }
-            row {
-                makeFormatOnReformatInput { bindSelected(state::formatOnReformat) }
-                makeOverrideCheckboxIfApplicable(state::formatOnReformat)
-            }
-            row {
-                makeOptimizeImportsInput { bindSelected(state::optimizeImports) }
-                makeOverrideCheckboxIfApplicable(state::optimizeImports)
-            }
-        }
-    }
-    
-    group(message("configurations.ruff.groups.documentation")) {
-        row {
-            label(message("configurations.ruff.groups.documentation.groupLabel"))
-        }
-        indent {
-            row {
-                makeShowDocumentationForNoqaCodesInput { bindSelected(state::showDocumentationForNoqaCodes) }
-                makeOverrideCheckboxIfApplicable(state::showDocumentationForNoqaCodes)
-            }
-            row {
-                makeShowDocumentationForTOMLOptionsInput { bindSelected(state::showDocumentationForTOMLOptions) }
-                makeOverrideCheckboxIfApplicable(state::showDocumentationForTOMLOptions)
-            }
-        }
-    }
-    
-    group(message("configurations.ruff.groups.languageServer")) {
+    group(message("configurations.ruff.groups.main")) {
         
         row {
-            makeAutoRestartServersInput { bindSelected(state::autoRestartServer) }
-            makeOverrideCheckboxIfApplicable(state::autoRestartServer)
-        }
-        
-        separator()
-        
-        row {
-            makeHoverSupportInput { bindSelected(state::hoverSupport) }
-            makeOverrideCheckboxIfApplicable(state::hoverSupport)
-        }
-        
-        row {
-            makeFormattingSupportInput { bindSelected(state::formattingSupport) }
-            makeOverrideCheckboxIfApplicable(state::formattingSupport)
-        }
-        
-        row {
-            makeDiagnosticsSupportInput { bindSelected(state::diagnosticsSupport) }
-            makeOverrideCheckboxIfApplicable(state::diagnosticsSupport)
+            makeLintingInput { bindSelected(state::linting) }
+            makeOverrideCheckboxIfApplicable(state::linting)
         }
         indent {
             row {
                 makeShowSyntaxErrorsInput { bindSelected(state::showSyntaxErrors) }
                 makeOverrideCheckboxIfApplicable(state::showSyntaxErrors)
             }
+            row {
+                makeTooltipFormatInput { bindItem(state::tooltipFormat) }
+                makeOverrideCheckboxIfApplicable(state::tooltipFormat)
+            }
         }
         
         row {
-            makeCodeActionsSupportInput { bindSelected(state::codeActionsSupport) }
-            makeOverrideCheckboxIfApplicable(state::codeActionsSupport)
+            makeQuickFixesInput { bindSelected(state::quickFixes) }
+            makeOverrideCheckboxIfApplicable(state::quickFixes)
         }
         indent {
             row {
@@ -275,6 +212,46 @@ private fun RuffPanel.makeComponent() = panel {
             }
         }
         
+        row {
+            makeFormattingInput { bindSelected(state::formatting) }
+            makeOverrideCheckboxIfApplicable(state::formatting)
+        }
+        indent {
+            row {
+                makeFormatOnReformatInput { bindSelected(state::formatOnReformat) }
+                makeOverrideCheckboxIfApplicable(state::formatOnReformat)
+            }
+            row {
+                makeFormatOnOptimizeImportsInput { bindSelected(state::formatOnOptimizeImports) }
+                makeOverrideCheckboxIfApplicable(state::formatOnOptimizeImports)
+            }
+            row {
+                makeFormatOnSaveInput { bindSelected(state::formatOnSave) }
+                makeOverrideCheckboxIfApplicable(state::formatOnSave)
+            }
+            indent {
+                row {
+                    makeFormatOnSaveProjectFilesOnlyInput { bindSelected(state::formatOnSaveProjectFilesOnly) }
+                    makeOverrideCheckboxIfApplicable(state::formatOnSaveProjectFilesOnly)
+                }
+            }
+        }
+        
+        row {
+            makeDocumentationPopupsInput { bindSelected(state::documentationPopups) }
+            makeOverrideCheckboxIfApplicable(state::documentationPopups)
+        }
+        indent {
+            row {
+                makeDocumentationPopupsForNoqaCommentsInput { bindSelected(state::documentationPopupsForNoqaComments) }
+                makeOverrideCheckboxIfApplicable(state::documentationPopupsForNoqaComments)
+            }
+            row {
+                makeDocumentationPopupsForTOMLOptionsInput { bindSelected(state::documentationPopupsForTOMLOptions) }
+                makeOverrideCheckboxIfApplicable(state::documentationPopupsForTOMLOptions)
+            }
+        }
+        
         separator()
         
         row(message("configurations.ruff.logLevel.label")) {
@@ -290,7 +267,7 @@ private fun RuffPanel.makeComponent() = panel {
     
     group(message("configurations.ruff.groups.other")) {
         row {
-            label(message("configurations.ruff.groups.suggestExecutable.groupLabel"))
+            label(message("configurations.ruff.subgroups.suggestExecutable.groupLabel"))
         }
         indent {
             row {
@@ -301,6 +278,13 @@ private fun RuffPanel.makeComponent() = panel {
                 makeSuggestExecutableOnPackagesChangeInput { bindSelected(state::suggestExecutableOnPackagesChange) }
                 makeOverrideCheckboxIfApplicable(state::suggestExecutableOnPackagesChange)
             }
+        }
+    }
+    
+    collapsibleGroup(message("configurations.ruff.groups.advanced")) {
+        row {
+            makeAutoRestartServersInput { bindSelected(state::autoRestartServers) }
+            makeOverrideCheckboxIfApplicable(state::autoRestartServers)
         }
     }
     

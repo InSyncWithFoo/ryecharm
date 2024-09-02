@@ -22,10 +22,10 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
     override val lspCompletionSupport = null
     override val lspCommandsSupport = null
     
-    override val lspHoverSupport = configurations.hoverSupport
-    override val lspDiagnosticsSupport = DiagnosticsSupport(project).takeIf { configurations.diagnosticsSupport }
-    override val lspCodeActionsSupport = CodeActionsSupport().takeIf { configurations.codeActionsSupport }
-    override val lspFormattingSupport = FormattingSupport(project).takeIf { configurations.formattingSupport }
+    override val lspHoverSupport = configurations.run { documentationPopups && documentationPopupsForNoqaComments }
+    override val lspDiagnosticsSupport = DiagnosticsSupport(project).takeIf { configurations.linting }
+    override val lspCodeActionsSupport = CodeActionsSupport(project).takeIf { configurations.quickFixes }
+    override val lspFormattingSupport = FormattingSupport(project).takeIf { configurations.formatting }
     
     init {
         LOGGER.info(configurations.toString())

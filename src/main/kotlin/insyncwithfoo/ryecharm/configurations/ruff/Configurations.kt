@@ -13,7 +13,6 @@ import insyncwithfoo.ryecharm.message
 
 
 internal enum class RunningMode(override val label: String) : Labeled {
-    NO_LINTING(message("configurations.ruff.runningMode.noLinting")),
     COMMAND_LINE(message("configurations.ruff.runningMode.commandLine")),
     LSP4IJ(message("configurations.ruff.runningMode.lsp4ij")),
     LSP(message("configurations.ruff.runningMode.lsp"));
@@ -49,8 +48,7 @@ internal enum class LogLevel(override val label: String) : Labeled {
     WARN(message("configurations.ruff.logLevel.warn")),
     ERROR(message("configurations.ruff.logLevel.error"));
     
-    val value: String
-        get() = name.lowercase()
+    override fun toString() = name.lowercase()
 }
 
 
@@ -61,36 +59,33 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     
     var runningMode by enum(RunningMode.COMMAND_LINE)
     
+    var linting by property(true)
+    var showSyntaxErrors by property(false)
     var tooltipFormat by enum(TooltipFormat.RULE_MESSAGE)
     
-    var formatOnSave by property(true)
-    var formatOnSaveProjectFilesOnly by property(true)
-    var formatOnReformat by property(true)
-    var optimizeImports by property(true)
-    
-    var showDocumentationForNoqaCodes by property(true)
-    var showDocumentationForTOMLOptions by property(true)
-    
-    var autoRestartServer by property(true)
-    
-    var hoverSupport by property(true)
-    
-    var formattingSupport by property(true)
-    
-    var diagnosticsSupport by property(true)
-    var showSyntaxErrors by property(false)
-    
-    var codeActionsSupport by property(true)
+    var quickFixes by property(true)
     var fixAll by property(true)
     var organizeImports by property(true)
     var disableRuleComment by property(true)
     var fixViolation by property(true)
+    
+    var formatting by property(true)
+    var formatOnReformat by property(true)
+    var formatOnOptimizeImports by property(true)
+    var formatOnSave by property(true)
+    var formatOnSaveProjectFilesOnly by property(true)
+    
+    var documentationPopups by property(true)
+    var documentationPopupsForNoqaComments by property(true)
+    var documentationPopupsForTOMLOptions by property(true)
     
     var logLevel by enum(LogLevel.INFO)
     var logFile by string(null)
     
     var suggestExecutableOnProjectOpen by property(true)
     var suggestExecutableOnPackagesChange by property(true)
+    
+    var autoRestartServers by property(true)
     
     override var timeouts by map<SettingName, MillisecondsOrNoLimit>()
 }

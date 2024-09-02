@@ -67,11 +67,13 @@ internal class RuffOptionDocumentationTargetProvider : PsiDocumentationTargetPro
     
     override fun documentationTargets(element: PsiElement, originalElement: PsiElement?): List<DocumentationTarget> {
         val project = element.project
+        val configurations = project.ruffConfigurations
         val file = element.containingFile ?: return emptyList()
         val virtualFile = file.virtualFile ?: return emptyList()
         
         when {
-            !project.ruffConfigurations.showDocumentationForTOMLOptions -> return emptyList()
+            !configurations.documentationPopups -> return emptyList()
+            !configurations.documentationPopupsForTOMLOptions -> return emptyList()
             !file.language.isKindOf(TomlLanguage) -> return emptyList()
             !virtualFile.isPyprojectToml && !virtualFile.isRuffToml -> return emptyList()
         }

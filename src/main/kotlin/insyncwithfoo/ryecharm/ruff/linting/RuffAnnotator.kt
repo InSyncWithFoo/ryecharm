@@ -23,6 +23,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.processTimeout
+import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
@@ -97,6 +98,10 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             return null
         }
         
+        if (!configurations.linting) {
+            return null
+        }
+        
         val ruff = project.ruff ?: return null
         val path = file.virtualFile.toNioPathOrNull() ?: return null
         
@@ -142,7 +147,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         
         val showSyntaxErrors = configurations.showSyntaxErrors
         val diagnosticsPossiblyWithoutSyntaxErrors =
-            diagnostics.filter { !it.isForSyntaxError || showSyntaxErrors }
+            diagnostics.filterNot { it.isForSyntaxError && !showSyntaxErrors }
         
         diagnosticsPossiblyWithoutSyntaxErrors.forEach { diagnostic ->
             val message = diagnostic.message
@@ -150,25 +155,21 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             
             val tooltip = diagnostic.getFormattedTooltip(configurations.tooltipFormat)
             val range = document.getOffsetRange(diagnostic.oneBasedRange)
+            val noqaOffset = when (diagnostic.noqaRow) {
+                null -> range.startOffset
+                else -> document.getLineStartOffset(diagnostic.noqaRow.toZeroBased())
+            }
             
             builder.needsUpdateOnTyping()
             builder.tooltip(tooltip)
             builder.range(range)
             
-            diagnostic.fix?.let {
-                val fix = RuffAutomaticFix(diagnostic.code!!, it)
-                
-                builder.registerQuickFix(file, message, fix)
+            diagnostic.makeAutomaticFix(configurations)?.let {
+                builder.registerQuickFix(file, message, it)
             }
             
-            diagnostic.code?.takeIf { !diagnostic.isUnsuppressable }?.let {
-                val offset = when (diagnostic.noqaRow) {
-                    null -> range.startOffset
-                    else -> document.getLineStartOffset(diagnostic.noqaRow.toZeroBased())
-                }
-                val fix = RuffSuppressFix(it, offset)
-                
-                builder.registerQuickFix(file, message, fix)
+            diagnostic.makeSuppressFix(configurations, noqaOffset)?.let {
+                builder.registerQuickFix(file, message, it)
             }
             
             if (document.rangeIsAfterEndOfLine(range)) {
@@ -177,6 +178,18 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             
             builder.create()
         }
+    }
+    
+    private fun Diagnostic.makeAutomaticFix(configurations: RuffConfigurations) = when {
+        !configurations.quickFixes || !configurations.fixViolation -> null
+        fix == null || code == null -> null
+        else -> RuffAutomaticFix(code, fix)
+    }
+    
+    private fun Diagnostic.makeSuppressFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) = when {
+        !configurations.quickFixes || !configurations.disableRuleComment -> null
+        code == null || this.isUnsuppressable -> null
+        else -> RuffSuppressFix(code, offset)
     }
     
     private fun AnnotationBuilder.registerQuickFix(file: PsiFile, message: String, fix: LocalQuickFix) {

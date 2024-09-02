@@ -53,7 +53,7 @@ internal fun Project.createInitializationOptionsObject() = InitializationOptions
     fixAll = configurations.fixAll
     organizeImports = configurations.organizeImports
     showSyntaxErrors = configurations.showSyntaxErrors
-    logLevel = configurations.logLevel.value
+    logLevel = configurations.logLevel.toString()
     logFile = configurations.logFile
     
     codeAction {
@@ -62,7 +62,7 @@ internal fun Project.createInitializationOptionsObject() = InitializationOptions
     }
     
     lint {
-        enable = configurations.diagnosticsSupport
+        enable = configurations.linting
         showSyntaxErrors = configurations.showSyntaxErrors
     }
 }

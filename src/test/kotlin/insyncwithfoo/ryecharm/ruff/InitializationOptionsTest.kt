@@ -34,7 +34,7 @@ internal class InitializationOptionsTest {
             assertEquals(true, fixAll)
             assertEquals(true, organizeImports)
             assertEquals(true, showSyntaxErrors)
-            assertEquals(LogLevel.INFO.value, logLevel)
+            assertEquals(LogLevel.INFO.toString(), logLevel)
             assertEquals(null, logFile)
             assertEquals(CodeAction(), codeAction)
             assertEquals(Lint(), lint)

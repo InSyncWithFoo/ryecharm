@@ -16,9 +16,10 @@ internal class NoqaCodeDocumentationTargetProvider : DocumentationTargetProvider
         val configurations = project.ruffConfigurations
         
         when {
-            !file.isSupportedByRuff -> return emptyList()
-            !configurations.showDocumentationForNoqaCodes -> return emptyList()
+            !configurations.documentationPopups -> return emptyList()
+            !configurations.documentationPopupsForNoqaComments -> return emptyList()
             configurations.runningMode != RunningMode.COMMAND_LINE -> return emptyList()
+            !file.isSupportedByRuff -> return emptyList()
         }
         
         val psiComment = file.findElementAt(offset) as? PsiComment

@@ -27,7 +27,10 @@ internal class RuffServerFactory : LanguageServerFactory, LanguageServerEnableme
     
     override fun setEnabled(enabled: Boolean, project: Project) {
         project.changeRuffConfigurations {
-            runningMode = RunningMode.NO_LINTING
+            runningMode = when {
+                enabled -> RunningMode.LSP4IJ
+                else -> RunningMode.COMMAND_LINE
+            }
             
             project.changeRuffOverrides { add(::runningMode.name) }
         }
