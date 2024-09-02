@@ -164,11 +164,11 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             builder.tooltip(tooltip)
             builder.range(range)
             
-            diagnostic.makeAutomaticFix(configurations)?.let {
+            diagnostic.makeFixViolationFix(configurations)?.let {
                 builder.registerQuickFix(file, message, it)
             }
             
-            diagnostic.makeSuppressFix(configurations, noqaOffset)?.let {
+            diagnostic.makeDisableRuleCommentFix(configurations, noqaOffset)?.let {
                 builder.registerQuickFix(file, message, it)
             }
             
@@ -180,16 +180,16 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         }
     }
     
-    private fun Diagnostic.makeAutomaticFix(configurations: RuffConfigurations) = when {
+    private fun Diagnostic.makeFixViolationFix(configurations: RuffConfigurations) = when {
         !configurations.quickFixes || !configurations.fixViolation -> null
         fix == null || code == null -> null
-        else -> RuffAutomaticFix(code, fix)
+        else -> RuffFixViolation(code, fix)
     }
     
-    private fun Diagnostic.makeSuppressFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) = when {
+    private fun Diagnostic.makeDisableRuleCommentFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) = when {
         !configurations.quickFixes || !configurations.disableRuleComment -> null
         code == null || this.isUnsuppressable -> null
-        else -> RuffSuppressFix(code, offset)
+        else -> RuffDisableRuleComment(code, offset)
     }
     
     private fun AnnotationBuilder.registerQuickFix(file: PsiFile, message: String, fix: LocalQuickFix) {

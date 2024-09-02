@@ -127,11 +127,11 @@ private fun Document.appendToLine(line: Int, value: String) {
  * will be used to separate the new element.
  * Otherwise, comma-space (`, `) is used.
  */
-internal class RuffSuppressFix(private val code: String, private val offset: ZeroBasedIndex) : LocalQuickFix {
+internal class RuffDisableRuleComment(private val code: String, private val offset: ZeroBasedIndex) : LocalQuickFix {
     
-    override fun getFamilyName() = message("intentions.ruff.suppressFix.familyName")
+    override fun getFamilyName() = message("intentions.ruff.disableRuleComment.familyName")
     
-    override fun getName() = message("intentions.ruff.suppressFix.name", code)
+    override fun getName() = message("intentions.ruff.disableRuleComment.name", code)
     
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val file = descriptor.psiElement.containingFile

@@ -8,7 +8,7 @@ import insyncwithfoo.ryecharm.message
 
 
 @Suppress("ActionIsNotPreviewFriendly")
-internal class RuffAutomaticFix(private val code: String, private val fix: Fix) : LocalQuickFix {
+internal class RuffFixViolation(private val code: String, private val fix: Fix) : LocalQuickFix {
     
     override fun getFamilyName(): String {
         val (message, applicability) = Pair(fix.message, fix.applicability)
@@ -16,8 +16,8 @@ internal class RuffAutomaticFix(private val code: String, private val fix: Fix) 
         // TODO: Use the same format as the server (?)
         //  > Ruff (A123): Message (applicability)
         return when (message) {
-            null -> message("intentions.ruff.automaticFix.familyName.fallback")
-            else -> message("intentions.ruff.automaticFix.familyName", code, message, applicability)
+            null -> message("intentions.ruff.fixViolation.familyName.fallback")
+            else -> message("intentions.ruff.fixViolation.familyName", code, message, applicability)
         }
     }
     

@@ -27,7 +27,7 @@ internal class RuffImportOptimizer : ImportOptimizer {
     
     private fun PsiFile.makeProcessor(): Runnable? {
         val ruff = project.ruff ?: return null
-        val document = project.psiDocumentManager.getDocument(this) ?: return null
+        val document = viewProvider.document ?: return null
         val path = virtualFile?.toNioPathOrNull()
         
         val command = ruff.optimizeImports(document.text, path)

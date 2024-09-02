@@ -14,9 +14,9 @@ internal interface Ranged {
 
 @Suppress("unused")
 internal enum class Applicability(private val label: String) {
-    @SerialName("displayonly") DISPLAY_ONLY(message("intentions.ruff.automaticFix.applicability.displayOnly")),
-    @SerialName("unsafe") UNSAFE(message("intentions.ruff.automaticFix.applicability.unsafe")),
-    @SerialName("safe") SAFE(message("intentions.ruff.automaticFix.applicability.safe"));
+    @SerialName("displayonly") DISPLAY_ONLY(message("intentions.ruff.fixViolation.applicability.displayOnly")),
+    @SerialName("unsafe") UNSAFE(message("intentions.ruff.fixViolation.applicability.unsafe")),
+    @SerialName("safe") SAFE(message("intentions.ruff.fixViolation.applicability.safe"));
     
     override fun toString() = label
 }
