@@ -2,6 +2,8 @@ package insyncwithfoo.ryecharm.rye.commands
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.SystemInfo
+import insyncwithfoo.ryecharm.Arguments
+import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.CommandWithTimeout
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
@@ -17,11 +19,14 @@ import java.nio.file.Path
 import kotlin.io.path.div
 
 
-private val binarySubdirectoryName: String
-    get() = when {
-        SystemInfo.isWindows -> "Scripts"
-        else -> "bin"
-    }
+internal typealias ProjectVersion = String
+
+
+internal enum class VersionBumpType {
+    MAJOR, MINOR, PATCH;
+    
+    override fun toString() = name.lowercase()
+}
 
 
 internal interface RyeCommand : CommandWithTimeout {
@@ -38,28 +43,31 @@ internal interface RyeCommand : CommandWithTimeout {
 
 
 internal class Rye private constructor(
-    val executable: Path,
+    override val executable: Path,
     private val project: Project?,
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    private val projectBound: Boolean
-        get() = project != null
-    
     fun config() =
-        ConfigCommand(executable).setWorkingDirectory()
+        ConfigCommand().build(arguments = listOf("--show-path"))
     
     fun show() =
-        ShowCommand(executable).setWorkingDirectory()
+        ShowCommand().build()
     
     fun version() =
-        VersionCommand(executable, listOf()).setWorkingDirectory()
+        VersionCommand().build()
     
     fun version(bumpType: VersionBumpType) =
-        VersionCommand(executable, listOf("--bump", bumpType.toString())).setWorkingDirectory()
+        VersionCommand().build(arguments = listOf("--bump", bumpType.toString()))
     
     fun version(newVersion: ProjectVersion) =
-        VersionCommand(executable, listOf(newVersion)).setWorkingDirectory()
+        VersionCommand().build(arguments = listOf(newVersion))
+    
+    private fun Command.build(arguments: Arguments? = null) = this.apply {
+        this.arguments = arguments ?: emptyList()
+        
+        setExecutableAndWorkingDirectory()
+    }
     
     companion object {
         fun create(project: Project) = when {
@@ -79,6 +87,14 @@ internal val Rye.Companion.homeDirectory: Path?
         
         return homeDirectory?.toNullIfNotExists()
     }
+
+
+private val binarySubdirectoryName: String
+    get() = when {
+        SystemInfo.isWindows -> "Scripts"
+        else -> "bin"
+    }
+
 
 internal val Rye.Companion.binaryDirectory: Path?
     get() = homeDirectory?.let { it / "self" / binarySubdirectoryName }

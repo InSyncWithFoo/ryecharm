@@ -16,19 +16,33 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.defaultProject
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
-import insyncwithfoo.ryecharm.ruff.commands.Category
-import insyncwithfoo.ryecharm.ruff.commands.Linter
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runAction
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unableToRunCommand
 import insyncwithfoo.ryecharm.unknownError
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
+
+
+@Serializable
+private data class Category(
+    val prefix: String,
+    val name: String
+)
+
+
+@Serializable
+private data class Linter(
+    val prefix: String,
+    val name: String,
+    val categories: List<Category>? = null
+)
 
 
 private val Linter.categoriesOrSynthesized: List<Category>
@@ -60,7 +74,7 @@ private fun column(header: String, getText: (LinterTableRow) -> String) =
 /**
  * @see com.intellij.ide.actions.AboutDialog.showOssInfo
  */
-private class RuffLintersDialog(private val linters: List<Linter>, project: Project) : DialogWrapper(project) {
+private class LintersDialog(private val linters: List<Linter>, project: Project) : DialogWrapper(project) {
     
     private var okButtonText: String
         @Deprecated("Getter must not be used")
@@ -139,7 +153,7 @@ internal class ShowLinters : AnAction(), DumbAware {
         val linters = parseRuffLinterOutput(output.stdout)
             ?: return unknownError(command, output)
         
-        RuffLintersDialog(linters, this).show()
+        LintersDialog(linters, this).show()
     }
     
     private fun parseRuffLinterOutput(raw: String): List<Linter>? {

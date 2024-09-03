@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.ruff.commands
 
 import com.intellij.openapi.project.Project
+import insyncwithfoo.ryecharm.Arguments
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.CommandWithTimeout
@@ -33,37 +34,94 @@ internal interface RuffCommand : CommandWithTimeout {
 
 
 internal class Ruff private constructor(
-    val executable: Path,
+    override val executable: Path,
     private val project: Project?,
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun check(text: String, stdinFilename: Path?) =
-        CheckCommand(executable, text, stdinFilename).build()
+    fun check(text: String, stdinFilename: Path?): Command {
+        val arguments = mutableListOf(
+            "--no-fix", "--exit-zero", "--quiet",
+            "--output-format", "json"
+        )
+        
+        if (stdinFilename != null) {
+            arguments.add("--stdin-filename")
+            arguments.add(stdinFilename.toString())
+        }
+        
+        arguments.add("-")
+        
+        return CheckCommand().build(arguments, text)
+    }
     
-    fun format(text: String, stdinFilename: Path?, range: OneBasedRange? = null) =
-        FormatCommand(executable, text, stdinFilename, range).build()
+    fun format(text: String, stdinFilename: Path?, range: OneBasedRange? = null): Command {
+        val arguments = mutableListOf("--quiet")
+        
+        if (stdinFilename != null) {
+            arguments.add("--stdin-filename")
+            arguments.add(stdinFilename.toString())
+        }
+        
+        if (range != null) {
+            arguments.add("--range")
+            arguments.add(range.toString())
+        }
+        
+        arguments.add("-")
+        
+        return FormatCommand().build(arguments, text)
+    }
     
     fun clean(path: Path) =
-        CleanCommand(executable).also { it.workingDirectory = path }
-    
-    fun config(option: String? = null) =
-        ConfigCommand(executable, option).build()
-    
-    fun linter() =
-        LinterCommand(executable).build()
+        CleanCommand().build().also { it.workingDirectory = path }
     
     fun rule(code: String) =
-        RuleCommand(executable, code).build()
+        RuleCommand().build(arguments = listOf(code))
+    
+    fun config(option: String? = null) =
+        ConfigCommand().build(arguments = listOfNotNull(option, "--output-format", "json"))
+    
+    fun linter() =
+        LinterCommand().build(arguments = listOf("--output-format", "json"))
     
     fun version() =
-        VersionCommand(executable).build()
+        VersionCommand().build()
     
-    fun optimizeImports(text: String, stdinFilename: Path?) =
-        OptimizeImportsCommand(executable, text, stdinFilename).build()
+    fun optimizeImports(text: String, stdinFilename: Path?): Command {
+        val arguments = mutableListOf(
+            "--fix", "--exit-zero", "--quiet",
+            "--select", "I,F401",
+        )
+        
+        if (stdinFilename != null) {
+            arguments.add("--stdin-filename")
+            arguments.add(stdinFilename.toString())
+        }
+        
+        arguments.add("-")
+        
+        return OptimizeImportsCommand().build(arguments, text)
+    }
     
-    fun <T : Command> T.build() = this.apply {
-        setWorkingDirectory()
+    private fun Command.build(arguments: Arguments? = null, stdin: String? = null) = this.apply {
+        this.arguments = arguments?.withGlobalOptions() ?: emptyList()
+        this.stdin = stdin
+        
+        setExecutableAndWorkingDirectory()
+    }
+    
+    private fun Arguments.withGlobalOptions(): Arguments {
+        val new = this.toMutableList()
+        
+        val configurations = project?.ruffConfigurations
+        val configurationFile = configurations?.configurationFile
+        
+        if (configurationFile != null) {
+            new.addAll(0, listOf("--config", configurationFile))
+        }
+        
+        return new
     }
     
     companion object {

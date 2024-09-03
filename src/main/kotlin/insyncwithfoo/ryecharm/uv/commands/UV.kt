@@ -2,6 +2,8 @@ package insyncwithfoo.ryecharm.uv.commands
 
 import com.intellij.openapi.project.Project
 import com.jetbrains.python.packaging.common.PythonPackageSpecification
+import insyncwithfoo.ryecharm.Arguments
+import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.CommandWithTimeout
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
@@ -21,6 +23,10 @@ import kotlin.io.path.div
 import kotlin.io.path.listDirectoryEntries
 
 
+internal fun PythonPackageSpecification.toPEP508Format() =
+    name + versionSpecs.orEmpty()
+
+
 internal interface UVCommand : CommandWithTimeout {
     
     override val configurable: Class<out PanelBasedConfigurable<*>>
@@ -35,37 +41,44 @@ internal interface UVCommand : CommandWithTimeout {
 
 
 internal class UV private constructor(
-    val executable: Path,
+    override val executable: Path,
     private val project: Project?,
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    private val projectBound: Boolean
-        get() = project != null
-    
     fun init() =
-        InitCommand(executable).setWorkingDirectory()
+        InitCommand().build()
     
     fun add(target: PythonPackageSpecification) =
-        AddCommand(executable, target).setWorkingDirectory()
+        AddCommand().build(arguments = listOf(target.toPEP508Format()))
     
     fun upgrade(target: PythonPackageSpecification) =
-        UpgradeCommand(executable, target).setWorkingDirectory()
+        UpgradeCommand().build(arguments = listOf(target.toPEP508Format(), "--upgrade"))
     
     fun remove(target: String) =
-        RemoveCommand(executable, target).setWorkingDirectory()
+        RemoveCommand().build(arguments = listOf(target))
     
     fun sync() =
-        SyncCommand(executable).setWorkingDirectory()
+        SyncCommand().build()
     
-    fun venv(baseInterpreter: Path, name: String? = null) =
-        VenvCommand(executable, name, baseInterpreter).setWorkingDirectory()
+    fun venv(baseInterpreter: Path, name: String? = null): Command {
+        val arguments = listOfNotNull(name, "--python", baseInterpreter.toString())
+        
+        return VenvCommand().build(arguments)
+    }
     
     fun version() =
-        VersionCommand(executable).setWorkingDirectory()
+        VersionCommand().build()
     
+    // FIXME: This seems problematic
     fun pipList() =
-        PipListCommand(executable).setWorkingDirectory()
+        PipListCommand().build(arguments = listOf("list", "--format", "json"))
+    
+    private fun Command.build(arguments: Arguments? = null) = this.apply {
+        this.arguments = arguments ?: emptyList()
+        
+        setExecutableAndWorkingDirectory()
+    }
     
     companion object {
         

@@ -7,8 +7,6 @@ import insyncwithfoo.ryecharm.Markdown
 import insyncwithfoo.ryecharm.markdownToHTML
 import insyncwithfoo.ryecharm.popup
 import insyncwithfoo.ryecharm.removeSurroundingTag
-import insyncwithfoo.ryecharm.ruff.commands.OptionDeprecationInfo
-import insyncwithfoo.ryecharm.ruff.commands.OptionInfo
 import insyncwithfoo.ryecharm.wrappedInCodeBlock
 
 

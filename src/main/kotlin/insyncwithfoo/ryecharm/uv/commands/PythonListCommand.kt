@@ -2,7 +2,7 @@ package insyncwithfoo.ryecharm.uv.commands
 
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.configurations.uv.UVTimeouts
-import java.nio.file.Path
+import insyncwithfoo.ryecharm.message
 
 
 internal data class PythonInstallation(val name: String, val path: String? = null) {
@@ -11,13 +11,13 @@ internal data class PythonInstallation(val name: String, val path: String? = nul
 }
 
 
-internal class PythonListCommand(override val executable: Path) : Command(), UVCommand {
+internal class PythonListCommand : Command(), UVCommand {
     
     override val subcommand = "python"
     override val timeoutKey = UVTimeouts.PYTHON_LIST.key
     
-    override val arguments: List<String>
-        get() = listOf("list")
+    override val runningMessage: String
+        get() = message("progresses.command.uv.pythonlist")
     
     companion object {
         // TODO: Move this to call site

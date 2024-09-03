@@ -18,18 +18,39 @@ import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.removeSurroundingTag
 import insyncwithfoo.ryecharm.ruff.CachedResult
 import insyncwithfoo.ryecharm.ruff.RuffCache
-import insyncwithfoo.ryecharm.ruff.commands.OptionInfo
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.toDocumentationResult
 import insyncwithfoo.ryecharm.wrappedInCodeBlock
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import org.toml.TomlIcons
 import org.toml.lang.psi.TomlKey
 
+
 internal typealias OptionName = String
 internal typealias OptionDocumentation = HTML
+
+
+@Serializable
+internal data class OptionDeprecationInfo(
+    val since: String?,
+    val message: String?
+)
+
+
+@Serializable
+internal data class OptionInfo(
+    val doc: String,
+    val default: String,
+    @SerialName("value_type")
+    val valueType: String,
+    val scope: String?,
+    val example: String,
+    val deprecated: OptionDeprecationInfo?
+)
 
 
 /**

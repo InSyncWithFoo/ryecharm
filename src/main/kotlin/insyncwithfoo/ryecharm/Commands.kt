@@ -15,6 +15,7 @@ import kotlin.io.path.nameWithoutExtension
 
 
 internal typealias MillisecondsOrNoLimit = Int
+internal typealias Arguments = List<String>
 
 
 /**
@@ -42,11 +43,12 @@ internal interface CommandWithTimeout {
 
 internal abstract class Command {
     
-    protected abstract val executable: Path
-    protected abstract val subcommand: String?
+    abstract val subcommand: String?
     
-    protected open val arguments = listOf<String>()
-    protected open val stdin: String? = null
+    lateinit var executable: Path
+    lateinit var arguments: List<String>
+    
+    var stdin: String? = null
     
     var workingDirectory: Path? = null
     
@@ -78,7 +80,7 @@ internal abstract class Command {
      * A simple form to be used in notifications and such.
      */
     val shortenedForm: String
-        get() = "${executable.nameWithoutExtension} $subcommand"
+        get() = "${executable.nameWithoutExtension} ${subcommand.orEmpty()}".trimEnd()
     
     override fun toString() = commandLine.commandLineString
     
@@ -100,9 +102,11 @@ internal abstract class Command {
 
 internal abstract class CommandFactory {
     
-    protected abstract val workingDirectory: Path?
+    abstract val executable: Path
+    abstract val workingDirectory: Path?
     
-    protected fun <T : Command> T.setWorkingDirectory() = this.apply {
+    protected fun Command.setExecutableAndWorkingDirectory() = this.apply {
+        executable = this@CommandFactory.executable
         workingDirectory = this@CommandFactory.workingDirectory
     }
     
