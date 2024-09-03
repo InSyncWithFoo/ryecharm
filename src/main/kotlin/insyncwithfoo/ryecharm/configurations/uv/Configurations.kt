@@ -13,6 +13,8 @@ import insyncwithfoo.ryecharm.message
 
 internal class UVConfigurations : DisplayableState(), HasTimeouts, Copyable {
     var executable by string(null)
+    var configurationFile by string(null)
+    
     var packageManaging by property(false)
     
     override var timeouts by map<SettingName, MillisecondsOrNoLimit>()

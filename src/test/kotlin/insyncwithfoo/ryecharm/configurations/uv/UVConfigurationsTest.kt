@@ -13,8 +13,10 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
     
     @Test
     fun `test - shape`() {
-        doShapeTest(expectedSize = 3) {
+        doShapeTest(expectedSize = 4) {
             assertEquals(null, executable)
+            assertEquals(null, configurationFile)
+            
             assertEquals(false, packageManaging)
             
             assertEquals(emptyMap<SettingName, MillisecondsOrNoLimit>(), timeouts)

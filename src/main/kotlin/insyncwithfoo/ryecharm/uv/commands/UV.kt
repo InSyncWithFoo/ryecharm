@@ -75,9 +75,22 @@ internal class UV private constructor(
         PipListCommand().build(arguments = listOf("list", "--format", "json"))
     
     private fun Command.build(arguments: Arguments? = null) = this.apply {
-        this.arguments = arguments ?: emptyList()
+        this.arguments = arguments?.withGlobalOptions() ?: emptyList()
         
         setExecutableAndWorkingDirectory()
+    }
+    
+    private fun Arguments.withGlobalOptions(): Arguments {
+        val new = this.toMutableList()
+        
+        val configurations = project?.uvConfigurations
+        val configurationFile = configurations?.configurationFile
+        
+        if (configurationFile != null) {
+            new.addAll(0, listOf("--config-file", configurationFile))
+        }
+        
+        return new
     }
     
     companion object {

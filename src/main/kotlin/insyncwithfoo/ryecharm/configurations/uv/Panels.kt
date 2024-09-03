@@ -29,6 +29,10 @@ private fun Row.makeExecutableInput(block: Cell<TextFieldWithBrowseButton>.() ->
     singleFileTextField().makeFlexible().apply(block)
 
 
+private fun Row.makeConfigurationFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+    singleFileTextField().makeFlexible().apply(block)
+
+
 private fun Row.makePackageManagingInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.uv.packageManaging.label")).apply(block)
 
@@ -45,6 +49,13 @@ private fun UVPanel.makeComponent() = panel {
         }
         makeOverrideCheckboxIfApplicable(state::executable)
     }
+    
+    row {
+        makeConfigurationFileInput { bindText(state::configurationFile) }
+        makeOverrideCheckboxIfApplicable(state::configurationFile)
+    }
+    
+    separator()
     
     group(message("configurations.uv.groups.packageManagement")) {
         row {

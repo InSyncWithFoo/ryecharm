@@ -30,15 +30,14 @@ internal class CleanCache : AnAction(), DumbAware {
             return project.unableToRunCommand()
         }
         
-        project.runRuffCleanAndReport(ruff, projectPath)
+        project.runCommandAndReport(ruff, projectPath)
     }
     
-    private fun Project.runRuffCleanAndReport(ruff: Ruff, path: Path) = runAction {
+    private fun Project.runCommandAndReport(ruff: Ruff, path: Path) = runAction {
         val command = ruff.clean(path)
+        val output = runInBackground(command)
         
-        runInBackground(command) { output ->
-            notifyProcessResult(command, output)
-        }
+        notifyProcessResult(command, output)
     }
     
 }
