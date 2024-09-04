@@ -60,5 +60,5 @@ internal enum class UVTimeouts(override val key: String, override val comment: S
 
 
 internal class UVOverrides : DisplayableState(), ProjectOverrideState {
-    override var list by list<SettingName>()
+    override var names by map<SettingName, Boolean>()
 }

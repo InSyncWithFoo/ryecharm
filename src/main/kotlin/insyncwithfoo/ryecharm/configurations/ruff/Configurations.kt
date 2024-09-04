@@ -105,5 +105,5 @@ internal enum class RuffTimeouts(override val key: String, override val comment:
 
 
 internal class RuffOverrides : DisplayableState(), ProjectOverrideState {
-    override var list by list<SettingName>()
+    override var names by map<SettingName, Boolean>()
 }

@@ -13,5 +13,5 @@ internal class MainConfigurations : DisplayableState(), Copyable {
 
 
 internal class MainOverrides : DisplayableState(), ProjectOverrideState {
-    override var list by list<SettingName>()
+    override var names by map<SettingName, Boolean>()
 }

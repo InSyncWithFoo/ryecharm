@@ -5,6 +5,7 @@ import com.redhat.devtools.lsp4ij.LanguageServerEnablementSupport
 import com.redhat.devtools.lsp4ij.LanguageServerFactory
 import com.redhat.devtools.lsp4ij.client.LanguageClientImpl
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
+import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode

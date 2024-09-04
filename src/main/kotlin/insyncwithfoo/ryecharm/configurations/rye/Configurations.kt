@@ -32,5 +32,5 @@ internal enum class RyeTimeouts(override val key: String, override val comment: 
 
 
 internal class RyeOverrides : DisplayableState(), ProjectOverrideState {
-    override var list by list<SettingName>()
+    override var names by map<SettingName, Boolean>()
 }

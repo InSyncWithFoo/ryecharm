@@ -9,6 +9,7 @@ import com.intellij.openapi.startup.ProjectActivity
 import com.jetbrains.python.packaging.common.PythonPackageManagementListener
 import insyncwithfoo.ryecharm.RyeCharmNotificationGroup
 import insyncwithfoo.ryecharm.addExpiringAction
+import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations

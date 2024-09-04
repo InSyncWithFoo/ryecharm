@@ -31,7 +31,7 @@ internal class RyeProjectConfigurable(override val project: Project) :
     private val overrideState = overrideService.state.copy()
     
     override val state = service.state.copy()
-    override val overrides by lazy { overrideState.list }
+    override val overrides by lazy { overrideState.names }
     override val panel by lazy { createPanel(state) }
     
     override fun afterApply() {

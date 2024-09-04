@@ -96,7 +96,7 @@ internal fun Project.changeRuffConfigurations(action: RuffConfigurations.() -> U
 
 
 internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
-    RuffOverrideService.getInstance(this).state.list.apply(action)
+    RuffOverrideService.getInstance(this).state.names.apply(action)
 }
 
 

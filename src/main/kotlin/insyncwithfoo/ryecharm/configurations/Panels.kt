@@ -58,9 +58,11 @@ private fun Row.toggleOtherCellsBasedOn(checkbox: Cell<JBCheckBox>) {
 }
 
 
-private fun Overrides.toggle(element: SettingName, add: Boolean) = when {
-    add -> add(element)
-    else -> remove(element)
+private fun Overrides.toggle(element: SettingName, add: Boolean) {
+    when {
+        add -> add(element)
+        else -> remove(element)
+    }
 }
 
 

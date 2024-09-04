@@ -15,12 +15,17 @@ import kotlin.reflect.jvm.isAccessible
 
 
 internal typealias SettingName = String
-internal typealias Overrides = MutableList<SettingName>
+internal typealias Overrides = MutableMap<SettingName, Boolean>
 internal typealias TimeoutMap = MutableMap<SettingName, MillisecondsOrNoLimit>
 
 
+internal fun Overrides.add(name: SettingName) {
+    this[name] = true
+}
+
+
 internal interface ProjectOverrideState {
-    var list: Overrides
+    var names: Overrides
 }
 
 
@@ -86,7 +91,7 @@ internal val <S : BaseState> KClass<S>.fields: Map<String, KProperty1<S, *>>
 private inline fun <reified S : Any> applicationService() = service<S>()
 
 
-private inline fun <reified S : DisplayableState> S.mergeWithExcludingTimeouts(other: S, overrides: List<SettingName>): S {
+private inline fun <reified S : DisplayableState> S.mergeWithExcludingTimeouts(other: S, overrides: Overrides): S {
     val all = this.copy()
     
     S::class.fields.forEach { (name, property) ->
@@ -111,11 +116,11 @@ private inline fun <reified S : DisplayableState> S.mergeWithExcludingTimeouts(o
  * 
  * @receiver The global state. Will be copied.
  */
-private inline fun <reified S : DisplayableState> S.mergeWith(other: S, overrides: List<SettingName>): S {
+private inline fun <reified S : DisplayableState> S.mergeWith(other: S, overrides: Overrides): S {
     val all = this.mergeWithExcludingTimeouts(other, overrides)
     
     if (this is HasTimeouts && other is HasTimeouts && all is HasTimeouts) {
-        val timeoutOverrides = overrides.mapNotNull { it.removeTimeoutPrefix() }
+        val timeoutOverrides = overrides.keys.mapNotNull { it.removeTimeoutPrefix() }
         val overridden = other.timeouts.filterKeys { it in timeoutOverrides }
         
         all.timeouts = (this.timeouts + overridden).toMutableMap()
@@ -136,7 +141,7 @@ internal inline fun <
 > Project.getMergedState(): S {
     val globalState = applicationService<GlobalService>().getState()
     val projectState = service<LocalService>().getState()
-    val overrides = service<OverrideService>().getState().list
+    val overrides = service<OverrideService>().getState().names
     
     return globalState.mergeWith(projectState, overrides)
 }
