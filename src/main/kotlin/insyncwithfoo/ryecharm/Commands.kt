@@ -4,18 +4,26 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.diagnostic.Logger
-import com.intellij.openapi.project.Project
 import com.intellij.util.io.toByteArray
-import insyncwithfoo.ryecharm.configurations.HasTimeouts
-import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
-import kotlinx.coroutines.CoroutineScope
 import java.nio.CharBuffer
 import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
 
-internal typealias MillisecondsOrNoLimit = Int
 internal typealias Arguments = List<String>
+
+
+internal abstract class CommandFactory {
+    
+    abstract val executable: Path
+    abstract val workingDirectory: Path?
+    
+    protected fun Command.setExecutableAndWorkingDirectory() = this.apply {
+        executable = this@CommandFactory.executable
+        workingDirectory = this@CommandFactory.workingDirectory
+    }
+    
+}
 
 
 /**
@@ -28,16 +36,6 @@ private fun CharArray.toByteArrayAndClear(): ByteArray {
     fill(0.toChar())
     
     return byteBuffer.toByteArray(isClear = true)
-}
-
-
-internal interface CommandWithTimeout {
-    
-    val timeoutKey: String
-    val configurable: Class<out PanelBasedConfigurable<*>>
-    
-    fun getTimeout(project: Project?): MillisecondsOrNoLimit?
-    
 }
 
 
@@ -98,59 +96,3 @@ internal abstract class Command {
     }
     
 }
-
-
-internal abstract class CommandFactory {
-    
-    abstract val executable: Path
-    abstract val workingDirectory: Path?
-    
-    protected fun Command.setExecutableAndWorkingDirectory() = this.apply {
-        executable = this@CommandFactory.executable
-        workingDirectory = this@CommandFactory.workingDirectory
-    }
-    
-}
-
-
-private typealias CommandRunner = suspend CoroutineScope.(Command) -> ProcessOutput
-private typealias UICallback = suspend CoroutineScope.(ProcessOutput) -> Unit
-
-
-private fun Project.getCommandTimeout(command: Command) =
-    (command as? CommandWithTimeout)?.getTimeout(this) ?: HasTimeouts.NO_LIMIT
-
-
-internal suspend fun Project.runInBackground(command: Command) =
-    runInBackground(command.runningMessage) {
-        command.run(getCommandTimeout(command))
-    }
-
-
-internal suspend fun Project.runInForeground(command: Command) =
-    runInForeground(command.runningMessage) {
-        command.run(getCommandTimeout(command))
-    }
-
-
-private suspend inline fun runIOCommandThenUICallback(
-    command: Command,
-    crossinline runCommand: CommandRunner,
-    crossinline callback: UICallback
-) {
-    val output = ProgressContext.IO.compute {
-        runCommand(command)
-    }
-    
-    ProgressContext.UI.launch {
-        callback(output)
-    }
-}
-
-
-internal suspend fun Project.runInBackground(command: Command, callback: UICallback) =
-    runIOCommandThenUICallback(command, { runInBackground(it) }, callback)
-
-
-internal suspend fun Project.runInForeground(command: Command, callback: UICallback) =
-    runIOCommandThenUICallback(command, { runInForeground(it) }, callback)
