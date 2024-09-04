@@ -157,6 +157,20 @@ jobs:
         name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
       -
+        name: Set up Rye
+        uses: eifinger/setup-rye@v4
+        with:
+          version: latest
+      -
+        name: Set up uv
+        uses: eifinger/setup-uv@v1
+        with:
+          version: latest
+      -
+        name: Set up Ruff
+        run: |
+          pip install ruff
+      -
         name: Run tests
         run: |
           chmod +x ./gradlew

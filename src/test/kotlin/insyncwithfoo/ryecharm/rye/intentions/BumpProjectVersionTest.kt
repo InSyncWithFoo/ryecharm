@@ -1,16 +1,11 @@
 package insyncwithfoo.ryecharm.rye.intentions
 
-import com.intellij.codeInsight.intention.IntentionAction
-import com.intellij.codeInsight.intention.IntentionActionDelegate
 import com.intellij.codeInsight.intention.preview.IntentionPreviewInfo
 import insyncwithfoo.ryecharm.PlatformTestCase
+import insyncwithfoo.ryecharm.getEventualDelegate
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.rye.commands.VersionBumpType
 import insyncwithfoo.ryecharm.testDataPath
-
-
-private fun IntentionAction.getEventualDelegate(): IntentionAction =
-    (this as? IntentionActionDelegate)?.delegate?.getEventualDelegate() ?: this
 
 
 internal class BumpProjectVersionTest : PlatformTestCase() {
