@@ -12,7 +12,7 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
     override val configurationClass = UVConfigurations::class
     
     @Test
-    fun `test - shape`() {
+    fun `test shape`() {
         doShapeTest(expectedSize = 4) {
             assertEquals(null, executable)
             assertEquals(null, configurationFile)
@@ -24,7 +24,7 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
     }
     
     @Test
-    fun `test - messages`() {
+    fun `test messages`() {
         doMessagesTest { name -> "configurations.uv.$name.label" }
     }
     

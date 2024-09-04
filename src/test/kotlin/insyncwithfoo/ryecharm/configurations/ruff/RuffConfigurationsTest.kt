@@ -12,7 +12,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     override val configurationClass = RuffConfigurations::class
     
     @Test
-    fun `test - shape`() {
+    fun `test shape`() {
         doShapeTest(expectedSize = 26) {
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
@@ -53,7 +53,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     }
     
     @Test
-    fun `test - messages`() {
+    fun `test messages`() {
         doMessagesTest { name -> "configurations.ruff.$name.label" }
     }
     

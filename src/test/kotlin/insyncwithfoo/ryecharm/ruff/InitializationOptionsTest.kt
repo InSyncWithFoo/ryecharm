@@ -26,7 +26,7 @@ internal class InitializationOptionsTest {
     }
     
     @Test
-    fun `test - shape`() {
+    fun `test shape`() {
         options.apply {
             assertEquals(8, constructorParameters.size)
             

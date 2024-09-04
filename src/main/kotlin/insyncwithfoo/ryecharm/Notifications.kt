@@ -110,7 +110,10 @@ internal fun Project.processCompletedSuccessfully(content: String? = null) =
     notificationGroup.processCompletedSuccessfully(content).notify(this)
 
 
-private fun RyeCharmNotificationGroup.unknownError(command: Command, processOutput: ProcessOutput? = null): Notification {
+private fun RyeCharmNotificationGroup.unknownError(
+    command: Command,
+    processOutput: ProcessOutput? = null
+): Notification {
     val title = message("notifications.unknownError.title")
     val body = message("notifications.unknownError.body", command.shortenedForm)
     

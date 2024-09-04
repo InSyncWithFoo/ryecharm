@@ -12,7 +12,7 @@ internal class RyeConfigurationsTest : ConfigurationsTest<RyeConfigurations>() {
     override val configurationClass = RyeConfigurations::class
     
     @Test
-    fun `test - shape`() {
+    fun `test shape`() {
         doShapeTest(expectedSize = 2) {
             assertEquals(null, executable)
             
@@ -21,7 +21,7 @@ internal class RyeConfigurationsTest : ConfigurationsTest<RyeConfigurations>() {
     }
     
     @Test
-    fun `test - messages`() {
+    fun `test messages`() {
         doMessagesTest { name -> "configurations.rye.$name.label" }
     }
     

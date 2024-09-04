@@ -180,17 +180,19 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         }
     }
     
-    private fun Diagnostic.makeFixViolationFix(configurations: RuffConfigurations) = when {
-        !configurations.quickFixes || !configurations.fixViolation -> null
-        fix == null || code == null -> null
-        else -> RuffFixViolation(code, fix)
-    }
+    private fun Diagnostic.makeFixViolationFix(configurations: RuffConfigurations) =
+        when {
+            !configurations.quickFixes || !configurations.fixViolation -> null
+            fix == null || code == null -> null
+            else -> RuffFixViolation(code, fix)
+        }
     
-    private fun Diagnostic.makeDisableRuleCommentFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) = when {
-        !configurations.quickFixes || !configurations.disableRuleComment -> null
-        code == null || this.isUnsuppressable -> null
-        else -> RuffDisableRuleComment(code, offset)
-    }
+    private fun Diagnostic.makeDisableRuleCommentFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) =
+        when {
+            !configurations.quickFixes || !configurations.disableRuleComment -> null
+            code == null || this.isUnsuppressable -> null
+            else -> RuffDisableRuleComment(code, offset)
+        }
     
     private fun AnnotationBuilder.registerQuickFix(file: PsiFile, message: String, fix: LocalQuickFix) {
         val problemDescriptor = file.createProblemDescriptor(message, fix)

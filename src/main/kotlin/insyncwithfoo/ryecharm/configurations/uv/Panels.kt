@@ -50,12 +50,10 @@ private fun UVPanel.makeComponent() = panel {
         makeOverrideCheckboxIfApplicable(state::executable)
     }
     
-    row {
+    row(message("configurations.uv.configurationFile.label")) {
         makeConfigurationFileInput { bindText(state::configurationFile) }
         makeOverrideCheckboxIfApplicable(state::configurationFile)
     }
-    
-    separator()
     
     group(message("configurations.uv.groups.packageManagement")) {
         row {

@@ -9,12 +9,12 @@ internal class MainConfigurationsTest : ConfigurationsTest<MainConfigurations>()
     override val configurationClass = MainConfigurations::class
     
     @Test
-    fun `test - shape`() {
+    fun `test shape`() {
         doShapeTest(expectedSize = 1) {}
     }
     
     @Test
-    fun `test - messages`() {
+    fun `test messages`() {
         doMessagesTest { name -> "configurations.main.$name.label" }
     }
     

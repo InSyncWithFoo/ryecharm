@@ -24,7 +24,7 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
         )
     }
     
-    fun `test - bumpType`() {
+    fun `test bumpType`() {
         val (major, minor, patch) = intentions
         
         assertEquals(VersionBumpType.MAJOR, major.bumpType)
@@ -32,18 +32,18 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
         assertEquals(VersionBumpType.PATCH, patch.bumpType)
     }
     
-    fun `test - startInWriteAction`() {
+    fun `test startInWriteAction`() {
         intentions.forEach { intention ->
             assertEquals(true, intention.startInWriteAction())
         }
     }
     
-    fun `test - getFamilyName`() {
+    fun `test getFamilyName`() {
         val familyNames = intentions.mapTo(mutableSetOf()) { it.familyName }
         assertEquals(3, familyNames.size)
     }
     
-    fun `test - getText`() {
+    fun `test getText`() {
         intentions.forEach { intention ->
             val prefix = message("intentions.rye.bumpProjectVersion.familyName")
             
@@ -52,7 +52,7 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
         }
     }
     
-    fun `test - generatePreview`() {
+    fun `test generatePreview`() {
         fixture.configureByFile("pyproject.toml")
         
         intentions.forEach { intention ->
@@ -60,7 +60,7 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
         }
     }
     
-    fun `test - isAvailable`() {
+    fun `test isAvailable`() {
         fixture.configureByFile("pyproject.toml")
         
         intentions.forEach { intention ->
@@ -68,7 +68,7 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
         }
     }
     
-    fun `test - availability`() {
+    fun `test availability`() {
         fixture.configureByFile("pyproject.toml")
         
         val hint = message("intentions.rye.bumpProjectVersion.familyName")
