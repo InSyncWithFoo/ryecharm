@@ -31,19 +31,19 @@ internal fun <C : JComponent> Cell<C>.bindText(property: KMutableProperty0<Strin
 }
 
 
-internal fun <C : TextFieldWithBrowseButton> Cell<C>.bindText(
-    property: KMutableProperty0<String?>,
-    getDefaultValue: () -> String
-): Cell<C> {
-    return bindText(property.toNonNullableProperty(getDefaultValue))
-}
-
-
 internal fun <C : JComponent, T> Cell<C>.bind(property: MutableProperty<T>): Cell<C> {
     val getter: (C) -> T = { _ -> property.get() }
     val setter: (C, T) -> Unit = { _, value -> property.set(value) }
     
     return bind(getter, setter, property)
+}
+
+
+internal fun <C : TextFieldWithBrowseButton> Cell<C>.bindText(
+    property: KMutableProperty0<String?>,
+    getDefaultValue: () -> String
+): Cell<C> {
+    return bindText(property.toNonNullableProperty(getDefaultValue))
 }
 
 

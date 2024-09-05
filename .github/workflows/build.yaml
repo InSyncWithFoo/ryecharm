@@ -168,7 +168,7 @@ jobs:
           version: latest
       -
         name: Set up uv
-        uses: eifinger/setup-uv@v1
+        uses: astral-sh/setup-uv@v1
         with:
           version: latest
       -

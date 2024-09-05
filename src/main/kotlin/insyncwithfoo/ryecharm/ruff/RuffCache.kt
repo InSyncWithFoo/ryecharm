@@ -7,6 +7,7 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import insyncwithfoo.ryecharm.RootDisposable
+import insyncwithfoo.ryecharm.propertiesComponent
 import insyncwithfoo.ryecharm.ruff.documentation.toml.OptionDocumentation
 import insyncwithfoo.ryecharm.ruff.documentation.toml.OptionName
 import kotlinx.serialization.encodeToString
@@ -53,6 +54,10 @@ private operator fun PropertiesComponent.set(property: KProperty<*>, value: Stri
 @Service(Service.Level.PROJECT)
 private class ParseCache : Disposable {
     
+    init {
+        Disposer.register(RootDisposable.getInstance(), this)
+    }
+    
     private val parsed = mutableMapOf<String, CachedResult<*>>()
     
     @Suppress("UNCHECKED_CAST")
@@ -64,10 +69,6 @@ private class ParseCache : Disposable {
             value == null -> parsed.remove(property.name)
             else -> parsed[property.name] = value
         }
-    }
-    
-    init {
-        Disposer.register(RootDisposable.getInstance(), this)
     }
     
     fun clear() {
@@ -88,7 +89,7 @@ internal class RuffCache(private val project: Project) {
         get() = project.service<ParseCache>()
     
     private val storage: PropertiesComponent
-        get() = PropertiesComponent.getInstance(project)
+        get() = project.propertiesComponent
     
     private val allProperties: List<KProperty<*>>
         get() = this::class.declaredMemberProperties
