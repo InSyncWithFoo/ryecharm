@@ -4,9 +4,9 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.text.HtmlChunk
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.Markdown
-import insyncwithfoo.ryecharm.markdownToHTML
 import insyncwithfoo.ryecharm.popup
 import insyncwithfoo.ryecharm.removeSurroundingTag
+import insyncwithfoo.ryecharm.toHTML
 import insyncwithfoo.ryecharm.wrappedInCodeBlock
 
 
@@ -56,27 +56,27 @@ internal class OptionInfoRenderer(private val project: Project) {
     
     private fun documentationPopupForOption(name: OptionName, info: OptionInfo) = popup {
         val definition = name.wrappedInCodeBlock("toml")
-            .let { markdownToHTML(it) }
+            .toHTML()
             .removeSurroundingTag("pre")
         
         val content = info.doc
             .replaceSectionLinksWithFullURLs()
-            .let { markdownToHTML(it) }
+            .toHTML()
         
         val default = info.default.wrappedInCodeBlock("toml")
             .replaceSectionLinksWithFullURLs()
-            .let { markdownToHTML(it) }
+            .toHTML()
         
         val type = info.valueType
             .let { "`$it`" }
-            .let { markdownToHTML(it) }
+            .toHTML()
         
         val deprecated = info.deprecated?.formattedAsMarkdown()
             ?.replaceSectionLinksWithFullURLs()
-            ?.let { markdownToHTML(it) }
+            ?.toHTML()
         
         val example = info.example.wrappedInCodeBlock("toml")
-            .let { markdownToHTML(it) }
+            .toHTML()
         
         definition(definition)
         

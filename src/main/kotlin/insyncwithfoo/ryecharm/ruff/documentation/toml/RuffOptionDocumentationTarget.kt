@@ -13,7 +13,6 @@ import insyncwithfoo.ryecharm.Definition
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.isSuccessful
-import insyncwithfoo.ryecharm.markdownToHTML
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.removeSurroundingTag
 import insyncwithfoo.ryecharm.ruff.CachedResult
@@ -21,6 +20,7 @@ import insyncwithfoo.ryecharm.ruff.RuffCache
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.toDocumentationResult
+import insyncwithfoo.ryecharm.toHTML
 import insyncwithfoo.ryecharm.wrappedInCodeBlock
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -59,7 +59,7 @@ internal data class OptionInfo(
  *
  * Verifications are done at [RuffOptionDocumentationTargetProvider].
  * 
- * @see [markdownToHTML]
+ * @see [toHTML]
  */
 @Suppress("UnstableApiUsage")
 internal class RuffOptionDocumentationTarget(
@@ -120,7 +120,7 @@ internal class RuffOptionDocumentationTarget(
      */
     override fun computeDocumentationHint(): HTML {
         val html = option.toAbsoluteName().wrappedInCodeBlock("toml")
-            .let { markdownToHTML(it) }
+            .toHTML()
             .removeSurroundingTag("pre")
             .removeSurroundingTag("code")
         

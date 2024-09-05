@@ -107,7 +107,7 @@ internal class VenvCreator(private val uvExecutable: Path, private val projectPa
     private fun createVenvSynchronously() {
         val (canBeCanceled, project) = Pair(false, null)
         
-        // TODO: Use runWithModalProgressBlocking instead.
+        // TODO: Use coroutines instead.
         @Suppress("UsagesOfObsoleteApi")
         ProgressManager.getInstance().runProcessWithProgressSynchronously(
             { createVenv() },

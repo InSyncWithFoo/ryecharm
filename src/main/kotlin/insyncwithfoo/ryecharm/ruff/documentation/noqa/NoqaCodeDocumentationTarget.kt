@@ -12,11 +12,11 @@ import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.Markdown
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.isSuccessful
-import insyncwithfoo.ryecharm.markdownToHTML
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.toDocumentationResult
+import insyncwithfoo.ryecharm.toHTML
 
 
 @Suppress("UnstableApiUsage")
@@ -55,9 +55,7 @@ internal class NoqaCodeDocumentationTarget(
     private suspend fun Project.getDocumentation(noqaCode: NoqaCode): HTML? {
         val markdownDocumentation = getMarkdownDocumentation(noqaCode) ?: return null
         
-        return readAction {
-            markdownToHTML(markdownDocumentation)
-        }
+        return readAction { markdownDocumentation.toHTML() }
     }
     
     private suspend fun Project.getMarkdownDocumentation(noqaCode: String): Markdown? {

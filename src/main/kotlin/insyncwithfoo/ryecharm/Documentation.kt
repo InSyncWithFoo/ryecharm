@@ -12,15 +12,14 @@ internal typealias HTML = String
 // Upstream issue: https://youtrack.jetbrains.com/issue/IJPL-160938
 // TODO: Switch to org.intellij.markdown.parser.MarkdownParser
 /**
- * Converts a piece of Markdown to HTML
- * using [DocMarkdownToHtmlConverter].
+ * Convert a piece of Markdown to HTML.
  *
  * Note that, due to a bug in `DocMarkdownToHtmlConverter`,
  * nested code blocks are not rendered correctly.
  * Increasing outer code fence levels does not help.
  */ 
-internal fun markdownToHTML(markdown: Markdown): HTML =
-    DocMarkdownToHtmlConverter.convert(defaultProject, markdown)
+internal fun Markdown.toHTML(): HTML =
+    DocMarkdownToHtmlConverter.convert(defaultProject, this)
 
 
 internal fun HTML.toDocumentationResult() =
@@ -28,7 +27,11 @@ internal fun HTML.toDocumentationResult() =
 
 
 internal fun Markdown.wrappedInCodeBlock(language: String): Markdown =
-    "```${language}\n${this}\n```"
+    """
+    ```${language}
+    $this
+    ```
+    """.trimIndent()
 
 
 internal fun HTML.removeSurroundingTag(tag: String): HTML =
