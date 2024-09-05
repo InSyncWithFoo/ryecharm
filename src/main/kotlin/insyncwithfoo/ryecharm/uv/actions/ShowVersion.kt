@@ -6,7 +6,6 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.defaultProject
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
-import insyncwithfoo.ryecharm.runAction
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.showMessage
 import insyncwithfoo.ryecharm.unableToRunCommand

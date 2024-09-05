@@ -7,7 +7,6 @@ import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.openLightFile
-import insyncwithfoo.ryecharm.runAction
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.rye

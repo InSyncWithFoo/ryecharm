@@ -15,7 +15,6 @@ import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInBackground
-import insyncwithfoo.ryecharm.runIntention
 import insyncwithfoo.ryecharm.saveAllDocumentsAsIs
 import insyncwithfoo.ryecharm.unableToRunCommand
 import insyncwithfoo.ryecharm.uv.commands.UV

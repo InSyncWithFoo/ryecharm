@@ -1,7 +1,7 @@
 package insyncwithfoo.ryecharm
 
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 internal object Plugin {
     const val NAME = "RyeCharm"
     const val REPOSITORY = "InSyncWithFoo/ryecharm"

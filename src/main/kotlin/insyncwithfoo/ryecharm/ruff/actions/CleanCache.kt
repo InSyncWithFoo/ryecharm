@@ -9,7 +9,6 @@ import insyncwithfoo.ryecharm.notifyProcessResult
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
-import insyncwithfoo.ryecharm.runAction
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unableToRunCommand
 import java.nio.file.Path

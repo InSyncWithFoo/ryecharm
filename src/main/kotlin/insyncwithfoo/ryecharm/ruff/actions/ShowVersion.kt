@@ -8,7 +8,6 @@ import insyncwithfoo.ryecharm.defaultProject
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
-import insyncwithfoo.ryecharm.runAction
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.showMessage
 import insyncwithfoo.ryecharm.unableToRunCommand

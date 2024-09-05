@@ -20,7 +20,6 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notificationGroup
 import insyncwithfoo.ryecharm.path
-import insyncwithfoo.ryecharm.runAction
 import insyncwithfoo.ryecharm.runThenNotify
 import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension

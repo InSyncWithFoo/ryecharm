@@ -14,7 +14,6 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInForeground
-import insyncwithfoo.ryecharm.runIntention
 import insyncwithfoo.ryecharm.rye.commands.VersionBumpType
 import insyncwithfoo.ryecharm.rye.commands.rye
 import insyncwithfoo.ryecharm.unableToRunCommand

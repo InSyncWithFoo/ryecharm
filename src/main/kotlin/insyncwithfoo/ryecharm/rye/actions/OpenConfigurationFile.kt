@@ -17,7 +17,6 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notificationGroup
 import insyncwithfoo.ryecharm.processTimeout
-import insyncwithfoo.ryecharm.runAction
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runThenNotify
 import insyncwithfoo.ryecharm.rye.commands.Rye
