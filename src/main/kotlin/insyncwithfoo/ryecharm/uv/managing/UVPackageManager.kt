@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm.uv.managing
 
 import com.intellij.execution.ExecutionException
-import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.application.writeAction
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.projectRoots.Sdk
@@ -14,17 +13,13 @@ import com.jetbrains.python.packaging.management.PythonPackageManager
 import com.jetbrains.python.packaging.pip.PipRepositoryManager
 import com.jetbrains.python.sdk.PythonSdkUpdater
 import insyncwithfoo.ryecharm.Command
-import insyncwithfoo.ryecharm.isSuccessful
+import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.uv.commands.UV
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-
-
-private val ProcessOutput.completedAbnormally: Boolean
-    get() = isTimeout || isCancelled || !isSuccessful
 
 
 private fun PythonPackage(surrogate: PythonPackageSurrogate) =

@@ -15,6 +15,10 @@ internal val ProcessOutput.isSuccessful: Boolean
     get() = exitCode == 0
 
 
+internal val ProcessOutput.completedAbnormally: Boolean
+    get() = isTimeout || isCancelled || !isSuccessful
+
+
 @Suppress("unused")
 @Serializable
 internal class ProcessOutputSurrogate(

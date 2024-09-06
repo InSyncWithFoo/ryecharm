@@ -144,11 +144,6 @@ jobs:
           distribution: zulu
           java-version: 21
       -
-        name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-      -
         name: Clear Gradle home cache
         if: matrix.platform == 'windows-latest'
         env:
@@ -168,9 +163,7 @@ jobs:
           version: latest
       -
         name: Set up uv
-        uses: astral-sh/setup-uv@v1
-        with:
-          version: latest
+        uses: astral-sh/setup-uv@v2
       -
         name: Set up Ruff
         run: |

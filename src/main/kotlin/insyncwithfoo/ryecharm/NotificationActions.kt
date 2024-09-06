@@ -23,8 +23,12 @@ internal fun Notification.addExpiringAction(text: String, action: () -> Unit) =
     addAction(NotificationAction.createSimpleExpiring(text, action))
 
 
+internal fun Notification.addAction(text: String, action: () -> Unit) =
+    addAction(NotificationAction.createSimple(text, action))
+
+
 internal fun Notification.addCopyTextAction(text: String, content: String) {
-    addExpiringAction(text) {
+    addAction(text) {
         val clipboard = Toolkit.getDefaultToolkit().systemClipboard
         clipboard.setContents(StringSelection(content), EmptyClipboardOwner.INSTANCE)
     }

@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm
 
+import com.intellij.lang.documentation.DocumentationMarkup
 import com.intellij.markdown.utils.doc.DocMarkdownToHtmlConverter
 import com.intellij.openapi.util.text.HtmlChunk
 import com.intellij.platform.backend.documentation.DocumentationResult
@@ -103,7 +104,7 @@ internal class Popup : Element("div") {
 
 
 /**
- * @see com.intellij.lang.documentation.DocumentationMarkup.DEFINITION_ELEMENT
+ * @see DocumentationMarkup.DEFINITION_ELEMENT
  */
 internal class Definition : Element("div") {
     init {
@@ -116,7 +117,7 @@ internal class Separator : Element("hr")
 
 
 /**
- * @see com.intellij.lang.documentation.DocumentationMarkup.CONTENT_ELEMENT
+ * @see DocumentationMarkup.CONTENT_ELEMENT
  */
 internal class Content : Element("div") {
     init {
@@ -126,7 +127,7 @@ internal class Content : Element("div") {
 
 
 /**
- * @see com.intellij.lang.documentation.DocumentationMarkup.SECTIONS_TABLE
+ * @see DocumentationMarkup.SECTIONS_TABLE
  */
 internal class SectionsWrapper : Element("table") {
     init {
@@ -164,7 +165,7 @@ internal class Sections : Element("tbody") {
 
 
 /**
- * @see com.intellij.lang.documentation.DocumentationMarkup.SECTION_HEADER_START
+ * @see DocumentationMarkup.SECTION_HEADER_START
  */
 internal class Section : Element("tr") {
     
@@ -180,7 +181,7 @@ internal class Section : Element("tr") {
 
 
 /**
- * @see com.intellij.lang.documentation.DocumentationMarkup.SECTION_HEADER_CELL
+ * @see DocumentationMarkup.SECTION_HEADER_CELL
  */
 private class SectionHeader : Element("td") {
     init {
@@ -193,13 +194,13 @@ private class SectionHeader : Element("td") {
 
 
 /**
- * @see com.intellij.lang.documentation.DocumentationMarkup.SECTION_CONTENT_CELL
+ * @see DocumentationMarkup.SECTION_CONTENT_CELL
  */
 private class SectionContent : Element("td")
 
 
 /**
- * @see com.intellij.lang.documentation.DocumentationMarkup.BOTTOM_ELEMENT
+ * @see DocumentationMarkup.BOTTOM_ELEMENT
  */
 internal class Bottom : Element("div") {
     
@@ -215,7 +216,7 @@ internal class Bottom : Element("div") {
 
 
 /**
- * @see com.intellij.lang.documentation.DocumentationMarkup.INFORMATION_ICON
+ * @see DocumentationMarkup.INFORMATION_ICON
  */
 internal class BottomIcon(src: String) : Element("icon") {
     init {
