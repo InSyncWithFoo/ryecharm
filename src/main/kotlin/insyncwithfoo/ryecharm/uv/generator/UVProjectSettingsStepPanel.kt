@@ -1,17 +1,17 @@
 package insyncwithfoo.ryecharm.uv.generator
 
-import com.intellij.facet.ui.ValidationResult
 import com.intellij.ide.IdeBundle
 import com.intellij.openapi.observable.properties.GraphProperty
 import com.intellij.openapi.observable.properties.ObservableProperty
 import com.intellij.openapi.observable.properties.PropertyGraph
 import com.intellij.openapi.observable.util.bind
-import com.intellij.openapi.observable.util.bindBooleanStorage
 import com.intellij.openapi.observable.util.joinCanonicalPath
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.openapi.util.io.FileUtil
+import com.intellij.ui.components.JBCheckBox
+import com.intellij.ui.components.JBTextField
+import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Panel
 import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.builder.TopGap
@@ -20,15 +20,18 @@ import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.panel
 import com.jetbrains.python.PyBundle
 import com.jetbrains.python.PySdkBundle
+import com.jetbrains.python.sdk.add.ExistingPySdkComboBoxItem
 import com.jetbrains.python.sdk.add.PySdkComboBoxItem
 import com.jetbrains.python.sdk.add.PySdkPathChoosingComboBox
 import com.jetbrains.python.sdk.add.addInterpretersAsync
 import com.jetbrains.python.sdk.detectSystemWideSdks
-import insyncwithfoo.ryecharm.applyReturningComponent
+import insyncwithfoo.ryecharm.bindSelected
+import insyncwithfoo.ryecharm.bindText
 import insyncwithfoo.ryecharm.configurations.globalUVExecutable
 import insyncwithfoo.ryecharm.isNonEmptyDirectory
 import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.radioButtonFor
 import insyncwithfoo.ryecharm.reactiveLabel
 import insyncwithfoo.ryecharm.singleFileTextField
 import insyncwithfoo.ryecharm.singleFolderTextField
@@ -42,6 +45,14 @@ import kotlin.io.path.isExecutable
 import kotlin.io.path.isRegularFile
 
 
+private val pep508DistributionName = """(?ix)
+    ^
+    [A-Z0-9]
+    (?:[A-Z0-9._-]*[A-Z0-9])?
+    ${"$"}
+""".toRegex()
+
+
 private fun PySdkPathChoosingComboBox.addInterpreters(obtainer: () -> List<Sdk>) {
     addInterpretersAsync(this, obtainer)
 }
@@ -52,15 +63,6 @@ internal fun PySdkPathChoosingComboBox.addSystemWideInterpreters() {
 }
 
 
-private fun Panel.rowWithTopGap(label: String, init: Row.() -> Unit) {
-    row(label, init).topGap(TopGap.MEDIUM)
-}
-
-
-private fun ValidationResult.toInfo() =
-    errorMessage?.let { ValidationInfo(it) }
-
-
 private fun <T> GraphProperty<T>.dependsOn(vararg parents: ObservableProperty<*>, update: () -> T) {
     parents.forEach { parent ->
         dependsOn(parent, update)
@@ -68,7 +70,8 @@ private fun <T> GraphProperty<T>.dependsOn(vararg parents: ObservableProperty<*>
 }
 
 
-internal class UVProjectSettingsStepPanel(val projectGenerator: UVProjectGenerator) {
+// TODO: Refactor this
+internal class UVProjectSettingsStepPanel(val settings: UVNewProjectSettings) {
     
     private val propertyGraph = PropertyGraph()
     
@@ -95,19 +98,10 @@ internal class UVProjectSettingsStepPanel(val projectGenerator: UVProjectGenerat
         }
     }
     
-    private val projectPathIsValid = propertyGraph.property(false).apply {
-        dependsOn(projectPathHint) {
-            projectPathHint.get() == PyBundle.message("new.project.location.hint", projectPath)
-        }
-    }
-    
     val baseInterpreter = propertyGraph.property<PySdkComboBoxItem?>(null)
     
-    private val baseInterpreterIsValid = propertyGraph.property(false).apply {
-        dependsOn(baseInterpreter) {
-            baseInterpreter.get() != null
-        }
-    }
+    private val baseSDK: Sdk?
+        get() = (baseInterpreter.get() as? ExistingPySdkComboBoxItem)?.sdk
     
     val uvExecutable = propertyGraph.property("")
     
@@ -126,18 +120,36 @@ internal class UVProjectSettingsStepPanel(val projectGenerator: UVProjectGenerat
         }
     }
     
-    private val uvExecutablePathIsValid = propertyGraph.property(false).apply {
-        dependsOn(uvExecutablePathHint) {
-            uvExecutablePathHint.get() == message("newProjectPanel.hint.fileFound")
+    val distributionName = propertyGraph.property("")
+    
+    val distributionNameHint = propertyGraph.property("").apply {
+        dependsOn(distributionName, projectName) {
+            val name = distributionName.get().ifEmpty { projectName.get() }
+            
+            when {
+                pep508DistributionName.matches(name) -> message("newProjectPanel.hint.validDistributionName")
+                else -> message("newProjectPanel.hint.invalidDistributionName")
+            }
         }
     }
     
-    val initializeGit = propertyGraph.property(false)
-        .bindBooleanStorage("PyCharm.NewProject.Git")
-    
     lateinit var projectLocationInput: TextFieldWithBrowseButton
-    lateinit var baseInterpreterInput: PySdkPathChoosingComboBox
     
+    private val projectPathIsValid: Boolean
+        get() = projectPathHint.get() == PyBundle.message("new.project.location.hint", projectPath)
+    
+    private val baseInterpreterIsValid: Boolean
+        get() = baseSDK != null
+    
+    private val uvExecutablePathIsValid: Boolean
+        get() = uvExecutablePathHint.get() == message("newProjectPanel.hint.fileFound")
+    
+    private val distributionNameIsValid: Boolean
+        get() = distributionNameHint.get() == message("newProjectPanel.hint.validDistributionName")
+    
+    /**
+     * @see UVProjectSettingsStep.getProjectLocation
+     */
     val projectLocation: String
         get() = FileUtil.expandUserHome(projectParentDirectory.joinCanonicalPath(projectName).get())
             
@@ -145,7 +157,7 @@ internal class UVProjectSettingsStepPanel(val projectGenerator: UVProjectGenerat
         get() = VenvCreator(
             uvExecutable = uvExecutable.get().toPathOrNull()!!,
             projectPath = projectPath!!,
-            baseSdk = baseInterpreterInput.selectedSdk!!
+            baseSdk = baseSDK!!
         )
     
     fun setNewProjectName(nextProjectName: File) {
@@ -154,32 +166,83 @@ internal class UVProjectSettingsStepPanel(val projectGenerator: UVProjectGenerat
     }
     
     fun registerValidator(validate: () -> Unit) {
-        val properties = listOf(projectName, projectParentDirectory, baseInterpreter, uvExecutable)
+        val properties = listOf(
+            projectName,
+            projectParentDirectory,
+            baseInterpreter,
+            uvExecutable,
+            distributionName
+        )
         
         properties.forEach { it.afterChange { validate() } }
     }
     
     fun getErrorText() = when {
-        !projectPathIsValid.get() -> IdeBundle.message("new.dir.project.error.invalid")
-        !baseInterpreterIsValid.get() -> message("newProjectPanel.validation.noBaseInterpreter")
-        !uvExecutablePathIsValid.get() -> message("newProjectPanel.validation.invalidUVExecutable")
+        !projectPathIsValid -> IdeBundle.message("new.dir.project.error.invalid")
+        !baseInterpreterIsValid -> message("newProjectPanel.validation.noBaseInterpreter")
+        !uvExecutablePathIsValid -> message("newProjectPanel.validation.invalidUVExecutable")
+        !distributionNameIsValid -> message("newProjectPanel.validation.invalidDistributionName")
         else -> null
     }
     
 }
 
 
-internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
-    row(PyBundle.message("new.project.name")) {
-        textField().apply {
-            validationOnInput { projectGenerator.validate(projectLocation).toInfo() }
-            bindText(projectName)
+private fun Row.makeProjectNameInput(block: Cell<JBTextField>.() -> Unit) =
+    textField().apply(block)
+
+
+private fun Row.makeProjectLocationInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+    singleFolderTextField().makeFlexible().apply(block)
+
+
+private fun Row.makeInitializeGitInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(PyBundle.message("new.project.git")).apply(block)
+
+
+private fun Row.makeBaseInterpreterInput(block: Cell<PySdkPathChoosingComboBox>.() -> Unit) =
+    cell(PySdkPathChoosingComboBox()).makeFlexible().apply {
+        component.addSystemWideInterpreters()
+        block(this)
+    }
+
+
+private fun Row.makeUVExecutableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+    singleFileTextField().makeFlexible().apply(block)
+
+
+private fun Row.makeDistributionNameInput(block: Cell<JBTextField>.() -> Unit) =
+    textField().apply(block)
+
+
+private fun Panel.makeProjectKindInputGroup() =
+    buttonsGroup {
+        row(message("newProjectPanel.settings.projectKind.label")) {
+            radioButtonFor(ProjectKind.APP)
+            radioButtonFor(ProjectKind.LIBRARY)
+            radioButtonFor(ProjectKind.PACKAGED_APP)
         }
     }
+
+
+private fun Row.makeCreateReadmeInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("newProjectPanel.settings.createReadme.label")).apply(block)
+
+
+private fun Row.makePinPythonInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("newProjectPanel.settings.pinPython.label")).apply(block)
+
+
+@Suppress("DialogTitleCapitalization")
+internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
+    row(PyBundle.message("new.project.name")) {
+        makeProjectNameInput { bindText(projectName) }
+    }
     row(PyBundle.message("new.project.location")) {
-        projectLocationInput = singleFolderTextField().applyReturningComponent {
-            makeFlexible()
+        makeProjectLocationInput {
             bindText(projectParentDirectory)
+            
+            projectLocationInput = component
         }
     }
     row("") {
@@ -187,22 +250,21 @@ internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
     }
     
     row("") {
-        checkBox(PyBundle.message("new.project.git")).bindSelected(initializeGit)
+        makeInitializeGitInput { bindSelected(settings::initializeGit) }
     }
     
     panel {
-        rowWithTopGap(PySdkBundle.message("python.venv.base.label")) {
+        row(PySdkBundle.message("python.venv.base.label")) {
+            topGap(TopGap.MEDIUM)
+            
             // TODO: Switch to pythonInterpreterComboBox once 2024.3 is out
-            baseInterpreterInput = cell(PySdkPathChoosingComboBox()).applyReturningComponent {
-                makeFlexible()
-                component.addSystemWideInterpreters()
+            makeBaseInterpreterInput {
                 component.childComponent.bind(baseInterpreter)
             }
         }
         
         row(message("newProjectPanel.settings.uvExecutable.label")) {
-            singleFileTextField().applyReturningComponent {
-                makeFlexible()
+            makeUVExecutableInput {
                 bindText(uvExecutable)
                 
                 uvExecutable.set(globalUVExecutable?.toString().orEmpty())
@@ -210,6 +272,26 @@ internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
         }
         row("") {
             reactiveLabel(uvExecutablePathHint)
+        }
+    }
+    
+    group(message("newProjectPanel.settings.groups.projectInitialization")) {
+        row(message("newProjectPanel.settings.distributionName.label")) {
+            makeDistributionNameInput {
+                bindText(settings::distributionName)
+                bindText(distributionName)
+                component.emptyText.bind(projectName)
+            }
+        }
+        row("") {
+            reactiveLabel(distributionNameHint)
+        }
+        
+        makeProjectKindInputGroup().bindSelected(settings::projectKind)
+        
+        row("") {
+            makeCreateReadmeInput { bindSelected(settings::createReadme) }
+            makePinPythonInput { bindSelected(settings::pinPython) }
         }
     }
 }

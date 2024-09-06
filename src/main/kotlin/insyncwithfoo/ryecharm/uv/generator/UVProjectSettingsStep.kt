@@ -2,41 +2,84 @@ package insyncwithfoo.ryecharm.uv.generator
 
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.projectRoots.impl.SdkConfigurationUtil
+import com.jetbrains.python.newProject.PyNewProjectSettings
 import com.jetbrains.python.newProject.steps.ProjectSpecificSettingsStep
+import com.jetbrains.python.newProject.steps.PythonProjectSpecificSettingsStep
 import com.jetbrains.python.sdk.PyLazySdk
+import com.jetbrains.python.sdk.add.v2.PythonAddNewEnvironmentPanel
 import javax.swing.JPanel
 
 
-// TODO: Refactor this
 /**
- * @see com.jetbrains.python.newProject.steps.PythonProjectSpecificSettingsStep
+ * @see PythonProjectSpecificSettingsStep
  */
 internal class UVProjectSettingsStep(projectGenerator: UVProjectGenerator) :
     ProjectSpecificSettingsStep<UVNewProjectSettings>(projectGenerator, GenerateProjectCallback()), DumbAware {
     
-    private val panel by lazy { UVProjectSettingsStepPanel(projectGenerator) }
+    val settings = UVNewProjectSettings()
+        get() = field.also { it.sdk = this.sdk }
+    
+    private val panel by lazy { UVProjectSettingsStepPanel(settings) }
     
     /**
-     * Generates a name for the new project (and its own directory).
+     * Generate a name for the new project (and its own directory).
      */
     private val nextProjectDirectory by ::myProjectDirectory
     
-    val initializeGit: Boolean
-        get() = panel.initializeGit.get()
-    
-    var projectLocationInput by ::myLocationField
+    /**
+     * Used by various functions in [ProjectSpecificSettingsStep].
+     */
+    private var projectLocationInput by ::myLocationField
     
     /**
-     * Whether the example `main.py` script should be created.
+     * @see PythonProjectSpecificSettingsStep.getProjectLocation
+     */
+    override fun getProjectLocation() = panel.projectLocation
+    
+    /**
+     * Create the virtual environment and returns the SDK derived from that.
+     *
+     * @see com.jetbrains.python.sdk.add.v2.setupVirtualenv
+     */
+    override fun getSdk() = PyLazySdk("Uninitialized environment") {
+        panel.venvCreator.createSdk()?.also { SdkConfigurationUtil.addSdk(it) }
+            ?: error("Failed to create SDK")
+    }
+    
+    /**
+     * The original counterpart of this method,
+     * [PythonProjectSpecificSettingsStep.getInterpreterInfoForStatistics],
+     * is called by `PythonGenerateProjectCallback.computeProjectSettings`.
+     * The return value is then given to [PyNewProjectSettings].
+     *
+     * `PythonGenerateProjectCallback`'s monkeypatch,
+     * [GenerateProjectCallback], doesn't have a need for such information.
+     * This method is only overridden here for documentation purposes.
      * 
-     * Always return `false`, as this task is delegated to `uv.
+     * @see PythonAddNewEnvironmentPanel.createStatisticsInfo
+     */
+    override fun getInterpreterInfoForStatistics() = null
+    
+    /**
+     * @see getInterpreterInfoForStatistics
+     */
+    override fun installFramework() = false
+    
+    /**
+     * @see getInterpreterInfoForStatistics
      */
     override fun createWelcomeScript() = false
     
-    override fun getProjectLocation() = panel.projectLocation
-    
+    /**
+     * @see getInterpreterInfoForStatistics
+     */
     override fun getRemotePath() = null
     
+    /**
+     * Create the panel and set up listeners.
+     * 
+     * @see PythonProjectSpecificSettingsStep.createBasePanel
+     */
     override fun createBasePanel(): JPanel {
         val panelComponent = recreateProjectCreationPanel()
         
@@ -50,9 +93,9 @@ internal class UVProjectSettingsStep(projectGenerator: UVProjectGenerator) :
     }
     
     /**
-     * Return the component created by [UVProjectSettingsStepPanel.makeComponent].
+     * Return the panel component created by
+     * [UVProjectSettingsStepPanel.makeComponent].
      * 
-     * @see com.jetbrains.python.newProject.steps.PythonProjectSpecificSettingsStep.createBasePanel
      * @see com.jetbrains.python.sdk.add.v2.PythonAddNewEnvironmentPanel
      */
     private fun recreateProjectCreationPanel() = panel.makeComponent()
@@ -77,15 +120,5 @@ internal class UVProjectSettingsStep(projectGenerator: UVProjectGenerator) :
      * under a check which this class will never pass.
      */
     override fun onPanelSelected() {}
-    
-    /**
-     * Create the virtual environment and returns the SDK derived from that.
-     *
-     * @see com.jetbrains.python.sdk.add.v2.setupVirtualenv
-     */
-    override fun getSdk() = PyLazySdk("Uninitialized environment") {
-        panel.venvCreator.createSdk()?.also { SdkConfigurationUtil.addSdk(it) }
-            ?: error("Failed to create SDK")
-    }
     
 }

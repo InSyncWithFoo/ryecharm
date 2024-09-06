@@ -18,6 +18,7 @@ import insyncwithfoo.ryecharm.lastModified
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.homeDirectory
+import insyncwithfoo.ryecharm.uv.generator.ProjectKind
 import java.nio.file.Path
 import kotlin.io.path.div
 import kotlin.io.path.listDirectoryEntries
@@ -46,8 +47,30 @@ internal class UV private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun init() =
-        InitCommand().build()
+    fun init(name: String?, kind: ProjectKind, createReadme: Boolean, pinPython: Boolean): Command {
+        val arguments = mutableListOf("--no-workspace")
+        
+        if (name != null) {
+            arguments.add("--name")
+            arguments.add(name)
+        }
+        
+        when (kind) {
+            ProjectKind.APP -> arguments.add("--app")
+            ProjectKind.LIBRARY -> arguments.add("--lib")
+            ProjectKind.PACKAGED_APP -> arguments.add("--app", "--package")
+        }
+        
+        if (!createReadme) {
+            arguments.add("--no-readme")
+        }
+        
+        if (!pinPython) {
+            arguments.add("--no-pin-python")
+        }
+        
+        return InitCommand().build(arguments)
+    }
     
     fun add(target: PythonPackageSpecification) =
         AddCommand().build(arguments = listOf(target.toPEP508Format()))

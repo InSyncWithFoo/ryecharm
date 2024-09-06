@@ -13,6 +13,7 @@ import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.platform.ProjectGeneratorPeer
 import com.jetbrains.python.newProject.steps.PythonProjectSpecificSettingsStep
 import insyncwithfoo.ryecharm.moduleManager
+import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessful
 import insyncwithfoo.ryecharm.rootManager
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.uv.commands.uv
@@ -29,13 +30,6 @@ private fun Project.runInitializer(action: suspend CoroutineScope.() -> Unit) {
 }
 
 
-private fun UVProjectGenerator.makeSettings(settingsStep: UVProjectSettingsStep) =
-    projectSettings.apply {
-        sdk = settingsStep.sdk
-        interpreterInfoForStatistics = settingsStep.interpreterInfoForStatistics
-    }
-
-
 private fun UVProjectGenerator.generateProject(
     settingsStep: UVProjectSettingsStep,
     settings: UVNewProjectSettings
@@ -48,11 +42,18 @@ private fun UVProjectGenerator.generateProject(
 /**
  * Run `uv init` at the newly created project directory.
  */
-private fun Project.initializeUsingUV() {
-    val command = uv!!.init()
+private fun Project.initializeUsingUV(settings: UVNewProjectSettings) {
+    val name = settings.distributionName
+    val kind = settings.projectKind
+    val createReadme = settings.createReadme
+    val pinPython = settings.pinPython
+    
+    val command = uv!!.init(name, kind, createReadme, pinPython)
     
     runInitializer {
-        runInForeground(command)
+        val output = runInForeground(command)
+        
+        notifyIfProcessIsUnsuccessful(command, output)
     }
 }
 
@@ -90,15 +91,15 @@ internal class GenerateProjectCallback : AbstractCallback<UVNewProjectSettings>(
     ) {
         val generator = (settingsStep as UVProjectSettingsStep).projectGenerator as UVProjectGenerator
         
-        val settings = generator.makeSettings(settingsStep)
+        val settings = settingsStep.settings
         val newProject = generator.generateProject(settingsStep, settings)
             ?: error("Failed to generate project")
         
         SdkConfigurationUtil.setDirectoryProjectSdk(newProject, settings.sdk!!)
         
-        newProject.initializeUsingUV()
+        newProject.initializeUsingUV(settings)
         
-        if (settingsStep.initializeGit) {
+        if (settings.initializeGit) {
             newProject.initializeGitRepository()
         }
         

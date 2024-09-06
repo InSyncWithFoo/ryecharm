@@ -1,7 +1,9 @@
 package insyncwithfoo.ryecharm.uv.generator
 
+import com.intellij.facet.ui.ValidationResult
 import com.intellij.ide.util.projectWizard.AbstractNewProjectStep.AbstractCallback
 import com.intellij.ide.util.projectWizard.CustomStepProjectGenerator
+import com.intellij.ide.util.projectWizard.ProjectSettingsStepBase
 import com.intellij.platform.DirectoryProjectGenerator
 import com.jetbrains.python.newProject.PythonProjectGenerator
 import insyncwithfoo.ryecharm.icons.UVIcons
@@ -19,6 +21,9 @@ import insyncwithfoo.ryecharm.message
 internal class UVProjectGenerator :
     PythonProjectGenerator<UVNewProjectSettings>(), CustomStepProjectGenerator<UVNewProjectSettings> {
     
+    /**
+     * The displayed name of the panel.
+     */
     override fun getName() = message("newProjectPanel.title")
     
     /**
@@ -27,9 +32,25 @@ internal class UVProjectGenerator :
      */
     override fun getDescription() = null
     
+    /**
+     * The logo to be displayed beside the name of the panel.
+     * 
+     * Size: 18&times;18
+     * 
+     * It is supposed to be 16&times;16,
+     * but with the paddings it would look too small.
+     */
     override fun getLogo() = UVIcons.TINY_18
     
-    override fun getProjectSettings() = UVNewProjectSettings()
+    /**
+     * This method is supposed to be called by
+     * [ProjectSettingsStepBase.checkValid].
+     * However, [UVProjectSettingsStep.checkValid]
+     * does not use its super implementation.
+     * 
+     * It is overridden here for documentation purposes only.
+     */
+    override fun validate(baseDirPath: String) = ValidationResult.OK!!
     
     override fun createStep(
         projectGenerator: DirectoryProjectGenerator<UVNewProjectSettings>?,

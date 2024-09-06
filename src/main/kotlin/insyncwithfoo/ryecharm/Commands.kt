@@ -23,6 +23,10 @@ internal abstract class CommandFactory {
         workingDirectory = this@CommandFactory.workingDirectory
     }
     
+    protected fun <T> T.add(vararg arguments: String) where T : Arguments, T : MutableList<String> {
+        this.addAll(arguments)
+    }
+    
 }
 
 
@@ -83,7 +87,7 @@ internal abstract class Command {
     override fun toString() = commandLine.commandLineString
     
     fun run(timeout: MillisecondsOrNoLimit): ProcessOutput {
-        LOGGER.info("Running: $this")
+        LOGGER.info("Running: ($workingDirectory) $this")
         
         return processHandler.runProcess(timeout).also {
             LOGGER.info("Output: ${ProcessOutputSurrogate(it)}")
