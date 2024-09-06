@@ -53,7 +53,7 @@ internal class RyeTest : CommandFactoryTest() {
     
     @Test
     fun `test version - set`() {
-        val newVersion = buildString((5..10).random()) {
+        val newVersion = buildString(5..10) {
             listOf(lowercase, '.', '-').random()
         }
         val command = rye.version(newVersion)

@@ -18,11 +18,14 @@ abstract class CommandFactoryTest : LightPlatformCodeInsightFixture4TestCase() {
     protected val ascii: Char
         get() = ('\u0000'..'\u00FF').random()
     
+    protected val boolean: Boolean
+        get() = listOf(true, false).random()
+    
     protected val projectPath: Path?
         get() = project.path
     
     private fun randomPathFragment() =
-        buildString((10..30).random()) {
+        buildString(10..30) {
             listOf(lowercase, uppercase, digit).random()
         }
     
@@ -36,12 +39,15 @@ abstract class CommandFactoryTest : LightPlatformCodeInsightFixture4TestCase() {
     }
     
     protected fun randomText() =
-        buildString((0..10000).random()) { ascii }
+        buildString(0..10000) { ascii }
     
     protected infix fun Arguments.include(subarguments: Arguments) =
         Collections.indexOfSubList(this, subarguments) != -1
     
     protected fun <T> T.orRandomlyNull() =
-        this.takeIf { listOf(true, false).random() }
+        this.takeIf { boolean }
+    
+    protected fun buildString(capacityRange: IntRange, generate: () -> Any) =
+        buildString(capacityRange.random()) { append(generate()) }
     
 }

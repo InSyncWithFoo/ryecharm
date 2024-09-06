@@ -81,8 +81,8 @@ internal class RuffTest : CommandFactoryTest() {
     @Test
     fun `test rule`() {
         val code = buildString {
-            val linterPrefix = buildString((1..5).random()) { lowercase }
-            val ruleNumber = buildString((3..6).random()) { digit }
+            val linterPrefix = buildString(1..5) { lowercase }
+            val ruleNumber = buildString(3..6) { digit }
             
             append(linterPrefix)
             append(ruleNumber)
@@ -96,7 +96,7 @@ internal class RuffTest : CommandFactoryTest() {
     
     @Test
     fun `test config`() {
-        val option = buildString((10..30).random()) {
+        val option = buildString(10..30) {
             listOf(lowercase, '.', '-').random()
         }
         val command = ruff.config(option)

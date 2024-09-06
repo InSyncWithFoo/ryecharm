@@ -47,8 +47,9 @@ private fun Project.initializeUsingUV(settings: UVNewProjectSettings) {
     val kind = settings.projectKind
     val createReadme = settings.createReadme
     val pinPython = settings.pinPython
+    val baseInterpreter = settings.baseInterpreter!!
     
-    val command = uv!!.init(name, kind, createReadme, pinPython)
+    val command = uv!!.init(name, kind, createReadme, pinPython, baseInterpreter)
     
     runInitializer {
         val output = runInForeground(command)

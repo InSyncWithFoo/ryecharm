@@ -31,6 +31,7 @@ import insyncwithfoo.ryecharm.configurations.globalUVExecutable
 import insyncwithfoo.ryecharm.isNonEmptyDirectory
 import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.radioButtonFor
 import insyncwithfoo.ryecharm.reactiveLabel
 import insyncwithfoo.ryecharm.singleFileTextField
@@ -98,10 +99,10 @@ internal class UVProjectSettingsStepPanel(val settings: UVNewProjectSettings) {
         }
     }
     
-    val baseInterpreter = propertyGraph.property<PySdkComboBoxItem?>(null)
+    val baseSDKItem = propertyGraph.property<PySdkComboBoxItem?>(null)
     
-    private val baseSDK: Sdk?
-        get() = (baseInterpreter.get() as? ExistingPySdkComboBoxItem)?.sdk
+    val baseSDK: Sdk?
+        get() = (baseSDKItem.get() as? ExistingPySdkComboBoxItem)?.sdk
     
     val uvExecutable = propertyGraph.property("")
     
@@ -139,7 +140,7 @@ internal class UVProjectSettingsStepPanel(val settings: UVNewProjectSettings) {
         get() = projectPathHint.get() == PyBundle.message("new.project.location.hint", projectPath)
     
     private val baseInterpreterIsValid: Boolean
-        get() = baseSDK != null
+        get() = baseSDK?.path != null
     
     private val uvExecutablePathIsValid: Boolean
         get() = uvExecutablePathHint.get() == message("newProjectPanel.hint.fileFound")
@@ -169,7 +170,7 @@ internal class UVProjectSettingsStepPanel(val settings: UVNewProjectSettings) {
         val properties = listOf(
             projectName,
             projectParentDirectory,
-            baseInterpreter,
+            baseSDKItem,
             uvExecutable,
             distributionName
         )
@@ -259,7 +260,7 @@ internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
             
             // TODO: Switch to pythonInterpreterComboBox once 2024.3 is out
             makeBaseInterpreterInput {
-                component.childComponent.bind(baseInterpreter)
+                component.childComponent.bind(baseSDKItem)
             }
         }
         

@@ -7,6 +7,7 @@ import com.jetbrains.python.newProject.steps.ProjectSpecificSettingsStep
 import com.jetbrains.python.newProject.steps.PythonProjectSpecificSettingsStep
 import com.jetbrains.python.sdk.PyLazySdk
 import com.jetbrains.python.sdk.add.v2.PythonAddNewEnvironmentPanel
+import insyncwithfoo.ryecharm.path
 import javax.swing.JPanel
 
 
@@ -16,10 +17,14 @@ import javax.swing.JPanel
 internal class UVProjectSettingsStep(projectGenerator: UVProjectGenerator) :
     ProjectSpecificSettingsStep<UVNewProjectSettings>(projectGenerator, GenerateProjectCallback()), DumbAware {
     
-    val settings = UVNewProjectSettings()
-        get() = field.also { it.sdk = this.sdk }
+    private val _settings = UVNewProjectSettings()
+    val settings: UVNewProjectSettings
+        get() = _settings.also {
+            it.sdk = this.sdk
+            it.baseInterpreter = panel.baseSDK?.path!!
+        }
     
-    private val panel by lazy { UVProjectSettingsStepPanel(settings) }
+    private val panel by lazy { UVProjectSettingsStepPanel(_settings) }
     
     /**
      * Generate a name for the new project (and its own directory).

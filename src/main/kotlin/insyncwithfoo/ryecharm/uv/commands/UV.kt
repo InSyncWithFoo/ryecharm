@@ -47,8 +47,16 @@ internal class UV private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun init(name: String?, kind: ProjectKind, createReadme: Boolean, pinPython: Boolean): Command {
+    fun init(
+        name: String?,
+        kind: ProjectKind,
+        createReadme: Boolean,
+        pinPython: Boolean,
+        baseInterpreter: Path
+    ): Command {
         val arguments = mutableListOf("--no-workspace")
+        
+        arguments.add("--python", baseInterpreter.toString())
         
         if (name != null) {
             arguments.add("--name")
