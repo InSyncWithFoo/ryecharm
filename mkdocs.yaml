@@ -68,6 +68,7 @@ nav:
   - Features: features.md
   - Ruff:
     - Ruff integration: ruff/index.md
+    - Running modes: ruff/running-modes.md
     - Linting: ruff/linting.md
     - Formatting: ruff/formatting.md
     - Documentation: ruff/documentation.md

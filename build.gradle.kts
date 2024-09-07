@@ -144,7 +144,7 @@ tasks {
         systemProperty("ide.browser.jcef.headless.enabled", "true")
         systemProperty("ide.tree.painter.compact.default", "true")
         systemProperty("projectView.hide.dot.idea", "false")
-        systemProperty("terminal.new.ui", "false")
+        systemProperty("terminal.new.ui", "true")
     }
     
     wrapper {

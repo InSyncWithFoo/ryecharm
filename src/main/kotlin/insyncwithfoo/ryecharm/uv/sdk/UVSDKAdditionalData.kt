@@ -8,7 +8,7 @@ import org.jdom.Element
 
 
 /**
- * Additional data for uv-created SDKs.
+ * Additional data for SDKs created by uv.
  * 
  * Currently only consists of an extra
  * [IS_UV] boolean attribute.

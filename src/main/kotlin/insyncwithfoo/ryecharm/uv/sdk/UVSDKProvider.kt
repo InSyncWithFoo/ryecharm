@@ -67,20 +67,22 @@ internal class UVSDKProvider : PySdkProvider {
         return null
     }
     
-    
     /**
      * This method is called at:
      * * [com.jetbrains.python.newProject.NewEnvironmentStep.initSteps]
      * * [com.jetbrains.python.newProject.steps.PyAddNewEnvironmentPanel.createPanels]
      * 
-     * Both of which appear to be dead code.
+     * Both of which appear to be dead code on PyCharm.
      * They have possibly been superseded by [PythonAddNewEnvironmentPanel]
      * and other classes in the same `sdk.add.v2` subpackage,
      * none of which makes use of "old" extension points.
+     * On IntelliJ IDEA, however, this is called
+     * when its modular new project panel is opened.
      * 
-     * It is thus useless and only overridden here
-     * for documentation purposes.
+     * IDEA is not a prioritized target, so this method is
+     * currently only overridden here for documentation purposes.
      */
+    // TODO: Support this.
     override fun createNewEnvironmentPanel(
         project: Project?,
         module: Module?,

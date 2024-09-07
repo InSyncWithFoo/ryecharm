@@ -18,7 +18,7 @@ private val CodeAction.isRuffOrganizeImports: Boolean
 /**
  * @see isRuffDisableRuleComment
  */
-internal val CodeAction.isRuffFixViolation: Boolean
+private val CodeAction.isRuffFixViolation: Boolean
     get() = !this.isRuffDisableRuleComment
 
 
