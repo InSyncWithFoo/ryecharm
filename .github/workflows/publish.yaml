@@ -12,7 +12,6 @@ on:
 jobs:
   publish:
     name: Publish
-    if: github.event.release.tag_name != 'v0.1.0'
     runs-on: ubuntu-latest
     environment: jetbrains-marketplace
     

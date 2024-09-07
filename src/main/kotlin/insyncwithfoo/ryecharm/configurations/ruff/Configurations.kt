@@ -72,7 +72,7 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     var formatting by property(true)
     var formatOnReformat by property(true)
     var formatOnOptimizeImports by property(true)
-    var formatOnSave by property(true)
+    var formatOnSave by property(false)
     var formatOnSaveProjectFilesOnly by property(true)
     
     var documentationPopups by property(true)

@@ -33,7 +33,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
             assertEquals(true, formatting)
             assertEquals(true, formatOnReformat)
             assertEquals(true, formatOnOptimizeImports)
-            assertEquals(true, formatOnSave)
+            assertEquals(false, formatOnSave)
             assertEquals(true, formatOnSaveProjectFilesOnly)
             
             assertEquals(true, documentationPopups)

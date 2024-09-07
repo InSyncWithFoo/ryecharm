@@ -21,6 +21,7 @@
 	<depends>com.intellij.modules.lang</depends>
 	<depends>com.intellij.modules.python</depends>
 	<depends>com.intellij.modules.platform</depends>
+	
 	<depends>org.toml.lang</depends>
 	
 	<depends optional="true" config-file="lsp4ij.xml">com.redhat.devtools.lsp4ij</depends>

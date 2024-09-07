@@ -141,11 +141,10 @@ kover {
 tasks {
     runIde {
         // From https://app.slack.com/client/T5P9YATH9/C5U8BM1MK
-        systemProperty("ide.experimental.ui", "true")
+        systemProperty("ide.browser.jcef.headless.enabled", "true")
+        systemProperty("ide.tree.painter.compact.default", "true")
         systemProperty("projectView.hide.dot.idea", "false")
         systemProperty("terminal.new.ui", "false")
-        systemProperty("ide.tree.painter.compact.default", "true")
-        systemProperty("ide.browser.jcef.headless.enabled", "true")
     }
     
     wrapper {
