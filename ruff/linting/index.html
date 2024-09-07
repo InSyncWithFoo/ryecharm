@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://insyncwithfoo.github.io/ryecharm/ruff/linting/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../running-modes/">
       
       
         <link rel="next" href="../formatting/">
@@ -313,6 +313,8 @@
       
         
       
+        
+      
     
     
     
@@ -349,6 +351,27 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../running-modes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running modes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -409,9 +432,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#native-lsp-client-and-lsp4ij-modes" class="md-nav__link">
+  <a href="#lsp-modes" class="md-nav__link">
     <span class="md-ellipsis">
-      Native LSP client and LSP4IJ modes
+      LSP modes
     </span>
   </a>
   
@@ -980,9 +1003,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#native-lsp-client-and-lsp4ij-modes" class="md-nav__link">
+  <a href="#lsp-modes" class="md-nav__link">
     <span class="md-ellipsis">
-      Native LSP client and LSP4IJ modes
+      LSP modes
     </span>
   </a>
   
@@ -1021,65 +1044,17 @@
 
   <h1>Linting</h1>
 
-<p>There are three linting modes:
-<i>Command line</i>, <i>LSP4IJ</i> and <i>Native LSP client</i>.</p>
+<p>There are two types of linting diagnostics:
+Lint errors (each of which corresponds to <a href="https://docs.astral.sh/ruff/rules/">a rule</a>) and syntax errors.
+The latter is <a href="../../configurations/ruff/#report-syntax-errors">not reported by default</a>,
+as it is expected that the same errors are already reported by the IDE.</p>
 <h2 id="command-line-mode"><i>Command line</i> mode<a class="headerlink" href="#command-line-mode" title="Permanent link">#</a></h2>
-<p>If this mode is selected, RyeCharm will invoke
-the provided executable after each change made in the editor.</p>
-<p>This is equivalent to running <code>ruff --no-fix --exit-zero --quiet</code>
+<p>In <i>Command line</i> mode, the executable is invoked after every keystroke.</p>
+<p>This is equivalent to running <code>ruff check --no-fix --exit-zero --quiet</code>
 with the file as input.</p>
-<h2 id="native-lsp-client-and-lsp4ij-modes"><i>Native LSP client</i> and <i>LSP4IJ</i> modes<a class="headerlink" href="#native-lsp-client-and-lsp4ij-modes" title="Permanent link">#</a></h2>
-<p>These two modes make use of Ruff's language server capabilities.
-The differences between them are that of the client libraries.</p>
-<table>
-<thead>
-<tr>
-<th>Mode</th>
-<th><i>Native LSP client</i></th>
-<th><i>LSP4IJ</i></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Client</td>
-<td><a href="https://plugins.jetbrains.com/docs/intellij/language-server-protocol.html">Built-in</a></td>
-<td><a href="https://plugins.jetbrains.com/plugin/23257-lsp4ij">LSP4IJ</a> (third-party)</td>
-</tr>
-<tr>
-<td>Can be used on</td>
-<td>Paid IDEs</td>
-<td>All IDEs</td>
-</tr>
-<tr>
-<td>Features support*</td>
-<td><a href="https://plugins.jetbrains.com/docs/intellij/language-server-protocol.html#supported-features">Few</a></td>
-<td><a href="https://github.com/redhat-developer/lsp4ij/blob/main/docs/LSPSupport.md">Much greater</a></td>
-</tr>
-<tr>
-<td>UI integrations</td>
-<td>Better</td>
-<td>Good</td>
-</tr>
-<tr>
-<td>Customizations</td>
-<td>Easy to implement</td>
-<td>Limited</td>
-</tr>
-<tr>
-<td>API stability</td>
-<td>Unstable</td>
-<td>Unstable</td>
-</tr>
-</tbody>
-</table>
-<p><small>* <a href="https://docs.astral.sh/ruff/editors/features/">Ruff's features</a> are supported equally well by both.</small></p>
-<p>It is recommended to use the native client where available.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>On a (paid) IDE with both clients available, a <code>LinkageError</code>
-will be thrown if <i>Native LSP client</i> is selected.
-This is <a href="https://github.com/redhat-developer/lsp4ij/issues/459">a known limitation</a>.</p>
-</div>
+<h2 id="lsp-modes">LSP modes<a class="headerlink" href="#lsp-modes" title="Permanent link">#</a></h2>
+<p>In LSP modes, diagnostics are sent to the client via
+<a href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_publishDiagnostics"><code>textDocument/publishDiagnostics</code></a> notifications.</p>
 
 
 
@@ -1109,7 +1084,7 @@ This is <a href="https://github.com/redhat-developer/lsp4ij/issues/459">a known 
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ruff integration">
+          <a href="../running-modes/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Running modes">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1119,7 +1094,7 @@ This is <a href="https://github.com/redhat-developer/lsp4ij/issues/459">a known 
                 Previous
               </span>
               <div class="md-ellipsis">
-                Ruff integration
+                Running modes
               </div>
             </div>
           </a>

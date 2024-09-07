@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://insyncwithfoo.github.io/ryecharm/configurations/rye/">
+        <link rel="canonical" href="https://insyncwithfoo.github.io/ryecharm/ruff/running-modes/">
       
       
-        <link rel="prev" href="../uv/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../../other-features/">
+        <link rel="next" href="../linting/">
       
       
       <link rel="icon" href="../../assets/icon-black.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Rye - RyeCharm</title>
+        <title>Running modes - RyeCharm</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#executable" class="md-skip">
+        <a href="#command-line-mode" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Rye
+              Running modes
             
           </span>
         </div>
@@ -294,6 +294,8 @@
       
   
   
+    
+  
   
   
     
@@ -316,18 +318,16 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../ruff/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -344,7 +344,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Ruff
@@ -357,10 +357,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../ruff/running-modes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Running modes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -369,6 +387,42 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command line mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#native-lsp-client-and-lsp4ij-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Native LSP client and LSP4IJ modes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -381,7 +435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ruff/linting/" class="md-nav__link">
+      <a href="../linting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -402,7 +456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ruff/formatting/" class="md-nav__link">
+      <a href="../formatting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -423,7 +477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ruff/documentation/" class="md-nav__link">
+      <a href="../documentation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -444,7 +498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ruff/actions/" class="md-nav__link">
+      <a href="../actions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -750,8 +804,6 @@
       
   
   
-    
-  
   
   
     
@@ -770,16 +822,18 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../configurations/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -796,7 +850,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Configurations
@@ -812,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ruff/" class="md-nav__link">
+      <a href="../../configurations/ruff/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -833,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../uv/" class="md-nav__link">
+      <a href="../../configurations/uv/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -851,28 +905,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Rye
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../configurations/rye/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -881,33 +917,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#executable" class="md-nav__link">
-    <span class="md-ellipsis">
-      Executable
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -985,9 +994,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#executable" class="md-nav__link">
+  <a href="#command-line-mode" class="md-nav__link">
     <span class="md-ellipsis">
-      Executable
+      Command line mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#native-lsp-client-and-lsp4ij-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Native LSP client and LSP4IJ modes
     </span>
   </a>
   
@@ -1008,7 +1026,7 @@
                   
 
   
-    <a href="https://github.com/InSyncWithFoo/ryecharm/blob/master/docs/configurations/rye.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/InSyncWithFoo/ryecharm/blob/master/docs/ruff/running-modes.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1017,19 +1035,85 @@
     
       
     
-    <a href="https://github.com/InSyncWithFoo/ryecharm/raw/master/docs/configurations/rye.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/InSyncWithFoo/ryecharm/raw/master/docs/ruff/running-modes.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>Rye</h1>
+  <h1>Running modes</h1>
 
-<h2 id="executable">Executable<a class="headerlink" href="#executable" title="Permanent link">#</a></h2>
-<p>The Rye executable to be used for all operations.</p>
-<p>If it is not provided, RyeCharm will attempt
-to find one in PATH.</p>
+<p>There are three running modes:
+<i>Command line</i>, <i>LSP4IJ</i> and <i>Native LSP client</i>.</p>
+<p>These modes all have their own pros and cons.
+While RyeCharm will try to maintain consistency where possible,
+a few settings are only available in one mode but not another.</p>
+<p>The default mode is <i>Command line</i>,
+which allows for the widest range of customizations.
+However, it is recommended to use <i>Native LSP client</i> if possible,
+for performance and technical reasons.</p>
+<p>See <i><a href="../linting/">Linting</a></i> and <i><a href="../formatting/">Formatting</a></i> for more information.</p>
+<h2 id="command-line-mode"><i>Command line</i> mode<a class="headerlink" href="#command-line-mode" title="Permanent link">#</a></h2>
+<p>In <i>Command line</i> mode, RyeCharm will invoke
+the provided executable whenever it needs to run a task.
+This is in contrary to the language server modes,
+in which there is only one long-running process
+that handles all operations via the language server protocol.</p>
+<h2 id="native-lsp-client-and-lsp4ij-modes"><i>Native LSP client</i> and <i>LSP4IJ</i> modes<a class="headerlink" href="#native-lsp-client-and-lsp4ij-modes" title="Permanent link">#</a></h2>
+<p>These two modes make use of Ruff's <a href="https://docs.astral.sh/ruff/editors/#language-server-protocol">language server capabilities</a>,
+available via the <code>server</code> subcommand.</p>
+<p>The differences between them are that of the client libraries.
+To use the native client, you must be using a paid IDE.
+On the other hand, <a href="https://plugins.jetbrains.com/plugin/23257-lsp4ij">LSP4IJ</a> can be installed on any IDE.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th><i>Native LSP client</i></th>
+<th><i>LSP4IJ</i></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client</td>
+<td><a href="https://plugins.jetbrains.com/docs/intellij/language-server-protocol.html">Built-in</a></td>
+<td><a href="https://plugins.jetbrains.com/plugin/23257-lsp4ij">LSP4IJ</a> (third-party)</td>
+</tr>
+<tr>
+<td>Can be used on</td>
+<td>Paid IDEs</td>
+<td>All IDEs</td>
+</tr>
+<tr>
+<td>Supported features*</td>
+<td><a href="https://plugins.jetbrains.com/docs/intellij/language-server-protocol.html#supported-features">Few</a></td>
+<td><a href="https://github.com/redhat-developer/lsp4ij/blob/main/docs/LSPSupport.md">Much wider range</a></td>
+</tr>
+<tr>
+<td>UI integrations</td>
+<td>Better</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Customizations</td>
+<td>Easy to implement</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td>API stability</td>
+<td>Unstable</td>
+<td>Unstable</td>
+</tr>
+</tbody>
+</table>
+<p><small>* <a href="https://docs.astral.sh/ruff/editors/features/">Ruff's features</a> are supported equally well by both.</small></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>On a (paid) IDE with both clients available, a <code>LinkageError</code>
+will be thrown if <i>Native LSP client</i> is selected.
+This is <a href="https://github.com/redhat-developer/lsp4ij/issues/459">a known limitation</a>.</p>
+</div>
 
 
 
@@ -1059,7 +1143,7 @@ to find one in PATH.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../uv/" class="md-footer__link md-footer__link--prev" aria-label="Previous: uv">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ruff integration">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1069,20 +1153,20 @@ to find one in PATH.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                uv
+                Ruff integration
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../other-features/" class="md-footer__link md-footer__link--next" aria-label="Next: Other features">
+          <a href="../linting/" class="md-footer__link md-footer__link--next" aria-label="Next: Linting">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Other features
+                Linting
               </div>
             </div>
             <div class="md-footer__button md-icon">
