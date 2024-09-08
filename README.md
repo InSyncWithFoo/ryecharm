@@ -53,7 +53,7 @@ Add the following line to the <b>Help</b> |
 
 ## Installation
 
-This plugin is [available on the Marketplace][7] under the Nightly channel.
+This plugin is [available on the Marketplace][7].
 You can also download the ZIP files manually from [the <i>Releases</i> tab][10],
 [the `build` branch][11] or [the <i>Actions</i> tab][12]
 and follow the instructions described [here][13].
