@@ -5,7 +5,7 @@ import com.jetbrains.python.sdk.PythonSdkUtil
 import com.jetbrains.python.sdk.flavors.CPythonSdkFlavor
 import com.jetbrains.python.sdk.flavors.PyFlavorData
 import com.jetbrains.python.sdk.flavors.VirtualEnvSdkFlavor
-import insyncwithfoo.ryecharm.icons.UVIcons
+import insyncwithfoo.ryecharm.UVIcons
 import java.io.File
 
 

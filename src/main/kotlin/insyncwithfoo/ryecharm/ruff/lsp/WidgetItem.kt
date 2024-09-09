@@ -3,8 +3,8 @@ package insyncwithfoo.ryecharm.ruff.lsp
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.lsWidget.LspServerWidgetItem
+import insyncwithfoo.ryecharm.RuffIcons
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurable
-import insyncwithfoo.ryecharm.icons.RuffIcons
 import insyncwithfoo.ryecharm.message
 
 

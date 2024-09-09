@@ -6,7 +6,6 @@ import com.intellij.notification.NotificationGroup
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.project.Project
-import insyncwithfoo.ryecharm.icons.RyeIcons
 
 
 internal typealias RyeCharmNotificationGroup = NotificationGroup

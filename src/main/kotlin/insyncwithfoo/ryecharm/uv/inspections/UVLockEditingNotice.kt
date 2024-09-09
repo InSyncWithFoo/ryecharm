@@ -6,7 +6,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.EditorNotificationPanel
 import com.intellij.ui.EditorNotificationProvider
-import insyncwithfoo.ryecharm.icons.UVIcons
+import insyncwithfoo.ryecharm.UVIcons
 import insyncwithfoo.ryecharm.isUVLock
 import insyncwithfoo.ryecharm.message
 import java.util.function.Function

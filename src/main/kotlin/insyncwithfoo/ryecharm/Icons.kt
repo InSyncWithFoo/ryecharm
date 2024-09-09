@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.icons
+package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.util.IconLoader
 

@@ -2,7 +2,6 @@ package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
-import insyncwithfoo.ryecharm.icons.RyeIcons
 
 
 internal fun Project?.showMessage(title: String, message: String) {

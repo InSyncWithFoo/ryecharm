@@ -6,7 +6,7 @@ import com.intellij.ide.util.projectWizard.CustomStepProjectGenerator
 import com.intellij.ide.util.projectWizard.ProjectSettingsStepBase
 import com.intellij.platform.DirectoryProjectGenerator
 import com.jetbrains.python.newProject.PythonProjectGenerator
-import insyncwithfoo.ryecharm.icons.UVIcons
+import insyncwithfoo.ryecharm.UVIcons
 import insyncwithfoo.ryecharm.message
 
 
