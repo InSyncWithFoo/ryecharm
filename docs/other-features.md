@@ -24,6 +24,15 @@ are replaced with the tools' logos:
 </figure>
 
 
+## New terminal autocompletion
+
+If the [new terminal][4] is used,
+autocompletion will be provided for `ruff` and `uv` commands.
+
+![](./assets/features-new-terminal-autocompletion.png)
+
+
   [1]: https://www.jetbrains.com/help/pycharm/project-tool-window.html
   [2]: https://www.jetbrains.com/help/pycharm/settings-editor-tabs.html#Settings_Editor_Tabs.topic
   [3]: https://www.jetbrains.com/help/pycharm/part-4-using-the-navigation-bar.html
+  [4]: https://blog.jetbrains.com/idea/2024/02/the-new-terminal-beta-is-now-in-jetbrains-ides/

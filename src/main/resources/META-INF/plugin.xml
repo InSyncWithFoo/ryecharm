@@ -23,6 +23,7 @@
 	<depends>com.intellij.modules.platform</depends>
 	
 	<depends>org.toml.lang</depends>
+	<depends>org.jetbrains.plugins.terminal</depends>
 	
 	<depends optional="true" config-file="lsp4ij.xml">com.redhat.devtools.lsp4ij</depends>
 	<depends optional="true" config-file="ultimate.xml">com.intellij.modules.ultimate</depends>
@@ -108,9 +109,25 @@
 		/>
 		
 		<fileIconProvider
-			id="insyncwithfoo.ryecharm.icons.RyeCharmFilesIconProvider"
+			id="insyncwithfoo.ryecharm.common.icons.RyeCharmFilesIconProvider"
 			order="first"
-			implementation="insyncwithfoo.ryecharm.icons.RyeCharmFilesIconProvider"
+			implementation="insyncwithfoo.ryecharm.common.icons.RyeCharmFilesIconProvider"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
+		<!--suppress PluginXmlValidity -->
+		<commandSpecsProvider
+			id="insyncwithfoo.ryecharm.common.terminal.RuffCommandSpecsProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.common.terminal.RuffCommandSpecsProvider"
+		/>
+		
+		<!--suppress PluginXmlValidity -->
+		<commandSpecsProvider
+			id="insyncwithfoo.ryecharm.common.terminal.UVCommandSpecsProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.common.terminal.UVCommandSpecsProvider"
 		/>
 	</extensions>
 	
