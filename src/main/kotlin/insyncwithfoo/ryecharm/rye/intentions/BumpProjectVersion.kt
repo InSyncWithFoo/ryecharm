@@ -11,7 +11,9 @@ import insyncwithfoo.ryecharm.WriteIntentionAction
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
+import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.rye.commands.VersionBumpType
@@ -35,6 +37,10 @@ internal abstract class BumpProjectVersion(val bumpType: VersionBumpType) :
         val document = file!!.viewProvider.document ?: return
         val rye = project.rye ?: return project.unableToRunCommand()
         val command = rye.version(bumpType)
+        
+        if (project.path == null) {
+            return noProjectFound()
+        }
         
         fileDocumentManager.saveDocumentAsIs(document)
         project.runCommandAndLoadOutput(command, file)
