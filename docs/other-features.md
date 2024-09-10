@@ -32,7 +32,21 @@ autocompletion will be provided for `ruff` and `uv` commands.
 ![](./assets/features-new-terminal-autocompletion.png)
 
 
+## Inline script metadata block language injection
+
+Inline script metadata blocks ([PEP 723][5])
+are automatically injected with TOML.
+Only the first such block is recognized.
+
+This can be disabled using [the corresponding setting][6].
+To make the IDE rerender the block, make an arbitrary edit or reopen the file.
+
+![](./assets/features-inline-metadata-language-injection.png)
+
+
   [1]: https://www.jetbrains.com/help/pycharm/project-tool-window.html
   [2]: https://www.jetbrains.com/help/pycharm/settings-editor-tabs.html#Settings_Editor_Tabs.topic
   [3]: https://www.jetbrains.com/help/pycharm/part-4-using-the-navigation-bar.html
   [4]: https://blog.jetbrains.com/idea/2024/02/the-new-terminal-beta-is-now-in-jetbrains-ides/
+  [5]: https://peps.python.org/pep-0723/
+  [6]: ./configurations/main.md#inline-script-metadata-block-language-injection

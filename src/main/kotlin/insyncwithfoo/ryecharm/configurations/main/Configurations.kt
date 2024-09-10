@@ -7,8 +7,7 @@ import insyncwithfoo.ryecharm.configurations.SettingName
 
 
 internal class MainConfigurations : DisplayableState(), Copyable {
-    // FIXME: Remove this and its label as well as fix the tests
-    var placeholderPropertyToAvoidImproperSerialization by property(false)
+    var pep723LanguageInjection by property(true)
 }
 
 

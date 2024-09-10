@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.configurations.main
 
 import insyncwithfoo.ryecharm.configurations.ConfigurationsTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 
@@ -10,7 +11,9 @@ internal class MainConfigurationsTest : ConfigurationsTest<MainConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 1) {}
+        doShapeTest(expectedSize = 1) {
+            assertEquals(true, pep723LanguageInjection)
+        }
     }
     
     @Test

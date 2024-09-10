@@ -15,9 +15,8 @@
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/25230)][9]
 
 <!-- Plugin description -->
-The all-in-one PyCharm plugin for Astral-backed Python tools.
-
-This plugin provides [Ruff][1], [uv][2] and [Rye][3] integration for PyCharm.
+The all-in-one PyCharm plugin for Astral-backed Python tools:
+[Ruff][1], [uv][2] and [Rye][3].
 
 
 ## Usage

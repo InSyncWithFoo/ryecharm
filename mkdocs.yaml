@@ -89,6 +89,7 @@ nav:
     - Ruff: configurations/ruff.md
     - uv: configurations/uv.md
     - Rye: configurations/rye.md
+    - Other: configurations/main.md
   - Other features: other-features.md
   - FAQ: faq.md
 
