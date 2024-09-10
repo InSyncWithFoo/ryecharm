@@ -6,6 +6,7 @@ import insyncwithfoo.ryecharm.getEventualDelegate
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.rye.commands.VersionBumpType
 import insyncwithfoo.ryecharm.testDataPath
+import org.junit.Test
 
 
 internal class BumpProjectVersionTest : PlatformTestCase() {
@@ -24,6 +25,7 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
         )
     }
     
+    @Test
     fun `test bumpType`() {
         val (major, minor, patch) = intentions
         
@@ -32,17 +34,20 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
         assertEquals(VersionBumpType.PATCH, patch.bumpType)
     }
     
+    @Test
     fun `test startInWriteAction`() {
         intentions.forEach { intention ->
             assertEquals(true, intention.startInWriteAction())
         }
     }
     
+    @Test
     fun `test getFamilyName`() {
         val familyNames = intentions.mapTo(mutableSetOf()) { it.familyName }
         assertEquals(3, familyNames.size)
     }
     
+    @Test
     fun `test getText`() {
         intentions.forEach { intention ->
             val prefix = message("intentions.rye.bumpProjectVersion.familyName")
@@ -52,25 +57,22 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
         }
     }
     
-    fun `test generatePreview`() {
-        fixture.configureByFile("pyproject.toml")
-        
+    @Test
+    fun `test generatePreview`() = fileBasedTest("pyproject.toml") {
         intentions.forEach { intention ->
             assertEquals(IntentionPreviewInfo.EMPTY, intention.generatePreview(project, editor, file))
         }
     }
     
-    fun `test isAvailable`() {
-        fixture.configureByFile("pyproject.toml")
-        
+    @Test
+    fun `test isAvailable`() = fileBasedTest("pyproject.toml") {
         intentions.forEach { intention ->
             assertEquals(true, intention.isAvailable(project, editor, file))
         }
     }
     
-    fun `test availability`() {
-        fixture.configureByFile("pyproject.toml")
-        
+    @Test
+    fun `test availability`() = fileBasedTest("pyproject.toml") {
         val hint = message("intentions.rye.bumpProjectVersion.familyName")
         val availableIntentions = fixture.filterAvailableIntentions(hint)
             .map { it.getEventualDelegate() }

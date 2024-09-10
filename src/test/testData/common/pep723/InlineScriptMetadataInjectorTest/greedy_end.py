@@ -1,0 +1,4 @@
+# /// script
+# some-string = ""<caret>
+# ///
+# ///

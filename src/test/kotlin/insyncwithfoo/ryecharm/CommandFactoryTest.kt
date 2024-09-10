@@ -1,13 +1,10 @@
 package insyncwithfoo.ryecharm
 
-import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import java.nio.file.Path
 import java.util.*
 
 
-abstract class CommandFactoryTest : LightPlatformCodeInsightFixture4TestCase() {
-    
-    private val fixture by ::myFixture
+internal abstract class CommandFactoryTest : PlatformTestCase() {
     
     protected val lowercase: Char
         get() = ('a'..'z').random()

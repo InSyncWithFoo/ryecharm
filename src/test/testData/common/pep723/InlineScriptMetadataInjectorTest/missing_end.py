@@ -1,0 +1,4 @@
+# /// script
+# dependencies = [<caret>
+#    "requests"
+# ]
