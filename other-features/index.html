@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://insyncwithfoo.github.io/ryecharm/other-features/">
       
       
-        <link rel="prev" href="../configurations/rye/">
+        <link rel="prev" href="../configurations/main/">
       
       
         <link rel="next" href="../faq/">
@@ -765,6 +765,8 @@
       
         
       
+        
+      
     
     
     
@@ -868,6 +870,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurations/main/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -936,6 +959,15 @@
   <a href="#new-terminal-autocompletion" class="md-nav__link">
     <span class="md-ellipsis">
       New terminal autocompletion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inline-script-metadata-block-language-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inline script metadata block language injection
     </span>
   </a>
   
@@ -1011,6 +1043,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#inline-script-metadata-block-language-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inline script metadata block language injection
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1069,6 +1110,13 @@ are replaced with the tools' logos:</p>
 <p>If the <a href="https://blog.jetbrains.com/idea/2024/02/the-new-terminal-beta-is-now-in-jetbrains-ides/">new terminal</a> is used,
 autocompletion will be provided for <code>ruff</code> and <code>uv</code> commands.</p>
 <p><img alt="" src="../assets/features-new-terminal-autocompletion.png" /></p>
+<h2 id="inline-script-metadata-block-language-injection">Inline script metadata block language injection<a class="headerlink" href="#inline-script-metadata-block-language-injection" title="Permanent link">#</a></h2>
+<p>Inline script metadata blocks (<a href="https://peps.python.org/pep-0723/">PEP 723</a>)
+are automatically injected with TOML.
+Only the first such block is recognized.</p>
+<p>This can be disabled using <a href="../configurations/main/#inline-script-metadata-block-language-injection">the corresponding setting</a>.
+To make the IDE rerender the block, make an arbitrary edit or reopen the file.</p>
+<p><img alt="" src="../assets/features-inline-metadata-language-injection.png" /></p>
 
 
 
@@ -1098,7 +1146,7 @@ autocompletion will be provided for <code>ruff</code> and <code>uv</code> comman
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../configurations/rye/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Rye">
+          <a href="../configurations/main/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Other">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1108,7 +1156,7 @@ autocompletion will be provided for <code>ruff</code> and <code>uv</code> comman
                 Previous
               </span>
               <div class="md-ellipsis">
-                Rye
+                Other
               </div>
             </div>
           </a>
