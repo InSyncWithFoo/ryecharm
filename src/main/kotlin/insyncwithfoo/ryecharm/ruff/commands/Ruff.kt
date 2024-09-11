@@ -90,7 +90,8 @@ internal class Ruff private constructor(
     
     fun optimizeImports(text: String, stdinFilename: Path?): Command {
         val arguments = mutableListOf(
-            "--fix", "--exit-zero", "--quiet",
+            "--fix", "--fix-only",
+            "--exit-zero", "--quiet",
             "--select", "I,F401",
         )
         
@@ -102,6 +103,22 @@ internal class Ruff private constructor(
         arguments.add("-")
         
         return OptimizeImportsCommand().build(arguments, text)
+    }
+    
+    fun fixAll(text: String, stdinFilename: Path?): Command {
+        val arguments = mutableListOf(
+            "--fix", "--fix-only",
+            "--exit-zero", "--quiet"
+        )
+        
+        if (stdinFilename != null) {
+            arguments.add("--stdin-filename")
+            arguments.add(stdinFilename.toString())
+        }
+        
+        arguments.add("-")
+        
+        return FixAllCommand().build(arguments, text)
     }
     
     private fun Command.build(arguments: Arguments? = null, stdin: String? = null) = this.apply {

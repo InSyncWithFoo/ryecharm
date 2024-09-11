@@ -1,0 +1,9 @@
+import os  # F401
+
+list(sorted([]))  # C413
+
+def foo_bar():
+    if baz_qux:
+        lorem_ipsum()
+
+    return None  # RET501
