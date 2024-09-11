@@ -15,6 +15,19 @@ plugins {
 group = providers.gradleProperty("pluginGroup").get()
 version = providers.gradleProperty("pluginVersion").get()
 
+idea {
+    module {
+        testResources.from(file("src/test/testData"))
+        
+        excludeDirs.add(file(".credentials"))
+        excludeDirs.add(file(".gradle"))
+        excludeDirs.add(file(".kotlin"))
+        excludeDirs.add(file(".sources"))
+        excludeDirs.add(file(".venv"))
+        excludeDirs.add(file("build"))
+    }
+}
+
 // Set the JVM language level used to build the project.
 kotlin {
     jvmToolchain(21)

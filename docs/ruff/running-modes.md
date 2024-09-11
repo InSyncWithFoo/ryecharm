@@ -3,7 +3,7 @@ There are three running modes:
 
 These modes all have their own pros and cons.
 While RyeCharm will try to maintain consistency where possible,
-a few settings are only available in one mode but not another.
+a few features/settings are only available in one mode but not another.
 
 The default mode is <i>Command line</i>,
 which allows for the widest range of customizations.

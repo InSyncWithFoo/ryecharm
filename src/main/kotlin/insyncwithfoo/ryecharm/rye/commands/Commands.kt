@@ -22,7 +22,7 @@ internal class ShowCommand : Command(), RyeCommand {
     override val timeoutKey = RyeTimeouts.SHOW.key
     
     override val runningMessage: String
-        get() = message("configurations.timeouts.rye.show")
+        get() = message("progresses.command.rye.show")
     
 }
 
