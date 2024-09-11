@@ -172,4 +172,29 @@ internal class RuffTest : CommandFactoryTest() {
         }
     }
     
+    @Test
+    fun `test organizeImports`() {
+        val text = randomText()
+        val path = randomPath().orRandomlyNull()
+        
+        val command = ruff.organizeImports(text, path)
+        val arguments = command.arguments
+        
+        assertEquals("check", command.subcommand)
+        assertEquals(text, command.stdin)
+        assertEquals(projectPath, command.workingDirectory)
+        
+        assertEquals("-", arguments.last())
+        assertContains(arguments, "--fix")
+        assertContains(arguments, "--fix-only")
+        assertContains(arguments, "--exit-zero")
+        assertContains(arguments, "--quiet")
+        
+        assertTrue(arguments include listOf("--select", "I"))
+        
+        if (path != null) {
+            assertTrue(arguments include listOf("--stdin-filename", path.toString()))
+        }
+    }
+    
 }

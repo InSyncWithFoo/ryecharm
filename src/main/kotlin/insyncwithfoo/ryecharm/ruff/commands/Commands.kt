@@ -60,6 +60,17 @@ internal class FixAllCommand : Command(), RuffCommand {
 }
 
 
+internal class OrganizeImportsCommand : Command(), RuffCommand {
+    
+    override val subcommand = "check"
+    override val timeoutKey = RuffTimeouts.CHECK.key  // FIXME: Or FORMAT/specialized?
+    
+    override val runningMessage: String
+        get() = message("progresses.command.ruff.organizeImports")
+    
+}
+
+
 internal class LinterCommand : Command(), RuffCommand {
     
     override val subcommand = "linter"

@@ -121,6 +121,23 @@ internal class Ruff private constructor(
         return FixAllCommand().build(arguments, text)
     }
     
+    fun organizeImports(text: String, stdinFilename: Path?): Command {
+        val arguments = mutableListOf(
+            "--fix", "--fix-only",
+            "--exit-zero", "--quiet",
+            "--select", "I",
+        )
+        
+        if (stdinFilename != null) {
+            arguments.add("--stdin-filename")
+            arguments.add(stdinFilename.toString())
+        }
+        
+        arguments.add("-")
+        
+        return OrganizeImportsCommand().build(arguments, text)
+    }
+    
     private fun Command.build(arguments: Arguments? = null, stdin: String? = null) = this.apply {
         this.arguments = arguments?.withGlobalOptions() ?: emptyList()
         this.stdin = stdin
