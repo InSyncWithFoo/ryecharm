@@ -39,7 +39,7 @@ Add the following line to the <b>Help</b> |
 <b>Diagnostic Tools</b> | <b>Debug Log Settings</b> panel:
 
 ```text
-#com.intellij.platform.lsp
+com.intellij.platform.lsp
 ```
 
 

@@ -1,6 +1,5 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
-import org.jetbrains.intellij.platform.gradle.Constants.Constraints
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
@@ -156,6 +155,7 @@ tasks {
         // From https://app.slack.com/client/T5P9YATH9/C5U8BM1MK
         systemProperty("ide.browser.jcef.headless.enabled", "true")
         systemProperty("ide.tree.painter.compact.default", "true")
+        systemProperty("idea.is.internal", "true")
         systemProperty("projectView.hide.dot.idea", "false")
         systemProperty("terminal.new.ui", "true")
     }
@@ -171,19 +171,23 @@ tasks {
 
 // Configure UI tests plugin
 // Read more: https://github.com/JetBrains/intellij-ui-test-robot
-val runIdeForUiTests by intellijPlatformTesting.runIde.registering {
-    task {
-        jvmArgumentProviders += CommandLineArgumentProvider {
-            listOf(
-                "-Drobot-server.port=8082",
-                "-Dide.mac.message.dialogs.as.sheets=false",
-                "-Djb.privacy.policy.text=<!--999.999-->",
-                "-Djb.consents.confirmation.enabled=false",
-            )
+intellijPlatformTesting {
+    runIde {
+        register("runIdeForUiTests") {
+            task {
+                jvmArgumentProviders += CommandLineArgumentProvider {
+                    listOf(
+                        "-Drobot-server.port=8082",
+                        "-Dide.mac.message.dialogs.as.sheets=false",
+                        "-Djb.privacy.policy.text=<!--999.999-->",
+                        "-Djb.consents.confirmation.enabled=false",
+                    )
+                }
+            }
+            
+            plugins {
+                robotServerPlugin()
+            }
         }
-    }
-    
-    plugins {
-        robotServerPlugin(Constraints.LATEST_VERSION)
     }
 }
