@@ -1,8 +1,8 @@
 package insyncwithfoo.ryecharm.ruff.commands
 
 import com.intellij.openapi.project.Project
-import insyncwithfoo.ryecharm.Arguments
 import insyncwithfoo.ryecharm.Command
+import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.CommandWithTimeout
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
@@ -40,35 +40,27 @@ internal class Ruff private constructor(
 ) : CommandFactory() {
     
     fun check(text: String, stdinFilename: Path?): Command {
-        val arguments = mutableListOf(
-            "--no-fix", "--exit-zero", "--quiet",
-            "--output-format", "json"
-        )
+        val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet", "-")
+        
+        arguments["--output-format"] = "json"
         
         if (stdinFilename != null) {
-            arguments.add("--stdin-filename")
-            arguments.add(stdinFilename.toString())
+            arguments["--stdin-filename"] = stdinFilename.toString()
         }
-        
-        arguments.add("-")
         
         return CheckCommand().build(arguments, text)
     }
     
     fun format(text: String, stdinFilename: Path?, range: OneBasedRange? = null): Command {
-        val arguments = mutableListOf("--quiet")
+        val arguments = CommandArguments("--quiet", "-")
         
         if (stdinFilename != null) {
-            arguments.add("--stdin-filename")
-            arguments.add(stdinFilename.toString())
+            arguments["--stdin-filename"] = stdinFilename.toString()
         }
         
         if (range != null) {
-            arguments.add("--range")
-            arguments.add(range.toString())
+            arguments["--range"] = range.toString()
         }
-        
-        arguments.add("-")
         
         return FormatCommand().build(arguments, text)
     }
@@ -77,85 +69,72 @@ internal class Ruff private constructor(
         CleanCommand().build().also { it.workingDirectory = path }
     
     fun rule(code: String) =
-        RuleCommand().build(arguments = listOf(code))
+        RuleCommand().build(CommandArguments(code))
     
-    fun config(option: String? = null) =
-        ConfigCommand().build(arguments = listOfNotNull(option, "--output-format", "json"))
+    fun config(option: String? = null): Command {
+        val arguments = CommandArguments("--output-format" to "json")
+        
+        if (option != null) {
+            arguments += option
+        }
+        
+        return ConfigCommand().build(arguments)
+    }
     
     fun linter() =
-        LinterCommand().build(arguments = listOf("--output-format", "json"))
+        LinterCommand().build(CommandArguments("--output-format" to "json"))
     
     fun version() =
         VersionCommand().build()
     
     fun optimizeImports(text: String, stdinFilename: Path?): Command {
-        val arguments = mutableListOf(
-            "--fix", "--fix-only",
-            "--exit-zero", "--quiet",
-            "--select", "I,F401",
-        )
+        val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+        
+        arguments["--select"] = "I,F401"
         
         if (stdinFilename != null) {
-            arguments.add("--stdin-filename")
-            arguments.add(stdinFilename.toString())
+            arguments["--stdin-filename"] = stdinFilename.toString()
         }
-        
-        arguments.add("-")
         
         return OptimizeImportsCommand().build(arguments, text)
     }
     
     fun fixAll(text: String, stdinFilename: Path?): Command {
-        val arguments = mutableListOf(
-            "--fix", "--fix-only",
-            "--exit-zero", "--quiet"
-        )
+        val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
         
         if (stdinFilename != null) {
-            arguments.add("--stdin-filename")
-            arguments.add(stdinFilename.toString())
+            arguments["--stdin-filename"] = stdinFilename.toString()
         }
-        
-        arguments.add("-")
         
         return FixAllCommand().build(arguments, text)
     }
     
     fun organizeImports(text: String, stdinFilename: Path?): Command {
-        val arguments = mutableListOf(
-            "--fix", "--fix-only",
-            "--exit-zero", "--quiet",
-            "--select", "I",
-        )
+        val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+        
+        arguments["--select"] = "I"
         
         if (stdinFilename != null) {
-            arguments.add("--stdin-filename")
-            arguments.add(stdinFilename.toString())
+            arguments["--stdin-filename"] = stdinFilename.toString()
         }
-        
-        arguments.add("-")
         
         return OrganizeImportsCommand().build(arguments, text)
     }
     
-    private fun Command.build(arguments: Arguments? = null, stdin: String? = null) = this.apply {
-        this.arguments = arguments?.withGlobalOptions() ?: emptyList()
+    private fun Command.build(arguments: CommandArguments? = null, stdin: String? = null) = this.apply {
+        this.arguments = arguments?.withGlobalOptions()?.toList() ?: emptyList()
         this.stdin = stdin
         
         setExecutableAndWorkingDirectory()
     }
     
-    private fun Arguments.withGlobalOptions(): Arguments {
-        val new = this.toMutableList()
-        
+    private fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.ruffConfigurations
         val configurationFile = configurations?.configurationFile
         
         if (configurationFile != null) {
-            new.addAll(0, listOf("--config", configurationFile))
+            this["--config"] = configurationFile
         }
-        
-        return new
     }
     
     companion object {

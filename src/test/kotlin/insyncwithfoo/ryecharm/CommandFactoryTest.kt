@@ -4,6 +4,9 @@ import java.nio.file.Path
 import java.util.*
 
 
+private typealias Arguments = List<String>
+
+
 internal abstract class CommandFactoryTest : PlatformTestCase() {
     
     protected val lowercase: Char

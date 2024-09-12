@@ -10,9 +10,6 @@ import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
 
-internal typealias Arguments = List<String>
-
-
 internal abstract class CommandFactory {
     
     abstract val executable: Path
@@ -21,10 +18,6 @@ internal abstract class CommandFactory {
     protected fun Command.setExecutableAndWorkingDirectory() = this.apply {
         executable = this@CommandFactory.executable
         workingDirectory = this@CommandFactory.workingDirectory
-    }
-    
-    protected fun <T> T.add(vararg arguments: String) where T : Arguments, T : MutableList<String> {
-        this.addAll(arguments)
     }
     
 }

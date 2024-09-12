@@ -28,7 +28,7 @@ internal class RuffTest : CommandFactoryTest() {
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
-        assertEquals("-", arguments.last())
+        assertContains(arguments, "-")
         assertContains(arguments, "--no-fix")
         assertContains(arguments, "--exit-zero")
         assertContains(arguments, "--quiet")
@@ -56,7 +56,7 @@ internal class RuffTest : CommandFactoryTest() {
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
-        assertEquals("-", arguments.last())
+        assertContains(arguments, "-")
         assertContains(arguments, "--quiet")
         
         if (path != null) {
@@ -136,7 +136,7 @@ internal class RuffTest : CommandFactoryTest() {
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
-        assertEquals("-", arguments.last())
+        assertContains(arguments, "-")
         assertContains(arguments, "--fix")
         assertContains(arguments, "--fix-only")
         assertContains(arguments, "--exit-zero")
@@ -161,7 +161,7 @@ internal class RuffTest : CommandFactoryTest() {
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
-        assertEquals("-", arguments.last())
+        assertContains(arguments, "-")
         assertContains(arguments, "--fix")
         assertContains(arguments, "--fix-only")
         assertContains(arguments, "--exit-zero")
@@ -184,7 +184,7 @@ internal class RuffTest : CommandFactoryTest() {
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
-        assertEquals("-", arguments.last())
+        assertContains(arguments, "-")
         assertContains(arguments, "--fix")
         assertContains(arguments, "--fix-only")
         assertContains(arguments, "--exit-zero")

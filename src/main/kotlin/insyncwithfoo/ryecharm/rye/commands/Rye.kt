@@ -2,8 +2,8 @@ package insyncwithfoo.ryecharm.rye.commands
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.SystemInfo
-import insyncwithfoo.ryecharm.Arguments
 import insyncwithfoo.ryecharm.Command
+import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.CommandWithTimeout
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
@@ -49,7 +49,7 @@ internal class Rye private constructor(
 ) : CommandFactory() {
     
     fun config() =
-        ConfigCommand().build(arguments = listOf("--show-path"))
+        ConfigCommand().build(CommandArguments("--show-path"))
     
     fun show() =
         ShowCommand().build()
@@ -58,13 +58,13 @@ internal class Rye private constructor(
         VersionCommand().build()
     
     fun version(bumpType: VersionBumpType) =
-        VersionCommand().build(arguments = listOf("--bump", bumpType.toString()))
+        VersionCommand().build(CommandArguments("--bump" to bumpType.toString()))
     
     fun version(newVersion: ProjectVersion) =
-        VersionCommand().build(arguments = listOf(newVersion))
+        VersionCommand().build(CommandArguments(newVersion))
     
-    private fun Command.build(arguments: Arguments? = null) = this.apply {
-        this.arguments = arguments ?: emptyList()
+    private fun Command.build(arguments: CommandArguments? = null) = this.apply {
+        this.arguments = arguments?.toList() ?: emptyList()
         
         setExecutableAndWorkingDirectory()
     }

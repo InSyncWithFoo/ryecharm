@@ -2,8 +2,8 @@ package insyncwithfoo.ryecharm.uv.commands
 
 import com.intellij.openapi.project.Project
 import com.jetbrains.python.packaging.common.PythonPackageSpecification
-import insyncwithfoo.ryecharm.Arguments
 import insyncwithfoo.ryecharm.Command
+import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.CommandWithTimeout
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
@@ -54,46 +54,49 @@ internal class UV private constructor(
         pinPython: Boolean,
         baseInterpreter: Path
     ): Command {
-        val arguments = mutableListOf("--no-workspace")
+        val arguments = CommandArguments("--no-workspace")
         
-        arguments.add("--python", baseInterpreter.toString())
+        arguments["--python"] = baseInterpreter.toString()
         
         if (name != null) {
-            arguments.add("--name")
-            arguments.add(name)
+            arguments["--name"] = name
         }
         
         when (kind) {
-            ProjectKind.APP -> arguments.add("--app")
-            ProjectKind.LIBRARY -> arguments.add("--lib")
-            ProjectKind.PACKAGED_APP -> arguments.add("--app", "--package")
+            ProjectKind.APP -> arguments += "--app"
+            ProjectKind.LIBRARY -> arguments += "--lib"
+            ProjectKind.PACKAGED_APP -> arguments += listOf("--app", "--package")
         }
         
         if (!createReadme) {
-            arguments.add("--no-readme")
+            arguments += "--no-readme"
         }
         
         if (!pinPython) {
-            arguments.add("--no-pin-python")
+            arguments += "--no-pin-python"
         }
         
         return InitCommand().build(arguments)
     }
     
     fun add(target: PythonPackageSpecification) =
-        AddCommand().build(arguments = listOf(target.toPEP508Format()))
+        AddCommand().build(CommandArguments(target.toPEP508Format()))
     
     fun upgrade(target: PythonPackageSpecification) =
-        UpgradeCommand().build(arguments = listOf(target.toPEP508Format(), "--upgrade"))
+        UpgradeCommand().build(CommandArguments(target.toPEP508Format(), "--upgrade"))
     
     fun remove(target: String) =
-        RemoveCommand().build(arguments = listOf(target))
+        RemoveCommand().build(CommandArguments(target))
     
     fun sync() =
         SyncCommand().build()
     
     fun venv(baseInterpreter: Path, name: String? = null): Command {
-        val arguments = listOfNotNull(name, "--python", baseInterpreter.toString())
+        val arguments = CommandArguments("--python" to baseInterpreter.toString())
+        
+        if (name != null) {
+            arguments += name
+        }
         
         return VenvCommand().build(arguments)
     }
@@ -103,25 +106,21 @@ internal class UV private constructor(
     
     // FIXME: This seems problematic
     fun pipList() =
-        PipListCommand().build(arguments = listOf("list", "--format", "json"))
+        PipListCommand().build(CommandArguments("list", "--format", "json"))
     
-    private fun Command.build(arguments: Arguments? = null) = this.apply {
-        this.arguments = arguments?.withGlobalOptions() ?: emptyList()
+    private fun Command.build(arguments: CommandArguments? = null) = this.apply {
+        this.arguments = arguments?.withGlobalOptions()?.toList() ?: emptyList()
         
         setExecutableAndWorkingDirectory()
     }
     
-    private fun Arguments.withGlobalOptions(): Arguments {
-        val new = this.toMutableList()
-        
+    private fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.uvConfigurations
         val configurationFile = configurations?.configurationFile
         
         if (configurationFile != null) {
-            new.addAll(0, listOf("--config-file", configurationFile))
+            this["--config-file"] = configurationFile
         }
-        
-        return new
     }
     
     companion object {
