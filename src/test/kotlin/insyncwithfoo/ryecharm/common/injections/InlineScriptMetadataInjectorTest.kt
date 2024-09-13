@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.common.pep723
+package insyncwithfoo.ryecharm.common.injections
 
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.psi.PsiElement
@@ -116,6 +116,11 @@ internal class InlineScriptMetadataInjectorTest : PlatformTestCase() {
         assertEquals("", lines.last())
         
         assertContains(lines, "///")
+    }
+    
+    @Test
+    fun `test stub file`() = fileBasedTest("stub_file.pyi") {
+        assertFileDoesNotHaveInjection()
     }
     
     private fun assertFileHasInjection() {

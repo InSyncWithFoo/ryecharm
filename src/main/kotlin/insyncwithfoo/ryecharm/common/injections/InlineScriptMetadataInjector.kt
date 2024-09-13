@@ -87,13 +87,17 @@ internal class InlineScriptMetadataInjector : MultiHostInjector, InjectedFormatt
         val configurations = context.project.mainConfigurations
         
         val comment = context as PsiComment
-        val containingFile = comment.containingFile as? PyFile
         val previousLineBreak = comment.prevSibling?.takeIf { it.isLineBreak }
+        
+        val containingFile = comment.containingFile as? PyFile
+        val virtualFile = containingFile?.virtualFile
+        val fileExtension = virtualFile?.extension
         
         when {
             !configurations.languageInjectionPEP723Blocks -> return
             !comment.isBlockLine -> return
             containingFile == null || comment.parent != containingFile -> return
+            fileExtension != "py" && fileExtension != null -> return
             previousLineBreak?.prevSibling?.isStartBlockLine != true -> return
         }
         
