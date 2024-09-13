@@ -11,8 +11,9 @@ internal class MainConfigurationsTest : ConfigurationsTest<MainConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 1) {
-            assertEquals(true, pep723LanguageInjection)
+        doShapeTest(expectedSize = 2) {
+            assertEquals(true, languageInjectionPEP723Blocks)
+            assertEquals(true, languageInjectionRequirements)
         }
     }
     

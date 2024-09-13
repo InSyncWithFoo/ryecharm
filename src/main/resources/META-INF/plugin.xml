@@ -115,13 +115,19 @@
 		/>
 		
 		<multiHostInjector
-			id="insyncwithfoo.ryecharm.common.pep723.InlineScriptMetadataInjector"
-			implementation="insyncwithfoo.ryecharm.common.pep723.InlineScriptMetadataInjector"
+			id="insyncwithfoo.ryecharm.common.injections.InlineScriptMetadataInjector"
+			implementation="insyncwithfoo.ryecharm.common.injections.InlineScriptMetadataInjector"
 		/>
 		
 		<formatting.injectedOptions
-			id="insyncwithfoo.ryecharm.common.pep723.InlineScriptMetadataInjector"
-			implementation="insyncwithfoo.ryecharm.common.pep723.InlineScriptMetadataInjector"
+			id="insyncwithfoo.ryecharm.common.injections.InlineScriptMetadataInjector"
+			implementation="insyncwithfoo.ryecharm.common.injections.InlineScriptMetadataInjector"
+		/>
+		
+		<languageInjectionContributor
+			id="insyncwithfoo.ryecharm.common.injections.RequirementsInjector"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.common.injections.RequirementsInjector"
 		/>
 	</extensions>
 	

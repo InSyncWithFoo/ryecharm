@@ -18,16 +18,24 @@ private class MainPanel(state: MainConfigurations, overrides: Overrides?, projec
     AdaptivePanel<MainConfigurations>(state, overrides, project)
 
 
-private fun Row.makePEP723LanguageInjectionInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.main.pep723LanguageInjection.label")).apply(block)
+private fun Row.makeLanguageInjectionPEP723BlocksInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.main.languageInjectionPEP723Blocks.label")).apply(block)
+
+
+private fun Row.makeLanguageInjectionRequirementsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.main.languageInjectionRequirements.label")).apply(block)
 
 
 @Suppress("DialogTitleCapitalization")
 private fun MainPanel.makeComponent() = panel {
-    group(message("configurations.main.groups.pep723")) {
+    group(message("configurations.main.groups.languageInjection")) {
         row {
-            makePEP723LanguageInjectionInput { bindSelected(state::pep723LanguageInjection) }
-            makeOverrideCheckboxIfApplicable(state::pep723LanguageInjection)
+            makeLanguageInjectionPEP723BlocksInput { bindSelected(state::languageInjectionPEP723Blocks) }
+            makeOverrideCheckboxIfApplicable(state::languageInjectionPEP723Blocks)
+        }
+        row {
+            makeLanguageInjectionRequirementsInput { bindSelected(state::languageInjectionRequirements) }
+            makeOverrideCheckboxIfApplicable(state::languageInjectionRequirements)
         }
     }
 }

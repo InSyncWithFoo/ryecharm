@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.common.pep723
+package insyncwithfoo.ryecharm.common.injections
 
 import com.intellij.formatting.InjectedFormattingOptionsProvider
 import com.intellij.lang.Language
@@ -91,7 +91,7 @@ internal class InlineScriptMetadataInjector : MultiHostInjector, InjectedFormatt
         val previousLineBreak = comment.prevSibling?.takeIf { it.isLineBreak }
         
         when {
-            !configurations.pep723LanguageInjection -> return
+            !configurations.languageInjectionPEP723Blocks -> return
             !comment.isBlockLine -> return
             containingFile == null || comment.parent != containingFile -> return
             previousLineBreak?.prevSibling?.isStartBlockLine != true -> return

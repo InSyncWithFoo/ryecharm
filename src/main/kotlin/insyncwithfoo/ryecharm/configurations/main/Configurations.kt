@@ -7,7 +7,8 @@ import insyncwithfoo.ryecharm.configurations.SettingName
 
 
 internal class MainConfigurations : DisplayableState(), Copyable {
-    var pep723LanguageInjection by property(true)
+    var languageInjectionPEP723Blocks by property(true)
+    var languageInjectionRequirements by property(true)
 }
 
 

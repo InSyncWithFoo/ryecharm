@@ -3,52 +3,14 @@ package insyncwithfoo.ryecharm.ruff.documentation.toml
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.PsiDocumentationTargetProvider
 import com.intellij.psi.PsiElement
+import insyncwithfoo.ryecharm.TOMLPath
+import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isRuffToml
+import insyncwithfoo.ryecharm.wrappingTomlKey
 import org.toml.lang.TomlLanguage
 import org.toml.lang.psi.TomlKey
-import org.toml.lang.psi.TomlKeySegment
-import org.toml.lang.psi.TomlKeyValue
-import org.toml.lang.psi.TomlTable
-
-
-private val TomlTable.absoluteName: String
-    get() = header.key?.text.orEmpty()
-
-
-private val TomlKey.name: String
-    get() = segments.joinToString(".") { it.text }
-
-
-private val TomlKey.keyValuePair: TomlKeyValue?
-    get() = parent as? TomlKeyValue
-
-
-private val TomlKey.table: TomlTable?
-    get() = keyValuePair?.parent as? TomlTable
-
-
-private val TomlKey.absoluteName: String
-    get() = when {
-        parent === containingFile -> name
-        table == null -> name
-        else -> "${table!!.absoluteName}.$name"
-    }
-
-
-/**
- * Return either:
- * 
- * * Itself (`this` is a [TomlKey])
- * * Its parent (`this` is possibly a [TomlKeySegment])
- * * Its grandparent (`this` is possibly a [PsiElement]`(BARE_KEY)`)
- * * `null`, when none of the above succeeds.
- */
-private val PsiElement.wrappingTomlKey: TomlKey?
-    get() = this as? TomlKey
-        ?: parent as? TomlKey
-        ?: parent.parent as? TomlKey
 
 
 // Upstream issue: https://youtrack.jetbrains.com/issue/PY-66325
@@ -78,29 +40,22 @@ internal class RuffOptionDocumentationTargetProvider : PsiDocumentationTargetPro
             !virtualFile.isPyprojectToml && !virtualFile.isRuffToml -> return emptyList()
         }
         
-        val tomlKey = element.wrappingTomlKey
+        val tomlKey = element.wrappingTomlKey ?: return emptyList()
         val target = when {
-            virtualFile.isPyprojectToml -> tomlKey?.pyprojectTomlDocumentationTarget()
-            else -> tomlKey?.ruffTomlDocumentationTarget(virtualFile.name)
+            virtualFile.isPyprojectToml -> tomlKey.pyprojectTomlDocumentationTarget()
+            else -> tomlKey.ruffTomlDocumentationTarget(virtualFile.name)
         }
         
         return listOfNotNull(target)
     }
     
     private fun TomlKey.pyprojectTomlDocumentationTarget(): RuffOptionDocumentationTarget? {
-        val topLevelTableName = "tool.ruff"
-        val absoluteName = this.absoluteName
+        val relativeName = absoluteName.relativize(TOMLPath("tool.ruff")) ?: return null
         
-        if (!absoluteName.startsWith(topLevelTableName)) {
-            return null
-        }
-        
-        val relativeName = absoluteName.removePrefix("$topLevelTableName.")
-        
-        return RuffOptionDocumentationTarget(this, relativeName, "pyproject.toml")
+        return RuffOptionDocumentationTarget(this, relativeName.toString(), "pyproject.toml")
     }
     
     private fun TomlKey.ruffTomlDocumentationTarget(fileName: String) =
-        RuffOptionDocumentationTarget(this, absoluteName, fileName)
+        RuffOptionDocumentationTarget(this, absoluteName.toString(), fileName)
     
 }
