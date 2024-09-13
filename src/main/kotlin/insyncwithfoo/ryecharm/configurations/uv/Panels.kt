@@ -33,8 +33,12 @@ private fun Row.makeConfigurationFileInput(block: Cell<TextFieldWithBrowseButton
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.makePackageManagingInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.uv.packageManaging.label")).apply(block)
+private fun Row.makePackageManagingUVProjectsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.packageManagingUVProjects.label")).apply(block)
+
+
+private fun Row.makePackageManagingNonUVProjectsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.packageManagingNonUVProjects.label")).apply(block)
 
 
 @Suppress("DialogTitleCapitalization")
@@ -57,8 +61,17 @@ private fun UVPanel.makeComponent() = panel {
     
     group(message("configurations.uv.groups.packageManagement")) {
         row {
-            makePackageManagingInput { bindSelected(state::packageManaging) }
-            makeOverrideCheckboxIfApplicable(state::packageManaging)
+            label(message("configurations.uv.subgroups.packageManagementOperations.groupLabel"))
+        }
+        indent {
+            row {
+                makePackageManagingUVProjectsInput { bindSelected(state::packageManagingUVProjects) }
+                makeOverrideCheckboxIfApplicable(state::packageManagingUVProjects)
+            }
+            row {
+                makePackageManagingNonUVProjectsInput { bindSelected(state::packageManagingNonUVProjects) }
+                makeOverrideCheckboxIfApplicable(state::packageManagingNonUVProjects)
+            }
         }
     }
     

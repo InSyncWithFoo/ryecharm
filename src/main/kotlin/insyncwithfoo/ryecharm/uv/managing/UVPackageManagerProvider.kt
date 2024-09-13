@@ -17,12 +17,17 @@ internal class UVPackageManagerProvider : PythonPackageManagerProvider {
     
     override fun createPackageManagerForSdk(project: Project, sdk: Sdk): PythonPackageManager? {
         val uv = project.uv ?: return null
+        val configurations = project.uvConfigurations
         
-        if (!sdk.isUV && !project.uvConfigurations.packageManaging) {
-            return null
+        val useUV = when {
+            sdk.isUV -> configurations.packageManagingUVProjects
+            else -> configurations.packageManagingNonUVProjects
         }
         
-        return UVPackageManager(uv, project, sdk)
+        return when {
+            useUV -> UVPackageManager(uv, project, sdk)
+            else -> null
+        }
     }
     
 }
