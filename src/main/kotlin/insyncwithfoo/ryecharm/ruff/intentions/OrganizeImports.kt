@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.ruff.intentions
 
+import com.intellij.codeInsight.intention.LowPriorityAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
@@ -17,7 +18,7 @@ import insyncwithfoo.ryecharm.runWriteCommandAction
 import insyncwithfoo.ryecharm.unableToRunCommand
 
 
-internal class OrganizeImports : ExternalIntentionAction {
+internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction {
     
     override fun startInWriteAction() = false
     
