@@ -1,0 +1,4 @@
+[tool.uv]
+override-dependencies = [
+	"ruff==0.6.4"
+]

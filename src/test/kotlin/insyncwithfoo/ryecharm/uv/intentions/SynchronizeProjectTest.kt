@@ -4,15 +4,12 @@ import com.intellij.codeInsight.intention.preview.IntentionPreviewInfo
 import insyncwithfoo.ryecharm.PlatformTestCase
 import insyncwithfoo.ryecharm.getEventualDelegate
 import insyncwithfoo.ryecharm.message
-import insyncwithfoo.ryecharm.testDataPath
 import org.junit.Test
 
 
 internal class SynchronizeProjectTest : PlatformTestCase() {
     
     private val intention = SynchronizeProject()
-    
-    override fun getTestDataPath() = this::class.testDataPath
     
     @Test
     fun `test startInWriteAction`() {

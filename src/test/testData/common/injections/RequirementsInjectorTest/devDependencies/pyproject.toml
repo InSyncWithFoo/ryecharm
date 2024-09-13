@@ -1,0 +1,4 @@
+[tool.uv]
+dev-dependencies = [
+	"ruff==0.6.4"
+]

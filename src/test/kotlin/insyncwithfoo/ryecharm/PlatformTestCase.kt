@@ -4,6 +4,15 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
+import kotlin.reflect.KClass
+
+
+private val KClass<*>.qualifiedNameWithoutPackagePrefix: String
+    get() = qualifiedName!!.removePrefix("insyncwithfoo.ryecharm.")
+
+
+private val KClass<*>.testDataPath: String
+    get() = "src/test/testData/${qualifiedNameWithoutPackagePrefix.replace(".", "/")}"
 
 
 internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestCase() {
@@ -21,5 +30,7 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         fixture.configureByFile(filePath)
         test()
     }
+    
+    final override fun getTestDataPath() = this::class.testDataPath
     
 }

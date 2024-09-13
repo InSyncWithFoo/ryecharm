@@ -5,15 +5,12 @@ import insyncwithfoo.ryecharm.PlatformTestCase
 import insyncwithfoo.ryecharm.getEventualDelegate
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.rye.commands.VersionBumpType
-import insyncwithfoo.ryecharm.testDataPath
 import org.junit.Test
 
 
 internal class BumpProjectVersionTest : PlatformTestCase() {
     
     private lateinit var intentions: List<BumpProjectVersion>
-    
-    override fun getTestDataPath() = this::class.testDataPath
     
     override fun setUp() {
         super.setUp()

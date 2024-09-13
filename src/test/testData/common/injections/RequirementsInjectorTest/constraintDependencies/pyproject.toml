@@ -1,0 +1,4 @@
+[tool.uv]
+constraint-dependencies = [
+	"ruff==0.6.4"
+]

@@ -1,0 +1,7 @@
+[project.optional-dependencies]
+foo = [
+	"ruff==0.6.4"
+]
+"bar" = [
+	"ruff==0.6.4"
+]
