@@ -11,6 +11,11 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 
 ## [Unreleased]
 
+<i>This section is currently empty.</i>
+
+
+## [0.1.0-alpha-2] - 2024-09-14
+
 ### Dependencies
 
 * [@astral-sh/setup-uv][_0.1.0-a2-d1]: 0.1.0 &rarr; 0.2.1
@@ -74,5 +79,6 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-1..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-2..HEAD
+  [0.1.0-alpha-2]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-1..v0.1.0-alpha-2
   [0.1.0-alpha-1]: https://github.com/InSyncWithFoo/ryecharm/commits
