@@ -315,6 +315,8 @@
       
         
       
+        
+      
     
     
     
@@ -512,6 +514,27 @@
   
   <span class="md-ellipsis">
     Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intentions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intentions
   </span>
   
 
@@ -1097,16 +1120,16 @@
 (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>)
 is triggered, possibly with some code selected.</p>
 <p>In <i>Command line</i> mode, this is equivalent to
-running <code>ruff format --quiet --range ...</code>
+running <code>ruff format --range ...</code>
 with the file and the selected range as input.</p>
 <h2 id="optimize-imports">Optimize imports<a class="headerlink" href="#optimize-imports" title="Permanent link">#</a></h2>
 <p>This event happens when the <a href="https://www.jetbrains.com/help/pycharm/creating-and-optimizing-imports.html#optimize-imports"><i>Optimize Imports</i></a> action
 (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>O</kbd>) is triggered.</p>
-<p>This is equivalent to running <code>ruff check --fix --exit-zero --quiet --select I</code>
+<p>This is equivalent to running <code>ruff check --fix --select I,F401</code>
 with the file as input.</p>
 <h2 id="file-save">File save<a class="headerlink" href="#file-save" title="Permanent link">#</a></h2>
 <p>This event happens when a file is <a href="https://www.jetbrains.com/help/pycharm/saving-and-reverting-changes.html">saved</a>, automatically or manually.</p>
-<p>This is equivalent to running <code>ruff format --quiet</code> with the file as input.</p>
+<p>This is equivalent to running <code>ruff format</code> with the file as input.</p>
 
 
 

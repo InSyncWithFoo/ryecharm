@@ -313,6 +313,8 @@
       
         
       
+        
+      
     
     
     
@@ -449,6 +451,27 @@
   
   <span class="md-ellipsis">
     Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruff/intentions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intentions
   </span>
   
 
@@ -892,6 +915,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Use uv for package operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enforce-for-non-uv-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enforce for non-uv project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1032,6 +1070,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Use uv for package operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enforce-for-non-uv-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enforce for non-uv project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1079,9 +1132,12 @@ to find one in the following order:</p>
 <h2 id="use-uv-for-package-operations">Use uv for package operations<a class="headerlink" href="#use-uv-for-package-operations" title="Permanent link">#</a></h2>
 <p>If enabled, the <i>Python Packages</i> toolwindow's package operations
 will be performed with <code>uv</code> instead of the default <code>pip</code>.</p>
-<p>This setting has no effect on an <code>uv</code>-generated project,
-as <code>pip</code> is not installed by default for such projects.</p>
+<p>This setting only affects projects generated using <a href="../../uv/generating/">the <i>uv</i> panel</a>.</p>
 <p>Default: <code>true</code></p>
+<h3 id="enforce-for-non-uv-project">Enforce for non-uv project<a class="headerlink" href="#enforce-for-non-uv-project" title="Permanent link">#</a></h3>
+<p>If enabled, uv will be used for the current project,
+even if it is not a uv-generated project.</p>
+<p>Default: <code>false</code></p>
 
 
 

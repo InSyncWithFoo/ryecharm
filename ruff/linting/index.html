@@ -315,6 +315,8 @@
       
         
       
+        
+      
     
     
     
@@ -503,6 +505,27 @@
   
   <span class="md-ellipsis">
     Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intentions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intentions
   </span>
   
 
@@ -1073,8 +1096,7 @@ The latter is <a href="../../configurations/ruff/#report-syntax-errors">not repo
 as it is expected that the same errors are already reported by the IDE.</p>
 <h2 id="command-line-mode"><i>Command line</i> mode<a class="headerlink" href="#command-line-mode" title="Permanent link">#</a></h2>
 <p>In <i>Command line</i> mode, the executable is invoked after every keystroke.</p>
-<p>This is equivalent to running <code>ruff check --no-fix --exit-zero --quiet</code>
-with the file as input.</p>
+<p>This is equivalent to running <code>ruff check --no-fix</code> with the file as input.</p>
 <h2 id="lsp-modes">LSP modes<a class="headerlink" href="#lsp-modes" title="Permanent link">#</a></h2>
 <p>In LSP modes, diagnostics are sent to the client via
 <a href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_publishDiagnostics"><code>textDocument/publishDiagnostics</code></a> notifications.</p>

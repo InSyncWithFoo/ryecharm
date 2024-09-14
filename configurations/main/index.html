@@ -313,6 +313,8 @@
       
         
       
+        
+      
     
     
     
@@ -449,6 +451,27 @@
   
   <span class="md-ellipsis">
     Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruff/intentions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intentions
   </span>
   
 
@@ -923,19 +946,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pep-723-inline-script-metadata" class="md-nav__link">
+  <a href="#language-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      PEP 723: Inline script metadata
+      Language injection
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="PEP 723: Inline script metadata">
+    <nav class="md-nav" aria-label="Language injection">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#inject-toml-fragments" class="md-nav__link">
+  <a href="#pep-723-inline-script-metadata-blocks" class="md-nav__link">
     <span class="md-ellipsis">
-      Inject TOML fragments
+      PEP 723 inline script metadata blocks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-arrays-in-toml-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements arrays in TOML files
     </span>
   </a>
   
@@ -1029,19 +1061,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pep-723-inline-script-metadata" class="md-nav__link">
+  <a href="#language-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      PEP 723: Inline script metadata
+      Language injection
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="PEP 723: Inline script metadata">
+    <nav class="md-nav" aria-label="Language injection">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#inject-toml-fragments" class="md-nav__link">
+  <a href="#pep-723-inline-script-metadata-blocks" class="md-nav__link">
     <span class="md-ellipsis">
-      Inject TOML fragments
+      PEP 723 inline script metadata blocks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-arrays-in-toml-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements arrays in TOML files
     </span>
   </a>
   
@@ -1084,10 +1125,14 @@
 
 
 <h1 id="other-configurations">Other configurations<a class="headerlink" href="#other-configurations" title="Permanent link">#</a></h1>
-<h2 id="pep-723-inline-script-metadata">PEP 723: Inline script metadata<a class="headerlink" href="#pep-723-inline-script-metadata" title="Permanent link">#</a></h2>
-<h3 id="inject-toml-fragments">Inject TOML fragments<a class="headerlink" href="#inject-toml-fragments" title="Permanent link">#</a></h3>
-<p>Whether TOML should be injected as the language for
-<a href="https://peps.python.org/pep-0723/">PEP 723</a> inline script metadata blocks.</p>
+<h2 id="language-injection">Language injection<a class="headerlink" href="#language-injection" title="Permanent link">#</a></h2>
+<h3 id="pep-723-inline-script-metadata-blocks">PEP 723 inline script metadata blocks<a class="headerlink" href="#pep-723-inline-script-metadata-blocks" title="Permanent link">#</a></h3>
+<p>Whether <a href="https://peps.python.org/pep-0723/">PEP 723</a> inline script metadata blocks
+should have TOML injected.</p>
+<p>Default: <code>true</code></p>
+<h3 id="requirements-arrays-in-toml-files">Requirements arrays in TOML files<a class="headerlink" href="#requirements-arrays-in-toml-files" title="Permanent link">#</a></h3>
+<p>Whether settings taking requirements arrays as values
+should have <i>Requirements</i> injected.</p>
 <p>Default: <code>true</code></p>
 
 

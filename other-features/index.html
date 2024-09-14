@@ -313,6 +313,8 @@
       
         
       
+        
+      
     
     
     
@@ -449,6 +451,27 @@
   
   <span class="md-ellipsis">
     Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ruff/intentions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intentions
   </span>
   
 
@@ -965,11 +988,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inline-script-metadata-block-language-injection" class="md-nav__link">
+  <a href="#language-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      Inline script metadata block language injection
+      Language injection
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Language injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inline-script-metadata-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inline script metadata block
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-arrays-in-toml-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements arrays in TOML files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1044,11 +1091,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inline-script-metadata-block-language-injection" class="md-nav__link">
+  <a href="#language-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      Inline script metadata block language injection
+      Language injection
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Language injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inline-script-metadata-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inline script metadata block
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-arrays-in-toml-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements arrays in TOML files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1109,14 +1180,40 @@ are replaced with the tools' logos:</p>
 <h2 id="new-terminal-autocompletion">New terminal autocompletion<a class="headerlink" href="#new-terminal-autocompletion" title="Permanent link">#</a></h2>
 <p>If the <a href="https://blog.jetbrains.com/idea/2024/02/the-new-terminal-beta-is-now-in-jetbrains-ides/">new terminal</a> is used,
 autocompletion will be provided for <code>ruff</code> and <code>uv</code> commands.</p>
-<p><img alt="" src="../assets/features-new-terminal-autocompletion.png" /></p>
-<h2 id="inline-script-metadata-block-language-injection">Inline script metadata block language injection<a class="headerlink" href="#inline-script-metadata-block-language-injection" title="Permanent link">#</a></h2>
-<p>Inline script metadata blocks (<a href="https://peps.python.org/pep-0723/">PEP 723</a>)
+<p><img alt="" src="../assets/features-new-terminal-autocompletion-demo.png" /></p>
+<h2 id="language-injection">Language injection<a class="headerlink" href="#language-injection" title="Permanent link">#</a></h2>
+<h3 id="inline-script-metadata-block">Inline script metadata block<a class="headerlink" href="#inline-script-metadata-block" title="Permanent link">#</a></h3>
+<p><a href="https://peps.python.org/pep-0723/">PEP 723</a> inline script metadata blocks
 are automatically injected with TOML.
-Only the first such block is recognized.</p>
-<p>This can be disabled using <a href="../configurations/main/#inline-script-metadata-block-language-injection">the corresponding setting</a>.
-To make the IDE rerender the block, make an arbitrary edit or reopen the file.</p>
-<p><img alt="" src="../assets/features-inline-metadata-language-injection.png" /></p>
+Only Python files whose extensions are
+either <code>.py</code> or unknown are supported.</p>
+<p>This can be disabled using <a href="../configurations/main/#pep-723-inline-script-metadata-blocks">the corresponding setting</a>.
+To force rerendering, make an arbitrary edit or reopen the file.</p>
+<p><img alt="" src="../assets/features-inline-script-metadata-language-injection-demo.png" /></p>
+<h3 id="requirements-arrays-in-toml-files">Requirements arrays in TOML files<a class="headerlink" href="#requirements-arrays-in-toml-files" title="Permanent link">#</a></h3>
+<p>uv settings that takes an array of <a href="https://peps.python.org/pep-0508/">PEP 508</a> dependencies
+are injected with <i>Requirements</i>,
+similar to <a href="https://www.jetbrains.com/help/pycharm/pyproject-toml-support.html#specify-project-dependencies">that of <code>project.dependencies</code></a>.
+Such settings include:</p>
+<ul>
+<li>[<code>tool.uv</code>] <code>constraint-dependencies</code></li>
+<li>[<code>tool.uv</code>] <code>dev-dependencies</code></li>
+<li>[<code>tool.uv</code>] <code>override-dependencies</code></li>
+<li>[<code>tool.uv</code>] <code>upgrade-package</code></li>
+<li>[<code>tool.uv</code>] <code>pip.upgrade-package</code></li>
+</ul>
+<p><code>project.optional-dependencies</code> is also supported.
+This monkeypatches <a href="https://youtrack.jetbrains.com/issue/PY-71120">PY-71120</a>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="requirements-arrays-in-toml-files-pyprojecttoml" name="__tabbed_1" type="radio" /><input id="requirements-arrays-in-toml-files-uvtoml" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="requirements-arrays-in-toml-files-pyprojecttoml">pyproject.toml</label><label for="requirements-arrays-in-toml-files-uvtoml">uv.toml</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="" src="../assets/features-requirements-arrays-language-injection-demo-pyproject-toml.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../assets/features-requirements-arrays-language-injection-demo-uv-toml.png" /></p>
+</div>
+</div>
+</div>
 
 
 
