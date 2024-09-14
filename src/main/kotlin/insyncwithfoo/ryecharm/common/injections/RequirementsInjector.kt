@@ -29,7 +29,7 @@ private val TomlLiteral.isString: Boolean
 
 // Upstream issue: https://youtrack.jetbrains.com/issue/PY-71120
 /**
- * Inject *Requirements* fragments for elements of:
+ * Inject *Requirements* fragments for:
  * 
  * * `uv.constraint-dependencies`
  * * `uv.dev-dependencies`

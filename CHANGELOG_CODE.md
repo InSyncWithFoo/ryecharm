@@ -11,7 +11,14 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 
 ## [Unreleased]
 
-<i>This section is currently empty.</i>
+### Dependencies
+
+* [@astral-sh/setup-uv][_0.1.0-a2-d1]: 0.1.0 &rarr; 0.2.1
+* [LSP4IJ][_0.1.0-a2-d2]: 0.4.0 &rarr; 0.5.0
+
+
+  [_0.1.0-a2-d1]: https://github.com/astral-sh/setup-uv
+  [_0.1.0-a2-d2]: https://github.com/redhat-developer/lsp4ij
 
 
 ## [0.1.0-alpha-1] - 2024-09-07

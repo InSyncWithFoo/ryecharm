@@ -8,8 +8,7 @@ as it is expected that the same errors are already reported by the IDE.
 
 In <i>Command line</i> mode, the executable is invoked after every keystroke.
 
-This is equivalent to running `ruff check --no-fix --exit-zero --quiet`
-with the file as input.
+This is equivalent to running `ruff check --no-fix` with the file as input.
 
 
 ## LSP modes

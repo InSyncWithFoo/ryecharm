@@ -1,13 +1,21 @@
 # Other configurations
 
 
-## PEP 723: Inline script metadata
+## Language injection
 
 
-### Inject TOML fragments
+### PEP 723 inline script metadata blocks
 
-Whether TOML should be injected as the language for
-[PEP 723][1] inline script metadata blocks.
+Whether [PEP 723][1] inline script metadata blocks
+should have TOML injected.
+
+Default: `true`
+
+
+### Requirements arrays in TOML files
+
+Whether settings taking requirements arrays as values
+should have <i>Requirements</i> injected.
 
 Default: `true`
 

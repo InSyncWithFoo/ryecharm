@@ -15,7 +15,17 @@ to find one in the following order:
 If enabled, the <i>Python Packages</i> toolwindow's package operations
 will be performed with `uv` instead of the default `pip`.
 
-This setting has no effect on an `uv`-generated project,
-as `pip` is not installed by default for such projects.
+This setting only affects projects generated using [the <i>uv</i> panel][1].
 
 Default: `true`
+
+
+### Enforce for non-uv project
+
+If enabled, uv will be used for the current project,
+even if it is not a uv-generated project.
+
+Default: `false`
+
+
+  [1]: ../uv/generating.md

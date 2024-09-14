@@ -2,7 +2,7 @@
 
 Open the global Rye configuration file in the editor.
 
-This is equivalent to `rye config --show-path`.
+This corresponds to `rye config --show-path`.
 
 ![](../assets/rye-actions-open-configuration-file-demo.png)
 

@@ -14,7 +14,7 @@ This event happens when the [<i>Reformat Code</i>][1] action
 is triggered, possibly with some code selected.
 
 In <i>Command line</i> mode, this is equivalent to
-running `ruff format --quiet --range ...`
+running `ruff format --range ...`
 with the file and the selected range as input.
 
 
@@ -23,7 +23,7 @@ with the file and the selected range as input.
 This event happens when the [<i>Optimize Imports</i>][2] action
 (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>O</kbd>) is triggered.
 
-This is equivalent to running `ruff check --fix --exit-zero --quiet --select I`
+This is equivalent to running `ruff check --fix --select I,F401`
 with the file as input.
 
 
@@ -31,7 +31,7 @@ with the file as input.
 
 This event happens when a file is [saved][3], automatically or manually.
 
-This is equivalent to running `ruff format --quiet` with the file as input.
+This is equivalent to running `ruff format` with the file as input.
 
 
   [1]: https://www.jetbrains.com/help/pycharm/reformat-and-rearrange-code.html

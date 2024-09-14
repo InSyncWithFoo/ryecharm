@@ -73,6 +73,7 @@ nav:
     - Formatting: ruff/formatting.md
     - Documentation: ruff/documentation.md
     - Actions: ruff/actions.md
+    - Intentions: ruff/intentions.md
   - uv:
     - uv integration: uv/index.md
     - Generating new projects: uv/generating.md
