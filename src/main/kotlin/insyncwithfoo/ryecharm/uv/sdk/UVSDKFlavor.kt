@@ -1,12 +1,9 @@
 package insyncwithfoo.ryecharm.uv.sdk
 
 import com.jetbrains.python.sdk.PythonSdkAdditionalData
-import com.jetbrains.python.sdk.PythonSdkUtil
 import com.jetbrains.python.sdk.flavors.CPythonSdkFlavor
 import com.jetbrains.python.sdk.flavors.PyFlavorData
-import com.jetbrains.python.sdk.flavors.VirtualEnvSdkFlavor
 import insyncwithfoo.ryecharm.UVIcons
-import java.io.File
 
 
 /**
@@ -35,16 +32,5 @@ internal object UVSDKFlavor : CPythonSdkFlavor<PyFlavorData.Empty>() {
      */
     override fun getFlavorDataClass(): Class<PyFlavorData.Empty> =
         PyFlavorData.Empty::class.java
-    
-    /**
-     * Verify if [file] leads to a valid interpreter.
-     * 
-     * This method is currently a copy of
-     * [VirtualEnvSdkFlavor.isValidSdkPath].
-     */
-    // TODO: Delegate this to uv instead.
-    override fun isValidSdkPath(file: File): Boolean {
-        return super.isValidSdkPath(file) && PythonSdkUtil.getVirtualEnvRoot(file.path) != null
-    }
     
 }
