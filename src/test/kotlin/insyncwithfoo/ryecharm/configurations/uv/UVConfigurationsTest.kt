@@ -17,7 +17,7 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
             assertEquals(null, executable)
             assertEquals(null, configurationFile)
             
-            assertEquals(true, packageManagingUVProjects)
+            assertEquals(true, packageManaging)
             assertEquals(false, packageManagingNonUVProjects)
             
             assertEquals(emptyMap<SettingName, MillisecondsOrNoLimit>(), timeouts)

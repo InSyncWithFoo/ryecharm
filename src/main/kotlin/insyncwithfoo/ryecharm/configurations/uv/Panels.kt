@@ -33,8 +33,8 @@ private fun Row.makeConfigurationFileInput(block: Cell<TextFieldWithBrowseButton
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.makePackageManagingUVProjectsInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.uv.packageManagingUVProjects.label")).apply(block)
+private fun Row.makePackageManagingInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.packageManaging.label")).apply(block)
 
 
 private fun Row.makePackageManagingNonUVProjectsInput(block: Cell<JBCheckBox>.() -> Unit) =
@@ -61,13 +61,10 @@ private fun UVPanel.makeComponent() = panel {
     
     group(message("configurations.uv.groups.packageManagement")) {
         row {
-            label(message("configurations.uv.subgroups.packageManagementOperations.groupLabel"))
+            makePackageManagingInput { bindSelected(state::packageManaging) }
+            makeOverrideCheckboxIfApplicable(state::packageManaging)
         }
         indent {
-            row {
-                makePackageManagingUVProjectsInput { bindSelected(state::packageManagingUVProjects) }
-                makeOverrideCheckboxIfApplicable(state::packageManagingUVProjects)
-            }
             row {
                 makePackageManagingNonUVProjectsInput { bindSelected(state::packageManagingNonUVProjects) }
                 makeOverrideCheckboxIfApplicable(state::packageManagingNonUVProjects)

@@ -20,7 +20,7 @@ internal class UVPackageManagerProvider : PythonPackageManagerProvider {
         val configurations = project.uvConfigurations
         
         val useUV = when {
-            sdk.isUV -> configurations.packageManagingUVProjects
+            sdk.isUV -> configurations.packageManaging
             else -> configurations.packageManagingNonUVProjects
         }
         
