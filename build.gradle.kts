@@ -39,6 +39,7 @@ repositories {
     // IntelliJ Platform Gradle Plugin Repositories Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-repositories-extension.html
     intellijPlatform {
         defaultRepositories()
+        jetbrainsRuntime()
     }
 }
 
@@ -65,6 +66,7 @@ dependencies {
         // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file for plugin from JetBrains Marketplace.
         plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         
+        jetbrainsRuntime()
         instrumentationTools()
         pluginVerifier()
         zipSigner()

@@ -11,12 +11,21 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 
 ## [Unreleased]
 
-<i>This section is currently empty.</i>
+### Removed
+
+* PyCharm 2024.2.1 and older are no longer supported.
 
 
 ## [0.1.0-alpha-2] - 2024-09-14
 
 See [the documentation][0.1.0-a2-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.6.4][0.1.0-a2-2]
+* uv: [0.4.10][0.1.0-a2-3]
+* Rye: [0.39.0][0.1.0-a2-4]
+
 
 ### Added
 
@@ -54,6 +63,9 @@ See [the documentation][0.1.0-a2-1] for more information.
 
 
   [0.1.0-a2-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a2-2]: https://github.com/astral-sh/ruff/releases/tag/0.6.5
+  [0.1.0-a2-3]: https://github.com/astral-sh/uv/releases/tag/0.4.10
+  [0.1.0-a2-4]: https://github.com/astral-sh/rye/releases/tag/0.39.0
   [0.1.0-a2-a-1]: https://blog.jetbrains.com/idea/2024/02/the-new-terminal-beta-is-now-in-jetbrains-ides/
   [0.1.0-a2-a-2]: https://peps.python.org/pep-0723/
   [0.1.0-a2-a-3]: https://www.jetbrains.com/help/pycharm/using-language-injections.html
