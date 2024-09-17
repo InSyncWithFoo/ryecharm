@@ -9,7 +9,7 @@ changelog = "2.2.1"
 intelliJPlatform = "2.0.1"
 kotlin = "2.0.20"
 kover = "0.8.3"
-qodana = "2024.1.9"
+qodana = "2024.1.10"
 
 [libraries.annotations]
 group = "org.jetbrains"
