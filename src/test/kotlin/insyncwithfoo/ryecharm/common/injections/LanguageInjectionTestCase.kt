@@ -8,13 +8,13 @@ import insyncwithfoo.ryecharm.PlatformTestCase
 
 internal abstract class LanguageInjectionTestCase : PlatformTestCase() {
     
-    protected val injectedLanguageManager: InjectedLanguageManager
+    private val injectedLanguageManager: InjectedLanguageManager
         get() = InjectedLanguageManager.getInstance(project)
     
     protected val hostFile: PsiFile
         get() = injectedLanguageManager.getTopLevelFile(file)
     
-    protected val PsiElement.injectedElements: List<PsiElement>
+    private val PsiElement.injectedElements: List<PsiElement>
         get() = injectedLanguageManager.getInjectedPsiFiles(this)?.map { it.first } ?: emptyList()
     
     private val PsiElement.fragments: Sequence<PsiElement>

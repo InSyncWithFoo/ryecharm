@@ -11,16 +11,16 @@ internal fun PsiFile.edit(callback: (Document) -> Unit) {
 }
 
 
-internal fun PsiFile.paste(newText: String) {
+internal fun PsiFile.paste(newText: CharSequence) {
     this.edit { it.replaceContentWith(newText) }
 }
 
 
-internal fun Document.replaceString(range: TextRange, value: String) {
+internal fun Document.replaceString(range: TextRange, value: CharSequence) {
     replaceString(range.startOffset, range.endOffset, value)
 }
 
 
-internal fun Document.replaceContentWith(newContent: String) {
+internal fun Document.replaceContentWith(newContent: CharSequence) {
     replaceString(0, textLength, newContent)
 }

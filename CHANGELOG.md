@@ -44,11 +44,11 @@ Latest tool versions at the time of release:
   * \[`tool.uv`] `upgrade-package`
   * \[`tool.uv`] `pip.upgrade-package`
 
-  As a bonus, `project.optional-dependencies.*` is also supported.
+  As a bonus, `project.optional-dependencies` is also supported.
   This monkeypatches [PY-71120][0.1.0-a2-a-6].
 
 * Ruff's command line mode now supports
-  "fix all" and "organize import" as intentions.
+  "fix all" and "organize imports" as intentions.
 
 ### Changed
 
