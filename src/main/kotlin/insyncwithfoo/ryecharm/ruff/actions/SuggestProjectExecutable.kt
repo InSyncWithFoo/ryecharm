@@ -7,32 +7,32 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.startup.ProjectActivity
 import com.jetbrains.python.packaging.common.PythonPackageManagementListener
-import insyncwithfoo.ryecharm.RyeCharmNotificationGroup
+import insyncwithfoo.ryecharm.InformationNotificationGroup
 import insyncwithfoo.ryecharm.addExpiringAction
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.errorNotificationGroup
 import insyncwithfoo.ryecharm.findRuffExecutableInVenv
 import insyncwithfoo.ryecharm.information
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
-import insyncwithfoo.ryecharm.notificationGroup
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.runThenNotify
 import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
 
-private fun RyeCharmNotificationGroup.suggestExecutable(executableRelativized: Path) =
+private fun InformationNotificationGroup.suggestExecutable(executableRelativized: Path) =
     information(
         title = message("notifications.suggestExecutable.title"),
         content = message("notifications.suggestExecutable.body", executableRelativized)
     )
 
 
-private fun RyeCharmNotificationGroup.noExecutableFound() =
+private fun InformationNotificationGroup.noExecutableFound() =
     information(
         title = message("notifications.noExecutableFound.title"),
         content = message("notifications.noExecutableFound.content")
@@ -40,7 +40,7 @@ private fun RyeCharmNotificationGroup.noExecutableFound() =
 
 
 private fun Project.noExecutableFound() =
-    notificationGroup.noExecutableFound().notify(this)
+    errorNotificationGroup.noExecutableFound().notify(this)
 
 
 private fun Project.setAsExecutable(newValue: String, crossPlatform: Boolean) {
@@ -73,7 +73,7 @@ internal fun Project.suggestExecutable(executable: Path) {
     val projectPath = path ?: return
     val executableRelativized = projectPath.relativize(executable)
     
-    val notification = notificationGroup.suggestExecutable(executableRelativized)
+    val notification = errorNotificationGroup.suggestExecutable(executableRelativized)
     
     notification.runThenNotify(this) {
         addExpiringAction(message("notificationActions.setNameOnly")) {

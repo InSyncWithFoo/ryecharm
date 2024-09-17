@@ -8,11 +8,21 @@ import com.intellij.notification.NotificationType
 import com.intellij.openapi.project.Project
 
 
-internal typealias RyeCharmNotificationGroup = NotificationGroup
+internal typealias ErrorNotificationGroup = NotificationGroup
+internal typealias InformationNotificationGroup = NotificationGroup
 
 
-private const val ID = "insyncwithfoo.ryecharm"
+private const val ERROR_GROUP_ID = "insyncwithfoo.ryecharm.errors"
+private const val INFORMATION_GROUP_ID = "insyncwithfoo.ryecharm.information"
 private val ICON = RyeIcons.TINY_16
+
+
+internal val errorNotificationGroup: ErrorNotificationGroup
+    get() = NotificationGroupManager.getInstance().getNotificationGroup(ERROR_GROUP_ID)
+
+
+internal val informationNotificationGroup: InformationNotificationGroup
+    get() = NotificationGroupManager.getInstance().getNotificationGroup(INFORMATION_GROUP_ID)
 
 
 private fun Notification.prettify() = this.apply {
@@ -27,19 +37,15 @@ internal fun Notification.runThenNotify(project: Project, action: Notification.(
 }
 
 
-internal val notificationGroup: RyeCharmNotificationGroup
-    get() = NotificationGroupManager.getInstance().getNotificationGroup(ID)
-
-
-internal fun RyeCharmNotificationGroup.error(title: String, content: String) =
+internal fun ErrorNotificationGroup.error(title: String, content: String) =
     createNotification(title, content, NotificationType.ERROR).prettify()
 
 
-internal fun RyeCharmNotificationGroup.warning(title: String, content: String) =
+internal fun ErrorNotificationGroup.warning(title: String, content: String) =
     createNotification(title, content, NotificationType.WARNING).prettify()
 
 
-internal fun RyeCharmNotificationGroup.information(title: String, content: String) =
+internal fun InformationNotificationGroup.information(title: String, content: String) =
     createNotification(title, content, NotificationType.INFORMATION).prettify()
 
 
@@ -76,7 +82,7 @@ internal fun Project.notifyProcessResult(command: Command, output: ProcessOutput
     }
 
 
-internal fun RyeCharmNotificationGroup.genericWarning(content: String) =
+internal fun ErrorNotificationGroup.genericWarning(content: String) =
     warning(message("notifications.warning.title"), content)
 
 
@@ -87,14 +93,14 @@ internal fun Project.notifyWarningsFromOutput(output: ProcessOutput) {
     warnings.forEach {
         val content = it.groups[1]!!.value
         
-        notificationGroup.genericWarning(content).runThenNotify(this) {
+        errorNotificationGroup.genericWarning(content).runThenNotify(this) {
             addSeeOutputActions(output)
         }
     }
 }
 
 
-private fun RyeCharmNotificationGroup.processCompletedSuccessfully(content: String? = null): Notification {
+private fun InformationNotificationGroup.processCompletedSuccessfully(content: String? = null): Notification {
     val title = message("notifications.successful.title")
     val defaultContent = message("notifications.successful.body")
     
@@ -106,10 +112,10 @@ private fun RyeCharmNotificationGroup.processCompletedSuccessfully(content: Stri
 
 
 internal fun Project.processCompletedSuccessfully(content: String? = null) =
-    notificationGroup.processCompletedSuccessfully(content).notify(this)
+    errorNotificationGroup.processCompletedSuccessfully(content).notify(this)
 
 
-private fun RyeCharmNotificationGroup.unknownError(
+private fun ErrorNotificationGroup.unknownError(
     command: Command,
     processOutput: ProcessOutput? = null
 ): Notification {
@@ -125,10 +131,10 @@ private fun RyeCharmNotificationGroup.unknownError(
 
 
 internal fun Project.unknownError(command: Command, processOutput: ProcessOutput? = null) =
-    notificationGroup.unknownError(command, processOutput).notify(this)
+    errorNotificationGroup.unknownError(command, processOutput).notify(this)
 
 
-private fun RyeCharmNotificationGroup.processTimeout(command: Command): Notification {
+private fun ErrorNotificationGroup.processTimeout(command: Command): Notification {
     val title = message("notifications.processTimeout.title")
     val content = message("notifications.processTimeout.body", command)
     
@@ -137,14 +143,14 @@ private fun RyeCharmNotificationGroup.processTimeout(command: Command): Notifica
 
 
 internal fun Project.processTimeout(command: Command) =
-    notificationGroup.processTimeout(command).runThenNotify(this) {
+    errorNotificationGroup.processTimeout(command).runThenNotify(this) {
         if (command is CommandWithTimeout) {
             addOpenSettingsAction(this@processTimeout, command.configurable)
         }
     }
 
 
-private fun RyeCharmNotificationGroup.noProjectFound(): Notification {
+private fun ErrorNotificationGroup.noProjectFound(): Notification {
     val title = message("notifications.noProjectFound.title")
     val content = message("notifications.noProjectFound.body")
     
@@ -153,10 +159,10 @@ private fun RyeCharmNotificationGroup.noProjectFound(): Notification {
 
 
 internal fun noProjectFound() =
-    notificationGroup.noProjectFound().notify(defaultProject)
+    errorNotificationGroup.noProjectFound().notify(defaultProject)
 
 
-private fun RyeCharmNotificationGroup.unableToRunCommand(): Notification {
+private fun ErrorNotificationGroup.unableToRunCommand(): Notification {
     val title = message("notifications.unableToRunCommand.title")
     val content = message("notifications.unableToRunCommand.body")
     
@@ -165,10 +171,10 @@ private fun RyeCharmNotificationGroup.unableToRunCommand(): Notification {
 
 
 internal fun Project.unableToRunCommand() =
-    notificationGroup.unableToRunCommand().notify(this)
+    errorNotificationGroup.unableToRunCommand().notify(this)
 
 
-private fun RyeCharmNotificationGroup.noInterpreterFound(): Notification {
+private fun ErrorNotificationGroup.noInterpreterFound(): Notification {
     val title = message("notifications.noInterpreterFound.title")
     val content = message("notifications.noInterpreterFound.body")
     
@@ -177,4 +183,4 @@ private fun RyeCharmNotificationGroup.noInterpreterFound(): Notification {
 
 
 internal fun Project.noInterpreterFound() =
-    notificationGroup.noInterpreterFound().notify(this)
+    errorNotificationGroup.noInterpreterFound().notify(this)

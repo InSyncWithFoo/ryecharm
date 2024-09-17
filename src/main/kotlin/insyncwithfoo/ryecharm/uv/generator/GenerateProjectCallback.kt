@@ -78,7 +78,7 @@ private fun Project.refreshTreeView() {
 
 /**
  * A reimplementation of `PythonGenerateProjectCallback`
- * (an `impl` class, and thus unlinkable in KDoc)
+ * (a KDoc-unlinkable `impl` class)
  * with many code paths removed or rewritten.
  * 
  * It is responsible for calling SDK-creating code

@@ -102,10 +102,17 @@
 	
 	<extensions defaultExtensionNs="com.intellij">
 		<notificationGroup
-			id="insyncwithfoo.ryecharm"
+			id="insyncwithfoo.ryecharm.errors"
+			displayType="STICKY_BALLOON"
+			bundle="messages.ryecharm"
+			key="notifications.group.errors.displayName"
+		/>
+		
+		<notificationGroup
+			id="insyncwithfoo.ryecharm.information"
 			displayType="BALLOON"
 			bundle="messages.ryecharm"
-			key="notifications.group.displayName"
+			key="notifications.group.information.displayName"
 		/>
 		
 		<fileIconProvider

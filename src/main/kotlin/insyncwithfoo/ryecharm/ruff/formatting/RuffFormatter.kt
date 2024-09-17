@@ -17,9 +17,9 @@ import com.jetbrains.python.black.BlackFormattingService
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.configurations.ruff.RuffTimeouts
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.errorNotificationGroup
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
-import insyncwithfoo.ryecharm.notificationGroup
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getOneBasedRange
@@ -47,7 +47,7 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
     override fun getName() = "Ruff"
     
     override fun getNotificationGroupId() =
-        notificationGroup.displayId
+        errorNotificationGroup.displayId
     
     // https://github.com/astral-sh/ruff/issues/8232
     /**

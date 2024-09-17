@@ -1,21 +1,21 @@
 package insyncwithfoo.ryecharm.rye.actions
 
 import com.intellij.notification.Notification
-import com.intellij.notification.NotificationGroup
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
+import insyncwithfoo.ryecharm.ErrorNotificationGroup
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.addCopyTextAction
 import insyncwithfoo.ryecharm.error
+import insyncwithfoo.ryecharm.errorNotificationGroup
 import insyncwithfoo.ryecharm.fileEditorManager
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
-import insyncwithfoo.ryecharm.notificationGroup
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runThenNotify
@@ -27,7 +27,7 @@ import insyncwithfoo.ryecharm.unknownError
 import java.nio.file.Path
 
 
-private fun NotificationGroup.cannotOpenFile(path: Path): Notification {
+private fun ErrorNotificationGroup.cannotOpenFile(path: Path): Notification {
     val title = message("notifications.cannotOpenFile.title")
     val content = message("notifications.cannotOpenFile.body", path)
     
@@ -77,7 +77,7 @@ internal class OpenConfigurationFile : AnAction(), DumbAware {
         try {
             fileEditorManager.openFile(virtualFile!!, focusEditor)
         } catch (_: Throwable) {
-            notificationGroup.cannotOpenFile(path).runThenNotify(this) {
+            errorNotificationGroup.cannotOpenFile(path).runThenNotify(this) {
                 addCopyTextAction(message("notificationActions.copyPathToClipboard"), path.toString())
             }
         }
