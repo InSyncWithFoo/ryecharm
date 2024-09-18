@@ -37,8 +37,8 @@ private fun Row.packageManagingInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.uv.packageManaging.label")).apply(block)
 
 
-private fun Row.packageManagingNonUVProjectsInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.uv.packageManagingNonUVProjects.label")).apply(block)
+private fun Row.packageManagingNonUVProjectInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.packageManagingNonUVProject.label")).apply(block)
 
 
 @Suppress("DialogTitleCapitalization")
@@ -66,8 +66,8 @@ private fun UVPanel.makeComponent() = panel {
         }
         indent {
             row {
-                packageManagingNonUVProjectsInput { bindSelected(state::packageManagingNonUVProjects) }
-                overrideCheckbox(state::packageManagingNonUVProjects)
+                packageManagingNonUVProjectInput { bindSelected(state::packageManagingNonUVProject) }
+                overrideCheckbox(state::packageManagingNonUVProject)
             }
         }
     }

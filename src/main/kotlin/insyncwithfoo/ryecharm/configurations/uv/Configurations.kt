@@ -16,7 +16,7 @@ internal class UVConfigurations : DisplayableState(), HasTimeouts, Copyable {
     var configurationFile by string(null)
     
     var packageManaging by property(true)
-    var packageManagingNonUVProjects by property(false)
+    var packageManagingNonUVProject by property(false)
     
     override var timeouts by map<SettingName, MillisecondsOrNoLimit>()
 }
