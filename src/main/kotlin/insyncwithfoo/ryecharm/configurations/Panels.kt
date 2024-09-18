@@ -75,17 +75,13 @@ internal abstract class AdaptivePanel<S>(val state: S, private val overrides: Ov
     private val projectBased: Boolean
         get() = project != null
     
-    fun Row.makeOverrideCheckboxIfApplicable(property: KMutableProperty0<*>) {
+    fun Row.overrideCheckbox(property: KMutableProperty0<*>) {
         if (projectBased) {
-            makeOverrideCheckbox(property.name)
+            overrideCheckbox(property.name)
         }
     }
     
-    private fun Row.makeTimeoutOverrideCheckbox(settingName: SettingName) {
-        makeOverrideCheckbox(settingName.addTimeoutPrefix())
-    }
-    
-    private fun Row.makeOverrideCheckbox(settingName: SettingName) {
+    private fun Row.overrideCheckbox(settingName: SettingName) {
         val overrides = overrides ?: return
         
         val checkbox = rightAligningOverrideCheckbox {
@@ -99,40 +95,44 @@ internal abstract class AdaptivePanel<S>(val state: S, private val overrides: Ov
     }
     
     @Suppress("DialogTitleCapitalization")
-    fun <E> Panel.makeTimeoutGroup(timeouts: TimeoutMap, entries: List<E>) where E : Commented, E : Keyed {
+    fun <E> Panel.timeoutGroup(timeouts: TimeoutMap, entries: List<E>) where E : Commented, E : Keyed {
         collapsibleGroup(message("configurations.timeouts.groupName"), indent = true) {
             row { label(message("configurations.timeouts.note")) }
             
-            makeTimeoutRows(timeouts, entries)
+            timeoutRows(timeouts, entries)
         }
     }
     
-    private fun <E> Panel.makeTimeoutRows(map: TimeoutMap, entries: List<E>) where E : Commented, E : Keyed {
+    private fun <E> Panel.timeoutRows(map: TimeoutMap, entries: List<E>) where E : Commented, E : Keyed {
         val keys = entries.map { it.key }
         val labels = entries.associate { it.key to it.label }
         val comments = entries.associate { it.key to it.comment }
         
         keys.forEach { key ->
-            makeTimeoutRow(map, key, labels[key]!!, comments[key]!!)
+            timeoutRow(map, key, labels[key]!!, comments[key]!!)
         }
     }
     
     @Suppress("DialogTitleCapitalization")
-    private fun Panel.makeTimeoutRow(map: TimeoutMap, key: SettingName, label: String, comment: String) {
+    private fun Panel.timeoutRow(map: TimeoutMap, key: SettingName, label: String, comment: String) {
         visuallySeparatedRow {
-            makeTimeoutLabel(message("configurations.timeouts.label", label)) {
+            timeoutLabel(message("configurations.timeouts.label", label)) {
                 comment(message("configurations.timeouts.comment", comment))
             }
-            makeTimeoutInput { bindIntValue(map, key, defaultValue = HasTimeouts.NO_LIMIT) }
+            timeoutInput { bindIntValue(map, key, defaultValue = HasTimeouts.NO_LIMIT) }
             label(message("configurations.timeouts.unit"))
-            makeTimeoutOverrideCheckbox(key)
+            timeoutOverrideCheckbox(key)
         }
     }
     
-    private fun Row.makeTimeoutLabel(text: String, block: Cell<JLabel>.() -> Unit) =
+    private fun Row.timeoutLabel(text: String, block: Cell<JLabel>.() -> Unit) =
         label(text).gap(RightGap.SMALL).apply(block)
     
-    private fun Row.makeTimeoutInput(block: Cell<JBIntSpinner>.() -> Unit) =
+    private fun Row.timeoutInput(block: Cell<JBIntSpinner>.() -> Unit) =
         spinner(-1..3_600_000, step = 100).forceAlignRight().gap(RightGap.SMALL).apply(block)
+    
+    private fun Row.timeoutOverrideCheckbox(settingName: SettingName) {
+        overrideCheckbox(settingName.addTimeoutPrefix())
+    }
     
 }

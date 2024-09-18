@@ -18,11 +18,11 @@ private class MainPanel(state: MainConfigurations, overrides: Overrides?, projec
     AdaptivePanel<MainConfigurations>(state, overrides, project)
 
 
-private fun Row.makeLanguageInjectionPEP723BlocksInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.languageInjectionPEP723BlocksInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.main.languageInjectionPEP723Blocks.label")).apply(block)
 
 
-private fun Row.makeLanguageInjectionRequirementsInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.languageInjectionRequirementsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.main.languageInjectionRequirements.label")).apply(block)
 
 
@@ -30,12 +30,12 @@ private fun Row.makeLanguageInjectionRequirementsInput(block: Cell<JBCheckBox>.(
 private fun MainPanel.makeComponent() = panel {
     group(message("configurations.main.groups.languageInjection")) {
         row {
-            makeLanguageInjectionPEP723BlocksInput { bindSelected(state::languageInjectionPEP723Blocks) }
-            makeOverrideCheckboxIfApplicable(state::languageInjectionPEP723Blocks)
+            languageInjectionPEP723BlocksInput { bindSelected(state::languageInjectionPEP723Blocks) }
+            overrideCheckbox(state::languageInjectionPEP723Blocks)
         }
         row {
-            makeLanguageInjectionRequirementsInput { bindSelected(state::languageInjectionRequirements) }
-            makeOverrideCheckboxIfApplicable(state::languageInjectionRequirements)
+            languageInjectionRequirementsInput { bindSelected(state::languageInjectionRequirements) }
+            overrideCheckbox(state::languageInjectionRequirements)
         }
     }
 }

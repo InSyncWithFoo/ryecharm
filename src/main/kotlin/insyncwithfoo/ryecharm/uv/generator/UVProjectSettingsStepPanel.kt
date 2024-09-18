@@ -189,34 +189,34 @@ internal class UVProjectSettingsStepPanel(val settings: UVNewProjectSettings) {
 }
 
 
-private fun Row.makeProjectNameInput(block: Cell<JBTextField>.() -> Unit) =
+private fun Row.projectNameInput(block: Cell<JBTextField>.() -> Unit) =
     textField().apply(block)
 
 
-private fun Row.makeProjectLocationInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+private fun Row.projectLocationInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFolderTextField().makeFlexible().apply(block)
 
 
-private fun Row.makeInitializeGitInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.initializeGitInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(PyBundle.message("new.project.git")).apply(block)
 
 
-private fun Row.makeBaseInterpreterInput(block: Cell<PySdkPathChoosingComboBox>.() -> Unit) =
+private fun Row.baseInterpreterInput(block: Cell<PySdkPathChoosingComboBox>.() -> Unit) =
     cell(PySdkPathChoosingComboBox()).makeFlexible().apply {
         component.addSystemWideInterpreters()
         block(this)
     }
 
 
-private fun Row.makeUVExecutableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+private fun Row.uvExecutableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.makeDistributionNameInput(block: Cell<JBTextField>.() -> Unit) =
+private fun Row.distributionNameInput(block: Cell<JBTextField>.() -> Unit) =
     textField().apply(block)
 
 
-private fun Panel.makeProjectKindInputGroup() =
+private fun Panel.projectKindInputGroup() =
     buttonsGroup {
         row(message("newProjectPanel.settings.projectKind.label")) {
             radioButtonFor(ProjectKind.APP)
@@ -226,21 +226,21 @@ private fun Panel.makeProjectKindInputGroup() =
     }
 
 
-private fun Row.makeCreateReadmeInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.createReadmeInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("newProjectPanel.settings.createReadme.label")).apply(block)
 
 
-private fun Row.makePinPythonInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.pinPythonInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("newProjectPanel.settings.pinPython.label")).apply(block)
 
 
 @Suppress("DialogTitleCapitalization")
 internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
     row(PyBundle.message("new.project.name")) {
-        makeProjectNameInput { bindText(projectName) }
+        projectNameInput { bindText(projectName) }
     }
     row(PyBundle.message("new.project.location")) {
-        makeProjectLocationInput {
+        projectLocationInput {
             bindText(projectParentDirectory)
             
             projectLocationInput = component
@@ -251,7 +251,7 @@ internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
     }
     
     row("") {
-        makeInitializeGitInput { bindSelected(settings::initializeGit) }
+        initializeGitInput { bindSelected(settings::initializeGit) }
     }
     
     panel {
@@ -259,13 +259,11 @@ internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
             topGap(TopGap.MEDIUM)
             
             // TODO: Switch to pythonInterpreterComboBox once 2024.3 is out
-            makeBaseInterpreterInput {
-                component.childComponent.bind(baseSDKItem)
-            }
+            baseInterpreterInput { component.childComponent.bind(baseSDKItem) }
         }
         
         row(message("newProjectPanel.settings.uvExecutable.label")) {
-            makeUVExecutableInput {
+            uvExecutableInput {
                 bindText(uvExecutable)
                 
                 uvExecutable.set(globalUVExecutable?.toString().orEmpty())
@@ -278,7 +276,7 @@ internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
     
     group(message("newProjectPanel.settings.groups.projectInitialization")) {
         row(message("newProjectPanel.settings.distributionName.label")) {
-            makeDistributionNameInput {
+            distributionNameInput {
                 bindText(settings::distributionName)
                 bindText(distributionName)
                 component.emptyText.bind(projectName)
@@ -288,11 +286,11 @@ internal fun UVProjectSettingsStepPanel.makeComponent() = panel {
             reactiveLabel(distributionNameHint)
         }
         
-        makeProjectKindInputGroup().bindSelected(settings::projectKind)
+        projectKindInputGroup().bindSelected(settings::projectKind)
         
         row("") {
-            makeCreateReadmeInput { bindSelected(settings::createReadme) }
-            makePinPythonInput { bindSelected(settings::pinPython) }
+            createReadmeInput { bindSelected(settings::createReadme) }
+            pinPythonInput { bindSelected(settings::pinPython) }
         }
     }
 }

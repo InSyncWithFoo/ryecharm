@@ -23,23 +23,23 @@ private class RyePanel(state: RyeConfigurations, overrides: Overrides?, project:
     AdaptivePanel<RyeConfigurations>(state, overrides, project)
 
 
-private fun Row.makeExecutableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFileTextField().makeFlexible().apply(block)
 
 
 private fun RyePanel.makeComponent() = panel {
     
     row(message("configurations.rye.executable.label")) {
-        makeExecutableInput {
+        executableInput {
             val detectedExecutable = Rye.detectExecutable()?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
             emptyText = detectedExecutable ?: message("configurations.rye.executable.placeholder")
         }
-        makeOverrideCheckboxIfApplicable(state::executable)
+        overrideCheckbox(state::executable)
     }
     
-    makeTimeoutGroup(state.timeouts, RyeTimeouts.entries)
+    timeoutGroup(state.timeouts, RyeTimeouts.entries)
     
 }
 

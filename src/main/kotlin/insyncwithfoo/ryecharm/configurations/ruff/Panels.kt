@@ -34,103 +34,103 @@ private class RuffPanel(state: RuffConfigurations, overrides: Overrides?, projec
     AdaptivePanel<RuffConfigurations>(state, overrides, project)
 
 
-private fun Row.makeExecutableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.makeCrossPlatformExecutableResolutionInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.crossPlatformExecutableResolutionInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.crossPlatformExecutableResolution.label")).apply(block)
 
 
-private fun Row.makeConfigurationFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+private fun Row.configurationFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Panel.makeRunningModeInputGroup(block: Panel.() -> Unit) =
+private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
     buttonsGroup(init = block)
 
 
-private fun Row.makeLintingInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.lintingInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.linting.label")).apply(block)
 
 
-private fun Row.makeShowSyntaxErrorsInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.showSyntaxErrorsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.showSyntaxErrors.label")).apply(block)
 
 
-private fun Row.makeTooltipFormatInput(block: Cell<ComboBox<TooltipFormat>>.() -> Unit) =
+private fun Row.tooltipFormatInput(block: Cell<ComboBox<TooltipFormat>>.() -> Unit) =
     comboBox<TooltipFormat>().label(message("configurations.ruff.tooltipFormat.label")).apply(block)
 
 
-private fun Row.makeQuickFixesInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.quickFixesInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.quickFixes.label")).apply(block)
 
 
-private fun Row.makeFixAllInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.fixAllInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.fixAll.label")).apply(block)
 
 
-private fun Row.makeOrganizeImportsInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.organizeImportsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.organizeImports.label")).apply(block)
 
 
-private fun Row.makeDisableRuleCommentInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.disableRuleCommentInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.disableRuleComment.label")).apply(block)
 
 
-private fun Row.makeFixViolationInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.fixViolationInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.fixViolation.label")).apply(block)
 
 
-private fun Row.makeFormattingInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.formattingInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.formatting.label")).apply(block)
 
 
-private fun Row.makeFormatOnReformatInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.formatOnReformatInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.formatOnReformat.label")).apply(block)
 
 
-private fun Row.makeFormatOnOptimizeImportsInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.formatOnOptimizeImportsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.formatOnOptimizeImports.label")).apply(block)
 
 
-private fun Row.makeFormatOnSaveInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.formatOnSaveInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.formatOnSave.label")).apply(block)
 
 
-private fun Row.makeFormatOnSaveProjectFilesOnlyInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.formatOnSaveProjectFilesOnlyInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.formatOnSaveProjectFilesOnly.label")).apply(block)
 
 
-private fun Row.makeDocumentationPopupsInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.documentationPopupsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.documentationPopups.label")).apply(block)
 
 
-private fun Row.makeDocumentationPopupsForNoqaCommentsInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.documentationPopupsForNoqaCommentsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.documentationPopupsForNoqaComments.label")).apply(block)
 
 
-private fun Row.makeDocumentationPopupsForTOMLOptionsInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.documentationPopupsForTOMLOptionsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.documentationPopupsForTOMLOptions.label")).apply(block)
 
 
-private fun Row.makeLogLevelInput(block: Cell<ComboBox<LogLevel>>.() -> Unit) =
+private fun Row.logLevelInput(block: Cell<ComboBox<LogLevel>>.() -> Unit) =
     comboBox<LogLevel>().apply(block)
 
 
-private fun Row.makeLogFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+private fun Row.logFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.makeSuggestExecutableOnProjectOpenInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.suggestExecutableOnProjectOpenInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.suggestExecutableOnProjectOpen.label")).apply(block)
 
 
-private fun Row.makeSuggestExecutableOnPackagesChangeInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.suggestExecutableOnPackagesChangeInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.suggestExecutableOnPackagesChange.label")).apply(block)
 
 
-private fun Row.makeAutoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.autoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.autoRestartServers.label")).apply(block)
 
 
@@ -138,26 +138,26 @@ private fun Row.makeAutoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) 
 private fun RuffPanel.makeComponent() = panel {
     
     row(message("configurations.ruff.executable.label")) {
-        makeExecutableInput {
+        executableInput {
             val detectedExecutable = Ruff.detectExecutable()?.toString()
                 ?: project?.findRuffExecutableInVenv()?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
             emptyText = detectedExecutable ?: message("configurations.ruff.executable.placeholder")
         }
-        makeOverrideCheckboxIfApplicable(state::executable)
+        overrideCheckbox(state::executable)
     }
     row("") {
-        makeCrossPlatformExecutableResolutionInput { bindSelected(state::crossPlatformExecutableResolution) }
-        makeOverrideCheckboxIfApplicable(state::crossPlatformExecutableResolution)
+        crossPlatformExecutableResolutionInput { bindSelected(state::crossPlatformExecutableResolution) }
+        overrideCheckbox(state::crossPlatformExecutableResolution)
     }
     
     row(message("configurations.ruff.configurationFile.label")) {
-        makeConfigurationFileInput { bindText(state::configurationFile) }
-        makeOverrideCheckboxIfApplicable(state::configurationFile)
+        configurationFileInput { bindText(state::configurationFile) }
+        overrideCheckbox(state::configurationFile)
     }
     
-    val runningModeInputGroup = makeRunningModeInputGroup {
+    val runningModeInputGroup = runningModeInputGroup {
         row(message("configurations.ruff.runningMode.label")) {
             radioButtonFor(RunningMode.COMMAND_LINE)
             radioButtonFor(RunningMode.LSP4IJ) { label ->
@@ -167,7 +167,7 @@ private fun RuffPanel.makeComponent() = panel {
                 message("configurations.ruff.runningMode.unavailable", label).takeUnless { lspIsAvailable }
             }
             
-            makeOverrideCheckboxIfApplicable(state::runningMode)
+            overrideCheckbox(state::runningMode)
         }
     }
     runningModeInputGroup.bindSelected(state::runningMode)
@@ -175,92 +175,92 @@ private fun RuffPanel.makeComponent() = panel {
     group(message("configurations.ruff.groups.main")) {
         
         row {
-            makeLintingInput { bindSelected(state::linting) }
-            makeOverrideCheckboxIfApplicable(state::linting)
+            lintingInput { bindSelected(state::linting) }
+            overrideCheckbox(state::linting)
         }
         indent {
             row {
-                makeShowSyntaxErrorsInput { bindSelected(state::showSyntaxErrors) }
-                makeOverrideCheckboxIfApplicable(state::showSyntaxErrors)
+                showSyntaxErrorsInput { bindSelected(state::showSyntaxErrors) }
+                overrideCheckbox(state::showSyntaxErrors)
             }
             row {
-                makeTooltipFormatInput { bindItem(state::tooltipFormat) }
-                makeOverrideCheckboxIfApplicable(state::tooltipFormat)
+                tooltipFormatInput { bindItem(state::tooltipFormat) }
+                overrideCheckbox(state::tooltipFormat)
             }
         }
         
         row {
-            makeQuickFixesInput { bindSelected(state::quickFixes) }
-            makeOverrideCheckboxIfApplicable(state::quickFixes)
+            quickFixesInput { bindSelected(state::quickFixes) }
+            overrideCheckbox(state::quickFixes)
         }
         indent {
             row {
-                makeFixAllInput { bindSelected(state::fixAll) }
-                makeOverrideCheckboxIfApplicable(state::fixAll)
+                fixAllInput { bindSelected(state::fixAll) }
+                overrideCheckbox(state::fixAll)
             }
             row {
-                makeOrganizeImportsInput { bindSelected(state::organizeImports) }
-                makeOverrideCheckboxIfApplicable(state::organizeImports)
+                organizeImportsInput { bindSelected(state::organizeImports) }
+                overrideCheckbox(state::organizeImports)
             }
             row {
-                makeDisableRuleCommentInput { bindSelected(state::disableRuleComment) }
-                makeOverrideCheckboxIfApplicable(state::disableRuleComment)
+                disableRuleCommentInput { bindSelected(state::disableRuleComment) }
+                overrideCheckbox(state::disableRuleComment)
             }
             row {
-                makeFixViolationInput { bindSelected(state::fixViolation) }
-                makeOverrideCheckboxIfApplicable(state::fixViolation)
+                fixViolationInput { bindSelected(state::fixViolation) }
+                overrideCheckbox(state::fixViolation)
             }
         }
         
         row {
-            makeFormattingInput { bindSelected(state::formatting) }
-            makeOverrideCheckboxIfApplicable(state::formatting)
+            formattingInput { bindSelected(state::formatting) }
+            overrideCheckbox(state::formatting)
         }
         indent {
             row {
-                makeFormatOnReformatInput { bindSelected(state::formatOnReformat) }
-                makeOverrideCheckboxIfApplicable(state::formatOnReformat)
+                formatOnReformatInput { bindSelected(state::formatOnReformat) }
+                overrideCheckbox(state::formatOnReformat)
             }
             row {
-                makeFormatOnOptimizeImportsInput { bindSelected(state::formatOnOptimizeImports) }
-                makeOverrideCheckboxIfApplicable(state::formatOnOptimizeImports)
+                formatOnOptimizeImportsInput { bindSelected(state::formatOnOptimizeImports) }
+                overrideCheckbox(state::formatOnOptimizeImports)
             }
             row {
-                makeFormatOnSaveInput { bindSelected(state::formatOnSave) }
-                makeOverrideCheckboxIfApplicable(state::formatOnSave)
+                formatOnSaveInput { bindSelected(state::formatOnSave) }
+                overrideCheckbox(state::formatOnSave)
             }
             indent {
                 row {
-                    makeFormatOnSaveProjectFilesOnlyInput { bindSelected(state::formatOnSaveProjectFilesOnly) }
-                    makeOverrideCheckboxIfApplicable(state::formatOnSaveProjectFilesOnly)
+                    formatOnSaveProjectFilesOnlyInput { bindSelected(state::formatOnSaveProjectFilesOnly) }
+                    overrideCheckbox(state::formatOnSaveProjectFilesOnly)
                 }
             }
         }
         
         row {
-            makeDocumentationPopupsInput { bindSelected(state::documentationPopups) }
-            makeOverrideCheckboxIfApplicable(state::documentationPopups)
+            documentationPopupsInput { bindSelected(state::documentationPopups) }
+            overrideCheckbox(state::documentationPopups)
         }
         indent {
             row {
-                makeDocumentationPopupsForNoqaCommentsInput { bindSelected(state::documentationPopupsForNoqaComments) }
-                makeOverrideCheckboxIfApplicable(state::documentationPopupsForNoqaComments)
+                documentationPopupsForNoqaCommentsInput { bindSelected(state::documentationPopupsForNoqaComments) }
+                overrideCheckbox(state::documentationPopupsForNoqaComments)
             }
             row {
-                makeDocumentationPopupsForTOMLOptionsInput { bindSelected(state::documentationPopupsForTOMLOptions) }
-                makeOverrideCheckboxIfApplicable(state::documentationPopupsForTOMLOptions)
+                documentationPopupsForTOMLOptionsInput { bindSelected(state::documentationPopupsForTOMLOptions) }
+                overrideCheckbox(state::documentationPopupsForTOMLOptions)
             }
         }
         
         separator()
         
         row(message("configurations.ruff.logLevel.label")) {
-            makeLogLevelInput { bindItem(state::logLevel) }
-            makeOverrideCheckboxIfApplicable(state::logLevel)
+            logLevelInput { bindItem(state::logLevel) }
+            overrideCheckbox(state::logLevel)
         }
         row(message("configurations.ruff.logFile.label")) {
-            makeLogFileInput { bindText(state::logFile) }
-            makeOverrideCheckboxIfApplicable(state::logFile)
+            logFileInput { bindText(state::logFile) }
+            overrideCheckbox(state::logFile)
         }
         
     }
@@ -271,24 +271,24 @@ private fun RuffPanel.makeComponent() = panel {
         }
         indent {
             row {
-                makeSuggestExecutableOnProjectOpenInput { bindSelected(state::suggestExecutableOnProjectOpen) }
-                makeOverrideCheckboxIfApplicable(state::suggestExecutableOnProjectOpen)
+                suggestExecutableOnProjectOpenInput { bindSelected(state::suggestExecutableOnProjectOpen) }
+                overrideCheckbox(state::suggestExecutableOnProjectOpen)
             }
             row {
-                makeSuggestExecutableOnPackagesChangeInput { bindSelected(state::suggestExecutableOnPackagesChange) }
-                makeOverrideCheckboxIfApplicable(state::suggestExecutableOnPackagesChange)
+                suggestExecutableOnPackagesChangeInput { bindSelected(state::suggestExecutableOnPackagesChange) }
+                overrideCheckbox(state::suggestExecutableOnPackagesChange)
             }
         }
     }
     
     collapsibleGroup(message("configurations.ruff.groups.advanced")) {
         row {
-            makeAutoRestartServersInput { bindSelected(state::autoRestartServers) }
-            makeOverrideCheckboxIfApplicable(state::autoRestartServers)
+            autoRestartServersInput { bindSelected(state::autoRestartServers) }
+            overrideCheckbox(state::autoRestartServers)
         }
     }
     
-    makeTimeoutGroup(state.timeouts, RuffTimeouts.entries)
+    timeoutGroup(state.timeouts, RuffTimeouts.entries)
     
 }
 

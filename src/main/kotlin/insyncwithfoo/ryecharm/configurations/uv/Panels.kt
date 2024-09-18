@@ -25,19 +25,19 @@ private class UVPanel(state: UVConfigurations, overrides: Overrides?, project: P
     AdaptivePanel<UVConfigurations>(state, overrides, project)
 
 
-private fun Row.makeExecutableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.makeConfigurationFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+private fun Row.configurationFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.makePackageManagingInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.packageManagingInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.uv.packageManaging.label")).apply(block)
 
 
-private fun Row.makePackageManagingNonUVProjectsInput(block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.packageManagingNonUVProjectsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.uv.packageManagingNonUVProjects.label")).apply(block)
 
 
@@ -45,34 +45,34 @@ private fun Row.makePackageManagingNonUVProjectsInput(block: Cell<JBCheckBox>.()
 private fun UVPanel.makeComponent() = panel {
     
     row(message("configurations.uv.executable.label")) {
-        makeExecutableInput {
+        executableInput {
             val detectedExecutable = UV.detectExecutable()?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
             emptyText = detectedExecutable ?: message("configurations.uv.executable.placeholder")
         }
-        makeOverrideCheckboxIfApplicable(state::executable)
+        overrideCheckbox(state::executable)
     }
     
     row(message("configurations.uv.configurationFile.label")) {
-        makeConfigurationFileInput { bindText(state::configurationFile) }
-        makeOverrideCheckboxIfApplicable(state::configurationFile)
+        configurationFileInput { bindText(state::configurationFile) }
+        overrideCheckbox(state::configurationFile)
     }
     
     group(message("configurations.uv.groups.packageManagement")) {
         row {
-            makePackageManagingInput { bindSelected(state::packageManaging) }
-            makeOverrideCheckboxIfApplicable(state::packageManaging)
+            packageManagingInput { bindSelected(state::packageManaging) }
+            overrideCheckbox(state::packageManaging)
         }
         indent {
             row {
-                makePackageManagingNonUVProjectsInput { bindSelected(state::packageManagingNonUVProjects) }
-                makeOverrideCheckboxIfApplicable(state::packageManagingNonUVProjects)
+                packageManagingNonUVProjectsInput { bindSelected(state::packageManagingNonUVProjects) }
+                overrideCheckbox(state::packageManagingNonUVProjects)
             }
         }
     }
     
-    makeTimeoutGroup(state.timeouts, UVTimeouts.entries)
+    timeoutGroup(state.timeouts, UVTimeouts.entries)
     
 }
 
