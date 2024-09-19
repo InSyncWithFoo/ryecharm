@@ -141,16 +141,9 @@
 	<extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
 		<!--suppress PluginXmlValidity -->
 		<commandSpecsProvider
-			id="insyncwithfoo.ryecharm.common.terminal.RuffCommandSpecsProvider"
+			id="insyncwithfoo.ryecharm.common.terminal.RyeCharmCommandSpecsProvider"
 			order="first"
-			implementation="insyncwithfoo.ryecharm.common.terminal.RuffCommandSpecsProvider"
-		/>
-		
-		<!--suppress PluginXmlValidity -->
-		<commandSpecsProvider
-			id="insyncwithfoo.ryecharm.common.terminal.UVCommandSpecsProvider"
-			order="first"
-			implementation="insyncwithfoo.ryecharm.common.terminal.UVCommandSpecsProvider"
+			implementation="insyncwithfoo.ryecharm.common.terminal.RyeCharmCommandSpecsProvider"
 		/>
 	</extensions>
 	
