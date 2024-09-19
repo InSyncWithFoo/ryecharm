@@ -72,8 +72,6 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     var formatting by property(true)
     var formatOnReformat by property(true)
     var formatOnOptimizeImports by property(true)
-    var formatOnSave by property(false)
-    var formatOnSaveProjectFilesOnly by property(true)
     
     var documentationPopups by property(true)
     var documentationPopupsForNoqaComments by property(true)
@@ -81,6 +79,10 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     
     var logLevel by enum(LogLevel.INFO)
     var logFile by string(null)
+    
+    var runOnSaveProjectFilesOnly by property(true)
+    var formatOnSave by property(false)
+    var fixOnSave by property(false)
     
     var suggestExecutableOnProjectOpen by property(true)
     var suggestExecutableOnPackagesChange by property(true)
