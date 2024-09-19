@@ -11,9 +11,7 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 
 ## [Unreleased]
 
-### Removed
-
-* PyCharm 2024.2.1 and older are no longer supported.
+<i>This section is currently empty.</i>
 
 
 ## [0.1.0-alpha-2] - 2024-09-14
