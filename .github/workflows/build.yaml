@@ -210,7 +210,7 @@ jobs:
           java-version: 21
       -
         name: Run Qodana
-        uses: JetBrains/qodana-action@v2024.2.2
+        uses: JetBrains/qodana-action@v2024.2.3
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
