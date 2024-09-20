@@ -96,6 +96,11 @@ internal val VirtualFile.isRuffToml: Boolean
     get() = name == "ruff.toml" || name == ".ruff.toml"
 
 
+// https://github.com/InSyncWithFoo/ryecharm/issues/5
+private val PsiFile.isReST: Boolean
+    get() = virtualFile?.extension == "rst"
+
+
 // TODO: .ipynb / Allow configuring what files
 internal fun VirtualFile.isSupportedByRuff(project: Project? = null): Boolean {
     return extension == "py" || extension == "pyi"
@@ -103,4 +108,4 @@ internal fun VirtualFile.isSupportedByRuff(project: Project? = null): Boolean {
 
 
 internal val PsiFile.isSupportedByRuff: Boolean
-    get() = this is PyFile || virtualFile?.isSupportedByRuff(project) == true
+    get() = this is PyFile && !this.isReST || virtualFile?.isSupportedByRuff(project) == true
