@@ -37,7 +37,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 17
       -
         name: Set up Python
         uses: actions/setup-python@v5
@@ -142,7 +142,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 17
       -
         name: Clear Gradle home cache
         if: matrix.platform == 'windows-latest'
@@ -207,7 +207,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 17
       -
         name: Run Qodana
         uses: JetBrains/qodana-action@v2024.2.2
@@ -236,7 +236,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 17
       -
         name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -312,7 +312,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 17
       -
         name: Set up Python
         uses: actions/setup-python@v5
