@@ -2,14 +2,12 @@ package insyncwithfoo.ryecharm.ruff.onsave
 
 import com.intellij.ide.actionsOnSave.impl.ActionsOnSaveFileDocumentManagerListener.ActionOnSave
 import com.intellij.ide.actionsOnSave.impl.ActionsOnSaveFileDocumentManagerListener.DocumentUpdatingActionOnSave
-import com.intellij.openapi.application.readAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.toNioPathOrNull
-import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.completedAbnormally
@@ -17,7 +15,6 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
-import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessful
 import insyncwithfoo.ryecharm.paste
 import insyncwithfoo.ryecharm.psiDocumentManager
 import insyncwithfoo.ryecharm.ruff.commands.ruff
@@ -40,10 +37,6 @@ private fun Project.runTask(action: suspend CoroutineScope.() -> Unit) {
 // TODO: Use com.intellij.openapi.roots.ProjectFileIndex.isInProject
 private operator fun Project.contains(file: VirtualFile) =
     basePath?.let { file.canonicalPath?.startsWith(it) } ?: false
-
-
-private suspend fun PsiDocumentManager.getFileInReadAction(document: Document) =
-    readAction { getPsiFile(document) }
 
 
 /**
@@ -116,12 +109,7 @@ internal class RuffOnSaveTasksRunner : ActionOnSave() {
     private suspend fun Project.getResultOrNull(command: Command): String? {
         val output = runInBackground(command)
         
-        if (output.completedAbnormally) {
-            notifyIfProcessIsUnsuccessful(command, output)
-            return null
-        }
-        
-        return output.stdout
+        return output.stdout.takeUnless { output.completedAbnormally }
     }
     
 }
