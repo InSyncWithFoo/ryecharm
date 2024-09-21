@@ -11,9 +11,9 @@ import com.jetbrains.python.psi.impl.PyPsiUtils
 import insyncwithfoo.ryecharm.edit
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
-import insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCode
-import insyncwithfoo.ryecharm.ruff.documentation.noqa.noqaCode
+import insyncwithfoo.ryecharm.ruff.documentation.noqa.RuleCode
 import insyncwithfoo.ryecharm.ruff.documentation.noqa.noqaComment
+import insyncwithfoo.ryecharm.ruff.documentation.noqa.ruleCode
 import org.jetbrains.annotations.VisibleForTesting
 
 
@@ -41,7 +41,7 @@ private fun MatchGroup.toFragment(baseOffset: Int): NoqaCommentFragment {
  * @see insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaComment
  */
 @VisibleForTesting
-internal class NoqaComment(val codes: Set<NoqaCode>) {
+internal class NoqaComment(val codes: Set<RuleCode>) {
     
     val codeList: String
         get() = codes.joinToString(", ")
@@ -53,7 +53,7 @@ internal class NoqaComment(val codes: Set<NoqaCode>) {
     
     companion object {
         fun parse(codeList: String): NoqaComment {
-            val codes = noqaCode.findAll(codeList)
+            val codes = ruleCode.findAll(codeList)
                 .mapTo(mutableSetOf()) { match -> match.value }
             
             return NoqaComment(codes)
@@ -85,7 +85,7 @@ internal class InEditorNoqaComment private constructor(
             else -> prefix.end to prefix.end
         }
     
-    fun codeListWithNew(newCode: NoqaCode) =
+    fun codeListWithNew(newCode: RuleCode) =
         codeList!!.content + separator + newCode
     
     companion object {

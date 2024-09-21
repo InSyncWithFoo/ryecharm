@@ -29,10 +29,10 @@ internal fun HTML.toDocumentationResult() =
 
 internal fun Markdown.wrappedInCodeBlock(language: String): Markdown =
     """
-    ```${language}
-    $this
-    ```
-    """.trimIndent()
+    |```${language}
+    |$this
+    |```
+    """.trimMargin()
 
 
 internal fun HTML.removeSurroundingTag(tag: String): HTML =

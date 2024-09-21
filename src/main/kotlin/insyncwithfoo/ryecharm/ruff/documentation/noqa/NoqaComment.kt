@@ -14,7 +14,7 @@ private fun String.toRegexBypassingIDELanguageInjection() = this.toRegex()
 
 // From:
 // https://github.com/astral-sh/ruff/blob/dedefd73dac18ea112cea1254fea6388fe67237b/crates/ruff_linter/src/noqa.rs#L180
-internal val noqaCode = """[A-Z]+[0-9]+""".toRegexBypassingIDELanguageInjection()
+internal val ruleCode = """[A-Z]+[0-9]+""".toRegexBypassingIDELanguageInjection()
 
 // From:
 // https://github.com/astral-sh/ruff/blob/dedefd73dac18ea112cea1254fea6388fe67237b/crates/ruff_linter/src/noqa.rs#L56
@@ -28,7 +28,7 @@ internal val noqaComment = """(?x)
     (?<prefix>\#\h*(?i:noqa))
     (?:
         (?<colon>:\h*)
-        (?<codeList>$noqaCode(?:(?<lastSeparator>[\h,]*+)$noqaCode)*+)
+        (?<codeList>$ruleCode(?:(?<lastSeparator>[\h,]*+)$ruleCode)*+)
     )?
 """.toRegexBypassingIDELanguageInjection()
 
@@ -38,15 +38,15 @@ private val fileNoqaComment = """(?x)
     \#
 	\h*(?:flake8|ruff)\h*:
 	\h*(?i:noqa)\h*
-	(?::\h*(?<codeList>$noqaCode(?:[\h,]\h*$noqaCode)*)|$)
+	(?::\h*(?<codeList>$ruleCode(?:[\h,]\h*$ruleCode)*)|$)
 """.toRegexBypassingIDELanguageInjection()
 
 
-internal typealias NoqaCode = String
+internal typealias RuleCode = String
 
 
 private data class NoqaCodeFragment(
-    val content: NoqaCode,
+    val content: RuleCode,
     val range: IntRange
 ) {
     override fun toString() = content
@@ -77,7 +77,7 @@ internal class NoqaComment private constructor(private val codes: List<NoqaCodeF
             val codeListAbsoluteOffset =
                 elementOffset + matchOffsetRelativeToElement + codeListOffsetRelativeToMatch
             
-            val codes = noqaCode.findAll(delimitedCodeList.value)
+            val codes = ruleCode.findAll(delimitedCodeList.value)
                 .map { NoqaCodeFragment(it, codeListAbsoluteOffset) }
             
             return NoqaComment(codes.toList())

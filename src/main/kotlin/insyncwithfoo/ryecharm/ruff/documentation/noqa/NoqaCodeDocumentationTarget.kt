@@ -26,9 +26,6 @@ internal class NoqaCodeDocumentationTarget(
     private val offset: Int
 ) : DocumentationTarget {
     
-    private val project: Project
-        get() = element.project
-    
     // This doesn't seem to do anything.
     override fun computePresentation() =
         TargetPresentation.builder("").presentation()
@@ -48,12 +45,12 @@ internal class NoqaCodeDocumentationTarget(
         return computeDocumentation(noqaCode)
     }
     
-    private fun computeDocumentation(noqaCode: NoqaCode) = DocumentationResult.asyncDocumentation {
-        project.getDocumentation(noqaCode)?.toDocumentationResult()
+    private fun computeDocumentation(ruleCode: RuleCode) = DocumentationResult.asyncDocumentation {
+        element.project.getDocumentation(ruleCode)?.toDocumentationResult()
     }
     
-    private suspend fun Project.getDocumentation(noqaCode: NoqaCode): HTML? {
-        val markdownDocumentation = getMarkdownDocumentation(noqaCode) ?: return null
+    private suspend fun Project.getDocumentation(ruleCode: RuleCode): HTML? {
+        val markdownDocumentation = getMarkdownDocumentation(ruleCode) ?: return null
         
         return readAction { markdownDocumentation.toHTML() }
     }

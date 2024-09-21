@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.ruff.documentation.toml
+package insyncwithfoo.ryecharm.ruff.documentation.options
 
 import com.intellij.model.Pointer
 import com.intellij.openapi.application.readAction
@@ -179,11 +179,9 @@ internal class RuffOptionDocumentationTarget(
         }
     }
     
-    private fun Project.parseAndConvertToHTML(raw: String): Map<OptionName, OptionDocumentation>? {
-        val renderer = OptionInfoRenderer(this)
-        
+    private fun parseAndConvertToHTML(raw: String): Map<OptionName, OptionDocumentation>? {
         return parseConfigOutput(raw)?.mapValues { (name, info) ->
-            renderer.render(name.toAbsoluteName(), info)
+            info.render(name.toAbsoluteName())
         }
     }
     

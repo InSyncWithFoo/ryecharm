@@ -1,9 +1,8 @@
-package insyncwithfoo.ryecharm.ruff.documentation.toml
+package insyncwithfoo.ryecharm.ruff.documentation.options
 
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.PsiDocumentationTargetProvider
 import com.intellij.psi.PsiElement
-import insyncwithfoo.ryecharm.TOMLPath
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isPyprojectToml
@@ -40,22 +39,20 @@ internal class RuffOptionDocumentationTargetProvider : PsiDocumentationTargetPro
             !virtualFile.isPyprojectToml && !virtualFile.isRuffToml -> return emptyList()
         }
         
-        val tomlKey = element.wrappingTomlKey ?: return emptyList()
-        val target = when {
-            virtualFile.isPyprojectToml -> tomlKey.pyprojectTomlDocumentationTarget()
-            else -> tomlKey.ruffTomlDocumentationTarget(virtualFile.name)
+        val key = element.wrappingTomlKey ?: return emptyList()
+        
+        val absoluteName = key.absoluteName
+        val relativeName = when {
+            virtualFile.isPyprojectToml -> absoluteName.relativize("tool.ruff") ?: return emptyList()
+            else -> absoluteName
         }
         
-        return listOfNotNull(target)
+        return listOfNotNull(key.toTarget(relativeName.toString()))
     }
     
-    private fun TomlKey.pyprojectTomlDocumentationTarget(): RuffOptionDocumentationTarget? {
-        val relativeName = absoluteName.relativize(TOMLPath("tool.ruff")) ?: return null
-        
-        return RuffOptionDocumentationTarget(this, relativeName.toString(), "pyproject.toml")
+    private fun TomlKey.toTarget(option: String): DocumentationTarget {
+        val fileName = containingFile!!.virtualFile.name
+        return RuffOptionDocumentationTarget(this, option, fileName)
     }
-    
-    private fun TomlKey.ruffTomlDocumentationTarget(fileName: String) =
-        RuffOptionDocumentationTarget(this, absoluteName.toString(), fileName)
     
 }

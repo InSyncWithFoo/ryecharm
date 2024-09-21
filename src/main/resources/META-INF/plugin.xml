@@ -246,9 +246,9 @@
 		/>
 		
 		<platform.backend.documentation.psiTargetProvider
-			id="insyncwithfoo.ryecharm.ruff.documentation.toml.RuffOptionDocumentationTargetProvider"
+			id="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
 			order="first"
-			implementation="insyncwithfoo.ryecharm.ruff.documentation.toml.RuffOptionDocumentationTargetProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
 		/>
 	</extensions>
 	

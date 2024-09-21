@@ -8,8 +8,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.propertiesComponent
-import insyncwithfoo.ryecharm.ruff.documentation.toml.OptionDocumentation
-import insyncwithfoo.ryecharm.ruff.documentation.toml.OptionName
+import insyncwithfoo.ryecharm.ruff.documentation.options.OptionDocumentation
+import insyncwithfoo.ryecharm.ruff.documentation.options.OptionName
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.reflect.KMutableProperty1

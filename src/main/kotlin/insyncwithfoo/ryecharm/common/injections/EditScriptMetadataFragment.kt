@@ -94,6 +94,7 @@ private fun Project.runTask(action: suspend CoroutineScope.() -> Unit) {
 }
 
 
+// TODO: Make this DumbAware?
 /**
  * Allow editing a PEP 723 block injected fragment
  * in a new editor similar to a normal TOML file.

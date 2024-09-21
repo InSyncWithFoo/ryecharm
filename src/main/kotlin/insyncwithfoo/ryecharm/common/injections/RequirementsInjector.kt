@@ -9,22 +9,12 @@ import insyncwithfoo.ryecharm.TOMLPath
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.main.mainConfigurations
 import insyncwithfoo.ryecharm.isPyprojectToml
+import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.isUVToml
 import insyncwithfoo.ryecharm.keyValuePair
 import org.toml.lang.psi.TomlArray
-import org.toml.lang.psi.TomlElementTypes
 import org.toml.lang.psi.TomlKey
 import org.toml.lang.psi.TomlLiteral
-import org.toml.lang.psi.ext.elementType
-
-
-private val TomlLiteral.isString: Boolean
-    get() = firstChild?.elementType in listOf(
-        TomlElementTypes.BASIC_STRING,
-        TomlElementTypes.LITERAL_STRING,
-        TomlElementTypes.MULTILINE_BASIC_STRING,
-        TomlElementTypes.MULTILINE_LITERAL_STRING
-    )
 
 
 // Upstream issue: https://youtrack.jetbrains.com/issue/PY-71120
@@ -74,12 +64,12 @@ internal class RequirementsInjector : LanguageInjectionContributor {
         val virtualFile = file.virtualFile ?: return null
         val absoluteName = key.absoluteName
         
-        if (virtualFile.isPyprojectToml && absoluteName isChildOf TOMLPath("project.optional-dependencies")) {
+        if (virtualFile.isPyprojectToml && absoluteName isChildOf "project.optional-dependencies") {
             return injection
         }
         
         val relativeName = when {
-            virtualFile.isPyprojectToml -> absoluteName.relativize(TOMLPath("tool.uv")) ?: return null
+            virtualFile.isPyprojectToml -> absoluteName.relativize("tool.uv") ?: return null
             virtualFile.isUVToml -> absoluteName
             else -> return null
         }
@@ -88,12 +78,12 @@ internal class RequirementsInjector : LanguageInjectionContributor {
     }
     
     private fun getInjection(keyRelativeName: TOMLPath): Injection? {
-        val requirementsKeyNames = listOf(
-            TOMLPath("constraint-dependencies"),
-            TOMLPath("dev-dependencies"),
-            TOMLPath("override-dependencies"),
-            TOMLPath("upgrade-package"),
-            TOMLPath("pip.upgrade-package")
+        val requirementsKeyNames = TOMLPath.listOf(
+            "constraint-dependencies",
+            "dev-dependencies",
+            "override-dependencies",
+            "upgrade-package",
+            "pip.upgrade-package"
         )
         
         if (keyRelativeName !in requirementsKeyNames) {
