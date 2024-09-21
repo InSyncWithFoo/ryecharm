@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/icon-black.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.06209087.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -1015,6 +1015,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#edit-script-metadata-fragment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit script metadata fragment
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1118,6 +1127,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#edit-script-metadata-fragment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit script metadata fragment
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1179,7 +1197,7 @@ are replaced with the tools' logos:</p>
 </figure>
 <h2 id="new-terminal-autocompletion">New terminal autocompletion<a class="headerlink" href="#new-terminal-autocompletion" title="Permanent link">#</a></h2>
 <p>If the <a href="https://blog.jetbrains.com/idea/2024/02/the-new-terminal-beta-is-now-in-jetbrains-ides/">new terminal</a> is used,
-autocompletion will be provided for <code>ruff</code> and <code>uv</code> commands.</p>
+autocompletion will be provided for <code>ruff</code>, <code>uv</code> and <code>uvx</code> commands.</p>
 <p><img alt="" src="../assets/features-new-terminal-autocompletion-demo.png" /></p>
 <h2 id="language-injection">Language injection<a class="headerlink" href="#language-injection" title="Permanent link">#</a></h2>
 <h3 id="inline-script-metadata-block">Inline script metadata block<a class="headerlink" href="#inline-script-metadata-block" title="Permanent link">#</a></h3>
@@ -1211,6 +1229,22 @@ This monkeypatches <a href="https://youtrack.jetbrains.com/issue/PY-71120">PY-71
 </div>
 <div class="tabbed-block">
 <p><img alt="" src="../assets/features-requirements-arrays-language-injection-demo-uv-toml.png" /></p>
+</div>
+</div>
+</div>
+<h3 id="edit-script-metadata-fragment">Edit script metadata fragment<a class="headerlink" href="#edit-script-metadata-fragment" title="Permanent link">#</a></h3>
+<p>This intention is available when the cursor
+is inside the script metadata block.</p>
+<p>It opens a new editor with the fragment content prefilled,
+removing all prefixes and suffixes.
+The new content will be written back when this editor is closed.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="edit-script-metadata-fragment-python-file" name="__tabbed_2" type="radio" /><input id="edit-script-metadata-fragment-new-editor" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="edit-script-metadata-fragment-python-file">Python file</label><label for="edit-script-metadata-fragment-new-editor">New editor</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="" src="../assets/features-edit-script-metadata-fragment-demo-intention.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../assets/features-edit-script-metadata-fragment-demo-new-editor.png" /></p>
 </div>
 </div>
 </div>

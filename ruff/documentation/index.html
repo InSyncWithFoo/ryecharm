@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/icon-black.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.06209087.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#noqa-rules" class="md-skip">
+        <a href="#rule-selectors" class="md-skip">
           Skip to content
         </a>
       
@@ -467,18 +467,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#noqa-rules" class="md-nav__link">
+  <a href="#rule-selectors" class="md-nav__link">
     <span class="md-ellipsis">
-      noqa rules
+      Rule selectors
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#toml-keys" class="md-nav__link">
+  <a href="#toml-setting-keys" class="md-nav__link">
     <span class="md-ellipsis">
-      TOML keys
+      TOML setting keys
     </span>
   </a>
   
@@ -1040,18 +1040,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#noqa-rules" class="md-nav__link">
+  <a href="#rule-selectors" class="md-nav__link">
     <span class="md-ellipsis">
-      noqa rules
+      Rule selectors
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#toml-keys" class="md-nav__link">
+  <a href="#toml-setting-keys" class="md-nav__link">
     <span class="md-ellipsis">
-      TOML keys
+      TOML setting keys
     </span>
   </a>
   
@@ -1093,33 +1093,51 @@
 <p>On hover or <i>Quick Documentation</i> (<kbd>Ctrl</kbd> + <kbd>Q</kbd>),
 RyeCharm will show documentation popups for the currently selected symbol
 if it is a recognized one.</p>
-<h2 id="noqa-rules"><code>noqa</code> rules<a class="headerlink" href="#noqa-rules" title="Permanent link">#</a></h2>
+<h2 id="rule-selectors">Rule selectors<a class="headerlink" href="#rule-selectors" title="Permanent link">#</a></h2>
 <p>Rule documentation popups are shown for rule codes
-in <code># noqa</code> comments of both line and file-level.</p>
+in <code># noqa</code> comments of both line and file-level
+as well as the following TOML settings:</p>
+<ul>
+<li>(<code>lint</code>) <code>extend-fixable</code></li>
+<li>(<code>lint</code>) <code>extend-ignore</code></li>
+<li>(<code>lint</code>) <code>extend-per-file-ignores.*</code></li>
+<li>(<code>lint</code>) <code>extend-safe-fixes</code></li>
+<li>(<code>lint</code>) <code>extend-select</code></li>
+<li>(<code>lint</code>) <code>extend-unfixable</code></li>
+<li>(<code>lint</code>) <code>extend-unsafe-fixes</code></li>
+<li>(<code>lint</code>) <code>fixable</code></li>
+<li>(<code>lint</code>) <code>ignore</code></li>
+<li>(<code>lint</code>) <code>per-file-ignores.*</code></li>
+<li>(<code>lint</code>) <code>select</code></li>
+<li>(<code>lint</code>) <code>unfixable</code></li>
+</ul>
 <p>This is equivalent to running <code>ruff rule ...</code> with the rule code as argument.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="noqa-rules-line-level" name="__tabbed_1" type="radio" /><input id="noqa-rules-file-level" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="noqa-rules-line-level">Line-level</label><label for="noqa-rules-file-level">File-level</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="rule-selectors-line-level-comment" name="__tabbed_1" type="radio" /><input id="rule-selectors-file-level-comment" name="__tabbed_1" type="radio" /><input id="rule-selectors-rule-selector-array" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="rule-selectors-line-level-comment">Line-level comment</label><label for="rule-selectors-file-level-comment">File-level comment</label><label for="rule-selectors-rule-selector-array">Rule selector array</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><img alt="" src="../../assets/ruff-documentation-noqa-demo-line-level.png" /></p>
+<p><img alt="" src="../../assets/ruff-documentation-demo-line-level-comment.png" /></p>
 </div>
 <div class="tabbed-block">
-<p><img alt="" src="../../assets/ruff-documentation-noqa-demo-file-level.png" /></p>
+<p><img alt="" src="../../assets/ruff-documentation-demo-file-level-comment.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/ruff-documentation-demo-rule-selector-array.png" /></p>
 </div>
 </div>
 </div>
-<h2 id="toml-keys">TOML keys<a class="headerlink" href="#toml-keys" title="Permanent link">#</a></h2>
+<h2 id="toml-setting-keys">TOML setting keys<a class="headerlink" href="#toml-setting-keys" title="Permanent link">#</a></h2>
 <p>Configuration option documentation popups are shown for
 keys of the <code>[tool.ruff]</code> table of <code>pyproject.toml</code> (or a subtable thereof)
-and all keys in <code>ruff.toml</code>/<code>.ruff.toml</code>.</p>
+and keys in <code>ruff.toml</code>/<code>.ruff.toml</code>.</p>
 <p>This is equivalent to running <code>ruff config ...</code>
-with the option name as argument.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="toml-keys-pyprojecttoml" name="__tabbed_2" type="radio" /><input id="toml-keys-rufftoml" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="toml-keys-pyprojecttoml"><code>pyproject.toml</code></label><label for="toml-keys-rufftoml"><code>ruff.toml</code></label></div>
+with the key's name as argument.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="toml-setting-keys-pyprojecttoml" name="__tabbed_2" type="radio" /><input id="toml-setting-keys-rufftoml" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="toml-setting-keys-pyprojecttoml"><code>pyproject.toml</code></label><label for="toml-setting-keys-rufftoml"><code>ruff.toml</code></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><img alt="" src="../../assets/ruff-documentation-toml-keys-demo-pyproject-toml.png" /></p>
+<p><img alt="" src="../../assets/ruff-documentation-demo-pyproject-toml-setting-keys.png" /></p>
 </div>
 <div class="tabbed-block">
-<p><img alt="" src="../../assets/ruff-documentation-toml-keys-demo-ruff-toml.png" /></p>
+<p><img alt="" src="../../assets/ruff-documentation-demo-ruff-toml-setting-keys.png" /></p>
 </div>
 </div>
 </div>
