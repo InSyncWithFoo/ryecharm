@@ -13,7 +13,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 26) {
+        doShapeTest(expectedSize = 27) {
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
             assertEquals(null, configurationFile)
@@ -33,8 +33,6 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
             assertEquals(true, formatting)
             assertEquals(true, formatOnReformat)
             assertEquals(true, formatOnOptimizeImports)
-            assertEquals(false, formatOnSave)
-            assertEquals(true, formatOnSaveProjectFilesOnly)
             
             assertEquals(true, documentationPopups)
             assertEquals(true, documentationPopupsForNoqaComments)
@@ -42,6 +40,10 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
             
             assertEquals(LogLevel.INFO, logLevel)
             assertEquals(null, logFile)
+            
+            assertEquals(true, runOnSaveProjectFilesOnly)
+            assertEquals(false, formatOnSave)
+            assertEquals(false, fixOnSave)
             
             assertEquals(true, suggestExecutableOnProjectOpen)
             assertEquals(true, suggestExecutableOnPackagesChange)

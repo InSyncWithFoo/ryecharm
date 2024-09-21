@@ -94,14 +94,6 @@ private fun Row.formatOnOptimizeImportsInput(block: Cell<JBCheckBox>.() -> Unit)
     checkBox(message("configurations.ruff.formatOnOptimizeImports.label")).apply(block)
 
 
-private fun Row.formatOnSaveInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.formatOnSave.label")).apply(block)
-
-
-private fun Row.formatOnSaveProjectFilesOnlyInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.formatOnSaveProjectFilesOnly.label")).apply(block)
-
-
 private fun Row.documentationPopupsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.documentationPopups.label")).apply(block)
 
@@ -120,6 +112,18 @@ private fun Row.logLevelInput(block: Cell<ComboBox<LogLevel>>.() -> Unit) =
 
 private fun Row.logFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
     singleFileTextField().makeFlexible().apply(block)
+
+
+private fun Row.runOnSaveProjectFilesOnlyInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.runOnSaveProjectFilesOnly.label")).apply(block)
+
+
+private fun Row.formatOnSaveInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.formatOnSave.label")).apply(block)
+
+
+private fun Row.fixOnSaveInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.fixOnSave.label")).apply(block)
 
 
 private fun Row.suggestExecutableOnProjectOpenInput(block: Cell<JBCheckBox>.() -> Unit) =
@@ -225,16 +229,6 @@ private fun RuffPanel.makeComponent() = panel {
                 formatOnOptimizeImportsInput { bindSelected(state::formatOnOptimizeImports) }
                 overrideCheckbox(state::formatOnOptimizeImports)
             }
-            row {
-                formatOnSaveInput { bindSelected(state::formatOnSave) }
-                overrideCheckbox(state::formatOnSave)
-            }
-            indent {
-                row {
-                    formatOnSaveProjectFilesOnlyInput { bindSelected(state::formatOnSaveProjectFilesOnly) }
-                    overrideCheckbox(state::formatOnSaveProjectFilesOnly)
-                }
-            }
         }
         
         row {
@@ -263,6 +257,24 @@ private fun RuffPanel.makeComponent() = panel {
             overrideCheckbox(state::logFile)
         }
         
+    }
+    
+    group(message("configurations.ruff.groups.runOnSave")) {
+        row {
+            runOnSaveProjectFilesOnlyInput { bindSelected(state::runOnSaveProjectFilesOnly) }
+            overrideCheckbox(state::runOnSaveProjectFilesOnly)
+        }
+        
+        separator()
+        
+        row {
+            formatOnSaveInput { bindSelected(state::formatOnSave) }
+            overrideCheckbox(state::formatOnSave)
+        }
+        row {
+            fixOnSaveInput { bindSelected(state::fixOnSave) }
+            overrideCheckbox(state::fixOnSave)
+        }
     }
     
     group(message("configurations.ruff.groups.other")) {

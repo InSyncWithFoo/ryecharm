@@ -194,6 +194,11 @@
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
+		<actionOnSave
+			id="insyncwithfoo.ryecharm.ruff.onsave.RuffOnSaveTasksRunner"
+			implementation="insyncwithfoo.ryecharm.ruff.onsave.RuffOnSaveTasksRunner"
+		/>
+		
 		<externalAnnotator
 			id="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
 			language="Python"
@@ -405,10 +410,6 @@
 	</actions>
 	
 	<projectListeners>
-		<listener
-			class="insyncwithfoo.ryecharm.ruff.formatting.RuffOnSaveFormatter"
-			topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"
-		/>
 		<listener
 			class="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
 			topic="com.jetbrains.python.packaging.common.PythonPackageManagementListener"
