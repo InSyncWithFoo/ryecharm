@@ -3,31 +3,48 @@ RyeCharm will show documentation popups for the currently selected symbol
 if it is a recognized one.
 
 
-## `noqa` rules
+## Rule selectors
 
 Rule documentation popups are shown for rule codes
-in `# noqa` comments of both line and file-level.
+in `# noqa` comments of both line and file-level
+as well as the following TOML settings:
+
+* (`lint`) `extend-fixable`
+* (`lint`) `extend-ignore`
+* (`lint`) `extend-per-file-ignores.*`
+* (`lint`) `extend-safe-fixes`
+* (`lint`) `extend-select`
+* (`lint`) `extend-unfixable`
+* (`lint`) `extend-unsafe-fixes`
+* (`lint`) `fixable`
+* (`lint`) `ignore`
+* (`lint`) `per-file-ignores.*`
+* (`lint`) `select`
+* (`lint`) `unfixable`
 
 This is equivalent to running `ruff rule ...` with the rule code as argument.
 
-=== "Line-level"
-    ![](../assets/ruff-documentation-noqa-demo-line-level.png)
+=== "Line-level comment"
+    ![](../assets/ruff-documentation-demo-line-level-comment.png)
 
-=== "File-level"
-    ![](../assets/ruff-documentation-noqa-demo-file-level.png)
+=== "File-level comment"
+    ![](../assets/ruff-documentation-demo-file-level-comment.png)
+
+=== "Rule selector array"
+    ![](../assets/ruff-documentation-demo-rule-selector-array.png)
 
 
-## TOML keys
+## TOML setting keys
 
 Configuration option documentation popups are shown for
 keys of the `[tool.ruff]` table of `pyproject.toml` (or a subtable thereof)
-and all keys in `ruff.toml`/`.ruff.toml`.
+and keys in `ruff.toml`/`.ruff.toml`.
 
 This is equivalent to running `ruff config ...`
-with the option name as argument.
+with the key's name as argument.
 
 === "`pyproject.toml`"
-    ![](../assets/ruff-documentation-toml-keys-demo-pyproject-toml.png)
+    ![](../assets/ruff-documentation-demo-pyproject-toml-setting-keys.png)
 
 === "`ruff.toml`"
-    ![](../assets/ruff-documentation-toml-keys-demo-ruff-toml.png)
+    ![](../assets/ruff-documentation-demo-ruff-toml-setting-keys.png)

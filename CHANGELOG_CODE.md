@@ -11,14 +11,27 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 
 ## [Unreleased]
 
-<i>This section is currently empty.</i>
+### Dependencies
+
+* [@astral-sh/setup-uv][_0.1.0-a3-d1]: 2.1.0 &rarr; 3.1.0
+* [Qodana][_0.1.0-a3-d2]: 2024.1.9 &rarr; 2024.2.3
+* [`kotlinx-serialization-json`][_0.1.0-a3-d3]: 1.7.2 &rarr; 1.7.3
+* [MkDocs][_0.1.0-a3-d4]: 1.6.0 &rarr; 1.6.1
+* [Material for MkDocs][_0.1.0-a3-d5]: 9.5.33 &rarr; 9.5.35
+
+
+  [_0.1.0-a3-d1]: https://github.com/astral-sh/setup-uv
+  [_0.1.0-a3-d2]: https://github.com/JetBrains/qodana-action
+  [_0.1.0-a3-d3]: https://github.com/Kotlin/kotlinx.serialization
+  [_0.1.0-a3-d4]: https://github.com/mkdocs/mkdocs
+  [_0.1.0-a3-d5]: https://github.com/squidfunk/mkdocs-material
 
 
 ## [0.1.0-alpha-2] - 2024-09-14
 
 ### Dependencies
 
-* [@astral-sh/setup-uv][_0.1.0-a2-d1]: 0.1.0 &rarr; 0.2.1
+* [@astral-sh/setup-uv][_0.1.0-a2-d1]: 1.0.0 &rarr; 2.1.0
 * [LSP4IJ][_0.1.0-a2-d2]: 0.4.0 &rarr; 0.5.0
 
 

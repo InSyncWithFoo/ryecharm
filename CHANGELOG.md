@@ -11,7 +11,57 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 
 ## [Unreleased]
 
-<i>This section is currently empty.</i>
+See [the documentation][0.1.0-a3-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.6.6][0.1.0-a3-2]
+* uv: [0.4.14][0.1.0-a3-3]
+* Rye: [0.39.0][0.1.0-a3-4]
+
+
+### Added
+
+* Script metadata blocks can now be edited in a separate editor.
+  The new content will be written back when this editor is closed.
+* Ruff can now be configured to fix all problems on save.
+* Documentation is now provided when rule selectors
+  declared in the following settings are hovered:
+
+  * `lint.extend-fixable`
+  * `lint.extend-ignore`
+  * `lint.extend-per-file-ignores.*`
+  * `lint.extend-safe-fixes`
+  * `lint.extend-select`
+  * `lint.extend-unfixable`
+  * `lint.extend-unsafe-fixes`
+  * `lint.fixable`
+  * `lint.ignore`
+  * `lint.per-file-ignores.*`
+  * `lint.select`
+  * `lint.unfixable`
+
+  The corresponding deprecated top-level settings are also recognized.
+
+
+### Changed
+
+* Error and information notifications are now splitted to different groups.
+* A few settings' serialization names are changed.
+* Notifications are no longer shown when an on-save task fail.
+
+
+### Fixed
+
+* Ruff is now no longer run on `.rst` files.
+  Due to how `.rst` files are implemented,
+  they were incorrectly determined to be Python files.
+
+
+  [0.1.0-a3-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a3-2]: https://github.com/astral-sh/ruff/releases/tag/0.6.6
+  [0.1.0-a3-3]: https://github.com/astral-sh/uv/releases/tag/0.4.14
+  [0.1.0-a3-4]: https://github.com/astral-sh/rye/releases/tag/0.39.0
 
 
 ## [0.1.0-alpha-2] - 2024-09-14
@@ -20,7 +70,7 @@ See [the documentation][0.1.0-a2-1] for more information.
 
 Latest tool versions at the time of release:
 
-* Ruff: [0.6.4][0.1.0-a2-2]
+* Ruff: [0.6.5][0.1.0-a2-2]
 * uv: [0.4.10][0.1.0-a2-3]
 * Rye: [0.39.0][0.1.0-a2-4]
 
@@ -36,11 +86,11 @@ Latest tool versions at the time of release:
 * Various uv [PEP 508][0.1.0-a2-a-4] dependency arrays settings now have
   injections similar to [that of `project.dependencies`][0.1.0-a2-a-5]:
 
-  * \[`tool.uv`] `constraint-dependencies`
-  * \[`tool.uv`] `dev-dependencies`
-  * \[`tool.uv`] `override-dependencies`
-  * \[`tool.uv`] `upgrade-package`
-  * \[`tool.uv`] `pip.upgrade-package`
+  * `constraint-dependencies`
+  * `dev-dependencies`
+  * `override-dependencies`
+  * `upgrade-package`
+  * `pip.upgrade-package`
 
   As a bonus, `project.optional-dependencies` is also supported.
   This monkeypatches [PY-71120][0.1.0-a2-a-6].
@@ -92,7 +142,7 @@ RyeCharm is an all-in-one plugin for working with
     * On optimize imports
   * Documentation on hover:
     * Rule codes
-    * TOML options
+    * TOML setting keys
 
 * [uv][0.1.0-a1-3]:
   * Package management

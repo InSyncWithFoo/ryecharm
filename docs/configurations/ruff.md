@@ -150,20 +150,6 @@ Whether the <i>Optimize Imports</i> action should trigger Ruff.
 Default: `true`
 
 
-#### Run on save
-
-Whether files should be formatted by Ruff before saving.
-
-Default: `false`
-
-
-##### Project files only
-
-Whether only files belong to the current project should be formatted by Ruff.
-
-Default: `true`
-
-
 ### Documentation popups
 
 Whether [documentation popups][14] should be shown.
@@ -181,7 +167,15 @@ Whether documentation popups should be shown when
 Default: `true`
 
 
-#### For TOML keys
+#### For rule codes in TOML files
+
+Whether documentation popups should be shown when
+rule codes in rule selector arrays are hovered.
+
+Default: `true`
+
+
+#### For setting keys in TOML files
 
 Whether documentation popups should be shown when
 the keys of the `tool.ruff` table in the `pyproject.toml` file
@@ -204,6 +198,35 @@ Default: <i>Information</i>
 The file to which the logs will be written.
 
 This corresponds to the [`logFile`][17] language server setting.
+
+
+## Run on save
+
+Whether Ruff should be run on files before saving.
+
+If both "fix problems" and "format" are enabled, they are run in that order.
+
+
+### Project files only
+
+Whether only files belong to the current project should be run on.
+
+Default: `true`
+
+
+### Format
+
+Whether Ruff should format the file before it is saved.
+
+Default: `false`
+
+
+### Fix violations
+
+Whether Ruff should try to fix all safely fixable violations
+in the file before it is saved.
+
+Default: `false`
 
 
 ## Other settings

@@ -112,7 +112,7 @@ private fun InformationNotificationGroup.processCompletedSuccessfully(content: S
 
 
 internal fun Project.processCompletedSuccessfully(content: String? = null) =
-    errorNotificationGroup.processCompletedSuccessfully(content).notify(this)
+    informationNotificationGroup.processCompletedSuccessfully(content).notify(this)
 
 
 private fun ErrorNotificationGroup.unknownError(

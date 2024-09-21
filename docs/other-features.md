@@ -27,7 +27,7 @@ are replaced with the tools' logos:
 ## New terminal autocompletion
 
 If the [new terminal][4] is used,
-autocompletion will be provided for `ruff` and `uv` commands.
+autocompletion will be provided for `ruff`, `uv` and `uvx` commands.
 
 ![](./assets/features-new-terminal-autocompletion-demo.png)
 
@@ -69,6 +69,22 @@ This monkeypatches [PY-71120][9].
 
 === "uv.toml"
     ![](./assets/features-requirements-arrays-language-injection-demo-uv-toml.png)
+
+
+### Edit script metadata fragment
+
+This intention is available when the cursor
+is inside the script metadata block.
+
+It opens a new editor with the fragment content prefilled,
+removing all prefixes and suffixes.
+The new content will be written back when this editor is closed.
+
+=== "Python file"
+    ![](./assets/features-edit-script-metadata-fragment-demo-intention.png)
+
+=== "New editor"
+    ![](./assets/features-edit-script-metadata-fragment-demo-new-editor.png)
 
 
   [1]: https://www.jetbrains.com/help/pycharm/project-tool-window.html
