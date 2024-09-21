@@ -4,7 +4,7 @@ import com.intellij.psi.PsiComment
 
 
 /**
- * Due to some reason, IntelliJ IDEA's moemory usage always peaks
+ * Due to some reason, IntelliJ IDEA's memory usage always peaks
  * when analyzing this file with injected regex fragments.
  * 
  * This allows bypassing the detection algorithm.
@@ -45,7 +45,7 @@ private val fileNoqaComment = """(?x)
 internal typealias RuleCode = String
 
 
-private data class NoqaCodeFragment(
+private data class RuleCodeFragment(
     val content: RuleCode,
     val range: IntRange
 ) {
@@ -53,17 +53,17 @@ private data class NoqaCodeFragment(
 }
 
 
-private fun NoqaCodeFragment(group: MatchResult, codeListAbsoluteOffset: Int): NoqaCodeFragment {
+private fun RuleCodeFragment(group: MatchResult, codeListAbsoluteOffset: Int): RuleCodeFragment {
     val start = group.range.first + codeListAbsoluteOffset
     val end = group.range.last + codeListAbsoluteOffset
     
-    return NoqaCodeFragment(group.value, start..end)
+    return RuleCodeFragment(group.value, start..end)
 }
 
 
-internal class NoqaComment private constructor(private val codes: List<NoqaCodeFragment>) {
+internal class NoqaComment private constructor(private val codes: List<RuleCodeFragment>) {
     
-    fun findNoqaCodeAtOffset(offset: Int): String? {
+    fun findRuleCodeAtOffset(offset: Int): RuleCode? {
         return codes.find { offset in it.range }?.toString()
     }
     
@@ -78,7 +78,7 @@ internal class NoqaComment private constructor(private val codes: List<NoqaCodeF
                 elementOffset + matchOffsetRelativeToElement + codeListOffsetRelativeToMatch
             
             val codes = ruleCode.findAll(delimitedCodeList.value)
-                .map { NoqaCodeFragment(it, codeListAbsoluteOffset) }
+                .map { RuleCodeFragment(it, codeListAbsoluteOffset) }
             
             return NoqaComment(codes.toList())
         }

@@ -102,6 +102,10 @@ private fun Row.documentationPopupsForNoqaCommentsInput(block: Cell<JBCheckBox>.
     checkBox(message("configurations.ruff.documentationPopupsForNoqaComments.label")).apply(block)
 
 
+private fun Row.documentationPopupsForTOMLRuleCodesInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.documentationPopupsForTOMLRuleCodes.label")).apply(block)
+
+
 private fun Row.documentationPopupsForTOMLOptionsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.documentationPopupsForTOMLOptions.label")).apply(block)
 
@@ -239,6 +243,10 @@ private fun RuffPanel.makeComponent() = panel {
             row {
                 documentationPopupsForNoqaCommentsInput { bindSelected(state::documentationPopupsForNoqaComments) }
                 overrideCheckbox(state::documentationPopupsForNoqaComments)
+            }
+            row {
+                documentationPopupsForTOMLRuleCodesInput { bindSelected(state::documentationPopupsForTOMLRuleCodes) }
+                overrideCheckbox(state::documentationPopupsForTOMLRuleCodes)
             }
             row {
                 documentationPopupsForTOMLOptionsInput { bindSelected(state::documentationPopupsForTOMLOptions) }

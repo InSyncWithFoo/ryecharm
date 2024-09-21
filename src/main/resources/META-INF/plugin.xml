@@ -240,15 +240,21 @@
 		/>
 		
 		<platform.backend.documentation.targetProvider
-			id="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCodeDocumentationTargetProvider"
+			id="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCommentRuleCodeDocumentationTargetProvider"
 			order="first"
-			implementation="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCodeDocumentationTargetProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCommentRuleCodeDocumentationTargetProvider"
 		/>
 		
 		<platform.backend.documentation.psiTargetProvider
 			id="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
 			order="first"
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
+		/>
+		
+		<platform.backend.documentation.targetProvider
+			id="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
 		/>
 	</extensions>
 	

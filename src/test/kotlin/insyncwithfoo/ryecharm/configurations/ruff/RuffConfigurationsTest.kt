@@ -13,7 +13,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 27) {
+        doShapeTest(expectedSize = 28) {
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
             assertEquals(null, configurationFile)
@@ -36,6 +36,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
             
             assertEquals(true, documentationPopups)
             assertEquals(true, documentationPopupsForNoqaComments)
+            assertEquals(true, documentationPopupsForTOMLRuleCodes)
             assertEquals(true, documentationPopupsForTOMLOptions)
             
             assertEquals(LogLevel.INFO, logLevel)

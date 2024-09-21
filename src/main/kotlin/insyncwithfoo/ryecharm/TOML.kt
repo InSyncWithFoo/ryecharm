@@ -70,7 +70,7 @@ internal val PsiElement.wrappingLiteral: TomlLiteral?
 
 /**
  * Overly simplified abstraction of a TOML key or table's name.
- *
+ * 
  * The key or table represented can be absolute or relative.
  * Quoted fragments are deliberately left quoted.
  */

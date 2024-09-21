@@ -75,6 +75,7 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     
     var documentationPopups by property(true)
     var documentationPopupsForNoqaComments by property(true)
+    var documentationPopupsForTOMLRuleCodes by property(true)
     var documentationPopupsForTOMLOptions by property(true)
     
     var logLevel by enum(LogLevel.INFO)
