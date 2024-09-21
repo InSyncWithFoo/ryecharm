@@ -14,15 +14,15 @@ from __future__ import annotations
 
 import json
 import subprocess
-from itertools import groupby
 from pathlib import Path
 from typing import Literal, Self
 
 import nccsp
 from more_itertools import partition
+from nccsp import parse_commands
 from pydantic import BaseModel, Field
 
-type _Executable = Literal['ruff', 'uv']
+type _Executable = Literal['ruff', 'uv', 'uvx']
 
 
 def _is_option(option_or_argument: nccsp.OptionOrArgument) -> bool:
@@ -54,15 +54,24 @@ class _Command(BaseModel):
 
 
 def _get_version(executable: _Executable) -> str:
-	return subprocess.check_output([executable, 'version']).decode('utf-8').strip()
+	argument = 'version'
+	
+	if executable == 'uvx':
+		argument = '--' + argument
+	
+	return subprocess.check_output([executable, argument]).decode('utf-8').strip()
 
 
 def _get_data(executable: _Executable) -> list[nccsp.Command]:
-	arguments = ['nccsp', 'executable', executable]
-	output_stream = subprocess.check_output(arguments)
+	argument = 'generate-shell-completion'
+	
+	if executable == 'uvx':
+		argument = '--' + argument
+	
+	output_stream = subprocess.check_output([executable, argument, 'nushell'])
 	output = output_stream.decode('utf-8')
 	
-	return [nccsp.Command(**element) for element in json.loads(output)]
+	return parse_commands(output)
 
 
 def _add_to_tree(ancestor: _Command, descendant: _Command, path: list[str]) -> None:
@@ -100,16 +109,16 @@ def _dump_data(version: str, tree: _Command, filename: str) -> None:
 
 def _get_and_dump_data(executable: _Executable) -> None:
 	version = _get_version(executable)
-	data_grouped_by_tool = groupby(_get_data(executable), lambda command: command.fragments[0])
+	data = _get_data(executable)
+	tree = _convert_flat_to_nested(data)
 	
-	for tool_name, tool_data in data_grouped_by_tool:
-		tree = _convert_flat_to_nested(list(tool_data))
-		_dump_data(version, tree, filename = tool_name)
+	_dump_data(version, tree, filename = executable)
 
 
 def main() -> None:  # noqa: D103
 	_get_and_dump_data('ruff')
 	_get_and_dump_data('uv')
+	_get_and_dump_data('uvx')
 
 
 if __name__ == '__main__':
