@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from pathlib import Path
 from typing import Literal, Self
@@ -22,7 +23,15 @@ from more_itertools import partition
 from nccsp import parse_commands
 from pydantic import BaseModel, Field
 
-type _Executable = Literal['ruff', 'uv', 'uvx']
+type _Executable = Literal['ruff', 'uv', 'uvx', 'rye']
+
+
+_rye_version_details = re.compile(
+	r'''(?mx)
+	^rye\s+(?P<version>\S+)\n
+	.*?(?P=version)\s*(?P<commit_and_date>.+)
+	'''
+)
 
 
 def _is_option(option_or_argument: nccsp.OptionOrArgument) -> bool:
@@ -54,21 +63,31 @@ class _Command(BaseModel):
 
 
 def _get_version(executable: _Executable) -> str:
-	argument = 'version'
+	match executable:
+		case 'ruff' | 'uv':
+			argument = 'version'
+		case 'uvx' | 'rye':
+			argument = '--version'
 	
-	if executable == 'uvx':
-		argument = '--' + argument
+	output = subprocess.check_output([executable, argument]).decode('utf-8').strip()
 	
-	return subprocess.check_output([executable, argument]).decode('utf-8').strip()
+	if executable == 'rye':
+		version_details = _rye_version_details.search(output)
+		output = f'rye {version_details['version']} {version_details['commit_and_date']}'
+	
+	return output
 
 
 def _get_data(executable: _Executable) -> list[nccsp.Command]:
-	argument = 'generate-shell-completion'
+	match executable:
+		case 'ruff' | 'uv':
+			arguments = ['generate-shell-completion']
+		case 'uvx':
+			arguments = ['--generate-shell-completion']
+		case 'rye':
+			arguments = ['self', 'completion', '--shell']
 	
-	if executable == 'uvx':
-		argument = '--' + argument
-	
-	output_stream = subprocess.check_output([executable, argument, 'nushell'])
+	output_stream = subprocess.check_output([executable, *arguments, 'nushell'])
 	output = output_stream.decode('utf-8')
 	
 	return parse_commands(output)
@@ -119,6 +138,7 @@ def main() -> None:  # noqa: D103
 	_get_and_dump_data('ruff')
 	_get_and_dump_data('uv')
 	_get_and_dump_data('uvx')
+	_get_and_dump_data('rye')
 
 
 if __name__ == '__main__':

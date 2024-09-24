@@ -27,7 +27,7 @@ are replaced with the tools' logos:
 ## New terminal autocompletion
 
 If the [new terminal][4] is used,
-autocompletion will be provided for `ruff`, `uv` and `uvx` commands.
+autocompletion will be provided for `ruff`, `uv`, `uvx` and `rye` commands.
 
 ![](./assets/features-new-terminal-autocompletion-demo.png)
 
