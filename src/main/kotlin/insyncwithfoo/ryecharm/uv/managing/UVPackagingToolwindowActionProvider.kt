@@ -4,9 +4,9 @@ import com.jetbrains.python.PyBundle
 import com.jetbrains.python.packaging.common.PythonPackageDetails
 import com.jetbrains.python.packaging.common.PythonSimplePackageDetails
 import com.jetbrains.python.packaging.management.PythonPackageManager
-import com.jetbrains.python.packaging.toolwindow.PythonPackageInstallAction
-import com.jetbrains.python.packaging.toolwindow.PythonPackagingToolwindowActionProvider
-import com.jetbrains.python.packaging.toolwindow.SimplePythonPackageInstallAction
+import com.jetbrains.python.packaging.toolwindow.actions.PythonPackageInstallAction
+import com.jetbrains.python.packaging.toolwindow.actions.PythonPackagingToolwindowActionProvider
+import com.jetbrains.python.packaging.toolwindow.actions.SimplePythonPackageInstallAction
 
 
 /**
@@ -15,7 +15,6 @@ import com.jetbrains.python.packaging.toolwindow.SimplePythonPackageInstallActio
 internal class UVPackagingToolwindowActionProvider : PythonPackagingToolwindowActionProvider {
     
     // TODO: Support uv install --dev et al.
-    
     /**
      * Without this, the *Install* links in the *PyPI* section
      * of the *Python Packages* toolwindow cease to be functional

@@ -326,7 +326,7 @@
 			class="insyncwithfoo.ryecharm.ruff.actions.CleanCache"
 			text="Ruff: Clean project cache"
 			description="Clean all caches for this project"
-			icon="com.intellij.icons.ExpUiIcons.Actions.ClearCash"
+			icon="AllIcons.Actions.ClearCash"
 		/>
 		
 		<!--suppress PluginXmlCapitalization -->
@@ -335,7 +335,7 @@
 			class="insyncwithfoo.ryecharm.ruff.actions.ShowLinters"
 			text="Ruff: Show upstream linters"
 			description="Show a table of all upstream linters that Ruff supports"
-			icon="com.intellij.icons.ExpUiIcons.Status.InfoOutline"
+			icon="AllIcons.General.ShowInfos"
 		/>
 		
 		<!--suppress PluginXmlCapitalization -->
@@ -344,7 +344,7 @@
 			class="insyncwithfoo.ryecharm.ruff.actions.ClearPluginCache"
 			text="Ruff: Clear plugin cache"
 			description="Clear all internal cache stored by the plugin"
-			icon="com.intellij.icons.ExpUiIcons.Actions.ClearCash"
+			icon="AllIcons.Actions.ClearCash"
 		/>
 		
 		<!--suppress PluginXmlCapitalization -->
@@ -411,7 +411,7 @@
 			class="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
 			text="uv: Synchronize project"
 			description="Run `uv sync`"
-			icon="com.intellij.icons.ExpUiIcons.General.Refresh"
+			icon="AllIcons.Actions.Refresh"
 		/>
 	</actions>
 	

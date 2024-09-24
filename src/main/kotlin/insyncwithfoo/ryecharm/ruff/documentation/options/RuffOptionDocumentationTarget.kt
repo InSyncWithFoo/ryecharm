@@ -114,7 +114,7 @@ internal class RuffOptionDocumentationTarget(
      * </div>
      * ```
      * 
-     * When the target is returned by a [DocumentationTargetProvider]
+     * When the target is returned by a [DocumentationTargetProvider],
      * this doesn't seem to be called, possibly because
      * a non-PSI, non-symbol target cannot be link-highlighted.
      */
