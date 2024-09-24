@@ -54,7 +54,7 @@ jobs:
           chmod +x ./gradlew
           PROPERTIES="$(./gradlew properties --console=plain -q)"
           VERSION="$(echo "$PROPERTIES" | grep "^version:" | cut -f2- -d ' ')"
-          CHANGELOG="$(python .scripts/changelog.py $VERSION)"
+          CHANGELOG="$(python scripts/changelog.py $VERSION)"
           
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "pluginVerifierHomeDir=~/.pluginVerifier" >> $GITHUB_OUTPUT
@@ -118,7 +118,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python .scripts/edit_releases.py ${{ needs.build.outputs.version }}
+          python scripts/edit_releases.py ${{ needs.build.outputs.version }}
   
   test:
     name: Test
@@ -330,5 +330,5 @@ jobs:
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
         run: |
           chmod +x ./gradlew
-          NIGHTLY_VERSION=$(python .scripts/modify_version_for_nightly.py)
+          NIGHTLY_VERSION=$(python scripts/modify_version_for_nightly.py)
           ./gradlew publishPlugin -Pchannel=Nightly -PpluginVersion=${NIGHTLY_VERSION}
