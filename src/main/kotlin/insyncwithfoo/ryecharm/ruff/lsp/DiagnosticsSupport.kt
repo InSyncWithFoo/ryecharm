@@ -14,6 +14,20 @@ private val Diagnostic.codeAsString: String?
 
 
 /**
+ * @see insyncwithfoo.ryecharm.ruff.linting.isForSyntaxError
+ */
+private val Diagnostic.isForSyntaxError: Boolean
+    get() = code == null
+
+
+/**
+ * @see insyncwithfoo.ryecharm.ruff.linting.isForFile
+ */
+private val TextRange.diagnosticIsForFile: Boolean
+    get() = startOffset == 0 && endOffset == 0
+
+
+/**
  * @see isRuffDisableRuleComment
  */
 private val IntentionAction.isRuffFixViolation: Boolean
@@ -39,15 +53,37 @@ internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
         return configurations.tooltipFormat % Pair(message, rule)
     }
     
+    override fun getHighlightSeverity(diagnostic: Diagnostic) =
+        super.getHighlightSeverity(diagnostic)
+            .takeUnless { diagnostic.isForSyntaxError && !configurations.showSyntaxErrors }
+    
+    /**
+     * @see LspDiagnosticsSupport.createAnnotation
+     */
     override fun createAnnotation(
         holder: AnnotationHolder,
         diagnostic: Diagnostic,
         textRange: TextRange,
         quickFixes: List<IntentionAction>
     ) {
-        val filteredQuickFixes = quickFixes.filter { it.isAllowed }
+        val severity = getHighlightSeverity(diagnostic) ?: return
+        val message = getMessage(diagnostic)
+        val builder = holder.newAnnotation(severity, message)
         
-        super.createAnnotation(holder, diagnostic, textRange, filteredQuickFixes)
+        builder.tooltip(getTooltip(diagnostic))
+        
+        when (textRange.diagnosticIsForFile && configurations.fileLevelBanner) {
+            true -> builder.fileLevel()
+            false -> builder.range(textRange)
+        }
+        
+        getSpecialHighlightType(diagnostic)?.let {
+            builder.highlightType(it)
+        }
+        
+        quickFixes.filter { it.isAllowed }.forEach { builder.withFix(it) }
+        
+        builder.create()
     }
     
     private val IntentionAction.isAllowed: Boolean

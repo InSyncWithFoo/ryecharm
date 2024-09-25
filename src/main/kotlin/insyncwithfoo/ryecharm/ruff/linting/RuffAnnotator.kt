@@ -40,6 +40,9 @@ private val Project.inspectionManager: InspectionManager
     get() = InspectionManager.getInstance(this)
 
 
+/**
+ * @see insyncwithfoo.ryecharm.ruff.lsp.isForSyntaxError
+ */
 private val Diagnostic.isForSyntaxError: Boolean
     get() = code == null
 
@@ -50,6 +53,9 @@ private val Diagnostic.isUnsuppressable: Boolean
     )
 
 
+/**
+ * @see insyncwithfoo.ryecharm.ruff.lsp.diagnosticIsForFile
+ */
 private val Diagnostic.isForFile: Boolean
     get() = oneBasedRange == OneBasedRange.FILE_LEVEL
 
