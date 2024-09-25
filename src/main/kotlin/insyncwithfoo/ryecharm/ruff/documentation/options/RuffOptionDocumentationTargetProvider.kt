@@ -1,8 +1,9 @@
 package insyncwithfoo.ryecharm.ruff.documentation.options
 
 import com.intellij.platform.backend.documentation.DocumentationTarget
+import com.intellij.platform.backend.documentation.DocumentationTargetProvider
 import com.intellij.platform.backend.documentation.PsiDocumentationTargetProvider
-import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isPyprojectToml
@@ -23,31 +24,50 @@ import org.toml.lang.psi.TomlKey
  * preview = true
  * # ^ hover: Whether to enable preview mode...
  * ```
+ * 
+ * This used to inherit from [PsiDocumentationTargetProvider].
+ * The change was made so that it can be prioritized over
+ * LSP4IJ's provider using `order="before ..."`,
+ * which seems to require both implementations
+ * being that of the same extension point.
+ * 
+ * Without the aforementioned change, this would only be invoked
+ * when the hypothetical language server cannot handle a hover request.
+ * Instead, both are invoked and shown in a paged popup,
+ * with this class's popup being the first.
+ * 
+ * That both can coexist is important, especially when
+ * the hovered element is not one this class can handle
+ * but one the schema has information about
+ * (e.g., a table header).
  */
-internal class RuffOptionDocumentationTargetProvider : PsiDocumentationTargetProvider {
+internal class RuffOptionDocumentationTargetProvider : DocumentationTargetProvider {
     
-    override fun documentationTargets(element: PsiElement, originalElement: PsiElement?): List<DocumentationTarget> {
-        val project = element.project
+    override fun documentationTargets(file: PsiFile, offset: Int) =
+        listOfNotNull(documentationTarget(file, offset))
+    
+    private fun documentationTarget(file: PsiFile, offset: Int): DocumentationTarget? {
+        val project = file.project
         val configurations = project.ruffConfigurations
-        val file = element.containingFile ?: return emptyList()
-        val virtualFile = file.virtualFile ?: return emptyList()
+        val virtualFile = file.virtualFile ?: return null
         
         when {
-            !configurations.documentationPopups -> return emptyList()
-            !configurations.documentationPopupsForTOMLOptions -> return emptyList()
-            !file.language.isKindOf(TomlLanguage) -> return emptyList()
-            !virtualFile.isPyprojectToml && !virtualFile.isRuffToml -> return emptyList()
+            !configurations.documentationPopups -> return null
+            !configurations.documentationPopupsForTOMLOptions -> return null
+            !file.language.isKindOf(TomlLanguage) -> return null
+            !virtualFile.isPyprojectToml && !virtualFile.isRuffToml -> return null
         }
         
-        val key = element.wrappingTomlKey ?: return emptyList()
+        val element = file.findElementAt(offset) ?: return null
+        val key = element.wrappingTomlKey ?: return null
         
         val absoluteName = key.absoluteName
         val relativeName = when {
-            virtualFile.isPyprojectToml -> absoluteName.relativize("tool.ruff") ?: return emptyList()
+            virtualFile.isPyprojectToml -> absoluteName.relativize("tool.ruff") ?: return null
             else -> absoluteName
         }
         
-        return listOfNotNull(key.toTarget(relativeName.toString()))
+        return key.toTarget(relativeName.toString())
     }
     
     private fun TomlKey.toTarget(option: String): DocumentationTarget {

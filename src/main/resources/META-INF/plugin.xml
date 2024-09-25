@@ -245,15 +245,15 @@
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCommentRuleCodeDocumentationTargetProvider"
 		/>
 		
-		<platform.backend.documentation.psiTargetProvider
+		<platform.backend.documentation.targetProvider
 			id="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
-			order="first"
+			order="first, before LSPDocumentationTargetProvider"
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
 		/>
 		
 		<platform.backend.documentation.targetProvider
 			id="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
-			order="first"
+			order="first, before LSPDocumentationTargetProvider"
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
 		/>
 	</extensions>
