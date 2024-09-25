@@ -50,6 +50,14 @@ internal data class OneBasedRange(val start: OneBasedPinpoint, val end: OneBased
         return "${startLine}:${startColumn}-${endLine}:${endColumn}"
     }
     
+    companion object {
+        /**
+         * File-level diagnostics's ranges are (almost) always `0..0`.
+         */
+        val FILE_LEVEL: OneBasedRange
+            get() = OneBasedRange(1 to 1, 1 to 1)
+    }
+    
 }
 
 

@@ -23,6 +23,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.processTimeout
+import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
@@ -44,11 +45,13 @@ private val Diagnostic.isForSyntaxError: Boolean
 
 
 private val Diagnostic.isUnsuppressable: Boolean
-    get() {
-        val unsuppressableErrorCodes = listOf("PGH004")
-        
-        return code in unsuppressableErrorCodes
-    }
+    get() = code in listOf(
+        "PGH004"  // blanket-noqa
+    )
+
+
+private val Diagnostic.isForFile: Boolean
+    get() = oneBasedRange == OneBasedRange.FILE_LEVEL
 
 
 private fun Diagnostic.getFormattedTooltip(format: TooltipFormat) =
@@ -145,9 +148,10 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         val (configurations, diagnostics) = annotationResult ?: return
         val document = file.viewProvider.document ?: return
         
-        val showSyntaxErrors = configurations.showSyntaxErrors
-        val diagnosticsPossiblyWithoutSyntaxErrors =
-            diagnostics.filterNot { it.isForSyntaxError && !showSyntaxErrors }
+        val diagnosticsPossiblyWithoutSyntaxErrors = when {
+            configurations.showSyntaxErrors -> diagnostics
+            else -> diagnostics.filter { !it.isForSyntaxError }
+        }
         
         diagnosticsPossiblyWithoutSyntaxErrors.forEach { diagnostic ->
             val message = diagnostic.message
@@ -162,7 +166,11 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             
             builder.needsUpdateOnTyping()
             builder.tooltip(tooltip)
-            builder.range(range)
+            
+            when (diagnostic.isForFile && configurations.fileLevelBanner) {
+                true -> builder.fileLevel()
+                false -> builder.range(range)
+            }
             
             diagnostic.makeFixViolationFix(configurations)?.let {
                 builder.registerQuickFix(file, message, it)

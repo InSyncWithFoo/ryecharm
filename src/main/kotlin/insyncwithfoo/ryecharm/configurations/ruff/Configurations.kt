@@ -61,6 +61,7 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     
     var linting by property(true)
     var showSyntaxErrors by property(false)
+    var fileLevelBanner by property(false)
     var tooltipFormat by enum(TooltipFormat.RULE_MESSAGE)
     
     var quickFixes by property(true)

@@ -58,6 +58,10 @@ private fun Row.showSyntaxErrorsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.showSyntaxErrors.label")).apply(block)
 
 
+private fun Row.fileLevelBannerInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.fileLevelBanner.label")).apply(block)
+
+
 private fun Row.tooltipFormatInput(block: Cell<ComboBox<TooltipFormat>>.() -> Unit) =
     comboBox<TooltipFormat>().label(message("configurations.ruff.tooltipFormat.label")).apply(block)
 
@@ -190,6 +194,10 @@ private fun RuffPanel.makeComponent() = panel {
             row {
                 showSyntaxErrorsInput { bindSelected(state::showSyntaxErrors) }
                 overrideCheckbox(state::showSyntaxErrors)
+            }
+            row {
+                fileLevelBannerInput { bindSelected(state::fileLevelBanner) }
+                overrideCheckbox(state::fileLevelBanner)
             }
             row {
                 tooltipFormatInput { bindItem(state::tooltipFormat) }
