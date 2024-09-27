@@ -42,9 +42,8 @@ internal object UVSDKFlavor : CPythonSdkFlavor<PyFlavorData.Empty>() {
      * This method is currently a copy of
      * [VirtualEnvSdkFlavor.isValidSdkPath].
      */
-    // TODO: Delegate this to uv instead.
-    override fun isValidSdkPath(path: Path): Boolean {
-        return super.isValidSdkPath(path) && PythonSdkUtil.getVirtualEnvRoot(path.toString()) != null
+    override fun isValidSdkPath(pathStr: String): Boolean {
+        return super.isValidSdkPath(pathStr) && PythonSdkUtil.getVirtualEnvRoot(pathStr) != null
     }
     
 }
