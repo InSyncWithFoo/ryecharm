@@ -259,11 +259,6 @@
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
-		<directoryProjectGenerator
-			id="insyncwithfoo.ryecharm.uv.generator.UVProjectGenerator"
-			implementation="insyncwithfoo.ryecharm.uv.generator.UVProjectGenerator"
-		/>
-		
 		<editorNotificationProvider
 			id="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
 			implementation="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
