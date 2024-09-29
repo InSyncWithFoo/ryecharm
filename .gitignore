@@ -13,9 +13,9 @@ scripts/*
 TODO.md
 .credentials/
 
+.venv/
 .sources/
 site/
-venv/
 
 pyrightconfig.json
 ruff.toml
