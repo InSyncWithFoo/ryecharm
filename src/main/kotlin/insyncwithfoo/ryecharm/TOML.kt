@@ -9,7 +9,7 @@ import org.toml.lang.psi.TomlKeyValue
 import org.toml.lang.psi.TomlLiteral
 import org.toml.lang.psi.TomlTable
 import org.toml.lang.psi.ext.elementType
-import java.util.*
+import java.util.Collections
 
 
 private fun <T> List<T>.startsWith(other: List<T>) =
