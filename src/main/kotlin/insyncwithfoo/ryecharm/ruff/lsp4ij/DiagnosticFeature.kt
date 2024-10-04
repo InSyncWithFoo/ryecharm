@@ -1,13 +1,14 @@
-package insyncwithfoo.ryecharm.ruff.lsp
+package insyncwithfoo.ryecharm.ruff.lsp4ij
 
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.lang.annotation.AnnotationHolder
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.TextRange
-import com.intellij.platform.lsp.api.customization.LspDiagnosticsSupport
+import com.intellij.openapi.editor.Document
+import com.intellij.psi.PsiFile
+import com.redhat.devtools.lsp4ij.client.features.LSPDiagnosticFeature
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
+import insyncwithfoo.ryecharm.ruff.getOffsetRange
 import insyncwithfoo.ryecharm.ruff.isForSyntaxError
 import insyncwithfoo.ryecharm.ruff.isRuffDisableRuleComment
 import insyncwithfoo.ryecharm.ruff.isRuffFixViolation
@@ -15,14 +16,17 @@ import org.eclipse.lsp4j.Diagnostic
 
 
 /**
- * @see insyncwithfoo.ryecharm.ruff.lsp4ij.DiagnosticFeature
+ * @see insyncwithfoo.ryecharm.ruff.lsp.DiagnosticsSupport
  */
 @Suppress("UnstableApiUsage")
-internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
+internal class DiagnosticFeature : LSPDiagnosticFeature() {
     
     private val configurations = project.ruffConfigurations
     
-    override fun getTooltip(diagnostic: Diagnostic): String {
+    override fun isEnabled(file: PsiFile) =
+        configurations.linting
+    
+    override fun getToolTip(diagnostic: Diagnostic): String {
         val rule = diagnostic.codeAsString
         val message = diagnostic.message
         
@@ -33,31 +37,29 @@ internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
         super.getHighlightSeverity(diagnostic)
             .takeUnless { diagnostic.isForSyntaxError && !configurations.showSyntaxErrors }
     
-    /**
-     * @see LspDiagnosticsSupport.createAnnotation
-     */
     override fun createAnnotation(
-        holder: AnnotationHolder,
         diagnostic: Diagnostic,
-        textRange: TextRange,
-        quickFixes: List<IntentionAction>
+        document: Document,
+        fixes: List<IntentionAction>,
+        holder: AnnotationHolder
     ) {
+        val textRange = document.getOffsetRange(diagnostic.range)
         val severity = getHighlightSeverity(diagnostic) ?: return
         val message = getMessage(diagnostic)
         val builder = holder.newAnnotation(severity, message)
         
-        builder.tooltip(getTooltip(diagnostic))
+        builder.tooltip(getToolTip(diagnostic))
         
         when (textRange.diagnosticIsForFile && configurations.fileLevelBanner) {
             true -> builder.fileLevel()
             false -> builder.range(textRange)
         }
         
-        getSpecialHighlightType(diagnostic)?.let {
+        getProblemHighlightType(diagnostic.tags)?.let {
             builder.highlightType(it)
         }
         
-        quickFixes.filter { it.isAllowed }.forEach { builder.withFix(it) }
+        fixes.filter { it.isAllowed }.forEach { builder.withFix(it) }
         
         builder.create()
     }

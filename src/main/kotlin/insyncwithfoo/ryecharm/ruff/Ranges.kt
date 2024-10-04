@@ -2,6 +2,8 @@ package insyncwithfoo.ryecharm.ruff
 
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
+import org.eclipse.lsp4j.Position
+import org.eclipse.lsp4j.Range
 
 
 private typealias Index = Int
@@ -29,6 +31,10 @@ private fun ZeroBasedPinpoint.toOneBased() =
 
 private fun OneBasedPinpoint.toZeroBased() =
     ZeroBasedPinpoint(row - 1, column - 1)
+
+
+private fun ZeroBasedIndex.toOneBased() =
+    this + 1
 
 
 internal fun OneBasedIndex.toZeroBased() =
@@ -99,4 +105,16 @@ internal fun Document.getOffsetRange(oneBasedRange: OneBasedRange): TextRange {
     }
     
     return TextRange(startOffset, endOffset)
+}
+
+
+private fun Position.toOneBasedPinpoint() =
+    OneBasedPinpoint(line.toOneBased(), character.toOneBased())
+
+
+internal fun Document.getOffsetRange(lspRange: Range): TextRange {
+    val start = lspRange.start.toOneBasedPinpoint()
+    val end = lspRange.end.toOneBasedPinpoint()
+    
+    return getOffsetRange(OneBasedRange(start, end))
 }
