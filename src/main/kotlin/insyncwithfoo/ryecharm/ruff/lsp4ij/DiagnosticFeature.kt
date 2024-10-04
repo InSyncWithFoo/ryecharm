@@ -26,7 +26,7 @@ internal class DiagnosticFeature : LSPDiagnosticFeature() {
     override fun isEnabled(file: PsiFile) =
         configurations.linting
     
-    override fun getToolTip(diagnostic: Diagnostic): String {
+    override fun getTooltip(diagnostic: Diagnostic): String {
         val rule = diagnostic.codeAsString
         val message = diagnostic.message
         
@@ -48,7 +48,7 @@ internal class DiagnosticFeature : LSPDiagnosticFeature() {
         val message = getMessage(diagnostic)
         val builder = holder.newAnnotation(severity, message)
         
-        builder.tooltip(getToolTip(diagnostic))
+        builder.tooltip(getTooltip(diagnostic))
         
         when (textRange.diagnosticIsForFile && configurations.fileLevelBanner) {
             true -> builder.fileLevel()
