@@ -41,7 +41,7 @@ private val Project.inspectionManager: InspectionManager
 
 
 /**
- * @see insyncwithfoo.ryecharm.ruff.lsp.isForSyntaxError
+ * @see insyncwithfoo.ryecharm.ruff.isForSyntaxError
  */
 private val Diagnostic.isForSyntaxError: Boolean
     get() = code == null
@@ -54,7 +54,7 @@ private val Diagnostic.isUnsuppressable: Boolean
 
 
 /**
- * @see insyncwithfoo.ryecharm.ruff.lsp.diagnosticIsForFile
+ * @see insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
  */
 private val Diagnostic.isForFile: Boolean
     get() = oneBasedRange == OneBasedRange.FILE_LEVEL

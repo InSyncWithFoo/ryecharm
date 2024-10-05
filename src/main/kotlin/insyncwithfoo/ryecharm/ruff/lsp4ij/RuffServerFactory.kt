@@ -4,6 +4,7 @@ import com.intellij.openapi.project.Project
 import com.redhat.devtools.lsp4ij.LanguageServerEnablementSupport
 import com.redhat.devtools.lsp4ij.LanguageServerFactory
 import com.redhat.devtools.lsp4ij.client.LanguageClientImpl
+import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
@@ -43,6 +44,14 @@ internal class RuffServerFactory : LanguageServerFactory, LanguageServerEnableme
     
     override fun createLanguageClient(project: Project): LanguageClientImpl {
         return RuffServerClient(project)
+    }
+    
+    @Suppress("UnstableApiUsage")
+    override fun createClientFeatures() = LSPClientFeatures().apply {
+        hoverFeature = HoverFeature()
+        diagnosticFeature = DiagnosticFeature()
+        codeActionFeature = CodeActionFeature()
+        formattingFeature = FormattingFeature()
     }
     
 }

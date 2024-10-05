@@ -4,39 +4,11 @@ import com.intellij.openapi.project.Project
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.customization.LspCodeActionsSupport
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.ruff.isRuffDisableRuleComment
+import insyncwithfoo.ryecharm.ruff.isRuffFixAll
+import insyncwithfoo.ryecharm.ruff.isRuffFixViolation
+import insyncwithfoo.ryecharm.ruff.isRuffOrganizeImports
 import org.eclipse.lsp4j.CodeAction
-
-
-private val CodeAction.isRuffFixAll: Boolean
-    get() = kind == "source.fixAll.ruff"
-
-
-private val CodeAction.isRuffOrganizeImports: Boolean
-    get() = kind == "source.organizeImports.ruff"
-
-
-/**
- * @see isRuffDisableRuleComment
- */
-private val CodeAction.isRuffFixViolation: Boolean
-    get() = !this.isRuffDisableRuleComment
-
-
-// FIXME: Better detection
-/**
- * Whether this [CodeAction] is a suppress fix.
- * 
- * The [title][CodeAction.title] is the only discriminant property,
- * save for the actual [edit][CodeAction.edit] content.
- * Such a title looks like:
- * 
- * > Ruff (A123): Disable for this line
- * 
- * As this specific message is not guaranteed in any way,
- * this will break when Ruff adds support for i18n.
- */
-internal val CodeAction.isRuffDisableRuleComment: Boolean
-    get() = title.endsWith("Disable for this line")
 
 
 /**
