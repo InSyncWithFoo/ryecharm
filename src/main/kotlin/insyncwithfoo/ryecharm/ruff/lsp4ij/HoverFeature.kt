@@ -14,6 +14,6 @@ internal class HoverFeature : LSPHoverFeature() {
     private val configurations = project.ruffConfigurations
     
     override fun isEnabled(file: PsiFile) =
-        configurations.run { documentationPopups && documentationPopupsForNoqaComments }
+        configurations.documentationPopups
     
 }
