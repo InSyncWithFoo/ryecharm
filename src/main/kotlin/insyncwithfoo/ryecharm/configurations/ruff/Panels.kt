@@ -146,6 +146,10 @@ private fun Row.autoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.autoRestartServers.label")).apply(block)
 
 
+private fun Row.snoozeFormattingTaskErrorInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.snoozeFormattingTaskError.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
@@ -313,6 +317,10 @@ private fun RuffPanel.makeComponent() = panel {
         row {
             autoRestartServersInput { bindSelected(state::autoRestartServers) }
             overrideCheckbox(state::autoRestartServers)
+        }
+        row {
+            snoozeFormattingTaskErrorInput { bindSelected(state::snoozeFormattingTaskError) }
+            overrideCheckbox(state::snoozeFormattingTaskError)
         }
     }
     

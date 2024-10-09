@@ -138,8 +138,11 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
         
         override fun run() = handler.run {
             addProcessTerminatedListener { event ->
+                val configurations = request.context.project.ruffConfigurations
+                
                 when {
                     event.exitCode == 0 -> request.onTextReady(output.stdout)
+                    configurations.snoozeFormattingTaskError -> request.onTextReady(null)
                     else -> request.onError(message("notifications.error.title"), output.stderr)
                 }
             }

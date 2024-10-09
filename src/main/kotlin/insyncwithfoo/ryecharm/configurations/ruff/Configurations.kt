@@ -90,6 +90,7 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     var suggestExecutableOnPackagesChange by property(true)
     
     var autoRestartServers by property(true)
+    var snoozeFormattingTaskError by property(false)
     
     override var timeouts by map<SettingName, MillisecondsOrNoLimit>()
 }
