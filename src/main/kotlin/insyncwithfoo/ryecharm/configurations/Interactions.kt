@@ -12,7 +12,7 @@ import insyncwithfoo.ryecharm.configurations.uv.UVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.UVGlobalService
 import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
-import insyncwithfoo.ryecharm.findRuffExecutableInVenv
+import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.interpreterDirectory
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.removeExtension
@@ -26,7 +26,6 @@ import insyncwithfoo.ryecharm.toPathOrNull
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.detectExecutable
 import java.nio.file.Path
-import kotlin.io.path.exists
 
 
 /**
@@ -52,10 +51,11 @@ internal val Project.ruffExecutable: Path?
             configurations.crossPlatformExecutableResolution -> interpreterDirectory
             else -> this.path
         }
-        val path = executable?.removeExtension()?.let { resolutionBase?.resolve(it) }
+        val resolved = executable?.removeExtension()?.let { resolutionBase?.resolve(it) }
         
-        return path?.takeIf { it.exists() }
-            ?: Ruff.detectExecutable() ?: findRuffExecutableInVenv()
+        return resolved?.toNullIfNotExists()
+            ?: Ruff.detectExecutable()
+            ?: findExecutableInVenv("ruff")
     }
 
 

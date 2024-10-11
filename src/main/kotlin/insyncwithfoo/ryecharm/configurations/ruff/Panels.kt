@@ -19,7 +19,7 @@ import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
 import insyncwithfoo.ryecharm.emptyText
-import insyncwithfoo.ryecharm.findRuffExecutableInVenv
+import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.lsp4ijIsAvailable
 import insyncwithfoo.ryecharm.lspIsAvailable
 import insyncwithfoo.ryecharm.makeFlexible
@@ -156,7 +156,7 @@ private fun RuffPanel.makeComponent() = panel {
     row(message("configurations.ruff.executable.label")) {
         executableInput {
             val detectedExecutable = Ruff.detectExecutable()?.toString()
-                ?: project?.findRuffExecutableInVenv()?.toString()
+                ?: project?.findExecutableInVenv("ruff")?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
             emptyText = detectedExecutable ?: message("configurations.ruff.executable.placeholder")

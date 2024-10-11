@@ -14,7 +14,7 @@ import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.errorNotificationGroup
-import insyncwithfoo.ryecharm.findRuffExecutableInVenv
+import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.information
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.message
@@ -98,7 +98,7 @@ private val Project.interpreterIsLocal: Boolean
 
 
 private fun Project.findAndSuggestExecutableOr(callback: () -> Unit) {
-    when (val potentialExecutable = findRuffExecutableInVenv()) {
+    when (val potentialExecutable = findExecutableInVenv("ruff")) {
         null -> callback()
         else -> suggestExecutable(potentialExecutable)
     }
