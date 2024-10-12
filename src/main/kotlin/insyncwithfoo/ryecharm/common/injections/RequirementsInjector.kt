@@ -27,8 +27,8 @@ import org.toml.lang.psi.TomlLiteral
  * * `uv.upgrade-package`
  * * `uv.pip.upgrade-package`
  * 
- * As a bonus, `pyproject.toml`'s
- * `project.optional-dependencies` is also supported.
+ * As a bonus, `pyproject.toml`'s `project.optional-dependencies`
+ * and `dependency-groups` (PEP 735) are also supported.
  */
 internal class RequirementsInjector : LanguageInjectionContributor {
     
@@ -64,8 +64,8 @@ internal class RequirementsInjector : LanguageInjectionContributor {
         val virtualFile = file.virtualFile ?: return null
         val absoluteName = key.absoluteName
         
-        if (virtualFile.isPyprojectToml && absoluteName isChildOf "project.optional-dependencies") {
-            return injection
+        if (virtualFile.isPyprojectToml) {
+            return getPyprojectTomlInjection(absoluteName)
         }
         
         val relativeName = when {
@@ -91,6 +91,12 @@ internal class RequirementsInjector : LanguageInjectionContributor {
         }
         
         return injection
+    }
+    
+    private fun getPyprojectTomlInjection(keyAbsoluteName: TOMLPath) = when {
+        keyAbsoluteName isChildOf "project.optional-dependencies" -> injection
+        keyAbsoluteName isChildOf "dependency-groups" -> injection
+        else -> null
     }
     
 }

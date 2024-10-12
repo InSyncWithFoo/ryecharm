@@ -33,7 +33,7 @@ internal val TomlTable.absoluteName: TOMLPath
     get() = TOMLPath(header.key?.text.orEmpty())
 
 
-private val TomlKey.name: String
+private val TomlKey.segmentedName: String
     get() = segments.joinToString(".") { it.text }
 
 
@@ -43,9 +43,9 @@ private val TomlKey.table: TomlTable?
 
 internal val TomlKey.absoluteName: TOMLPath
     get() = when {
-        parent === containingFile -> TOMLPath(name)
-        table == null -> TOMLPath(name)
-        else -> table!!.absoluteName + TOMLPath(name)
+        parent === containingFile -> TOMLPath(segmentedName)
+        table == null -> TOMLPath(segmentedName)
+        else -> table!!.absoluteName + TOMLPath(segmentedName)
     }
 
 
