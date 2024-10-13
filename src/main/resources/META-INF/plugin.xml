@@ -136,6 +136,22 @@
 			language="TOML"
 			implementationClass="insyncwithfoo.ryecharm.common.injections.RequirementsInjector"
 		/>
+		
+		<localInspection
+			id="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
+			suppressId="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
+			shortName="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
+			
+			language="Python"
+			groupName="RyeCharm"
+			
+			bundle="messages.ryecharm"
+			key="inspections.dependencyGroupNames.displayName"
+			
+			enabledByDefault="true"
+			level="WARNING"
+			implementationClass="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="org.jetbrains.plugins.terminal">

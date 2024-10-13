@@ -1,0 +1,3 @@
+[dependency-groups]
+foo = ["ruff"]
+bar = [{ include-group = <warning descr="Unknown dependency group: baz">"baz"</warning> }]
