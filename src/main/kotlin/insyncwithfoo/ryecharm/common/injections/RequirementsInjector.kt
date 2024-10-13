@@ -56,16 +56,18 @@ internal class RequirementsInjector : LanguageInjectionContributor {
             return null
         }
         
-        return getInjection(keyValuePair.key)
+        return getInjectionGivenKey(keyValuePair.key)
     }
     
-    private fun getInjection(key: TomlKey): Injection? {
+    private fun getInjectionGivenKey(key: TomlKey): Injection? {
         val file = key.containingFile ?: return null
         val virtualFile = file.virtualFile ?: return null
         val absoluteName = key.absoluteName
         
-        if (virtualFile.isPyprojectToml) {
-            return getPyprojectTomlInjection(absoluteName)
+        val nonUVRequirementPropertyParents = listOf("project.optional-dependencies", "dependency-groups")
+        
+        if (virtualFile.isPyprojectToml && nonUVRequirementPropertyParents.any { absoluteName isChildOf it }) {
+            return injection
         }
         
         val relativeName = when {
@@ -74,10 +76,10 @@ internal class RequirementsInjector : LanguageInjectionContributor {
             else -> return null
         }
         
-        return getInjection(relativeName)
+        return getInjectionGivenUVPropertyName(relativeName)
     }
     
-    private fun getInjection(keyRelativeName: TOMLPath): Injection? {
+    private fun getInjectionGivenUVPropertyName(keyRelativeName: TOMLPath): Injection? {
         val requirementsKeyNames = TOMLPath.listOf(
             "constraint-dependencies",
             "dev-dependencies",
@@ -91,12 +93,6 @@ internal class RequirementsInjector : LanguageInjectionContributor {
         }
         
         return injection
-    }
-    
-    private fun getPyprojectTomlInjection(keyAbsoluteName: TOMLPath) = when {
-        keyAbsoluteName isChildOf "project.optional-dependencies" -> injection
-        keyAbsoluteName isChildOf "dependency-groups" -> injection
-        else -> null
     }
     
 }
