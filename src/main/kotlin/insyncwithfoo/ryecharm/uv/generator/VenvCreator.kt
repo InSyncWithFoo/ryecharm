@@ -58,8 +58,8 @@ internal class VenvCreator(private val uvExecutable: Path, private val projectPa
         val project: Project? = null
         
         newSdk.getOrCreateAdditionalData().associateWithModulePath(projectPath.toString())
-        project?.excludeInnerVirtualEnv(newSdk)
-        PySdkSettings.instance.onVirtualEnvCreated(baseSdk.homePath, venvRoot, projectPath.toString())
+        project.excludeInnerVirtualEnv(newSdk)
+        PySdkSettings.instance.onVirtualEnvCreated(baseSdk, venvRoot, projectPath.toString())
         
         changeGlobalUVConfigurations { executable = uvExecutable.toString() }
         runWriteAction {

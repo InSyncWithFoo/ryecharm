@@ -19,7 +19,7 @@ private fun ShellCommandSpec.toInfo() =
 internal class RyeCharmCommandSpecsProvider : ShellCommandSpecsProvider {
     
     override fun getCommandSpecs(): List<ShellCommandSpecInfo> {
-        val filenames = listOf("ruff.json", "uv.json", "uvx.json", "rye.json")
+        val filenames = listOf("ruff.json", "uv.json", "uvx.json")
         
         return filenames.mapNotNull { filename ->
             classLoader.loadCommandSpecFrom("commandspecs/$filename")?.toInfo()

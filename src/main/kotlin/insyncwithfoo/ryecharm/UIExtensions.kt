@@ -12,20 +12,12 @@ import com.intellij.ui.dsl.builder.bindText
 import javax.swing.JComponent
 
 
-internal fun Row.singleFileTextField(): Cell<TextFieldWithBrowseButton> {
-    val fileChooserDescriptor = FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor()
-    val (project, fileChosen) = Pair(null, null)
-    
-    return textFieldWithBrowseButton(fileChooserDescriptor, project, fileChosen)
-}
+internal fun Row.singleFileTextField() =
+    textFieldWithBrowseButton(fileChooserDescriptor = FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor())
 
 
-internal fun Row.singleFolderTextField(): Cell<TextFieldWithBrowseButton> {
-    val fileChooserDescriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-    val (project, fileChosen) = Pair(null, null)
-    
-    return textFieldWithBrowseButton(fileChooserDescriptor, project, fileChosen)
-}
+internal fun Row.singleFolderTextField() =
+    textFieldWithBrowseButton(fileChooserDescriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor())
 
 
 internal fun <C : JComponent> Cell<C>.applyReturningComponent(block: Cell<C>.() -> Unit) =
@@ -39,7 +31,7 @@ internal fun <C : JComponent> Cell<C>.makeFlexible() = apply {
 
 
 internal var Cell<TextFieldWithBrowseButton>.emptyText: String
-    @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
+    @Deprecated("The getter must not be used.")
     get() = throw RuntimeException()
     set(value) {
         component.emptyText.text = value

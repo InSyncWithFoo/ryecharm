@@ -1,5 +1,0 @@
-[dependency-groups]
-foo = [
-	"ruff==0.6.9",
-	{ include-group = "bar" }
-]

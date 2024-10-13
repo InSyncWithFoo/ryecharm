@@ -136,22 +136,6 @@
 			language="TOML"
 			implementationClass="insyncwithfoo.ryecharm.common.injections.RequirementsInjector"
 		/>
-		
-		<localInspection
-			id="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
-			suppressId="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
-			shortName="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
-			
-			language="Python"
-			groupName="RyeCharm"
-			
-			bundle="messages.ryecharm"
-			key="inspections.dependencyGroupNames.displayName"
-			
-			enabledByDefault="true"
-			level="WARNING"
-			implementationClass="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
-		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
@@ -261,15 +245,15 @@
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCommentRuleCodeDocumentationTargetProvider"
 		/>
 		
-		<platform.backend.documentation.targetProvider
+		<platform.backend.documentation.psiTargetProvider
 			id="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
-			order="first, before LSPDocumentationTargetProvider"
+			order="first"
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
 		/>
 		
 		<platform.backend.documentation.targetProvider
 			id="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
-			order="first, before LSPDocumentationTargetProvider"
+			order="first"
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
 		/>
 	</extensions>
@@ -342,7 +326,7 @@
 			class="insyncwithfoo.ryecharm.ruff.actions.CleanCache"
 			text="Ruff: Clean project cache"
 			description="Clean all caches for this project"
-			icon="AllIcons.Actions.ClearCash"
+			icon="com.intellij.icons.ExpUiIcons.Actions.ClearCash"
 		/>
 		
 		<!--suppress PluginXmlCapitalization -->
@@ -351,7 +335,7 @@
 			class="insyncwithfoo.ryecharm.ruff.actions.ShowLinters"
 			text="Ruff: Show upstream linters"
 			description="Show a table of all upstream linters that Ruff supports"
-			icon="AllIcons.General.ShowInfos"
+			icon="com.intellij.icons.ExpUiIcons.Status.InfoOutline"
 		/>
 		
 		<!--suppress PluginXmlCapitalization -->
@@ -360,7 +344,7 @@
 			class="insyncwithfoo.ryecharm.ruff.actions.ClearPluginCache"
 			text="Ruff: Clear plugin cache"
 			description="Clear all internal cache stored by the plugin"
-			icon="AllIcons.Actions.ClearCash"
+			icon="com.intellij.icons.ExpUiIcons.Actions.ClearCash"
 		/>
 		
 		<!--suppress PluginXmlCapitalization -->
@@ -427,7 +411,7 @@
 			class="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
 			text="uv: Synchronize project"
 			description="Run `uv sync`"
-			icon="AllIcons.Actions.Refresh"
+			icon="com.intellij.icons.ExpUiIcons.General.Refresh"
 		/>
 	</actions>
 	

@@ -15,7 +15,7 @@ import java.awt.datatransfer.StringSelection
 
 internal fun Notification.addOpenPluginIssueTrackerAction(): Notification {
     val issueTrackerActionText = message("notificationActions.openPluginIssueTracker")
-    return addAction(BrowseNotificationAction(issueTrackerActionText, RyeCharm.ISSUE_TRACKER))
+    return addAction(BrowseNotificationAction(issueTrackerActionText, Plugin.ISSUE_TRACKER))
 }
 
 

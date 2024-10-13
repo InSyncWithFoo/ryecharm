@@ -86,9 +86,9 @@ internal val Project.inspectionProfileManager: ProjectInspectionProfileManager
     get() = ProjectInspectionProfileManager.getInstance(this)
 
 
-internal fun Project.findExecutableInVenv(nameWithoutExtension: String) =
+internal fun Project.findRuffExecutableInVenv() =
     interpreterDirectory?.listDirectoryEntries()
-        ?.find { it.nameWithoutExtension == nameWithoutExtension }
+        ?.find { it.nameWithoutExtension == "ruff" }
 
 
 internal fun Project.openLightFile(fileName: String, content: String) {

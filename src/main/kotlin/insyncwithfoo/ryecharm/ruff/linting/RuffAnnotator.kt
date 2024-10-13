@@ -23,7 +23,6 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.processTimeout
-import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
@@ -40,24 +39,16 @@ private val Project.inspectionManager: InspectionManager
     get() = InspectionManager.getInstance(this)
 
 
-/**
- * @see insyncwithfoo.ryecharm.ruff.isForSyntaxError
- */
 private val Diagnostic.isForSyntaxError: Boolean
     get() = code == null
 
 
 private val Diagnostic.isUnsuppressable: Boolean
-    get() = code in listOf(
-        "PGH004"  // blanket-noqa
-    )
-
-
-/**
- * @see insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
- */
-private val Diagnostic.isForFile: Boolean
-    get() = oneBasedRange == OneBasedRange.FILE_LEVEL
+    get() {
+        val unsuppressableErrorCodes = listOf("PGH004")
+        
+        return code in unsuppressableErrorCodes
+    }
 
 
 private fun Diagnostic.getFormattedTooltip(format: TooltipFormat) =
@@ -154,10 +145,9 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         val (configurations, diagnostics) = annotationResult ?: return
         val document = file.viewProvider.document ?: return
         
-        val diagnosticsPossiblyWithoutSyntaxErrors = when {
-            configurations.showSyntaxErrors -> diagnostics
-            else -> diagnostics.filter { !it.isForSyntaxError }
-        }
+        val showSyntaxErrors = configurations.showSyntaxErrors
+        val diagnosticsPossiblyWithoutSyntaxErrors =
+            diagnostics.filterNot { it.isForSyntaxError && !showSyntaxErrors }
         
         diagnosticsPossiblyWithoutSyntaxErrors.forEach { diagnostic ->
             val message = diagnostic.message
@@ -172,11 +162,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             
             builder.needsUpdateOnTyping()
             builder.tooltip(tooltip)
-            
-            when (diagnostic.isForFile && configurations.fileLevelBanner) {
-                true -> builder.fileLevel()
-                false -> builder.range(range)
-            }
+            builder.range(range)
             
             diagnostic.makeFixViolationFix(configurations)?.let {
                 builder.registerQuickFix(file, message, it)

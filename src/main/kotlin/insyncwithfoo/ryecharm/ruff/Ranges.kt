@@ -2,8 +2,6 @@ package insyncwithfoo.ryecharm.ruff
 
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
-import org.eclipse.lsp4j.Position
-import org.eclipse.lsp4j.Range
 
 
 private typealias Index = Int
@@ -33,10 +31,6 @@ private fun OneBasedPinpoint.toZeroBased() =
     ZeroBasedPinpoint(row - 1, column - 1)
 
 
-private fun ZeroBasedIndex.toOneBased() =
-    this + 1
-
-
 internal fun OneBasedIndex.toZeroBased() =
     this - 1
 
@@ -54,14 +48,6 @@ internal data class OneBasedRange(val start: OneBasedPinpoint, val end: OneBased
         val (endLine, endColumn) = end
         
         return "${startLine}:${startColumn}-${endLine}:${endColumn}"
-    }
-    
-    companion object {
-        /**
-         * File-level diagnostics's ranges are (almost) always `0..0`.
-         */
-        val FILE_LEVEL: OneBasedRange
-            get() = OneBasedRange(1 to 1, 1 to 1)
     }
     
 }
@@ -105,16 +91,4 @@ internal fun Document.getOffsetRange(oneBasedRange: OneBasedRange): TextRange {
     }
     
     return TextRange(startOffset, endOffset)
-}
-
-
-private fun Position.toOneBasedPinpoint() =
-    OneBasedPinpoint(line.toOneBased(), character.toOneBased())
-
-
-internal fun Document.getOffsetRange(lspRange: Range): TextRange {
-    val start = lspRange.start.toOneBasedPinpoint()
-    val end = lspRange.end.toOneBasedPinpoint()
-    
-    return getOffsetRange(OneBasedRange(start, end))
 }

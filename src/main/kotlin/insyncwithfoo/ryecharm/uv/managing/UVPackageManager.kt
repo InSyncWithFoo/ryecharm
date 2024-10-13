@@ -23,7 +23,7 @@ import kotlinx.serialization.json.Json
 
 
 private fun PythonPackage(surrogate: PythonPackageSurrogate) =
-    with(surrogate) { PythonPackage(name, version, isEditableMode = editableProjectLocation != null) }
+    with(surrogate) { PythonPackage(name, version) }
 
 
 @Serializable
@@ -94,13 +94,7 @@ internal class UVPackageManager(private val uv: UV, project: Project, sdk: Sdk) 
         reloadPackages()
     }
     
-    /**
-     * @param options Often (always?) empty
-     */
-    override suspend fun installPackage(
-        specification: PythonPackageSpecification,
-        options: List<String>
-    ): Result<List<PythonPackage>> =
+    override suspend fun installPackage(specification: PythonPackageSpecification) =
         uv.add(specification).runAndGetResult()
     
     override suspend fun updatePackage(specification: PythonPackageSpecification) =

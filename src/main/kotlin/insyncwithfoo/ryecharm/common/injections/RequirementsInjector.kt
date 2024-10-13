@@ -27,8 +27,8 @@ import org.toml.lang.psi.TomlLiteral
  * * `uv.upgrade-package`
  * * `uv.pip.upgrade-package`
  * 
- * As a bonus, `pyproject.toml`'s `project.optional-dependencies`
- * and `dependency-groups` (PEP 735) are also supported.
+ * As a bonus, `pyproject.toml`'s
+ * `project.optional-dependencies` is also supported.
  */
 internal class RequirementsInjector : LanguageInjectionContributor {
     
@@ -56,17 +56,15 @@ internal class RequirementsInjector : LanguageInjectionContributor {
             return null
         }
         
-        return getInjectionGivenKey(keyValuePair.key)
+        return getInjection(keyValuePair.key)
     }
     
-    private fun getInjectionGivenKey(key: TomlKey): Injection? {
+    private fun getInjection(key: TomlKey): Injection? {
         val file = key.containingFile ?: return null
         val virtualFile = file.virtualFile ?: return null
         val absoluteName = key.absoluteName
         
-        val nonUVRequirementPropertyParents = listOf("project.optional-dependencies", "dependency-groups")
-        
-        if (virtualFile.isPyprojectToml && nonUVRequirementPropertyParents.any { absoluteName isChildOf it }) {
+        if (virtualFile.isPyprojectToml && absoluteName isChildOf "project.optional-dependencies") {
             return injection
         }
         
@@ -76,10 +74,10 @@ internal class RequirementsInjector : LanguageInjectionContributor {
             else -> return null
         }
         
-        return getInjectionGivenUVPropertyName(relativeName)
+        return getInjection(relativeName)
     }
     
-    private fun getInjectionGivenUVPropertyName(keyRelativeName: TOMLPath): Injection? {
+    private fun getInjection(keyRelativeName: TOMLPath): Injection? {
         val requirementsKeyNames = TOMLPath.listOf(
             "constraint-dependencies",
             "dev-dependencies",

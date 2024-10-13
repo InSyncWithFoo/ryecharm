@@ -12,11 +12,6 @@ internal class RequirementsInjectorTest : LanguageInjectionTestCase() {
     }
     
     @Test
-    fun `test dependency-groups`() = fileBasedTest("dependencyGroups/pyproject.toml") {
-        assertEquals(1, fragments.size)
-    }
-    
-    @Test
     fun `test other keys`() {
         val directoriesAndKeyNames = mapOf(
             "constraintDependencies" to "constraint-dependencies",

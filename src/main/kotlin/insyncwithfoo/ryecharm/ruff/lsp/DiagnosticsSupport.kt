@@ -6,17 +6,27 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.platform.lsp.api.customization.LspDiagnosticsSupport
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.ruff.codeAsString
-import insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
-import insyncwithfoo.ryecharm.ruff.isForSyntaxError
-import insyncwithfoo.ryecharm.ruff.isRuffDisableRuleComment
-import insyncwithfoo.ryecharm.ruff.isRuffFixViolation
 import org.eclipse.lsp4j.Diagnostic
 
 
+private val Diagnostic.codeAsString: String?
+    get() = code?.get() as String?
+
+
 /**
- * @see insyncwithfoo.ryecharm.ruff.lsp4ij.DiagnosticFeature
+ * @see isRuffDisableRuleComment
  */
+private val IntentionAction.isRuffFixViolation: Boolean
+    get() = !this.isRuffDisableRuleComment
+
+
+/**
+ * @see isRuffDisableRuleComment
+ */
+private val IntentionAction.isRuffDisableRuleComment: Boolean
+    get() = text.endsWith("Disable for this line")
+
+
 @Suppress("UnstableApiUsage")
 internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
     
@@ -29,37 +39,15 @@ internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
         return configurations.tooltipFormat % Pair(message, rule)
     }
     
-    override fun getHighlightSeverity(diagnostic: Diagnostic) =
-        super.getHighlightSeverity(diagnostic)
-            .takeUnless { diagnostic.isForSyntaxError && !configurations.showSyntaxErrors }
-    
-    /**
-     * @see LspDiagnosticsSupport.createAnnotation
-     */
     override fun createAnnotation(
         holder: AnnotationHolder,
         diagnostic: Diagnostic,
         textRange: TextRange,
         quickFixes: List<IntentionAction>
     ) {
-        val severity = getHighlightSeverity(diagnostic) ?: return
-        val message = getMessage(diagnostic)
-        val builder = holder.newAnnotation(severity, message)
+        val filteredQuickFixes = quickFixes.filter { it.isAllowed }
         
-        builder.tooltip(getTooltip(diagnostic))
-        
-        when (textRange.diagnosticIsForFile && configurations.fileLevelBanner) {
-            true -> builder.fileLevel()
-            false -> builder.range(textRange)
-        }
-        
-        getSpecialHighlightType(diagnostic)?.let {
-            builder.highlightType(it)
-        }
-        
-        quickFixes.filter { it.isAllowed }.forEach { builder.withFix(it) }
-        
-        builder.create()
+        super.createAnnotation(holder, diagnostic, textRange, filteredQuickFixes)
     }
     
     private val IntentionAction.isAllowed: Boolean

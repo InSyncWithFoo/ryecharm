@@ -18,7 +18,7 @@ internal class RuffInspection : PyInspection(), ExternalAnnotatorBatchInspection
 
 
 internal var Project.ruffInspectionisEnabled: Boolean
-    @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
+    @Deprecated("The getter must not be used.")
     get() = throw RuntimeException()
     set(enabled) {
         val profile = inspectionProfileManager.currentProfile

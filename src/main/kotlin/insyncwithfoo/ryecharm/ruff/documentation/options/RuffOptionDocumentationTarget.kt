@@ -114,14 +114,9 @@ internal class RuffOptionDocumentationTarget(
      * </div>
      * ```
      * 
-     * When the target is returned by a [DocumentationTargetProvider],
-     * which [RuffOptionDocumentationTargetProvider] is,
-     * this doesn't get called, possibly because
+     * When the target is returned by a [DocumentationTargetProvider]
+     * this doesn't seem to be called, possibly because
      * a non-PSI, non-symbol target cannot be link-highlighted.
-     * 
-     * It is only kept here for documentation purposes.
-     * 
-     * @see [RuffOptionDocumentationTargetProvider]
      */
     override fun computeDocumentationHint(): HTML {
         val html = option.toAbsoluteName().wrappedInCodeBlock("toml")

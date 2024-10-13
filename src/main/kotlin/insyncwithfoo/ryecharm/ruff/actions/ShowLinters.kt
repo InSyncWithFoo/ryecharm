@@ -76,12 +76,12 @@ private fun column(header: String, getText: (LinterTableRow) -> String) =
 private class LintersDialog(private val linters: List<Linter>, project: Project) : DialogWrapper(project) {
     
     private var okButtonText: String
-        @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
+        @Deprecated("The getter must not be used.")
         get() = throw RuntimeException()
         set(value) = setOKButtonText(value)
     
     private var widthAndHeight: Pair<Int, Int>
-        @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
+        @Deprecated("The getter must not be used.")
         get() = throw RuntimeException()
         set(value) {
             val (width, height) = value

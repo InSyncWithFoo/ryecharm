@@ -155,7 +155,7 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
         fragmentEditor.addReleaseListener(project) { document ->
             val newBlock = document.charsSequence.asPEP723Block()
             val oldContent = hostFile.viewProvider.document?.charsSequence ?: return@addReleaseListener
-            val newContent = oldContent.replace(scriptBlock, newBlock).removeSuffix("\n")
+            val newContent = oldContent.replace(scriptBlock, newBlock)
             
             project.writeNewTextBack(hostFile, newContent)
         }

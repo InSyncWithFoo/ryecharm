@@ -61,7 +61,6 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     
     var linting by property(true)
     var showSyntaxErrors by property(false)
-    var fileLevelBanner by property(false)
     var tooltipFormat by enum(TooltipFormat.RULE_MESSAGE)
     
     var quickFixes by property(true)
@@ -90,7 +89,6 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
     var suggestExecutableOnPackagesChange by property(true)
     
     var autoRestartServers by property(true)
-    var snoozeFormattingTaskError by property(false)
     
     override var timeouts by map<SettingName, MillisecondsOrNoLimit>()
 }

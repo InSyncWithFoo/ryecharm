@@ -2,14 +2,14 @@ package insyncwithfoo.ryecharm
 
 import com.intellij.psi.PsiElement
 import org.toml.lang.psi.TomlElement
+import org.toml.lang.psi.TomlElementTypes
 import org.toml.lang.psi.TomlKey
 import org.toml.lang.psi.TomlKeySegment
 import org.toml.lang.psi.TomlKeyValue
 import org.toml.lang.psi.TomlLiteral
 import org.toml.lang.psi.TomlTable
-import org.toml.lang.psi.ext.TomlLiteralKind
-import org.toml.lang.psi.ext.kind
-import java.util.Collections
+import org.toml.lang.psi.ext.elementType
+import java.util.*
 
 
 private fun <T> List<T>.startsWith(other: List<T>) =
@@ -17,11 +17,12 @@ private fun <T> List<T>.startsWith(other: List<T>) =
 
 
 internal val TomlLiteral.isString: Boolean
-    get() = kind is TomlLiteralKind.String
-
-
-internal val TomlLiteral.stringContent: String?
-    get() = (kind as? TomlLiteralKind.String)?.value
+    get() = firstChild?.elementType in listOf(
+        TomlElementTypes.BASIC_STRING,
+        TomlElementTypes.LITERAL_STRING,
+        TomlElementTypes.MULTILINE_BASIC_STRING,
+        TomlElementTypes.MULTILINE_LITERAL_STRING
+    )
 
 
 internal val TomlElement.keyValuePair: TomlKeyValue?
@@ -32,7 +33,7 @@ internal val TomlTable.absoluteName: TOMLPath
     get() = TOMLPath(header.key?.text.orEmpty())
 
 
-private val TomlKey.segmentedName: String
+private val TomlKey.name: String
     get() = segments.joinToString(".") { it.text }
 
 
@@ -42,9 +43,9 @@ private val TomlKey.table: TomlTable?
 
 internal val TomlKey.absoluteName: TOMLPath
     get() = when {
-        parent === containingFile -> TOMLPath(segmentedName)
-        table == null -> TOMLPath(segmentedName)
-        else -> table!!.absoluteName + TOMLPath(segmentedName)
+        parent === containingFile -> TOMLPath(name)
+        table == null -> TOMLPath(name)
+        else -> table!!.absoluteName + TOMLPath(name)
     }
 
 
@@ -62,7 +63,7 @@ internal val PsiElement.wrappingTomlKey: TomlKey?
         ?: parent.parent as? TomlKey
 
 
-internal val PsiElement.wrappingTomlLiteral: TomlLiteral?
+internal val PsiElement.wrappingLiteral: TomlLiteral?
     get() = this as? TomlLiteral
         ?: parent as? TomlLiteral
 

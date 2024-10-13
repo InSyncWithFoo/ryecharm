@@ -19,7 +19,7 @@ import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
 import insyncwithfoo.ryecharm.emptyText
-import insyncwithfoo.ryecharm.findExecutableInVenv
+import insyncwithfoo.ryecharm.findRuffExecutableInVenv
 import insyncwithfoo.ryecharm.lsp4ijIsAvailable
 import insyncwithfoo.ryecharm.lspIsAvailable
 import insyncwithfoo.ryecharm.makeFlexible
@@ -56,10 +56,6 @@ private fun Row.lintingInput(block: Cell<JBCheckBox>.() -> Unit) =
 
 private fun Row.showSyntaxErrorsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.showSyntaxErrors.label")).apply(block)
-
-
-private fun Row.fileLevelBannerInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.fileLevelBanner.label")).apply(block)
 
 
 private fun Row.tooltipFormatInput(block: Cell<ComboBox<TooltipFormat>>.() -> Unit) =
@@ -146,17 +142,13 @@ private fun Row.autoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.autoRestartServers.label")).apply(block)
 
 
-private fun Row.snoozeFormattingTaskErrorInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.snoozeFormattingTaskError.label")).apply(block)
-
-
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
     row(message("configurations.ruff.executable.label")) {
         executableInput {
             val detectedExecutable = Ruff.detectExecutable()?.toString()
-                ?: project?.findExecutableInVenv("ruff")?.toString()
+                ?: project?.findRuffExecutableInVenv()?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
             emptyText = detectedExecutable ?: message("configurations.ruff.executable.placeholder")
@@ -198,10 +190,6 @@ private fun RuffPanel.makeComponent() = panel {
             row {
                 showSyntaxErrorsInput { bindSelected(state::showSyntaxErrors) }
                 overrideCheckbox(state::showSyntaxErrors)
-            }
-            row {
-                fileLevelBannerInput { bindSelected(state::fileLevelBanner) }
-                overrideCheckbox(state::fileLevelBanner)
             }
             row {
                 tooltipFormatInput { bindItem(state::tooltipFormat) }
@@ -317,10 +305,6 @@ private fun RuffPanel.makeComponent() = panel {
         row {
             autoRestartServersInput { bindSelected(state::autoRestartServers) }
             overrideCheckbox(state::autoRestartServers)
-        }
-        row {
-            snoozeFormattingTaskErrorInput { bindSelected(state::snoozeFormattingTaskError) }
-            overrideCheckbox(state::snoozeFormattingTaskError)
         }
     }
     

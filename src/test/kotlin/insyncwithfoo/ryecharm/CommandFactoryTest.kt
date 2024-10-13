@@ -1,7 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import java.nio.file.Path
-import java.util.Collections
+import java.util.*
 
 
 private typealias Arguments = List<String>

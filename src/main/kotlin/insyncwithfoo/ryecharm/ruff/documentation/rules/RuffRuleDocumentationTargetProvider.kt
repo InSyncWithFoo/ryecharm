@@ -10,14 +10,26 @@ import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isRuffToml
 import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.keyValuePair
-import insyncwithfoo.ryecharm.stringContent
-import insyncwithfoo.ryecharm.wrappingTomlLiteral
+import insyncwithfoo.ryecharm.wrappingLiteral
 import org.toml.lang.TomlLanguage
 import org.toml.lang.psi.TomlArray
+import org.toml.lang.psi.TomlElementTypes
 import org.toml.lang.psi.TomlLiteral
+import org.toml.lang.psi.ext.elementType
 
 
 private typealias TOMLStringLiteral = TomlLiteral
+
+
+private fun TOMLStringLiteral.stripQuotes(): String {
+    val quoteLength = when (children.single().elementType) {
+        TomlElementTypes.BASIC_STRING, TomlElementTypes.LITERAL_STRING -> 1
+        TomlElementTypes.MULTILINE_BASIC_STRING, TomlElementTypes.MULTILINE_LITERAL_STRING -> 3
+        else -> throw RuntimeException()
+    }
+    
+    return text.drop(quoteLength).dropLast(quoteLength)
+}
 
 
 /**
@@ -59,7 +71,7 @@ internal class RuffRuleDocumentationTargetProvider : DocumentationTargetProvider
         }
         
         val element = file.findElementAt(offset) ?: return null
-        val string = element.wrappingTomlLiteral?.takeIf { it.isString } ?: return null
+        val string = element.wrappingLiteral?.takeIf { it.isString } ?: return null
         
         val array = string.parent as? TomlArray ?: return null
         val keyValuePair = array.keyValuePair ?: return null
@@ -96,7 +108,7 @@ internal class RuffRuleDocumentationTargetProvider : DocumentationTargetProvider
             return null
         }
         
-        val content = stringContent!!
+        val content = this.stripQuotes()
         val fileName = containingFile.virtualFile!!.name
         
         return RuffRuleDocumentationTarget(this, content, fileName)
