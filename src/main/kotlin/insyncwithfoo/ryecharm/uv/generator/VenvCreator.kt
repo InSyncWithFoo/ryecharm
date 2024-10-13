@@ -132,7 +132,7 @@ internal class VenvCreator(private val uvExecutable: Path, private val projectPa
     }
     
     private fun extractNewVenvName(output: ProcessOutput): String? {
-        val venvName = """(?<=Creating virtualenv at: ).+""".toRegex()
+        val venvName = """(?<=Creating virtual environment at: ).+""".toRegex()
         
         if (output.isTimeout || output.isCancelled || !output.isSuccessful) {
             return null
