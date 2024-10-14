@@ -22,15 +22,6 @@ import org.toml.lang.psi.TomlVisitor
 import org.toml.lang.psi.ext.name
 
 
-private fun TomlFile.findDependencyGroupsTable(): TomlTable? {
-    val table = children.find {
-        it is TomlTable && it.header.key?.name == "dependency-groups"
-    }
-    
-    return table as? TomlTable
-}
-
-
 private class DependencyGroupNameVisitor(
     private val holder: ProblemsHolder,
     private val session: LocalInspectionToolSession

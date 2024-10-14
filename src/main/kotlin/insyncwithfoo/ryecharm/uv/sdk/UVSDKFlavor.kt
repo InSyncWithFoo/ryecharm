@@ -6,7 +6,6 @@ import com.jetbrains.python.sdk.flavors.CPythonSdkFlavor
 import com.jetbrains.python.sdk.flavors.PyFlavorData
 import com.jetbrains.python.sdk.flavors.VirtualEnvSdkFlavor
 import insyncwithfoo.ryecharm.UVIcons
-import java.nio.file.Path
 
 
 /**
@@ -37,7 +36,7 @@ internal object UVSDKFlavor : CPythonSdkFlavor<PyFlavorData.Empty>() {
         PyFlavorData.Empty::class.java
     
     /**
-     * Verify if [path] leads to a valid interpreter.
+     * Verify if [pathStr] leads to a valid interpreter.
      * 
      * This method is currently a copy of
      * [VirtualEnvSdkFlavor.isValidSdkPath].

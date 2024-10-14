@@ -136,7 +136,7 @@ internal class RuffOptionDocumentationTarget(
      * Return the information about the configuration,
      * rendered as a documentation popup.
      * 
-     * @see OptionInfoRenderer
+     * @see render
      */
     override fun computeDocumentation() = DocumentationResult.asyncDocumentation {
         element.project.getDocumentation(option)?.toDocumentationResult()
