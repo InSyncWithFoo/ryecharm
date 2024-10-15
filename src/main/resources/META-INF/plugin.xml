@@ -142,7 +142,7 @@
 			suppressId="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
 			shortName="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
 			
-			language="Python"
+			language="TOML"
 			groupName="RyeCharm"
 			
 			bundle="messages.ryecharm"

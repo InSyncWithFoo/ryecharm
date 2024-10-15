@@ -1,0 +1,3 @@
+[dependency-groups]
+foo = ["pyparsing"]
+bar = [{ set-phasers-to = "b@r" }]
