@@ -17,6 +17,7 @@ import com.jetbrains.python.black.BlackFormattingService
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.configurations.ruff.RuffTimeouts
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.errorNotificationGroup
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
@@ -126,7 +127,7 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
     }
     
     private fun String.getOneBasedRange(offsetRange: TextRange): OneBasedRange {
-        val document = EditorFactory.getInstance().createDocument(this)
+        val document = editorFactory.createDocument(this)
         return document.getOneBasedRange(offsetRange)
     }
     

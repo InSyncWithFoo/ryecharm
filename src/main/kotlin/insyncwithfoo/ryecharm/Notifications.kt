@@ -17,12 +17,16 @@ private const val INFORMATION_GROUP_ID = "insyncwithfoo.ryecharm.information"
 private val ICON = RyeIcons.TINY_16
 
 
+private val notificationGroupManager: NotificationGroupManager
+    get() = NotificationGroupManager.getInstance()
+
+
 internal val errorNotificationGroup: ErrorNotificationGroup
-    get() = NotificationGroupManager.getInstance().getNotificationGroup(ERROR_GROUP_ID)
+    get() = notificationGroupManager.getNotificationGroup(ERROR_GROUP_ID)
 
 
 internal val informationNotificationGroup: InformationNotificationGroup
-    get() = NotificationGroupManager.getInstance().getNotificationGroup(INFORMATION_GROUP_ID)
+    get() = notificationGroupManager.getNotificationGroup(INFORMATION_GROUP_ID)
 
 
 private fun Notification.prettify() = this.apply {

@@ -8,10 +8,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 
 
-internal val fileDocumentManager: FileDocumentManager
-    get() = FileDocumentManager.getInstance()
-
-
 internal fun FileDocumentManager.saveAllDocumentsAsIs() {
     unsavedDocuments.forEach { saveDocumentAsIs(it) }
 }

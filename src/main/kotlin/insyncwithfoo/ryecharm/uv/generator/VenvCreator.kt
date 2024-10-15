@@ -17,6 +17,7 @@ import insyncwithfoo.ryecharm.configurations.HasTimeouts
 import insyncwithfoo.ryecharm.configurations.changeGlobalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.UVTimeouts
 import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
+import insyncwithfoo.ryecharm.invokeLater
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.somethingIsWrong
@@ -126,7 +127,7 @@ internal class VenvCreator(private val uvExecutable: Path, private val projectPa
         val output = command.run(timeout)  // FIXME: Run this properly
         
         when (val newVenvName = extractNewVenvName(output)) {
-            null -> somethingIsWrong(message("messages.uvReportedError.body"))
+            null -> invokeLater { somethingIsWrong(message("messages.uvReportedError.body")) }
             else -> venvDirectoryName = newVenvName
         }
     }

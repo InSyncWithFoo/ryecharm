@@ -20,6 +20,7 @@ import com.intellij.psi.util.startOffset
 import com.intellij.testFramework.LightVirtualFile
 import com.jetbrains.python.psi.PyFile
 import insyncwithfoo.ryecharm.RootDisposable
+import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.fileEditorManager
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.paste
@@ -73,9 +74,8 @@ private val PyFile.injectedPEP723Fragment: TomlFile?
 
 private fun Editor.addReleaseListener(project: Project, listener: (Document) -> Unit) {
     val parentDisposable = RootDisposable.getInstance(project)
-    val factory = EditorFactory.getInstance()
     
-    factory.addEditorFactoryListener(object : EditorFactoryListener {
+    editorFactory.addEditorFactoryListener(object : EditorFactoryListener {
         override fun editorReleased(event: EditorFactoryEvent) {
             if (event.editor === this@addReleaseListener) {
                 listener(event.editor.document)
