@@ -6,7 +6,6 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
-import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.keyValuePair
@@ -16,34 +15,8 @@ import insyncwithfoo.ryecharm.table
 import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlInlineTable
 import org.toml.lang.psi.TomlLiteral
-import org.toml.lang.psi.TomlTable
 import org.toml.lang.psi.TomlVisitor
 import org.toml.lang.psi.ext.name
-
-
-private typealias DependencyGroupsTable = TomlTable
-private typealias GroupName = String
-
-
-// https://packaging.python.org/en/latest/specifications/name-normalization/#name-format
-private val validGroupName = "(?i)^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$".toRegex()
-
-
-private val GroupName.isValid: Boolean
-    get() = this.matches(validGroupName)
-
-
-// https://packaging.python.org/en/latest/specifications/name-normalization/#name-normalization
-private fun GroupName.normalize() =
-    this.replace("[-_.]+".toRegex(), "-").lowercase()
-
-
-private val DependencyGroupsTable.groupNames: List<String>
-    get() = entries.mapNotNull { it.key.name?.normalize() }
-
-
-private val TomlTable.isDependencyGroups: Boolean
-    get() = header.key?.name == "dependency-groups"
 
 
 private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : TomlVisitor() {

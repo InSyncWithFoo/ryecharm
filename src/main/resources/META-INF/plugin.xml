@@ -154,6 +154,14 @@
 		/>
 	</extensions>
 	
+	<extensions defaultExtensionNs="com.intellij">
+		<psi.referenceContributor
+			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupReferenceContributor"
+			language="TOML"
+			implementation="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupReferenceContributor"
+		/>
+	</extensions>
+	
 	<extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
 		<!--suppress PluginXmlValidity -->
 		<commandSpecsProvider
