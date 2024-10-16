@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.common.injections
+package insyncwithfoo.ryecharm.others.requirementsinjection
 
 import com.intellij.lang.injection.general.Injection
 import com.intellij.lang.injection.general.LanguageInjectionContributor

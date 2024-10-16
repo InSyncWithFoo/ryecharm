@@ -1,9 +1,8 @@
-package insyncwithfoo.ryecharm.common.injections
+package insyncwithfoo.ryecharm
 
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import insyncwithfoo.ryecharm.PlatformTestCase
 
 
 internal abstract class LanguageInjectionTestCase : PlatformTestCase() {

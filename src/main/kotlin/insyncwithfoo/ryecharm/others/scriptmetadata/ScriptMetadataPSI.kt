@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.common.injections
+package insyncwithfoo.ryecharm.others.scriptmetadata
 
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiElement

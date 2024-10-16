@@ -1,5 +1,6 @@
-package insyncwithfoo.ryecharm.common.injections
+package insyncwithfoo.ryecharm.others.scriptmetadata
 
+import insyncwithfoo.ryecharm.LanguageInjectionTestCase
 import org.junit.Test
 import org.toml.lang.psi.TomlFile
 import kotlin.test.assertContains

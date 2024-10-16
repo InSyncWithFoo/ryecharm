@@ -36,7 +36,7 @@ private val TomlKey.segmentedName: String
     get() = segments.joinToString(".") { it.text }
 
 
-private val TomlKey.table: TomlTable?
+internal val TomlKey.table: TomlTable?
     get() = keyValuePair?.parent as? TomlTable
 
 
@@ -91,12 +91,9 @@ internal class TOMLPath private constructor(private val fragments: List<String>)
      * return the difference between the two's [fragments].
      * Otherwise, return `null`.
      */
-    private fun relativize(other: TOMLPath): TOMLPath? {
-        if (!this.fragments.startsWith(other.fragments)) {
-            return null
-        }
-        
-        return TOMLPath(fragments.drop(other.fragments.size))
+    private fun relativize(other: TOMLPath) = when {
+        !this.fragments.startsWith(other.fragments) -> null
+        else -> TOMLPath(fragments.drop(other.fragments.size))
     }
     
     fun relativize(other: String) =

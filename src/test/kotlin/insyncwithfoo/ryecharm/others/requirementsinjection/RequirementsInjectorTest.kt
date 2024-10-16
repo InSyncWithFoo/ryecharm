@@ -1,6 +1,7 @@
-package insyncwithfoo.ryecharm.common.injections
+package insyncwithfoo.ryecharm.others.requirementsinjection
 
 import com.jetbrains.python.requirements.RequirementsFile
+import insyncwithfoo.ryecharm.LanguageInjectionTestCase
 import org.junit.Test
 
 

@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.common.inspection
+package insyncwithfoo.ryecharm.others.dependencygroups
 
 import insyncwithfoo.ryecharm.PlatformTestCase
 import org.junit.Test

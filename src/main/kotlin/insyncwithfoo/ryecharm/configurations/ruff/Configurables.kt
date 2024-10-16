@@ -1,65 +1,22 @@
 package insyncwithfoo.ryecharm.configurations.ruff
 
 import com.intellij.openapi.project.Project
-import com.intellij.platform.lsp.api.LspServerManager
-import com.redhat.devtools.lsp4ij.LanguageServerManager
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.ProjectBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.copy
-import insyncwithfoo.ryecharm.isNormal
-import insyncwithfoo.ryecharm.lsp4ijIsAvailable
-import insyncwithfoo.ryecharm.lspIsAvailable
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.openProjects
+import insyncwithfoo.ryecharm.restartNativeServers
 import insyncwithfoo.ryecharm.ruff.linting.ruffInspectionisEnabled
 import insyncwithfoo.ryecharm.ruff.lsp.RuffServerSupportProvider
 import insyncwithfoo.ryecharm.ruff.lsp4ij.SERVER_ID
+import insyncwithfoo.ryecharm.toggleLSP4IJServers
 
 
-@Suppress("UnstableApiUsage")
-private val Project.lspServerManager: LspServerManager
-    get() = LspServerManager.getInstance(this)
-
-
-@Suppress("UnstableApiUsage")
-private fun Project.restartNativeServersIfSoChoose() {
-    if (lspIsAvailable && this.isNormal && ruffConfigurations.autoRestartServers) {
-        lspServerManager.stopAndRestartIfNeeded(RuffServerSupportProvider::class.java)
-    }
-}
-
-
-private val Project.languageServerManager: LanguageServerManager
-    get() = LanguageServerManager.getInstance(this)
-
-
-private fun Project.stopLSP4IJServers(disable: Boolean = false) {
-    val options = LanguageServerManager.StopOptions().apply {
-        isWillDisable = disable
-    }
-    
-    languageServerManager.stop(SERVER_ID, options)
-}
-
-
-private fun Project.startLSP4IJServers(enable: Boolean = false) {
-    val options = LanguageServerManager.StartOptions().apply {
-        isWillEnable = enable
-    }
-    
-    languageServerManager.start(SERVER_ID, options)
-}
-
-
-private fun Project.toggleLSP4IJServersAccordingly() {
-    if (!lsp4ijIsAvailable || !ruffConfigurations.autoRestartServers) {
-        return
-    }
-    
-    stopLSP4IJServers()
-    
-    if (ruffConfigurations.runningMode == RunningMode.LSP4IJ) {
-        startLSP4IJServers()
+private fun Project.toggleServers() {
+    if (ruffConfigurations.autoRestartServers) {
+        restartNativeServers<RuffServerSupportProvider>()
+        toggleLSP4IJServers(SERVER_ID, restart = ruffConfigurations.runningMode == RunningMode.LSP4IJ)
     }
 }
 
@@ -80,8 +37,7 @@ internal class RuffConfigurable : PanelBasedConfigurable<RuffConfigurations>() {
             // FIXME: Is toggling for all projects the correct thing to do?
             project.ruffInspectionisEnabled = state.runningMode == RunningMode.COMMAND_LINE
             
-            project.restartNativeServersIfSoChoose()
-            project.toggleLSP4IJServersAccordingly()
+            project.toggleServers()
         }
     }
     
@@ -105,8 +61,7 @@ internal class RuffProjectConfigurable(override val project: Project) :
         
         project.ruffInspectionisEnabled = state.runningMode == RunningMode.COMMAND_LINE
         
-        project.restartNativeServersIfSoChoose()
-        project.toggleLSP4IJServersAccordingly()
+        project.toggleServers()
     }
     
 }

@@ -122,25 +122,25 @@
 		/>
 		
 		<multiHostInjector
-			id="insyncwithfoo.ryecharm.common.injections.ScriptMetadataInjector"
-			implementation="insyncwithfoo.ryecharm.common.injections.ScriptMetadataInjector"
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
 		/>
 		
 		<formatting.injectedOptions
-			id="insyncwithfoo.ryecharm.common.injections.ScriptMetadataInjector"
-			implementation="insyncwithfoo.ryecharm.common.injections.ScriptMetadataInjector"
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
 		/>
 		
 		<languageInjectionContributor
-			id="insyncwithfoo.ryecharm.common.injections.RequirementsInjector"
+			id="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
 			language="TOML"
-			implementationClass="insyncwithfoo.ryecharm.common.injections.RequirementsInjector"
+			implementationClass="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
 		/>
 		
 		<localInspection
-			id="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
-			suppressId="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
-			shortName="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
+			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
+			suppressId="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
+			shortName="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
 			
 			language="TOML"
 			groupName="RyeCharm"
@@ -150,7 +150,7 @@
 			
 			enabledByDefault="true"
 			level="WARNING"
-			implementationClass="insyncwithfoo.ryecharm.common.inspection.DependencyGroupNameInspection"
+			implementationClass="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
 		/>
 	</extensions>
 	
@@ -166,7 +166,7 @@
 	<extensions defaultExtensionNs="com.intellij">
 		<intentionAction>
 			<language/>
-			<className>insyncwithfoo.ryecharm.common.injections.EditScriptMetadataFragment</className>
+			<className>insyncwithfoo.ryecharm.others.scriptmetadata.EditScriptMetadataFragment</className>
 			<category>RyeCharm</category>
 			<skipBeforeAfter>true</skipBeforeAfter>
 		</intentionAction>
