@@ -18,6 +18,9 @@ internal class DependencyGroupNameInspectionTest : PlatformTestCase() {
     @Test
     fun `test invalid key`() = doTest("invalidKey")
     
+    @Test
+    fun `test duplicate groups`() = doTest("duplicateGroups")
+    
     private fun doTest(subdrectory: String) = fileBasedTest("$subdrectory/pyproject.toml") {
         fixture.enableInspections(DependencyGroupNameInspection())
         fixture.checkHighlighting()

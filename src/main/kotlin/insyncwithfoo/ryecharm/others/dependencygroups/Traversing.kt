@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.others.dependencygroups
 
+import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlInlineTable
 import org.toml.lang.psi.TomlKey
 import org.toml.lang.psi.TomlLiteral
@@ -8,8 +9,13 @@ import org.toml.lang.psi.ext.name
 
 
 internal typealias DependencyGroupsTable = TomlTable
+internal typealias GroupArray = TomlArray
 internal typealias IncludeGroupTable = TomlInlineTable
 internal typealias GroupNameString = TomlLiteral
+
+
+internal val TomlKey.groupName: String?
+    get() = name?.normalize()
 
 
 internal val TomlTable.isDependencyGroups: Boolean
@@ -21,4 +27,4 @@ internal val DependencyGroupsTable.groupKeys: List<TomlKey>
 
 
 internal val DependencyGroupsTable.groupNames: List<String>
-    get() = groupKeys.mapNotNull { it.name?.normalize() }
+    get() = groupKeys.mapNotNull { it.groupName }

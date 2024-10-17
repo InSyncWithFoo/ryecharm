@@ -15,6 +15,7 @@ import insyncwithfoo.ryecharm.table
 import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlInlineTable
 import org.toml.lang.psi.TomlLiteral
+import org.toml.lang.psi.TomlTable
 import org.toml.lang.psi.TomlVisitor
 import org.toml.lang.psi.ext.name
 
@@ -46,7 +47,7 @@ private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : T
     
     private fun reportInvalidGroupName(element: PsiElement, groupName: String) {
         val message = message("inspections.dependencyGroupNames.message.invalid", groupName)
-        val problemHighlightType = ProblemHighlightType.POSSIBLE_PROBLEM
+        val problemHighlightType = ProblemHighlightType.WARNING
         
         holder.registerProblem(element, message, problemHighlightType)
     }
@@ -54,6 +55,27 @@ private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : T
     private fun reportUnknownGroup(element: PsiElement, groupName: String) {
         val message = message("inspections.dependencyGroupNames.message.unknown", groupName)
         val problemHighlightType = ProblemHighlightType.LIKE_UNKNOWN_SYMBOL
+        
+        holder.registerProblem(element, message, problemHighlightType)
+    }
+    
+    override fun visitTable(element: TomlTable) {
+        val dependencyGroupsTable = element.takeIf { it.isDependencyGroups } ?: return
+        val entriesByNormalizedName = dependencyGroupsTable.entries.groupBy { it.key.groupName }
+        
+        entriesByNormalizedName.forEach { (normalizedName, entries) ->
+            if (normalizedName != null && entries.size > 1) {
+                entries.forEach { reportDuplicateGroup(it.key, it.key.name!!, normalizedName) }
+            }
+        }
+    }
+    
+    private fun reportDuplicateGroup(element: PsiElement, originalName: String, normalizedName: String) {
+        val message = when (originalName == normalizedName) {
+            true -> message("inspections.dependencyGroupNames.message.duplicate.normalized", normalizedName)
+            else -> message("inspections.dependencyGroupNames.message.duplicate", originalName, normalizedName)
+        }
+        val problemHighlightType = ProblemHighlightType.GENERIC_ERROR
         
         holder.registerProblem(element, message, problemHighlightType)
     }

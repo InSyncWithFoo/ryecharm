@@ -30,7 +30,7 @@ private class DependencyGroupReference(element: GroupNameString) : PsiReferenceB
         val groupKeys = dependencyGroupsTable.groupKeys
         val includedGroupName = element.stringContent!!.normalize()
         
-        val key = groupKeys.find { it.name?.normalize() == includedGroupName }
+        val key = groupKeys.find { it.groupName == includedGroupName }
         
         return key?.segments?.singleOrNull()
     }

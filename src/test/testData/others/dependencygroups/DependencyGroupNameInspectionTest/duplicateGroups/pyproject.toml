@@ -1,0 +1,5 @@
+[dependency-groups]
+<warning descr="Duplicate dependency group: foo-bar">foo-bar</warning> = ["ruff"]
+<warning descr="Duplicate dependency group: foo-bar">"foo.bar"</warning> = ["a-n-plus-b"]
+<warning descr="Duplicate dependency group: foo-bar">foo_bar</warning> = [{ include-group = "foo-bar" }]
+foo.bar = [{ include-group = "foo.bar" }]
