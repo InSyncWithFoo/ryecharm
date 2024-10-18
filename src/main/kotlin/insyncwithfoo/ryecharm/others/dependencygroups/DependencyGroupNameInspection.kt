@@ -28,20 +28,21 @@ private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : T
         }
         
         val string = element.takeIf { it.isString } ?: return
-        val propertyPair = string.keyValuePair?.takeIf { it.key.name == "include-group" } ?: return
+        val propertyPair = string.keyValuePair?.takeIf { it.isIncludeGroup } ?: return
         
         val inlineTable = propertyPair.parent as? TomlInlineTable ?: return
         val array = inlineTable.parent as? TomlArray ?: return
         val arrayKey = array.keyValuePair?.key ?: return
         
-        val dependencyGroupsTable = arrayKey.table?.takeIf { it.isDependencyGroups }
+        val dependencyGroupsTable = arrayKey.table?.takeIf { it.isDependencyGroupsTable }
         val registeredGroupNames = dependencyGroupsTable?.groupNames ?: emptyList()
         val groupName = string.stringContent ?: return
         val normalizedGroupName = groupName.normalize()
         
         when {
-            !groupName.isValid -> reportInvalidGroupName(element, groupName)
-            normalizedGroupName !in registeredGroupNames -> reportUnknownGroup(element, groupName)
+            !groupName.isValid -> reportInvalidGroupName(string, groupName)
+            normalizedGroupName !in registeredGroupNames -> reportUnknownGroup(string, groupName, normalizedGroupName)
+            normalizedGroupName == arrayKey.groupName -> reportCircularGroup(string, groupName, normalizedGroupName)
         }
     }
     
@@ -52,15 +53,22 @@ private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : T
         holder.registerProblem(element, message, problemHighlightType)
     }
     
-    private fun reportUnknownGroup(element: PsiElement, groupName: String) {
-        val message = message("inspections.dependencyGroupNames.message.unknown", groupName)
+    private fun reportUnknownGroup(element: PsiElement, originalName: String, normalizedName: String) {
+        val message = message("inspections.dependencyGroupNames.message.unknown", originalName, normalizedName)
         val problemHighlightType = ProblemHighlightType.LIKE_UNKNOWN_SYMBOL
         
         holder.registerProblem(element, message, problemHighlightType)
     }
     
+    private fun reportCircularGroup(element: PsiElement, originalName: String, normalizedName: String) {
+        val message = message("inspections.dependencyGroupNames.message.circular", originalName, normalizedName)
+        val problemHighlightType = ProblemHighlightType.GENERIC_ERROR
+        
+        holder.registerProblem(element, message, problemHighlightType)
+    }
+    
     override fun visitTable(element: TomlTable) {
-        val dependencyGroupsTable = element.takeIf { it.isDependencyGroups } ?: return
+        val dependencyGroupsTable = element.takeIf { it.isDependencyGroupsTable } ?: return
         val entriesByNormalizedName = dependencyGroupsTable.entries.groupBy { it.key.groupName }
         
         entriesByNormalizedName.forEach { (normalizedName, entries) ->
@@ -71,10 +79,7 @@ private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : T
     }
     
     private fun reportDuplicateGroup(element: PsiElement, originalName: String, normalizedName: String) {
-        val message = when (originalName == normalizedName) {
-            true -> message("inspections.dependencyGroupNames.message.duplicate.normalized", normalizedName)
-            else -> message("inspections.dependencyGroupNames.message.duplicate", originalName, normalizedName)
-        }
+        val message = message("inspections.dependencyGroupNames.message.duplicate", originalName, normalizedName)
         val problemHighlightType = ProblemHighlightType.GENERIC_ERROR
         
         holder.registerProblem(element, message, problemHighlightType)

@@ -1,7 +1,12 @@
 <html lang="en">
 <body>
-	Whether dependency group names referred to in
-	<code>include-group</code> point to existing groups.
+	Checks the following problems with dependency group declarations:
+	
+	<ul>
+		<li>Whether an included group name points to a valid existing group.</li>
+		<li>Whether there are multiple groups with the same normalized name.</li>
+		<li>Whether a group includes itself.</li>
+	</ul>
 	
 	For more information, see <a href="https://peps.python.org/pep-0735/">PEP 735</a>.
 </body>

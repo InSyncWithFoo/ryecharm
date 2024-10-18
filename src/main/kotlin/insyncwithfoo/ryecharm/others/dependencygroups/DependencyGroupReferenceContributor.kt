@@ -17,7 +17,6 @@ import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlInlineTable
 import org.toml.lang.psi.TomlKeySegment
 import org.toml.lang.psi.TomlLiteral
-import org.toml.lang.psi.ext.name
 
 
 private class DependencyGroupReference(element: GroupNameString) : PsiReferenceBase<GroupNameString>(element) {
@@ -46,7 +45,7 @@ internal class DependencyGroupReferenceProvider : PsiReferenceProvider() {
         }
         
         val string = (element as? TomlLiteral)?.takeIf { it.isString } ?: return emptyArray()
-        val propertyPair = string.keyValuePair?.takeIf { it.key.name == "include-group" } ?: return emptyArray()
+        val propertyPair = string.keyValuePair?.takeIf { it.isIncludeGroup } ?: return emptyArray()
         
         val inlineTable = propertyPair.parent as? TomlInlineTable ?: return emptyArray()
         val array = inlineTable.parent as? TomlArray ?: return emptyArray()

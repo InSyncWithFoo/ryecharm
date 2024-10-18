@@ -21,6 +21,9 @@ internal class DependencyGroupNameInspectionTest : PlatformTestCase() {
     @Test
     fun `test duplicate groups`() = doTest("duplicateGroups")
     
+    @Test
+    fun `test circular group`() = doTest("circularGroup")
+    
     private fun doTest(subdrectory: String) = fileBasedTest("$subdrectory/pyproject.toml") {
         fixture.enableInspections(DependencyGroupNameInspection())
         fixture.checkHighlighting()

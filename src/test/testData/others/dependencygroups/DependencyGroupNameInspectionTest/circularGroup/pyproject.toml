@@ -1,0 +1,2 @@
+[dependency-groups]
+foo = ["ruff", { include-group = <warning descr="Dependency group references itself: foo (normalized: foo)">"foo"</warning> }]
