@@ -14,7 +14,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruffExecutable
 
 
-internal const val SERVER_ID = "ryecharm/ruff"
+internal const val SERVER_ID = "insyncwithfoo.ryecharm.ruff"
 
 
 internal class RuffServerFactory : LanguageServerFactory, LanguageServerEnablementSupport {
