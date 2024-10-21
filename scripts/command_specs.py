@@ -23,8 +23,8 @@ from more_itertools import partition
 from nccsp import parse_commands
 from pydantic import BaseModel, Field
 
-type _Executable = Literal['ruff', 'uv', 'uvx', 'rye']
 
+type _Executable = Literal['ruff', 'uv', 'uvx', 'rye']
 
 _rye_version_details = re.compile(
 	r'''(?mx)
