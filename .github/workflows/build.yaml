@@ -34,7 +34,7 @@ jobs:
         run: |
           git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
           cd intellij-platform-gradle-plugin
-          git reset d58d4227a5d99237fa41a92b3fc3dc2a039691ed
+          git reset 650f135ba4e48d935f217a31e73b59d4100f5041
       -
         name: Gradle wrapper validation
         uses: gradle/actions/wrapper-validation@v4
@@ -148,7 +148,7 @@ jobs:
         run: |
           git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
           cd intellij-platform-gradle-plugin
-          git reset d58d4227a5d99237fa41a92b3fc3dc2a039691ed
+          git reset 650f135ba4e48d935f217a31e73b59d4100f5041
       -
         name: Set up Java
         uses: actions/setup-java@v4
@@ -248,7 +248,7 @@ jobs:
         run: |
           git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
           cd intellij-platform-gradle-plugin
-          git reset d58d4227a5d99237fa41a92b3fc3dc2a039691ed
+          git reset 650f135ba4e48d935f217a31e73b59d4100f5041
       -
         name: Set up Java
         uses: actions/setup-java@v4
@@ -330,7 +330,7 @@ jobs:
         run: |
           git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
           cd intellij-platform-gradle-plugin
-          git reset d58d4227a5d99237fa41a92b3fc3dc2a039691ed
+          git reset 650f135ba4e48d935f217a31e73b59d4100f5041
       -
         name: Set up Java
         uses: actions/setup-java@v4
