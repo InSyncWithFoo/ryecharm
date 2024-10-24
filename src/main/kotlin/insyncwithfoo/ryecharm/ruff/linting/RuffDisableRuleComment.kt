@@ -40,10 +40,9 @@ private fun MatchGroup.toFragment(baseOffset: Int): NoqaCommentFragment {
  * 
  * @see insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaComment
  */
-@VisibleForTesting
-internal class NoqaComment(val codes: Set<RuleCode>) {
+private class NoqaComment(private val codes: Set<RuleCode>) {
     
-    val codeList: String
+    private val codeList: String
         get() = codes.joinToString(", ")
     
     override fun toString() = when {
@@ -66,18 +65,12 @@ internal class NoqaComment(val codes: Set<RuleCode>) {
 @VisibleForTesting
 internal class InEditorNoqaComment private constructor(
     private val prefix: NoqaCommentFragment,
-    private val colon: NoqaCommentFragment?,
     private val codeList: NoqaCommentFragment?,
     private val lastSeparator: String?
 ) {
     
-    val codes by lazy { codeList?.let { NoqaComment.parse(it.content).codes } ?: emptySet() }
-    
     private val separator: String
         get() = lastSeparator ?: ", "
-    
-    val codeListIsNotSpecified: Boolean
-        get() = codeList == null
     
     val codeListReplacementOffsets: Pair<Int, Int>
         get() = when {
@@ -89,17 +82,15 @@ internal class InEditorNoqaComment private constructor(
         codeList!!.content + separator + newCode
     
     companion object {
-        @VisibleForTesting
         fun create(text: String, baseOffset: Int): InEditorNoqaComment? {
-            val pyrightIgnorePart = noqaComment.find(text) ?: return null
-            val groups = pyrightIgnorePart.groups
+            val noqaPart = noqaComment.find(text) ?: return null
+            val groups = noqaPart.groups
             
             val prefix = groups["prefix"]!!.toFragment(baseOffset)
-            val colon = groups["colon"]?.toFragment(baseOffset)
             val codeList = groups["codeList"]?.toFragment(baseOffset)
             val lastSeparator = groups["lastSeparator"]?.value
             
-            return InEditorNoqaComment(prefix, colon, codeList, lastSeparator)
+            return InEditorNoqaComment(prefix, codeList, lastSeparator)
         }
     }
     

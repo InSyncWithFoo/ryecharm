@@ -15,7 +15,6 @@ Replacements:
 * Project and package management: [Use uv][4] directly.
 
 
-
   [1]: https://rye.astral.sh/
   [2]: ../ruff/index.md
   [3]: https://www.jetbrains.com/help/pycharm/pytest.html
