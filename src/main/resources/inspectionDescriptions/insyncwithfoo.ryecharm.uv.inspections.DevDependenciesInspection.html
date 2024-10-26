@@ -1,0 +1,30 @@
+<html lang="en">
+<body>
+	Reports usages of <code>tool.uv.dev-dependencies</code>.
+	
+	<p>
+		As of uv 0.4.27, which added support for <a href="https://peps.python.org/pep-0735/">PEP 735</a>,
+		this field is obsoleted in favor of the <code>dev</code> dependency group.
+		It will eventually be deprecated and removed.
+	</p>
+	
+	<p>Avoid:</p>
+	
+	<pre><code>
+[tool.uv]
+dev-dependencies = ["ruff"]
+</code></pre>
+	
+	<p>Use instead:</p>
+	
+	<pre><code>
+[dependency-groups]
+dev = ["ruff"]
+</code></pre>
+	
+	<p>
+		More information can be found in
+		<a href="https://docs.astral.sh/uv/concepts/dependencies/#legacy-dev-dependencies">the documentation</a>.
+	</p>
+</body>
+</html>

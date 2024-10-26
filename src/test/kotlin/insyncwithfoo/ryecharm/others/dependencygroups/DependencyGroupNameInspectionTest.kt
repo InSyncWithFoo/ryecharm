@@ -24,7 +24,7 @@ internal class DependencyGroupNameInspectionTest : PlatformTestCase() {
     @Test
     fun `test circular group`() = doTest("circularGroup")
     
-    private fun doTest(subdrectory: String) = fileBasedTest("$subdrectory/pyproject.toml") {
+    private fun doTest(subdirectory: String) = fileBasedTest("$subdirectory/pyproject.toml") {
         fixture.enableInspections(DependencyGroupNameInspection())
         fixture.checkHighlighting()
     }

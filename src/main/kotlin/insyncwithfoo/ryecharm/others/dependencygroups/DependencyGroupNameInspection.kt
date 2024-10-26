@@ -6,6 +6,7 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
+import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.keyValuePair
@@ -23,10 +24,6 @@ import org.toml.lang.psi.ext.name
 private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : TomlVisitor() {
     
     override fun visitLiteral(element: TomlLiteral) {
-        if (element.containingFile.virtualFile?.isPyprojectToml != true) {
-            return
-        }
-        
         val string = element.takeIf { it.isString } ?: return
         val propertyPair = string.keyValuePair?.takeIf { it.isIncludeGroup } ?: return
         
@@ -92,11 +89,14 @@ internal class DependencyGroupNameInspection : LocalInspectionTool(), DumbAware 
     
     override fun getShortName() = SHORT_NAME
     
+    override fun isAvailableForFile(file: PsiFile) =
+        file.virtualFile?.isPyprojectToml == true
+    
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor =
         DependencyGroupNameVisitor(holder)
     
     companion object {
-        const val SHORT_NAME = "insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
+        private const val SHORT_NAME = "insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
     }
     
 }

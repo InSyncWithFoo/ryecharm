@@ -1,0 +1,1 @@
+<warning descr="`tool.uv.dev-dependencies` is obsolete. Use `dependency-groups.dev` instead.">dev-dependencies</warning> = ["ruff"]
