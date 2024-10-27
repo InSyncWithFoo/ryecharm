@@ -88,8 +88,15 @@ internal class UV private constructor(
     fun remove(target: String) =
         RemoveCommand().build(CommandArguments(target))
     
-    fun sync() =
-        SyncCommand().build()
+    fun sync(group: String? = null): Command {
+        val arguments = CommandArguments()
+        
+        if (group != null) {
+            arguments["--group"] = group
+        }
+        
+        return SyncCommand().build(arguments)
+    }
     
     fun venv(baseInterpreter: Path, name: String? = null): Command {
         val arguments = CommandArguments("--python" to baseInterpreter.toString())

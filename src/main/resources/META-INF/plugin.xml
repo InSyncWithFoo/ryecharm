@@ -160,6 +160,12 @@
 			language="TOML"
 			implementation="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupReferenceContributor"
 		/>
+		
+		<runLineMarkerContributor
+			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInstaller"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInstaller"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
