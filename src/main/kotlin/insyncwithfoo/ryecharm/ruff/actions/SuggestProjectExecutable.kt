@@ -13,7 +13,7 @@ import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.errorNotificationGroup
+import insyncwithfoo.ryecharm.informationNotificationGroup
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.information
 import insyncwithfoo.ryecharm.interpreterPath
@@ -41,7 +41,7 @@ private fun InformationNotificationGroup.noExecutableFound() =
 
 
 private fun Project.noExecutableFound() =
-    errorNotificationGroup.noExecutableFound().notify(this)
+    informationNotificationGroup.noExecutableFound().notify(this)
 
 
 private fun Project.setAsExecutable(newValue: String, crossPlatform: Boolean) {
@@ -74,7 +74,7 @@ internal fun Project.suggestExecutable(executable: Path) {
     val projectPath = path ?: return
     val executableRelativized = projectPath.relativize(executable)
     
-    val notification = errorNotificationGroup.suggestExecutable(executableRelativized)
+    val notification = informationNotificationGroup.suggestExecutable(executableRelativized)
     
     notification.runThenNotify(this) {
         addExpiringAction(message("notificationActions.setNameOnly")) {
