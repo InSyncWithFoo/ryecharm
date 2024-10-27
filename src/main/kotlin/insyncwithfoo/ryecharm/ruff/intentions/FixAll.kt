@@ -9,6 +9,7 @@ import insyncwithfoo.ryecharm.ExternalIntentionAction
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRuff
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.paste
@@ -46,7 +47,7 @@ internal class FixAll : ExternalIntentionAction, LowPriorityAction {
         project.runCommandAndLoadResult(command, file)
     }
     
-    private fun Project.runCommandAndLoadResult(command: Command, file: PsiFile) = runIntention {
+    private fun Project.runCommandAndLoadResult(command: Command, file: PsiFile) = launch<IntentionCoroutine> {
         val output = runInForeground(command)
         val newText = output.stdout
         
@@ -55,7 +56,7 @@ internal class FixAll : ExternalIntentionAction, LowPriorityAction {
         }
     }
     
-    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = runIntention {
+    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = launch<IntentionCoroutine> {
         runWriteCommandAction(message("progresses.command.ruff.fixAll")) {
             file.paste(newText)
         }

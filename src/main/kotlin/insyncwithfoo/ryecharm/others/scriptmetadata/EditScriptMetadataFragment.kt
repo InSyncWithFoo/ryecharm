@@ -4,7 +4,6 @@ import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.codeInsight.intention.LowPriorityAction
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.components.Service
-import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.event.EditorFactoryEvent
@@ -18,14 +17,15 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.util.startOffset
 import com.intellij.testFramework.LightVirtualFile
 import com.jetbrains.python.psi.PyFile
+import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.fileEditorManager
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.paste
 import insyncwithfoo.ryecharm.runWriteCommandAction
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import org.toml.lang.psi.TomlFile
 
 
@@ -81,15 +81,6 @@ private fun Editor.addReleaseListener(project: Project, listener: (Document) -> 
             }
         }
     }, parentDisposable)
-}
-
-
-@Service(Service.Level.PROJECT)
-private class EditScriptMetadataFragmentCoroutine(val scope: CoroutineScope)
-
-
-private fun Project.runTask(action: suspend CoroutineScope.() -> Unit) {
-    service<EditScriptMetadataFragmentCoroutine>().scope.launch(block = action)
 }
 
 
@@ -205,10 +196,13 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
         else -> "# $this"
     }
     
-    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = runTask {
+    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = launch<Coroutine> {
         runWriteCommandAction(message("intentions.main.editScriptMetadataFragment.progressTitle")) {
             file.paste(newText)
         }
     }
+    
+    @Service(Service.Level.PROJECT)
+    private class Coroutine(override val scope: CoroutineScope) : CoroutineService
     
 }

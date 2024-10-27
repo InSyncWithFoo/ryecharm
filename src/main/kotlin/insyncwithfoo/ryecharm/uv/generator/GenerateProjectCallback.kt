@@ -4,7 +4,6 @@ import com.intellij.ide.util.projectWizard.AbstractNewProjectStep
 import com.intellij.ide.util.projectWizard.AbstractNewProjectStep.AbstractCallback
 import com.intellij.ide.util.projectWizard.ProjectSettingsStepBase
 import com.intellij.openapi.components.Service
-import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.projectRoots.impl.SdkConfigurationUtil
@@ -12,22 +11,18 @@ import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.platform.ProjectGeneratorPeer
 import com.jetbrains.python.newProject.steps.PythonProjectSpecificSettingsStep
+import insyncwithfoo.ryecharm.CoroutineService
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.moduleManager
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessful
 import insyncwithfoo.ryecharm.rootManager
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.uv.commands.uv
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 
 @Service(Service.Level.PROJECT)
-private class InitializeProjectCoroutine(val scope: CoroutineScope)
-
-
-private fun Project.runInitializer(action: suspend CoroutineScope.() -> Unit) {
-    service<InitializeProjectCoroutine>().scope.launch(block = action)
-}
+private class InitializeProjectCoroutine(override val scope: CoroutineScope) : CoroutineService
 
 
 private fun UVProjectGenerator.generateProject(
@@ -51,7 +46,7 @@ private fun Project.initializeUsingUV(settings: UVNewProjectSettings) {
     
     val command = uv!!.init(name, kind, createReadme, pinPython, baseInterpreter)
     
-    runInitializer {
+    launch<InitializeProjectCoroutine> {
         val output = runInForeground(command)
         
         notifyIfProcessIsUnsuccessful(command, output)

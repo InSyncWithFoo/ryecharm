@@ -14,6 +14,7 @@ import insyncwithfoo.ryecharm.error
 import insyncwithfoo.ryecharm.errorNotificationGroup
 import insyncwithfoo.ryecharm.fileEditorManager
 import insyncwithfoo.ryecharm.isSuccessful
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.processTimeout
@@ -44,22 +45,22 @@ internal class OpenConfigurationFile : AnAction(), DumbAware {
         project.runRyeConfigAndOpenFile(rye)
     }
     
-    private fun Project.runRyeConfigAndOpenFile(rye: Rye) = runAction {
+    private fun Project.runRyeConfigAndOpenFile(rye: Rye) = launch<ActionCoroutine> {
         val command = rye.config()
         val output = runInBackground(command)
         
         if (output.isCancelled) {
-            return@runAction
+            return@launch
         }
         
         if (output.isTimeout) {
-            return@runAction processTimeout(command)
+            return@launch processTimeout(command)
         }
         
         val path = output.stdout.trim().toPathOrNull()
         
         if (!output.isSuccessful || path == null) {
-            return@runAction unknownError(command, output)
+            return@launch unknownError(command, output)
         }
         
         val virtualFile = runInBackground(message("progresses.command.rye.config")) {

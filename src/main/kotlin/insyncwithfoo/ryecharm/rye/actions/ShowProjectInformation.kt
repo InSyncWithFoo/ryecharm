@@ -4,6 +4,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.openLightFile
@@ -22,7 +23,7 @@ internal class ShowProjectInformation : AnAction(), DumbAware {
         project.runCommandAndShowOutput(rye)
     }
     
-    private fun Project.runCommandAndShowOutput(rye: Rye) = runAction {
+    private fun Project.runCommandAndShowOutput(rye: Rye) = launch<ActionCoroutine> {
         val command = rye.show()
         
         runInBackground(command) { output ->

@@ -4,6 +4,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyProcessResult
 import insyncwithfoo.ryecharm.path
@@ -32,7 +33,7 @@ internal class CleanCache : AnAction(), DumbAware {
         project.runCommandAndReport(ruff, projectPath)
     }
     
-    private fun Project.runCommandAndReport(ruff: Ruff, path: Path) = runAction {
+    private fun Project.runCommandAndReport(ruff: Ruff, path: Path) = launch<ActionCoroutine> {
         val command = ruff.clean(path)
         val output = runInBackground(command)
         

@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.ExternalIntentionAction
 import insyncwithfoo.ryecharm.WriteIntentionAction
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isPyprojectToml
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
@@ -46,7 +47,7 @@ internal abstract class BumpProjectVersion(val bumpType: VersionBumpType) :
         project.runCommandAndLoadOutput(command, file)
     }
     
-    private fun Project.runCommandAndLoadOutput(command: Command, file: PsiFile) = runIntention {
+    private fun Project.runCommandAndLoadOutput(command: Command, file: PsiFile) = launch<IntentionCoroutine> {
         val output = runInForeground(command)
         val (asynchronous, recursive) = Pair(false, false)
         

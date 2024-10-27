@@ -3,17 +3,18 @@ package insyncwithfoo.ryecharm.ruff.onsave
 import com.intellij.ide.actionsOnSave.impl.ActionsOnSaveFileDocumentManagerListener.ActionOnSave
 import com.intellij.ide.actionsOnSave.impl.ActionsOnSaveFileDocumentManagerListener.DocumentUpdatingActionOnSave
 import com.intellij.openapi.components.Service
-import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
+import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isSupportedByRuff
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.paste
 import insyncwithfoo.ryecharm.psiDocumentManager
@@ -21,17 +22,7 @@ import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runWriteCommandAction
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import java.nio.file.Path
-
-
-@Service(Service.Level.PROJECT)
-private class Coroutine(val scope: CoroutineScope)
-
-
-private fun Project.runTask(action: suspend CoroutineScope.() -> Unit) {
-    service<Coroutine>().scope.launch(block = action)
-}
 
 
 // TODO: Use com.intellij.openapi.roots.ProjectFileIndex.isInProject
@@ -77,9 +68,9 @@ internal class RuffOnSaveTasksRunner : ActionOnSave() {
         }
     }
     
-    private fun Project.process(document: Document, file: PsiFile) = runTask {
+    private fun Project.process(document: Document, file: PsiFile) = launch<Coroutine> {
         val path = fileDocumentManager.getFile(document)?.toNioPathOrNull()
-        val newText = fixAndFormat(document.text, path) ?: return@runTask
+        val newText = fixAndFormat(document.text, path) ?: return@launch
         
         runWriteCommandAction(message("progresses.command.ruff.format")) {
             file.paste(newText)
@@ -111,5 +102,8 @@ internal class RuffOnSaveTasksRunner : ActionOnSave() {
         
         return output.stdout.takeUnless { output.completedAbnormally }
     }
+    
+    @Service(Service.Level.PROJECT)
+    private class Coroutine(override val scope: CoroutineScope) : CoroutineService
     
 }

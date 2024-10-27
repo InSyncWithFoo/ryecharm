@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.ExternalIntentionAction
 import insyncwithfoo.ryecharm.WriteIntentionAction
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isPyprojectToml
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
@@ -44,7 +45,7 @@ internal class SynchronizeProject : AnAction(), ExternalIntentionAction, WriteIn
         project.runUVSyncAndReport(uv)
     }
     
-    private fun Project.runUVSyncAndReport(uv: UV) = runIntention {
+    private fun Project.runUVSyncAndReport(uv: UV) = launch<IntentionCoroutine> {
         val command = uv.sync()
         val output = runInBackground(command)
         

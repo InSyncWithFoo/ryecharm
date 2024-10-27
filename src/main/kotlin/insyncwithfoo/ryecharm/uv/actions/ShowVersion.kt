@@ -5,6 +5,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.defaultProject
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.showMessage
@@ -22,7 +23,7 @@ internal class ShowVersion : AnAction(), DumbAware {
         project.runCommandAndShowOutput(uv)
     }
     
-    private fun Project.runCommandAndShowOutput(uv: UV) = runAction {
+    private fun Project.runCommandAndShowOutput(uv: UV) = launch<ActionCoroutine> {
         val command = uv.version()
         
         runInBackground(command) { output ->

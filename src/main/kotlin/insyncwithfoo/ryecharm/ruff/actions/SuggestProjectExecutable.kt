@@ -17,6 +17,7 @@ import insyncwithfoo.ryecharm.errorNotificationGroup
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.information
 import insyncwithfoo.ryecharm.interpreterPath
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.path
@@ -145,7 +146,7 @@ internal class SuggestProjectExecutable(private val project: Project? = null) :
             return noProjectFound()
         }
         
-        project.runAction {
+        project.launch<ActionCoroutine> {
             project.findAndSuggestExecutableOr {
                 project.noExecutableFound()
             }

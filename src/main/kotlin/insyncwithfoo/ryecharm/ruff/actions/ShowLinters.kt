@@ -14,6 +14,7 @@ import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.defaultProject
+import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
@@ -138,7 +139,7 @@ internal class ShowLinters : AnAction(), DumbAware {
         project.runRuffLinterAndShowTable(ruff)
     }
     
-    private fun Project.runRuffLinterAndShowTable(ruff: Ruff) = runAction {
+    private fun Project.runRuffLinterAndShowTable(ruff: Ruff) = launch<ActionCoroutine> {
         val command = ruff.linter()
         
         runInBackground(command) { output ->
