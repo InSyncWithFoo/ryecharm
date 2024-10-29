@@ -33,7 +33,7 @@ private val PsiFile.isReST: Boolean
 
 // TODO: .ipynb / Allow configuring what files
 internal fun VirtualFile.isSupportedByRuff(project: Project? = null): Boolean {
-    return extension == "py" || extension == "pyi"
+    return extension == "py" || extension == "pyi" || extension == "pyw"
 }
 
 
