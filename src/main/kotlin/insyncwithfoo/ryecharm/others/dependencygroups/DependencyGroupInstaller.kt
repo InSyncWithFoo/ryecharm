@@ -10,12 +10,11 @@ import org.toml.lang.psi.TomlTable
 import org.toml.lang.psi.ext.name
 
 
-internal class DependencyGroupInstaller : RunLineMarkerContributor() {
+internal class DependencyGroupInstaller : RunLineMarkerContributor(), DumbAware {
     
     override fun getInfo(element: PsiElement): Info? {
         val key = element as? TomlKey ?: return null
-        val keyValuePair = key.keyValuePair ?: return null
-        val table = keyValuePair.parent as? TomlTable ?: return null
+        val table = key.keyValuePair?.parent as? TomlTable ?: return null
         
         if (table.header.key?.text != "dependency-groups") {
             return null
