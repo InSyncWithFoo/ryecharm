@@ -65,7 +65,7 @@ internal data class OptionInfo(
 internal class RuffOptionDocumentationTarget(
     private val element: TomlKey,
     private val option: OptionName,
-    private val fileName: String
+    private val filename: String
 ) : DocumentationTarget {
     
     private fun OptionName.toAbsoluteName() =
@@ -73,8 +73,8 @@ internal class RuffOptionDocumentationTarget(
     
     // This doesn't seem to do anything, despite being called.
     override fun computePresentation() =
-        TargetPresentation.builder(fileName)
-            .presentableText(fileName)
+        TargetPresentation.builder(filename)
+            .presentableText(filename)
             .icon(TomlIcons.TomlFile)
             .presentation()
     
@@ -83,7 +83,7 @@ internal class RuffOptionDocumentationTarget(
         
         return Pointer {
             elementPointer.dereference()?.let {
-                RuffOptionDocumentationTarget(it, option, fileName)
+                RuffOptionDocumentationTarget(it, option, filename)
             }
         }
     }

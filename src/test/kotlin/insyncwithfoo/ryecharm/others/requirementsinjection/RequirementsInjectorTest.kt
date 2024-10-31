@@ -27,13 +27,13 @@ internal class RequirementsInjectorTest : LanguageInjectionTestCase() {
             "pipUpgradePackage" to "upgrade-package",
             "pipUpgradePackageInline" to "pip.upgrade-package"
         )
-        val fileNames = listOf("pyproject.toml", "uv.toml")
+        val filenames = listOf("pyproject.toml", "uv.toml")
         
         directoriesAndKeyNames.forEach { (directory, key) ->
             val arrayKeyAtLineStart = """(?m)^${Regex.escape(key)} = \[\n""".toRegex()
             
-            fileNames.forEach { fileName ->
-                fileBasedTest("$directory/$fileName") {
+            filenames.forEach { filename ->
+                fileBasedTest("$directory/$filename") {
                     val fragment = fragments.single()
                     
                     assertTrue(arrayKeyAtLineStart.containsMatchIn(file.text))

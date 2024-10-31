@@ -91,9 +91,9 @@ internal fun Project.findExecutableInVenv(nameWithoutExtension: String) =
         ?.find { it.nameWithoutExtension == nameWithoutExtension }
 
 
-internal fun Project.openLightFile(fileName: String, content: String) {
-    val fileType = FileTypeManager.getInstance().getFileTypeByFileName(fileName)
-    val file = LightVirtualFile(fileName, fileType, content)
+internal fun Project.openLightFile(filename: String, content: String) {
+    val fileType = FileTypeManager.getInstance().getFileTypeByFileName(filename)
+    val file = LightVirtualFile(filename, fileType, content)
     
     val openFileDescriptor = OpenFileDescriptor(this, file)
     

@@ -97,9 +97,9 @@ internal class RuffRuleDocumentationTargetProvider : DocumentationTargetProvider
         }
         
         val content = stringContent!!
-        val fileName = containingFile.virtualFile!!.name
+        val filename = containingFile.virtualFile!!.name
         
-        return RuffRuleDocumentationTarget(this, content, fileName)
+        return RuffRuleDocumentationTarget(this, content, filename)
     }
     
 }

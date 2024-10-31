@@ -12,7 +12,7 @@ private typealias ColumnIndex = Index
 internal typealias ZeroBasedIndex = Index
 internal typealias OneBasedIndex = Index
 
-private typealias Pinpoint<LineIndex, ColumnIndex> = Pair<LineIndex, ColumnIndex>
+private typealias Pinpoint<RowIndex, ColumnIndex> = Pair<RowIndex, ColumnIndex>
 private typealias ZeroBasedPinpoint = Pinpoint<ZeroBasedIndex, ZeroBasedIndex>
 internal typealias OneBasedPinpoint = Pinpoint<OneBasedIndex, OneBasedIndex>
 

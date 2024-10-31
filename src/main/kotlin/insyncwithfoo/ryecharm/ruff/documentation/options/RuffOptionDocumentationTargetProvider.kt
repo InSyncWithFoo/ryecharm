@@ -71,8 +71,8 @@ internal class RuffOptionDocumentationTargetProvider : DocumentationTargetProvid
     }
     
     private fun TomlKey.toTarget(option: String): DocumentationTarget {
-        val fileName = containingFile!!.virtualFile.name
-        return RuffOptionDocumentationTarget(this, option, fileName)
+        val filename = containingFile!!.virtualFile.name
+        return RuffOptionDocumentationTarget(this, option, filename)
     }
     
 }

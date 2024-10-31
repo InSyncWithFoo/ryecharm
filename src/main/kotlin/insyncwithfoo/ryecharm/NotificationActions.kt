@@ -60,25 +60,25 @@ internal fun Notification.addOpenSettingsAction(
 
 internal class OpenTemporaryFileAction(
     text: String,
-    private val fileName: String,
+    private val filename: String,
     private val content: String
 ) : NotificationAction(text) {
     
     override fun actionPerformed(event: AnActionEvent, notification: Notification) {
-        event.project!!.openLightFile(fileName, content)
+        event.project!!.openLightFile(filename, content)
     }
     
 }
 
 
-internal fun Notification.addOpenTemporaryFileAction(text: String, fileName: String, content: String) {
-    addAction(OpenTemporaryFileAction(text, fileName, content))
+internal fun Notification.addOpenTemporaryFileAction(text: String, filename: String, content: String) {
+    addAction(OpenTemporaryFileAction(text, filename, content))
 }
 
 
-private fun Notification.addOpenTemporaryFileActionIfNotBlank(text: String, fileName: String, content: String) {
+private fun Notification.addOpenTemporaryFileActionIfNotBlank(text: String, filename: String, content: String) {
     if (content.isNotBlank()) {
-        addOpenTemporaryFileAction(text, fileName, content)
+        addOpenTemporaryFileAction(text, filename, content)
     }
 }
 

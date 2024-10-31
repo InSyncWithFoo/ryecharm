@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.others.dependencygroups
 
 import com.intellij.execution.lineMarker.RunLineMarkerContributor
+import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
 import com.jetbrains.python.icons.PythonIcons
 import insyncwithfoo.ryecharm.keyValuePair
@@ -25,7 +26,7 @@ internal class DependencyGroupInstaller : RunLineMarkerContributor(), DumbAware 
         val icon = PythonIcons.Python.PythonPackages
         val action = InstallDependencyGroup(element.project, groupName)
         
-        return Info(icon, arrayOf(action)) { message("lineMarkers.dependencyGroups.install", groupName) }
+        return Info(icon, arrayOf(action)) { message("lineMarkers.installDependencyGroup.tooltip", groupName) }
     }
     
 }

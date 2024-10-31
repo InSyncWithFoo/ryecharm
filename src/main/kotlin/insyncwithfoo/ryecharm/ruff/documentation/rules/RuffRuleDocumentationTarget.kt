@@ -16,13 +16,13 @@ import org.toml.lang.psi.TomlLiteral
 internal class RuffRuleDocumentationTarget(
     private val element: TomlLiteral,
     private val rule: RuleCode,
-    private val fileName: String
+    private val filename: String
 ) : DocumentationTarget {
     
     // This doesn't seem to do anything, despite being called.
     override fun computePresentation() =
-        TargetPresentation.builder(fileName)
-            .presentableText(fileName)
+        TargetPresentation.builder(filename)
+            .presentableText(filename)
             .icon(TomlIcons.TomlFile)
             .presentation()
     
@@ -31,7 +31,7 @@ internal class RuffRuleDocumentationTarget(
         
         return Pointer {
             elementPointer.dereference()?.let {
-                RuffRuleDocumentationTarget(it, rule, fileName)
+                RuffRuleDocumentationTarget(it, rule, filename)
             }
         }
     }
