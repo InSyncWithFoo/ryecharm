@@ -9,8 +9,10 @@ import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isString
+import insyncwithfoo.ryecharm.isValidPEP508Name
 import insyncwithfoo.ryecharm.keyValuePair
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.pep508Normalize
 import insyncwithfoo.ryecharm.stringContent
 import insyncwithfoo.ryecharm.table
 import org.toml.lang.psi.TomlArray
@@ -34,10 +36,10 @@ private class Visitor(private val holder: ProblemsHolder) : TomlVisitor() {
         val dependencyGroupsTable = arrayKey.table?.takeIf { it.isDependencyGroupsTable }
         val registeredGroupNames = dependencyGroupsTable?.groupNames ?: emptyList()
         val groupName = string.stringContent ?: return
-        val normalizedGroupName = groupName.normalize()
+        val normalizedGroupName = groupName.pep508Normalize()
         
         when {
-            !groupName.isValid -> reportInvalidGroupName(string, groupName)
+            !groupName.isValidPEP508Name -> reportInvalidGroupName(string, groupName)
             normalizedGroupName !in registeredGroupNames -> reportUnknownGroup(string, groupName, normalizedGroupName)
             normalizedGroupName == arrayKey.groupName -> reportCircularGroup(string, groupName, normalizedGroupName)
         }

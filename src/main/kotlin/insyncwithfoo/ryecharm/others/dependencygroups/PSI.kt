@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.others.dependencygroups
 
+import insyncwithfoo.ryecharm.pep508Normalize
 import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlInlineTable
 import org.toml.lang.psi.TomlKey
@@ -16,7 +17,7 @@ internal typealias GroupNameString = TomlLiteral
 
 
 internal val TomlKey.groupName: String?
-    get() = name?.normalize()
+    get() = name?.pep508Normalize()
 
 
 internal val TomlKeyValue.isIncludeGroup: Boolean

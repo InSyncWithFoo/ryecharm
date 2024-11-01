@@ -287,6 +287,31 @@
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
+		<!--suppress PluginXmlCapitalization -->
+		<codeInsight.declarativeInlayProvider
+			id="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.DependencyVersionInlayHintsProvider"
+			providerId="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.DependencyVersionInlayHintsProvider"
+			
+			language="TOML"
+			group="OTHER_GROUP"
+			
+			bundle="messages.ryecharm"
+			nameKey="inlayHints.uv.dependencyVersions.name"
+			descriptionKey="inlayHints.uv.dependencyVersions.description"
+			
+			isEnabledByDefault="true"
+			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.DependencyVersionInlayHintsProvider"
+		/>
+		
+		<codeInsight.declarativeInlayProviderCustomSettingsProvider
+			id="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.DependencyVersionInlayHintsCustomSettingsProvider"
+			providerId="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.DependencyVersionInlayHintsProvider"
+			
+			language="TOML"
+			
+			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.DependencyVersionInlayHintsCustomSettingsProvider"
+		/>
+		
 		<directoryProjectGenerator
 			id="insyncwithfoo.ryecharm.uv.generator.UVProjectGenerator"
 			implementation="insyncwithfoo.ryecharm.uv.generator.UVProjectGenerator"

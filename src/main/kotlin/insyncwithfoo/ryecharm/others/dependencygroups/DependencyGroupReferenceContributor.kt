@@ -12,6 +12,7 @@ import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.keyValuePair
+import insyncwithfoo.ryecharm.pep508Normalize
 import insyncwithfoo.ryecharm.stringContent
 import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlInlineTable
@@ -27,7 +28,7 @@ private class DependencyGroupReference(element: GroupNameString) : PsiReferenceB
         val dependencyGroupsTable = groupArray.keyValuePair!!.parent as DependencyGroupsTable
         
         val groupKeys = dependencyGroupsTable.groupKeys
-        val includedGroupName = element.stringContent!!.normalize()
+        val includedGroupName = element.stringContent!!.pep508Normalize()
         
         val key = groupKeys.find { it.groupName == includedGroupName }
         
