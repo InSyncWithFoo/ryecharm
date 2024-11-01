@@ -4,7 +4,6 @@ import insyncwithfoo.ryecharm.Commented
 import insyncwithfoo.ryecharm.Keyed
 import insyncwithfoo.ryecharm.Labeled
 import insyncwithfoo.ryecharm.MillisecondsOrNoLimit
-import insyncwithfoo.ryecharm.configurations.Copyable
 import insyncwithfoo.ryecharm.configurations.DisplayableState
 import insyncwithfoo.ryecharm.configurations.HasTimeouts
 import insyncwithfoo.ryecharm.configurations.ProjectOverrideState
@@ -52,7 +51,7 @@ internal enum class LogLevel(override val label: String) : Labeled {
 }
 
 
-internal class RuffConfigurations : DisplayableState(), HasTimeouts, Copyable {
+internal class RuffConfigurations : DisplayableState(), HasTimeouts {
     var executable by string(null)
     var crossPlatformExecutableResolution by property(true)
     var configurationFile by string(null)

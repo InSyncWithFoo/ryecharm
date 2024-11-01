@@ -13,9 +13,9 @@ import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.informationNotificationGroup
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.information
+import insyncwithfoo.ryecharm.informationNotificationGroup
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message

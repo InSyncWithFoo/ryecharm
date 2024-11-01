@@ -3,7 +3,6 @@ package insyncwithfoo.ryecharm.configurations.rye
 import insyncwithfoo.ryecharm.Commented
 import insyncwithfoo.ryecharm.Keyed
 import insyncwithfoo.ryecharm.MillisecondsOrNoLimit
-import insyncwithfoo.ryecharm.configurations.Copyable
 import insyncwithfoo.ryecharm.configurations.DisplayableState
 import insyncwithfoo.ryecharm.configurations.HasTimeouts
 import insyncwithfoo.ryecharm.configurations.ProjectOverrideState
@@ -11,7 +10,7 @@ import insyncwithfoo.ryecharm.configurations.SettingName
 import insyncwithfoo.ryecharm.message
 
 
-internal class RyeConfigurations : DisplayableState(), HasTimeouts, Copyable {
+internal class RyeConfigurations : DisplayableState(), HasTimeouts {
     var executable by string(null)
     
     override var timeouts by map<SettingName, MillisecondsOrNoLimit>()

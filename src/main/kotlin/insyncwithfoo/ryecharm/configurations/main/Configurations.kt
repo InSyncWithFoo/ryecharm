@@ -1,12 +1,11 @@
 package insyncwithfoo.ryecharm.configurations.main
 
-import insyncwithfoo.ryecharm.configurations.Copyable
 import insyncwithfoo.ryecharm.configurations.DisplayableState
 import insyncwithfoo.ryecharm.configurations.ProjectOverrideState
 import insyncwithfoo.ryecharm.configurations.SettingName
 
 
-internal class MainConfigurations : DisplayableState(), Copyable {
+internal class MainConfigurations : DisplayableState() {
     var languageInjectionPEP723Blocks by property(true)
     var languageInjectionRequirements by property(true)
 }

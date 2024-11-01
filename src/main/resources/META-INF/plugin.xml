@@ -150,9 +150,9 @@
 		/>
 		
 		<localInspection
-			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
-			suppressId="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
-			shortName="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
+			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
+			suppressId="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
+			shortName="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
 			
 			language="TOML"
 			groupName="RyeCharm"
@@ -162,7 +162,7 @@
 			
 			enabledByDefault="true"
 			level="WARNING"
-			implementationClass="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
+			implementationClass="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
 		/>
 	</extensions>
 	

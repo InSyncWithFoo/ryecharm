@@ -3,7 +3,6 @@ package insyncwithfoo.ryecharm.configurations.uv
 import insyncwithfoo.ryecharm.Commented
 import insyncwithfoo.ryecharm.Keyed
 import insyncwithfoo.ryecharm.MillisecondsOrNoLimit
-import insyncwithfoo.ryecharm.configurations.Copyable
 import insyncwithfoo.ryecharm.configurations.DisplayableState
 import insyncwithfoo.ryecharm.configurations.HasTimeouts
 import insyncwithfoo.ryecharm.configurations.ProjectOverrideState
@@ -11,7 +10,7 @@ import insyncwithfoo.ryecharm.configurations.SettingName
 import insyncwithfoo.ryecharm.message
 
 
-internal class UVConfigurations : DisplayableState(), HasTimeouts, Copyable {
+internal class UVConfigurations : DisplayableState(), HasTimeouts {
     var executable by string(null)
     var configurationFile by string(null)
     

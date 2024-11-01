@@ -21,7 +21,7 @@ import org.toml.lang.psi.TomlVisitor
 import org.toml.lang.psi.ext.name
 
 
-private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : TomlVisitor() {
+private class Visitor(private val holder: ProblemsHolder) : TomlVisitor() {
     
     override fun visitLiteral(element: TomlLiteral) {
         val string = element.takeIf { it.isString } ?: return
@@ -85,7 +85,7 @@ private class DependencyGroupNameVisitor(private val holder: ProblemsHolder) : T
 }
 
 
-internal class DependencyGroupNameInspection : LocalInspectionTool(), DumbAware {
+internal class DependencyGroupInspection : LocalInspectionTool(), DumbAware {
     
     override fun getShortName() = SHORT_NAME
     
@@ -93,10 +93,10 @@ internal class DependencyGroupNameInspection : LocalInspectionTool(), DumbAware 
         file.virtualFile?.isPyprojectToml == true
     
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor =
-        DependencyGroupNameVisitor(holder)
+        Visitor(holder)
     
     companion object {
-        private const val SHORT_NAME = "insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupNameInspection"
+        private const val SHORT_NAME = "insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
     }
     
 }

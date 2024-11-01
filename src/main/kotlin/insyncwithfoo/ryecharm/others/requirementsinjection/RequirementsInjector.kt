@@ -49,12 +49,9 @@ internal class RequirementsInjector : LanguageInjectionContributor {
         }
         
         val literal = context as? TomlLiteral ?: return null
-        val array = literal.parent as? TomlArray ?: return null
+        val string = literal.takeIf { it.isString } ?: return null
+        val array = string.parent as? TomlArray ?: return null
         val keyValuePair = array.keyValuePair ?: return null
-        
-        if (!literal.isString) {
-            return null
-        }
         
         return getInjectionGivenKey(keyValuePair.key)
     }
