@@ -37,7 +37,7 @@ internal val Project.rootManager: ProjectRootManager
     get() = ProjectRootManager.getInstance(this)
 
 
-internal val Project.moduleManager: ModuleManager
+private val Project.moduleManager: ModuleManager
     get() = ModuleManager.getInstance(this)
 
 
@@ -45,7 +45,7 @@ internal val Project.psiDocumentManager: PsiDocumentManager
     get() = PsiDocumentManager.getInstance(this)
 
 
-private val Project.modules: Array<Module>
+internal val Project.modules: Array<Module>
     get() = moduleManager.modules
 
 

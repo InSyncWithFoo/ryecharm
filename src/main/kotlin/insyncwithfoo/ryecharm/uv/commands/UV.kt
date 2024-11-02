@@ -112,8 +112,15 @@ internal class UV private constructor(
         VersionCommand().build()
     
     // FIXME: This seems problematic
-    fun pipList() =
-        PipListCommand().build(CommandArguments("list", "--format", "json"))
+    fun pipList(python: Path? = null): Command {
+        val arguments = CommandArguments("list", "--format", "json", "--quiet")
+        
+        if (python != null) {
+            arguments["--python"] = python.toString()
+        }
+        
+        return PipListCommand().build(arguments)
+    }
     
     private fun Command.build(arguments: CommandArguments? = null) = this.apply {
         this.arguments = arguments?.withGlobalOptions()?.toList() ?: emptyList()

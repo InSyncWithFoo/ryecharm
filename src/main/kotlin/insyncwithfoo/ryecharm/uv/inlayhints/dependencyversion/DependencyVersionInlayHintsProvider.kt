@@ -10,23 +10,25 @@ import com.intellij.codeInsight.hints.declarative.OwnBypassCollector
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.DumbAware
-import com.intellij.openapi.project.Project
+import com.intellij.openapi.module.Module
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.endOffset
+import com.jetbrains.python.packaging.common.PythonPackage
 import insyncwithfoo.ryecharm.TOMLPath
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.completedAbnormally
+import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.isUVToml
 import insyncwithfoo.ryecharm.keyValuePair
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.module
 import insyncwithfoo.ryecharm.pep508Normalize
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.stringContent
-import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.uv
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.DependencyVersionInlayHintsCustomSettingsProvider
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.Settings
@@ -39,7 +41,8 @@ import org.toml.lang.psi.TomlLiteral
 
 private typealias DependencyName = String
 private typealias DependencyVersion = String
-private typealias Dependencies = Map<DependencyName, DependencyVersion>
+private typealias DependencyNamesToVersions = Map<DependencyName, DependencyVersion>
+private typealias DependencyList = List<PythonPackage>
 
 
 private const val CONTINUE_PROCESSING = true
@@ -49,19 +52,19 @@ private const val CONTINUE_PROCESSING = true
 private val dependencySpecifierLookAlike = """(?i)^\s*(?<name>[A-Z0-9](?:[A-Z0-9._-]*[A-Z0-9])?).*""".toRegex()
 
 
+private fun DependencyList.toMap(): DependencyNamesToVersions =
+    this.associate { it.name.pep508Normalize() to it.version }
+
+
 private class Collector : OwnBypassCollector {
     
     override fun collectHintsForFile(file: PsiFile, sink: InlayTreeSink) {
-        val virtualFile = file.virtualFile ?: return
-        
-        if (file !is TomlFile || !virtualFile.isPyprojectToml && !virtualFile.isUVToml) {
+        if (file !is TomlFile) {
             return
         }
         
-        val project = file.project
-        val uv = project.uv ?: return
-        val dependencies = project.getInstalledDependencies(uv) ?: return
-        
+        val virtualFile = file.virtualFile ?: return
+        val dependencies = file.module?.getInstalledDependencies() ?: return
         val settings = dependencyVersionInlayHintsSettings
         
         PsiTreeUtil.processElements(file, TomlLiteral::class.java) { element ->
@@ -73,13 +76,18 @@ private class Collector : OwnBypassCollector {
     }
     
     @Suppress("UnstableApiUsage")
-    private fun Project.getInstalledDependencies(uv: UV): Dependencies? = runBlockingCancellable {
-        val command = uv.pipList()
-        val output = runInBackground(command)
+    private fun Module.getInstalledDependencies(): DependencyNamesToVersions? {
+        val interpreter = interpreterPath ?: return null
+        val uv = project.uv ?: return null
         
-        when {
+        val command = uv.pipList(python = interpreter)
+        val output = runBlockingCancellable {
+            project.runInBackground(command)
+        }
+        
+        return when {
             output.completedAbnormally -> null
-            else -> parsePipListOutput(output.stdout)?.associate { it.name.pep508Normalize() to it.version }
+            else -> parsePipListOutput(output.stdout)?.toMap()
         }
     }
     
@@ -120,19 +128,19 @@ private class Collector : OwnBypassCollector {
             else -> false
         }
     
-    private fun TomlLiteral.appendVersionHint(sink: InlayTreeSink, dependencies: Dependencies) {
+    private fun TomlLiteral.appendVersionHint(sink: InlayTreeSink, dependencies: DependencyNamesToVersions) {
         val match = dependencySpecifierLookAlike.matchEntire(stringContent!!) ?: return
         val dependencyName = match.groups["name"]?.value?.pep508Normalize() ?: return
         
-        val version = dependencies[dependencyName] ?: return
+        val dependencyVersion = dependencies[dependencyName] ?: return
         
-        sink.addVersionHint(version, endOffset)
+        sink.addVersionHint(dependencyName, dependencyVersion, endOffset)
     }
     
-    private fun InlayTreeSink.addVersionHint(version: String, offset: Int) {
+    private fun InlayTreeSink.addVersionHint(name: DependencyName, version: DependencyVersion, offset: Int) {
         val position = InlineInlayPosition(offset, relatedToPrevious = false)
         val hintFormat = HintFormat.default.withFontSize(HintFontSize.ABitSmallerThanInEditor)
-        val tooltip = message("inlayHints.uv.dependencyVersions.tooltip", version)
+        val tooltip = message("inlayHints.uv.dependencyVersions.tooltip", name, version)
         
         addPresentation(position, payloads = null, tooltip, hintFormat) {
             text(version)
@@ -160,7 +168,7 @@ private class Collector : OwnBypassCollector {
  */
 internal class DependencyVersionInlayHintsProvider : InlayHintsProvider, DumbAware {
     
-    override fun createCollector(file: PsiFile, editor: Editor): InlayHintsCollector =
-        Collector()
+    override fun createCollector(file: PsiFile, editor: Editor): InlayHintsCollector? =
+        Collector().takeIf { file.virtualFile?.run { isPyprojectToml || isUVToml } == true }
     
 }

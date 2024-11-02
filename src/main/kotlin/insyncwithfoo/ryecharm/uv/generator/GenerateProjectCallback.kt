@@ -13,7 +13,7 @@ import com.intellij.platform.ProjectGeneratorPeer
 import com.jetbrains.python.newProject.steps.PythonProjectSpecificSettingsStep
 import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.launch
-import insyncwithfoo.ryecharm.moduleManager
+import insyncwithfoo.ryecharm.modules
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessful
 import insyncwithfoo.ryecharm.rootManager
 import insyncwithfoo.ryecharm.runInForeground
@@ -55,7 +55,7 @@ private fun Project.initializeUsingUV(settings: UVNewProjectSettings) {
 
 
 private fun Project.initializeGitRepository() {
-    val module = moduleManager.modules.firstOrNull() ?: return
+    val module = modules.firstOrNull() ?: return
     val moduleRoot = module.rootManager.contentRoots.firstOrNull() ?: return
     
     PythonProjectSpecificSettingsStep.initializeGit(this, moduleRoot)
