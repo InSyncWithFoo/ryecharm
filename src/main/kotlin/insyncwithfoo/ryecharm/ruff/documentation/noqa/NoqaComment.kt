@@ -13,17 +13,14 @@ private fun String.toRegexBypassingIDELanguageInjection() = this.toRegex()
 
 
 // From:
-// https://github.com/astral-sh/ruff/blob/dedefd73dac18ea112cea1254fea6388fe67237b/crates/ruff_linter/src/noqa.rs#L180
-internal val ruleCode = """[A-Z]+[0-9]+""".toRegexBypassingIDELanguageInjection()
+// https://github.com/astral-sh/ruff/blob/4a3eeeff86bb3a520195816704a827e3080d93cd/crates/ruff_linter/src/noqa.rs#L180
+internal val ruleCode = """[A-Z]+[A-Za-z0-9]+""".toRegexBypassingIDELanguageInjection()
 
 // From:
-// https://github.com/astral-sh/ruff/blob/dedefd73dac18ea112cea1254fea6388fe67237b/crates/ruff_linter/src/noqa.rs#L56
+// https://github.com/astral-sh/ruff/blob/4a3eeeff86bb3a520195816704a827e3080d93cd/crates/ruff_linter/src/noqa.rs#L56
 //
-// Things to note:
-// * Ruff use Rust's `char.is_whitespace()` / `str.trim_end()`.
-//   They are replaced with `\h` here for simplicity.
-// * Whitespace/commas are technically not required between codes.
-//   See: https://github.com/astral-sh/ruff/issues/12808
+// Ruff use Rust's `char.is_whitespace()` / `str.trim_end()`.
+// They are replaced with `\h` here for simplicity.
 internal val noqaComment = """(?x)
     (?<prefix>\#\h*(?i:noqa))
     (?:
@@ -33,7 +30,7 @@ internal val noqaComment = """(?x)
 """.toRegexBypassingIDELanguageInjection()
 
 
-// https://github.com/astral-sh/ruff/blob/dedefd73dac18ea112cea1254fea6388fe67237b/crates/ruff_linter/src/noqa.rs#L436
+// https://github.com/astral-sh/ruff/blob/4a3eeeff86bb3a520195816704a827e3080d93cd/crates/ruff_linter/src/noqa.rs#L436
 private val fileNoqaComment = """(?x)
     \#
 	\h*(?:flake8|ruff)\h*:
