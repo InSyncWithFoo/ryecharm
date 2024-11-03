@@ -30,6 +30,12 @@ jobs:
         name: Fetch sources
         uses: actions/checkout@v4
       -
+        name: Install IJGP patch
+        run: |
+          git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
+          cd intellij-platform-gradle-plugin
+          git reset 7b4e6b7f3dab7e0966ffc8c053a4972b9175058a
+      -
         name: Gradle wrapper validation
         uses: gradle/actions/wrapper-validation@v4
       -
@@ -138,6 +144,12 @@ jobs:
         name: Fetch sources
         uses: actions/checkout@v4
       -
+        name: Install IJGP patch
+        run: |
+          git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
+          cd intellij-platform-gradle-plugin
+          git reset 7b4e6b7f3dab7e0966ffc8c053a4972b9175058a
+      -
         name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -232,6 +244,12 @@ jobs:
         name: Fetch sources
         uses: actions/checkout@v4
       -
+        name: Install IJGP patch
+        run: |
+          git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
+          cd intellij-platform-gradle-plugin
+          git reset 7b4e6b7f3dab7e0966ffc8c053a4972b9175058a
+      -
         name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -307,6 +325,12 @@ jobs:
       -
         name: Fetch sources
         uses: actions/checkout@v4
+      -
+        name: Install IJGP patch
+        run: |
+          git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
+          cd intellij-platform-gradle-plugin
+          git reset 7b4e6b7f3dab7e0966ffc8c053a4972b9175058a
       -
         name: Set up Java
         uses: actions/setup-java@v4
