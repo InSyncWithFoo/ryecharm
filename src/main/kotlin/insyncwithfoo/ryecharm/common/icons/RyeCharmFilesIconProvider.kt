@@ -14,8 +14,8 @@ import insyncwithfoo.ryecharm.isUVToml
 
 
 /**
- * Provide customized icons for `.rye/config.toml`
- * and `ruff.toml`/`.ruff.toml`.
+ * Provide customized icons for `.rye/config.toml`,
+ * `uv.toml` and `ruff.toml`/`.ruff.toml`.
  * 
  * These icons are used in the *Project* tool window
  * and editor tabs, among others.

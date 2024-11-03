@@ -15,9 +15,18 @@ internal abstract class CommandFactory {
     abstract val executable: Path
     abstract val workingDirectory: Path?
     
-    protected fun Command.setExecutableAndWorkingDirectory() = this.apply {
+    abstract fun CommandArguments.withGlobalOptions(): CommandArguments
+    
+    private fun Command.setExecutableAndWorkingDirectory() = this.apply {
         executable = this@CommandFactory.executable
         workingDirectory = this@CommandFactory.workingDirectory
+    }
+    
+    protected open fun Command.build(arguments: CommandArguments? = null, stdin: String? = null) = this.apply {
+        this.arguments = arguments?.withGlobalOptions()?.toList() ?: emptyList()
+        this.stdin = stdin
+        
+        setExecutableAndWorkingDirectory()
     }
     
 }

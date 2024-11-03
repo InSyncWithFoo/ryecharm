@@ -69,7 +69,7 @@ private class Collector : OwnBypassCollector {
         
         PsiTreeUtil.processElements(file, TomlLiteral::class.java) { element ->
             if (shouldShowHint(element, virtualFile, settings)) {
-                element.appendVersionHint(sink, dependencies)
+                sink.addVersionHint(element, dependencies)
             }
             CONTINUE_PROCESSING
         }
@@ -128,13 +128,12 @@ private class Collector : OwnBypassCollector {
             else -> false
         }
     
-    private fun TomlLiteral.appendVersionHint(sink: InlayTreeSink, dependencies: DependencyNamesToVersions) {
-        val match = dependencySpecifierLookAlike.matchEntire(stringContent!!) ?: return
+    private fun InlayTreeSink.addVersionHint(element: TomlLiteral, dependencies: DependencyNamesToVersions) {
+        val match = dependencySpecifierLookAlike.matchEntire(element.stringContent!!) ?: return
         val dependencyName = match.groups["name"]?.value?.pep508Normalize() ?: return
-        
         val dependencyVersion = dependencies[dependencyName] ?: return
         
-        sink.addVersionHint(dependencyName, dependencyVersion, endOffset)
+        addVersionHint(dependencyName, dependencyVersion, element.endOffset)
     }
     
     private fun InlayTreeSink.addVersionHint(name: DependencyName, version: DependencyVersion, offset: Int) {

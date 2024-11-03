@@ -121,14 +121,7 @@ internal class Ruff private constructor(
         return OrganizeImportsCommand().build(arguments, text)
     }
     
-    private fun Command.build(arguments: CommandArguments? = null, stdin: String? = null) = this.apply {
-        this.arguments = arguments?.withGlobalOptions()?.toList() ?: emptyList()
-        this.stdin = stdin
-        
-        setExecutableAndWorkingDirectory()
-    }
-    
-    private fun CommandArguments.withGlobalOptions() = this.apply {
+    override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.ruffConfigurations
         val configurationFile = configurations?.configurationFile
         

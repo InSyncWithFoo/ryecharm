@@ -63,11 +63,7 @@ internal class Rye private constructor(
     fun version(newVersion: ProjectVersion) =
         VersionCommand().build(CommandArguments(newVersion))
     
-    private fun Command.build(arguments: CommandArguments? = null) = this.apply {
-        this.arguments = arguments?.toList() ?: emptyList()
-        
-        setExecutableAndWorkingDirectory()
-    }
+    override fun CommandArguments.withGlobalOptions() = this
     
     companion object {
         fun create(project: Project) = when {

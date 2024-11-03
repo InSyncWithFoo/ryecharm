@@ -43,45 +43,46 @@ private fun Markdown.replaceSectionLinksWithFullURLs() = this.replace(sectionLin
 }
 
 
+private fun OptionName.toDefinitionBlock() =
+    this.wrappedInCodeBlock("toml").toHTML().removeSurroundingTag("pre")
+
+
+private val OptionInfo.renderedContentBlock: HTML
+    get() = doc.replaceSectionLinksWithFullURLs().toHTML()
+
+
+private val OptionInfo.renderedDefaultValue: HTML
+    get() = default.wrappedInCodeBlock("toml").replaceSectionLinksWithFullURLs().toHTML()
+
+
+private val OptionInfo.renderedValueType: HTML
+    get() = "`$valueType`".toHTML()
+
+
+private val OptionInfo.renderedDeprecationInformation: HTML?
+    get() = deprecated?.formattedAsMarkdown()?.replaceSectionLinksWithFullURLs()?.toHTML()
+
+
+private val OptionInfo.renderedExampleBlock: HTML
+    get() = example.wrappedInCodeBlock("toml").toHTML()
+
+
 private fun OptionInfo.makeDocumentationPopup(name: OptionName) = popup {
-    val definition = name.wrappedInCodeBlock("toml")
-        .toHTML()
-        .removeSurroundingTag("pre")
-    
-    val content = doc
-        .replaceSectionLinksWithFullURLs()
-        .toHTML()
-    
-    val default = default.wrappedInCodeBlock("toml")
-        .replaceSectionLinksWithFullURLs()
-        .toHTML()
-    
-    val type = valueType
-        .let { "`$it`" }
-        .toHTML()
-    
-    val deprecated = deprecated?.formattedAsMarkdown()
-        ?.replaceSectionLinksWithFullURLs()
-        ?.toHTML()
-    
-    val example = example.wrappedInCodeBlock("toml")
-        .toHTML()
-    
-    definition(definition)
+    definition(name.toDefinitionBlock())
     
     separator()
     
-    content(content)
+    content(renderedContentBlock)
     
     sections {
-        default(default)
-        type(type)
+        default(renderedDefaultValue)
+        type(renderedValueType)
         
-        if (deprecated != null) {
-            deprecated(deprecated)
+        renderedDeprecationInformation?.let {
+            deprecated(it)
         }
         
-        example(example)
+        example(renderedExampleBlock)
     }
 }
 

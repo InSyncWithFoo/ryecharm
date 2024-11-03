@@ -8,41 +8,43 @@ import com.intellij.ui.dsl.builder.panel
 import insyncwithfoo.ryecharm.message
 
 
-private fun Row.inputForField(name: String, block: Cell<JBCheckBox>.() -> Unit) =
+private fun Row.tomlFieldInput(name: String, block: Cell<JBCheckBox>.() -> Unit) =
     checkBox("<html><code>$name</code></html>").apply(block)
 
 
 internal fun createPanel(state: Settings) = panel {
+    
     row {
         text(message("inlayHints.uv.dependencyVersions.settings.fields.label"))
     }
     indent {
         row {
-            inputForField("project.dependencies") { bindSelected(state::projectDependencies) }
+            tomlFieldInput("project.dependencies") { bindSelected(state::projectDependencies) }
         }
         row {
-            inputForField("project.optional-dependencies.*") { bindSelected(state::projectOptionalDependencies) }
+            tomlFieldInput("project.optional-dependencies.*") { bindSelected(state::projectOptionalDependencies) }
         }
         row {
-            inputForField("build-system.requires") { bindSelected(state::buildSystemRequires) }
+            tomlFieldInput("build-system.requires") { bindSelected(state::buildSystemRequires) }
         }
         row {
-            inputForField("dependency-groups.*") { bindSelected(state::dependencyGroups) }
+            tomlFieldInput("dependency-groups.*") { bindSelected(state::dependencyGroups) }
         }
         row {
-            inputForField("uv.constraint-dependencies") { bindSelected(state::uvConstraintDependencies) }
+            tomlFieldInput("uv.constraint-dependencies") { bindSelected(state::uvConstraintDependencies) }
         }
         row {
-            inputForField("uv.dev-dependencies") { bindSelected(state::uvDevDependencies) }
+            tomlFieldInput("uv.dev-dependencies") { bindSelected(state::uvDevDependencies) }
         }
         row {
-            inputForField("uv.override-dependencies") { bindSelected(state::uvOverrideDependencies) }
+            tomlFieldInput("uv.override-dependencies") { bindSelected(state::uvOverrideDependencies) }
         }
         row {
-            inputForField("uv.upgrade-package") { bindSelected(state::uvUpgradePackage) }
+            tomlFieldInput("uv.upgrade-package") { bindSelected(state::uvUpgradePackage) }
         }
         row {
-            inputForField("uv.pip.upgrade-package") { bindSelected(state::uvPipUpgradePackage) }
+            tomlFieldInput("uv.pip.upgrade-package") { bindSelected(state::uvPipUpgradePackage) }
         }
     }
+    
 }

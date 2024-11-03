@@ -15,7 +15,7 @@ import org.toml.lang.psi.TomlKey
 import org.toml.lang.psi.TomlVisitor
 
 
-private class DevDependenciesVisitor(private val holder: ProblemsHolder) : TomlVisitor() {
+private class Visitor(private val holder: ProblemsHolder) : TomlVisitor() {
     
     override fun visitKey(element: TomlKey) {
         val file = element.containingFile.virtualFile ?: return
@@ -40,7 +40,7 @@ private class DevDependenciesVisitor(private val holder: ProblemsHolder) : TomlV
 /**
  * Reports usages of the `tool.uv.dev-dependencies` field.
  * 
- * This field has been obsolete as of [uv 0.4.27](https://github.com/astral-sh/uv/releases/tag/0.4.27),
+ * This field is obsolete as of [uv 0.4.27](https://github.com/astral-sh/uv/releases/tag/0.4.27),
  * which added support for [PEP 735](https://peps.python.org/pep-0735/).
  */
 internal class DevDependenciesInspection : LocalInspectionTool(), DumbAware {
@@ -51,7 +51,7 @@ internal class DevDependenciesInspection : LocalInspectionTool(), DumbAware {
         file.virtualFile?.run { isPyprojectToml || isUVToml } == true
     
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor =
-        DevDependenciesVisitor(holder)
+        Visitor(holder)
     
     companion object {
         private const val SHORT_NAME = "insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"

@@ -122,13 +122,7 @@ internal class UV private constructor(
         return PipListCommand().build(arguments)
     }
     
-    private fun Command.build(arguments: CommandArguments? = null) = this.apply {
-        this.arguments = arguments?.withGlobalOptions()?.toList() ?: emptyList()
-        
-        setExecutableAndWorkingDirectory()
-    }
-    
-    private fun CommandArguments.withGlobalOptions() = this.apply {
+    override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.uvConfigurations
         val configurationFile = configurations?.configurationFile
         
