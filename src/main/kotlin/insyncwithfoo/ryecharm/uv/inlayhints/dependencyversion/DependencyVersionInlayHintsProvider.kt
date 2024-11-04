@@ -1,16 +1,16 @@
 package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion
 
-import com.intellij.codeInsight.hints.declarative.HintFormat
 import com.intellij.codeInsight.hints.declarative.HintFontSize
+import com.intellij.codeInsight.hints.declarative.HintFormat
 import com.intellij.codeInsight.hints.declarative.InlayHintsCollector
 import com.intellij.codeInsight.hints.declarative.InlayHintsProvider
 import com.intellij.codeInsight.hints.declarative.InlayTreeSink
 import com.intellij.codeInsight.hints.declarative.InlineInlayPosition
 import com.intellij.codeInsight.hints.declarative.OwnBypassCollector
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.module.Module
 import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.DumbAware
-import com.intellij.openapi.module.Module
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
@@ -77,6 +77,7 @@ private class Collector : OwnBypassCollector {
     
     @Suppress("UnstableApiUsage")
     private fun Module.getInstalledDependencies(): DependencyNamesToVersions? {
+        // TODO: Let uv discover environment on its own if interpreter is not specified (?)
         val interpreter = interpreterPath ?: return null
         val uv = project.uv ?: return null
         

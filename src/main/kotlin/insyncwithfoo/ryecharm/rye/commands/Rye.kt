@@ -2,7 +2,6 @@ package insyncwithfoo.ryecharm.rye.commands
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.SystemInfo
-import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.CommandWithTimeout

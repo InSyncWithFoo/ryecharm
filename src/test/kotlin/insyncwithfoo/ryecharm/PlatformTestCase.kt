@@ -4,6 +4,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
+import java.nio.file.Path
 import kotlin.reflect.KClass
 
 
@@ -25,6 +26,9 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
     
     protected val file: PsiFile
         get() = fixture.file
+    
+    protected val projectPath: Path?
+        get() = project.path
     
     protected fun fileBasedTest(filePath: String, test: () -> Unit) {
         fixture.configureByFile(filePath)

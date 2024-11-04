@@ -1,5 +1,5 @@
 [dependency-groups]
-<warning descr="Duplicate dependency group: foo-bar (normalized: foo-bar)">foo-bar</warning> = ["ruff"]
-<warning descr="Duplicate dependency group: foo.bar (normalized: foo-bar)">"foo.bar"</warning> = ["a-n-plus-b"]
-<warning descr="Duplicate dependency group: foo_bar (normalized: foo-bar)">foo_bar</warning> = [{ include-group = "foo-bar" }]
+<error descr="Duplicate dependency group: foo-bar (normalized: foo-bar)">foo-bar</error> = ["ruff"]
+<error descr="Duplicate dependency group: foo.bar (normalized: foo-bar)">"foo.bar"</error> = ["a-n-plus-b"]
+<error descr="Duplicate dependency group: foo_bar (normalized: foo-bar)">foo_bar</error> = [{ include-group = <error descr="Dependency group references itself: foo-bar (normalized: foo-bar)">"foo-bar"</error> }]
 foo.bar = [{ include-group = "foo.bar" }]

@@ -21,9 +21,6 @@ internal abstract class CommandFactoryTest : PlatformTestCase() {
     protected val boolean: Boolean
         get() = listOf(true, false).random()
     
-    protected val projectPath: Path?
-        get() = project.path
-    
     private fun randomPathFragment() =
         buildString(10..30) {
             listOf(lowercase, uppercase, digit).random()
@@ -31,8 +28,8 @@ internal abstract class CommandFactoryTest : PlatformTestCase() {
     
     protected fun randomPath(): Path {
         val fragmentCount = (1..10).random()
-        val fragments = buildList<String>(fragmentCount) {
-            randomPathFragment()
+        val fragments = buildList(fragmentCount) {
+            add(randomPathFragment())
         }
         
         return Path.of(fragments.joinToString("/"))

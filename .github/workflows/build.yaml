@@ -30,7 +30,7 @@ jobs:
         name: Fetch sources
         uses: actions/checkout@v4
       -
-        name: Install IJGP patch
+        name: Install IPGP patch
         run: |
           git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
           cd intellij-platform-gradle-plugin
@@ -144,7 +144,7 @@ jobs:
         name: Fetch sources
         uses: actions/checkout@v4
       -
-        name: Install IJGP patch
+        name: Install IPGP patch
         run: |
           git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
           cd intellij-platform-gradle-plugin
@@ -221,6 +221,12 @@ jobs:
           distribution: zulu
           java-version: 21
       -
+        name: Install IPGP patch
+        run: |
+          git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
+          cd intellij-platform-gradle-plugin
+          git reset 7b4e6b7f3dab7e0966ffc8c053a4972b9175058a
+      -
         name: Run Qodana
         uses: JetBrains/qodana-action@v2024.2
         env:
@@ -244,7 +250,7 @@ jobs:
         name: Fetch sources
         uses: actions/checkout@v4
       -
-        name: Install IJGP patch
+        name: Install IPGP patch
         run: |
           git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
           cd intellij-platform-gradle-plugin
@@ -326,7 +332,7 @@ jobs:
         name: Fetch sources
         uses: actions/checkout@v4
       -
-        name: Install IJGP patch
+        name: Install IPGP patch
         run: |
           git clone https://github.com/JetBrains/intellij-platform-gradle-plugin
           cd intellij-platform-gradle-plugin

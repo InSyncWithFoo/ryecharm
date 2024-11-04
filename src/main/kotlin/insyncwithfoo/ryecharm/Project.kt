@@ -58,6 +58,7 @@ private val Project.sdk: Sdk?
 
 internal val Project.path: Path?
     get() = guessProjectDir()?.toNioPathOrNull()?.toNullIfNotExists()
+        ?: basePath?.toPathOrNull()?.toNullIfNotExists()
 
 
 internal val Project.interpreterPath: Path?
