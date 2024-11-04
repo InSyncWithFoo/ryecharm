@@ -12,7 +12,7 @@ internal class RuffServerClient(project: Project) : LanguageClientImpl(project) 
         project.createInitializationOptionsObject().also { LOGGER.info(it.toString()) }
     
     companion object {
-        val LOGGER = Logger.getInstance(RuffServerClient::class.java)
+        private val LOGGER = Logger.getInstance(RuffServerClient::class.java)
     }
     
 }

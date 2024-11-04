@@ -4,10 +4,25 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.util.registry.Registry
 import com.intellij.util.io.toByteArray
 import java.nio.CharBuffer
 import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
+
+
+private const val COMMAND_LOGGING_REGISTRY_KEY = "insyncwithfoo.ryecharm.logging.commands"
+
+
+private val commandLoggingIsEnabled: Boolean
+    get() = Registry.`is`(COMMAND_LOGGING_REGISTRY_KEY)
+
+
+private fun Logger.logCommandInfo(message: String) {
+    if (commandLoggingIsEnabled) {
+        info(message)
+    }
+}
 
 
 internal abstract class CommandFactory {
@@ -89,15 +104,14 @@ internal abstract class Command {
     override fun toString() = commandLine.commandLineString
     
     fun run(timeout: MillisecondsOrNoLimit): ProcessOutput {
-        LOGGER.info("Running: ($workingDirectory) $this")
+        LOGGER.logCommandInfo("Running: ($workingDirectory) $this")
         
         return processHandler.runProcess(timeout).also {
-            LOGGER.info("Output: ${ProcessOutputSurrogate(it)}")
+            LOGGER.logCommandInfo("Output: ${ProcessOutputSurrogate(it)}")
         }
     }
     
     companion object {
-        @JvmStatic
         protected val LOGGER = Logger.getInstance(Command::class.java)
     }
     

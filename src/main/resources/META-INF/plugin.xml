@@ -101,6 +101,15 @@
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
+		<registryKey
+			id="insyncwithfoo.ryecharm.logging.commands"
+			key="insyncwithfoo.ryecharm.logging.commands"
+			defaultValue="false"
+			description="RyeCharm: Log all commands and their outputs"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
 		<notificationGroup
 			id="insyncwithfoo.ryecharm.errors"
 			displayType="STICKY_BALLOON"
