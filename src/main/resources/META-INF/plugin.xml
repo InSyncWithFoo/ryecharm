@@ -284,6 +284,11 @@
 			order="first, before LSPDocumentationTargetProvider"
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
 		/>
+		
+		<platform.backend.documentation.linkHandler
+			id="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationLinkHandler"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationLinkHandler"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">

@@ -200,4 +200,13 @@ internal class RuffOptionDocumentationTarget(
         }
     }
     
+    /**
+     * Return a new target whose [computeDocumentation] result
+     * will be shown at the same place, but for [newOption].
+     * 
+     * @see replaceSectionLinksWithSpecializedURIs
+     */
+    fun withOption(newOption: OptionName) =
+        RuffOptionDocumentationTarget(element, newOption, filename)
+    
 }

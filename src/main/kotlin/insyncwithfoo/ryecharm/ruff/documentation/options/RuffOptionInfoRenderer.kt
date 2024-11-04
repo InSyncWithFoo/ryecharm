@@ -12,6 +12,9 @@ import insyncwithfoo.ryecharm.wrappedInCodeBlock
 private const val FORCE_LINEBREAK = "  "
 
 
+internal const val RUFF_OPTION_URI_PREFIX = "ruff_option://"
+
+
 private val sectionLinks: Regex
     get() {
         val text = """(?<text>[^\[\]]+)"""
@@ -19,6 +22,15 @@ private val sectionLinks: Regex
         
         return """\[$text]\(#$target\)""".toRegex()
     }
+
+
+/**
+ * Before: `lint_flake8-annotations_allow-star-arg-any`
+ * 
+ * After: `lint.flake8-annotations.allow-star-arg-any`
+ */
+private fun String.anchorToTOMLPath() =
+    this.replace("_", ".")
 
 
 private fun OptionDeprecationInfo.formattedAsMarkdown(): Markdown {
@@ -32,14 +44,13 @@ private fun OptionDeprecationInfo.formattedAsMarkdown(): Markdown {
 }
 
 
-// TODO: Handle `psi_element` link clicks in-place.
-private fun Markdown.replaceSectionLinksWithFullURLs() = this.replace(sectionLinks) { match ->
+private fun Markdown.replaceSectionLinksWithSpecializedURIs() = this.replace(sectionLinks) { match ->
     val text = match.groups["text"]!!.value
     val target = match.groups["target"]!!.value
     
-    val url = """https://docs.astral.sh/ruff/settings/#${target}"""
+    val uri = "${RUFF_OPTION_URI_PREFIX}${target.anchorToTOMLPath()}"
     
-    "[$text]($url)"
+    "[$text]($uri)"
 }
 
 
@@ -48,11 +59,11 @@ private fun OptionName.toDefinitionBlock() =
 
 
 private val OptionInfo.renderedContentBlock: HTML
-    get() = doc.replaceSectionLinksWithFullURLs().toHTML()
+    get() = doc.replaceSectionLinksWithSpecializedURIs().toHTML()
 
 
 private val OptionInfo.renderedDefaultValue: HTML
-    get() = default.wrappedInCodeBlock("toml").replaceSectionLinksWithFullURLs().toHTML()
+    get() = default.wrappedInCodeBlock("toml").replaceSectionLinksWithSpecializedURIs().toHTML()
 
 
 private val OptionInfo.renderedValueType: HTML
@@ -60,7 +71,7 @@ private val OptionInfo.renderedValueType: HTML
 
 
 private val OptionInfo.renderedDeprecationInformation: HTML?
-    get() = deprecated?.formattedAsMarkdown()?.replaceSectionLinksWithFullURLs()?.toHTML()
+    get() = deprecated?.formattedAsMarkdown()?.replaceSectionLinksWithSpecializedURIs()?.toHTML()
 
 
 private val OptionInfo.renderedExampleBlock: HTML
