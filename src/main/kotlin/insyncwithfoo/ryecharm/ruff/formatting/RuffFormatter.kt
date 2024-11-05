@@ -7,7 +7,7 @@ import com.intellij.execution.process.ProcessEvent
 import com.intellij.formatting.service.AsyncDocumentFormattingService
 import com.intellij.formatting.service.AsyncFormattingRequest
 import com.intellij.formatting.service.FormattingService.Feature
-import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
@@ -157,7 +157,7 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
     }
     
     companion object {
-        private val LOGGER = Logger.getInstance(RuffFormatter::class.java)
+        private val LOGGER = logger<RuffFormatter>()
     }
     
 }

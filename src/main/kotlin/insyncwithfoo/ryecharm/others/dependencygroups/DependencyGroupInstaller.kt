@@ -19,11 +19,7 @@ internal class DependencyGroupInstaller : RunLineMarkerContributor(), DumbAware 
         val key = segment.parent as? TomlKey ?: return null
         val table = key.keyValuePair?.parent as? TomlTable ?: return null
         
-        if (key.segments.firstOrNull() != segment) {
-            return null
-        }
-        
-        if (table.header.key?.text != "dependency-groups") {
+        if (!table.isDependencyGroupsTable) {
             return null
         }
         

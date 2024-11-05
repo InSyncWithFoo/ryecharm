@@ -38,7 +38,7 @@ private class DependencyGroupReference(element: GroupNameString) : PsiReferenceB
 }
 
 
-internal class DependencyGroupReferenceProvider : PsiReferenceProvider() {
+private class Provider : PsiReferenceProvider() {
     
     override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
         if (element.containingFile.virtualFile?.isPyprojectToml != true) {
@@ -66,7 +66,7 @@ internal class DependencyGroupReferenceContributor : PsiReferenceContributor() {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         val pattern = PlatformPatterns.psiElement(TomlLiteral::class.java)
         
-        registrar.registerReferenceProvider(pattern, DependencyGroupReferenceProvider())
+        registrar.registerReferenceProvider(pattern, Provider())
     }
     
 }

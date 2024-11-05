@@ -4,6 +4,7 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.util.io.toByteArray
 import java.nio.CharBuffer
@@ -112,7 +113,7 @@ internal abstract class Command {
     }
     
     companion object {
-        protected val LOGGER = Logger.getInstance(Command::class.java)
+        protected val LOGGER = logger<Command>()
     }
     
 }
