@@ -48,6 +48,7 @@ internal class RuffTest : CommandFactoryTest() {
         val text = randomText()
         val path = randomPath().orRandomlyNull()
         val range = OneBasedRange(randomPinpoint(), randomPinpoint()).orRandomlyNull()
+        val quiet = boolean
         
         val command = ruff.format(text, path, range)
         val arguments = command.arguments
@@ -57,7 +58,6 @@ internal class RuffTest : CommandFactoryTest() {
         assertEquals(projectPath, command.workingDirectory)
         
         assertContains(arguments, "-")
-        assertContains(arguments, "--quiet")
         
         if (path != null) {
             assertTrue(arguments include listOf("--stdin-filename", path.toString()))
@@ -65,6 +65,10 @@ internal class RuffTest : CommandFactoryTest() {
         
         if (range != null) {
             assertTrue(arguments include listOf("--range", range.toString()))
+        }
+        
+        if (quiet) {
+            assertContains(arguments, "--quiet")
         }
     }
     

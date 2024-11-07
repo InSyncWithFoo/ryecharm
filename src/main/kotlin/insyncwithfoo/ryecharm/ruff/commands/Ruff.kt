@@ -51,8 +51,8 @@ internal class Ruff private constructor(
         return CheckCommand().build(arguments, text)
     }
     
-    fun format(text: String, stdinFilename: Path?, range: OneBasedRange? = null): Command {
-        val arguments = CommandArguments("--quiet", "-")
+    fun format(text: String, stdinFilename: Path?, range: OneBasedRange? = null, quiet: Boolean = true): Command {
+        val arguments = CommandArguments("-")
         
         if (stdinFilename != null) {
             arguments["--stdin-filename"] = stdinFilename.toString()
@@ -60,6 +60,10 @@ internal class Ruff private constructor(
         
         if (range != null) {
             arguments["--range"] = range.toString()
+        }
+        
+        if (quiet) {
+            arguments += "--quiet"
         }
         
         return FormatCommand().build(arguments, text)

@@ -16,6 +16,7 @@ import insyncwithfoo.ryecharm.paste
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runWriteCommandAction
+import insyncwithfoo.ryecharm.unableToRunCommand
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -24,8 +25,15 @@ internal class RuffImportOptimizer : ImportOptimizer {
     override fun supports(file: PsiFile) =
         file.project.ruffConfigurations.run { formatting && formatOnOptimizeImports } && file.isSupportedByRuff
     
-    override fun processFile(file: PsiFile) =
-        file.makeProcessor() ?: Runnable {}
+    override fun processFile(file: PsiFile): Runnable {
+        val processor = file.makeProcessor()
+        
+        if (processor == null) {
+            file.project.unableToRunCommand()
+        }
+        
+        return processor ?: Runnable {}
+    }
     
     private fun PsiFile.makeProcessor(): Runnable? {
         val ruff = project.ruff ?: return null
