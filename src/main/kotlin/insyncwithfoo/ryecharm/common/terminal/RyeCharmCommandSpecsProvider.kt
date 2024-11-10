@@ -16,6 +16,14 @@ private fun ShellCommandSpec.toInfo() =
     ShellCommandSpecInfo.create(this, ShellCommandSpecConflictStrategy.REPLACE)
 
 
+/**
+ * Provide command specs for `ruff`, `uv`, `uvx` and `rye`
+ * in the new terminal.
+ * 
+ * The information is read from bundled JSON files
+ * (generated using `.scripts/command_specs.py`)
+ * and then reconstructed via [makeContentBuilder].
+ */
 internal class RyeCharmCommandSpecsProvider : ShellCommandSpecsProvider {
     
     override fun getCommandSpecs(): List<ShellCommandSpecInfo> {

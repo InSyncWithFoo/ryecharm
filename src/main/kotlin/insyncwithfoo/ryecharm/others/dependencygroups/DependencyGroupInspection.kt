@@ -25,6 +25,31 @@ import org.toml.lang.psi.ext.name
 
 private class Visitor(private val holder: ProblemsHolder) : TomlVisitor() {
     
+    /**
+     * Report problems with includes (`include-group` values):
+     * 
+     * * Invalid group name
+     * 
+     *     ```toml
+     *     42 = ["ruff"]
+     *     ```
+     * 
+     * * Unknown group name
+     *
+     *     ```toml
+     *     foo = ["a-n-plus-b", { include-group = "qux" }]
+     *     bar = ["ruff"]
+     *     ```
+     *
+     * * Circular reference
+     *
+     *     ```toml
+     *     foo = ["a-n-plus-b", { include-group = "foo" }]
+     *     ```
+     * 
+     * @see isValidPEP508Name
+     * @see pep508Normalize
+     */
     override fun visitLiteral(element: TomlLiteral) {
         val string = element.takeIf { it.isString } ?: return
         val propertyPair = string.keyValuePair?.takeIf { it.isIncludeGroup } ?: return
@@ -66,6 +91,14 @@ private class Visitor(private val holder: ProblemsHolder) : TomlVisitor() {
         holder.registerProblem(element, message, problemHighlightType)
     }
     
+    /**
+     * Report duplicate groups (keys under `dependency-groups`):
+     * 
+     * ```toml
+     * foo_bar = ["ruff"]
+     * foo-bar = ["a-n-plus-b"]
+     * ```
+     */
     override fun visitTable(element: TomlTable) {
         val dependencyGroupsTable = element.takeIf { it.isDependencyGroupsTable } ?: return
         val entriesByNormalizedName = dependencyGroupsTable.entries.groupBy { it.key.groupName }
@@ -87,6 +120,11 @@ private class Visitor(private val holder: ProblemsHolder) : TomlVisitor() {
 }
 
 
+/**
+ * Report problems with `pyproject.toml`'s `[dependency-groups]`.
+ * 
+ * @see Visitor
+ */
 internal class DependencyGroupInspection : LocalInspectionTool(), DumbAware {
     
     override fun getShortName() = SHORT_NAME

@@ -20,6 +20,11 @@ import insyncwithfoo.ryecharm.unableToRunCommand
 import kotlinx.coroutines.CoroutineScope
 
 
+/**
+ * Optimize imports for a given document (`Ctrl` + `Alt` + `O`).
+ * 
+ * @see RuffFormatter
+ */
 internal class RuffImportOptimizer : ImportOptimizer {
     
     override fun supports(file: PsiFile) =

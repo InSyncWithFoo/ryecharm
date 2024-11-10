@@ -151,7 +151,10 @@ private class Collector : OwnBypassCollector {
 
 
 /**
- * Provide version inlay hints for elements of:
+ * Display currently installed versions of dependencies
+ * next to dependency specifier strings.
+ * 
+ * Elements of the following arrays are recognized:
  *
  * * `project.dependencies`
  * * `project.optional-dependencies.*`
@@ -165,6 +168,8 @@ private class Collector : OwnBypassCollector {
  *
  * Each of the aforementioned can be disabled
  * via [DependencyVersionInlayHintsCustomSettingsProvider].
+ * 
+ * @see Collector
  */
 internal class DependencyVersionInlayHintsProvider : InlayHintsProvider, DumbAware {
     

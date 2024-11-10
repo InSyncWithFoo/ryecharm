@@ -16,6 +16,11 @@ import insyncwithfoo.ryecharm.uv.commands.uv
 import kotlinx.coroutines.CoroutineScope
 
 
+/**
+ * Install a dependency group using `uv sync --group <group>`.
+ * 
+ * @see DependencyGroupInstaller
+ */
 internal class InstallDependencyGroup(private val project: Project, private val group: String) : AnAction() {
     
     override fun actionPerformed(event: AnActionEvent) {

@@ -20,6 +20,10 @@ import org.toml.lang.psi.TomlKeySegment
 import org.toml.lang.psi.TomlLiteral
 
 
+/**
+ * Link group names (keys under `dependency-groups`)
+ * and group includes (`include-group` values).
+ */
 private class DependencyGroupReference(element: GroupNameString) : PsiReferenceBase<GroupNameString>(element) {
     
     override fun resolve(): TomlKeySegment? {
@@ -38,6 +42,11 @@ private class DependencyGroupReference(element: GroupNameString) : PsiReferenceB
 }
 
 
+/**
+ * Mark `include-group` values as (resolvable) references.
+ * 
+ * @see DependencyGroupReference
+ */
 private class Provider : PsiReferenceProvider() {
     
     override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
@@ -61,6 +70,9 @@ private class Provider : PsiReferenceProvider() {
 }
 
 
+/**
+ * @see Provider
+ */
 internal class DependencyGroupReferenceContributor : PsiReferenceContributor() {
     
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {

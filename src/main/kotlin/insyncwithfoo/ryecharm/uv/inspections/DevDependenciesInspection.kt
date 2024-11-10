@@ -38,7 +38,7 @@ private class Visitor(private val holder: ProblemsHolder) : TomlVisitor() {
 
 
 /**
- * Reports usages of the `tool.uv.dev-dependencies` field.
+ * Report usages of the `tool.uv.dev-dependencies` field.
  * 
  * This field is obsolete as of [uv 0.4.27](https://github.com/astral-sh/uv/releases/tag/0.4.27),
  * which added support for [PEP 735](https://peps.python.org/pep-0735/).

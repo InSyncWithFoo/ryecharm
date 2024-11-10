@@ -10,10 +10,30 @@ import org.toml.lang.psi.TomlKey
 import org.toml.lang.psi.TomlKeySegment
 import org.toml.lang.psi.TomlTable
 import org.toml.lang.psi.ext.name
+import org.toml.lang.psi.TomlElementTypes.BARE_KEY
 
 
+/**
+ * Show a line marker for each dependency group.
+ * Such markers can be clicked on to install the corresponding group.
+ * 
+ * ```toml
+ * 1   | [dependency-groups]
+ * 2 @ | foo = [
+ * 3   |     "ruff"
+ * 4   | ]
+ * 5 @ | bar = ["a-n-plus-b"]
+ * ```
+ */
 internal class DependencyGroupInstaller : RunLineMarkerContributor(), DumbAware {
     
+    /**
+     * Return an instance of [RunLineMarkerContributor.Info]
+     * for the [BARE_KEY] leaf element within
+     * the only [TomlKeySegment] of a group's [TomlKey].
+     * 
+     * @see InstallDependencyGroup
+     */
     override fun getInfo(element: PsiElement): Info? {
         val segment = element.parent as? TomlKeySegment ?: return null
         val key = segment.parent as? TomlKey ?: return null
