@@ -11,7 +11,103 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 
 ## [Unreleased]
 
-<i>This section is currently empty.</i>
+See [the documentation][0.1.0-a4-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.7.3][0.1.0-a4-2]
+* uv: [0.5.1][0.1.0-a4-3]
+* Rye: [0.42.0][0.1.0-a4-4]
+
+
+### Added
+
+* File-level diagnostics by Ruff can now be displayed as editor banners.
+
+* <i>LSP4IJ</i> mode now respects many settings
+  that were previously ignored due to technical limitations.
+
+* It is now possible to snooze notifications on formatting failures.
+
+* [PEP 735][0.1.0-a4-a-1] support is added:
+
+  * Arrays under the `dependency-groups` table will have language injection
+    similar to that of `project.optional-dependencies` and others.
+  
+  * Errors will be reported if:
+  
+    * A group's name is invalid
+    * Two groups have the same name, [normalized][0.1.0-a4-a-2] or otherwise.
+    * A group [include][0.1.0-a4-a-3] a non-existent group
+    * A group references itself
+  
+  * Group references will be detected and highlighted on focus.
+
+  * Groups can be installed by clicking their corresponding line markers.
+
+* Usages of [`uv.dev-dependencies`][0.1.0-a4-a-4] are now reported.
+  This field is deprecated as of [uv 0.2.27][0.1.0-a4-a-5];
+  it should be replaced with `dependency-groups.dev`.
+
+* Dependency specifier strings in `pyproject.toml` and `uv.toml`
+  now have the currently installed versions of the dependency
+  displayed next to them as inlay hints.
+
+  By default, dependency specifiers in the following arrays are recognized:
+
+  * `project.dependencies`
+  * `project.optional-dependencies.*`
+  * `dependency-groups.*`
+  * \[`tool.uv`] `dev-dependencies`
+
+* Links to other Ruff options in documentation popups
+  are now resolved in-place, replacing the current popup content
+  with the new option's documentation.
+  Previously, such links would open the browser.
+
+
+### Changed
+
+* RyeCharm's documentation popups are now prioritized over that of LSP4IJ.
+  Both will be displayed in a paged popup, with RyeCharm's as the first.
+  Previously, LSP4IJ's would take precedence.
+* Executable suggestion notifications will now automatically disappear
+  after 30 seconds. Previously, they would remain indefinitely on the screen.
+* `.pyw` files are now recognized as supported by Ruff,
+  similar to `.py` and `.pyi` files.
+* Commands and their outputs are no longer logged by default.
+  To restore the old behaviour, enable the
+  `insyncwithfoo.ryecharm.logging.commands` registry entry.
+* The import optimizer and formatter will now show a notification
+  if they cannot be run or if the process failed.
+
+
+### Removed
+
+* 2024.2 and older versions are no longer supported.
+
+
+### Fixed
+
+* <i>Native LSP client</i> mode now respects the "Report syntax errors" setting.
+* Script metadata blocks will now have their trailing newlines stripped
+  before being written back to the original file.
+* New virtual environments created using the <i>uv</i> panel
+  now have their names detected correctly.
+  Previously, a threading error would be reported.
+* Ruff's violation fixes with multiple edits are now applied correctly
+  in <i>Command line</i> mode.
+
+
+  [0.1.0-a4-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a4-2]: https://github.com/astral-sh/ruff/releases/tag/0.7.3
+  [0.1.0-a4-3]: https://github.com/astral-sh/uv/releases/tag/0.5.1
+  [0.1.0-a4-4]: https://github.com/astral-sh/rye/releases/tag/0.42.0
+  [0.1.0-a4-a-1]: https://peps.python.org/pep-0735/
+  [0.1.0-a4-a-2]: https://packaging.python.org/en/latest/specifications/name-normalization/#name-normalization
+  [0.1.0-a4-a-3]: https://peps.python.org/pep-0735/#dependency-group-include
+  [0.1.0-a4-a-4]: https://docs.astral.sh/uv/concepts/dependencies/#legacy-dev-dependencies
+  [0.1.0-a4-a-5]: https://github.com/astral-sh/uv/releases/tag/0.4.27
 
 
 ## [0.1.0-alpha-3] - 2024-09-21
@@ -31,7 +127,7 @@ Latest tool versions at the time of release:
   The new content will be written back when this editor is closed.
 * Ruff can now be configured to fix all problems on save.
 * Documentation is now provided when rule selectors
-  declared in the following settings are hovered:
+  specified in the following settings are hovered:
 
   * `lint.extend-fixable`
   * `lint.extend-ignore`

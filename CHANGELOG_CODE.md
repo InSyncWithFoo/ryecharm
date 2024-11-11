@@ -11,7 +11,37 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 
 ## [Unreleased]
 
-<i>This section is currently empty.</i>
+### Changed
+
+* The `# noqa` comment parsing algorithm is updated to match that of Ruff.
+
+
+### Fixed
+
+* Test report artifacts for different platforms
+  now use different names to prevent name conflict.
+
+
+### Dependencies
+
+* [LSP4IJ][_0.1.0-a4-d1]: 0.5.0 &rarr; 0.7.0
+* [@astral-sh/setup-uv][_0.1.0-a4-d2]: 3.1.0 &rarr; 3
+* [`annotations`][_0.1.0-a4-d3]: 24.1.0 &rarr; 26.0.1
+* [Gradle][_0.1.0-a4-d4]: 8.10 &rarr; 8.10.2
+* [IntelliJ Platform Gradle Plugin][_0.1.0-a4-d5]: 2.0.1 &rarr; 2.1.0
+* [Qodana][_0.1.0-a4-d6]: 2024.2.3 &rarr; 2024.2
+* [Kotlin JVM plugin][_0.1.0-a4-d7]: 2.0.20 &rarr; 2.0.21
+* [Material for MkDocs][_0.1.0-a4-d8]: 9.5.35 &rarr; 9.5.43
+
+
+  [_0.1.0-a4-d1]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a4-d2]: https://github.com/astral-sh/setup-uv
+  [_0.1.0-a4-d3]: https://github.com/JetBrains/java-annotations
+  [_0.1.0-a4-d4]: https://github.com/gradle/gradle
+  [_0.1.0-a4-d5]: https://github.com/JetBrains/intellij-platform-gradle-plugin
+  [_0.1.0-a4-d6]: https://github.com/JetBrains/qodana-action
+  [_0.1.0-a4-d7]: https://github.com/JetBrains/kotlin
+  [_0.1.0-a4-d8]: https://github.com/squidfunk/mkdocs-material
 
 
 ## [0.1.0-alpha-3] - 2024-09-21
