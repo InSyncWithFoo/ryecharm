@@ -61,6 +61,20 @@ This corresponds to the [`showSyntaxErrors`][6] language server setting.
 Default: `false`
 
 
+#### Show editor banner for file-level diagnostics
+
+Whether diagnostics for the entire file (e.g., [`INP001`][7])
+should be shown at the very top of the editor for that file as a banner.
+
+Default: `false`
+
+=== "Enabled"
+    ![](../assets/configurations-ruff-file-level-banner-demo-enabled.png)
+
+=== "Disabled"
+    ![](../assets/configurations-ruff-file-level-banner-demo-disabled.png)
+
+
 #### Tooltip format
 
 The format in which tooltips are displayed.
@@ -82,7 +96,7 @@ Default: <i>A123: Message</i>
 
 ### Quick fixes
 
-Whether [quick fixes][7] (code actions) should be suggested.
+Whether [quick fixes][8] (code actions) should be suggested.
 
 Default: `true`
 
@@ -91,7 +105,7 @@ Default: `true`
 
 Whether a quick fix to fix all safely fixable violations should be suggested.
 
-This corresponds to the [`fixAll`][8] language server setting.
+This corresponds to the [`fixAll`][9] language server setting.
 
 Default: `true`
 
@@ -100,7 +114,7 @@ Default: `true`
 
 Whether a quick fix to organize the imports section should be suggested.
 
-This corresponds to the [`organizeImports`][9] language server setting.
+This corresponds to the [`organizeImports`][10] language server setting.
 
 Default: `true`
 
@@ -110,7 +124,7 @@ Default: `true`
 Whether a quick fix to disable a given rule
 for the current line should be suggested.
 
-This corresponds to the [`codeAction.disableRuleComment.enable`][10]
+This corresponds to the [`codeAction.disableRuleComment.enable`][11]
 language server setting.
 
 Default: `true`
@@ -120,7 +134,7 @@ Default: `true`
 
 Whether a quick fix specific to the current violation should be suggested.
 
-This corresponds to the [`codeAction.fixViolation.enable`][11]
+This corresponds to the [`codeAction.fixViolation.enable`][12]
 language server setting.
 
 Default: `true`
@@ -128,12 +142,12 @@ Default: `true`
 
 ### Formatting
 
-Whether [Ruff's formatter][12] should be used
+Whether [Ruff's formatter][13] should be used
 instead of the IDE's default formatter.
 
 Default: `true`
 
-!!! info "See <i>[Formatting][13]</i> for more information."
+!!! info "See <i>[Formatting][14]</i> for more information."
 
 
 #### Run on reformat
@@ -152,11 +166,11 @@ Default: `true`
 
 ### Documentation popups
 
-Whether [documentation popups][14] should be shown.
+Whether [documentation popups][15] should be shown.
 
 Default: `true`
 
-!!! info "See <i>[Documentation][15]</i> for more information."
+!!! info "See <i>[Documentation][16]</i> for more information."
 
 
 #### For rule codes in `noqa` comments
@@ -188,7 +202,7 @@ Default: `true`
 
 The amount of logs the language server will emit.
 
-This corresponds to the [`logLevel`][16] language server setting.
+This corresponds to the [`logLevel`][17] language server setting.
 
 Default: <i>Information</i>
 
@@ -197,7 +211,7 @@ Default: <i>Information</i>
 
 The file to which the logs will be written.
 
-This corresponds to the [`logFile`][17] language server setting.
+This corresponds to the [`logFile`][18] language server setting.
 
 
 ## Run on save
@@ -238,7 +252,7 @@ Whether RyeCharm should automatically find a potential
 Ruff executable and suggest setting that as the executable
 for the current project on some events.
 
-This feature can also be [triggered as an action][18].
+This feature can also be [triggered as an action][19].
 
 
 #### On project open
@@ -273,15 +287,16 @@ Default: `true`
   [4]: https://docs.astral.sh/ruff/editors/settings/#lint_enable
   [5]: ../ruff/linting.md
   [6]: https://docs.astral.sh/ruff/editors/settings/#showsyntaxerrors
-  [7]: https://docs.astral.sh/ruff/editors/features/#code-actions
-  [8]: https://docs.astral.sh/ruff/editors/settings/#fixall
-  [9]: https://docs.astral.sh/ruff/editors/settings/#organizeimports
-  [10]: https://docs.astral.sh/ruff/editors/settings/#disablerulecommentenable
-  [11]: https://docs.astral.sh/ruff/editors/settings/#fixviolationenable
-  [12]: https://docs.astral.sh/ruff/editors/features/#formatting
-  [13]: ../ruff/formatting.md
-  [14]: https://docs.astral.sh/ruff/editors/features/#hover
-  [15]: ../ruff/documentation.md
-  [16]: https://docs.astral.sh/ruff/editors/settings/#loglevel
-  [17]: https://docs.astral.sh/ruff/editors/settings/#logfile
-  [18]: ../ruff/actions.md#suggest-project-executable
+  [7]: https://docs.astral.sh/ruff/rules/implicit-namespace-package/
+  [8]: https://docs.astral.sh/ruff/editors/features/#code-actions
+  [9]: https://docs.astral.sh/ruff/editors/settings/#fixall
+  [10]: https://docs.astral.sh/ruff/editors/settings/#organizeimports
+  [11]: https://docs.astral.sh/ruff/editors/settings/#disablerulecommentenable
+  [12]: https://docs.astral.sh/ruff/editors/settings/#fixviolationenable
+  [13]: https://docs.astral.sh/ruff/editors/features/#formatting
+  [14]: ../ruff/formatting.md
+  [15]: https://docs.astral.sh/ruff/editors/features/#hover
+  [16]: ../ruff/documentation.md
+  [17]: https://docs.astral.sh/ruff/editors/settings/#loglevel
+  [18]: https://docs.astral.sh/ruff/editors/settings/#logfile
+  [19]: ../ruff/actions.md#suggest-project-executable

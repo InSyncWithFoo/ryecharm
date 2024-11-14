@@ -61,7 +61,7 @@ Such settings include:
 * \[`tool.uv`] `upgrade-package`
 * \[`tool.uv`] `pip.upgrade-package`
   
-`project.optional-dependencies` is also supported.
+`project.optional-dependencies` and `dependency-groups` are also supported.
 This monkeypatches [PY-71120][9].
 
 === "pyproject.toml"
@@ -87,6 +87,71 @@ The new content will be written back when this editor is closed.
     ![](./assets/features-edit-script-metadata-fragment-demo-new-editor.png)
 
 
+### Installed version inlay hints
+
+In `pyproject.toml` and `uv.toml` files,
+elements of dependency specifier arrays
+will have inlay hints displayed next to them,
+showing the currently installed versions.
+
+This applies to the following arrays
+(configurable using <b>Settings</b> | <b>Inlay Hints</b> |
+<i>Other</i> | <i>TOML</i> | <i>Dependency versions</i>):
+
+* `project.dependencies` (default: enabled)
+* `project.optional-dependencies.*` (default: enabled)
+* `build-system.requires` (default: disabled)
+* `dependency-groups.*` (default: enabled)
+* \[`tool`] `uv.constraint-dependencies` (default: disabled)
+* \[`tool`] `uv.dev-dependencies` (default: enabled)
+* \[`tool`] `uv.override-dependencies` (default: disabled)
+* \[`tool`] `uv.upgrade-package` (default: disabled)
+* \[`tool`] `uv.pip.upgrade-dependencies` (default: disabled)
+
+This is equivalent to running `uv pip list` at the project's path.
+
+
+### Dependency groups
+
+[PEP 735][10] dependency groups are supported
+using a number of features.
+
+
+#### Language injection
+
+See [&sect; <i>Requirements arrays in TOML files</i>][11].
+
+![](./assets/features-dependency-groups-language-injection.png)
+
+
+#### References finding
+
+On focus, an included group's name will be highlighted
+along with that group's declaration and vice versa.
+
+![](./assets/features-dependency-groups-references-finding.png)
+
+
+#### One-click-install via line markers
+
+Dependency groups can be installed
+using their corresponding icons in the gutter.
+
+This is equivalent to running `uv sync --group ...` at the project's path
+with the group name as argument.
+
+![](./assets/features-dependency-groups-line-markers.png)
+
+
+#### Inspection
+
+Errors will be reported for a dependency group if:
+
+* It includes an invalid group.
+* It includes itself.
+* It has the same [normalized name][12] as another group.
+
+
   [1]: https://www.jetbrains.com/help/pycharm/project-tool-window.html
   [2]: https://www.jetbrains.com/help/pycharm/settings-editor-tabs.html#Settings_Editor_Tabs.topic
   [3]: https://www.jetbrains.com/help/pycharm/part-4-using-the-navigation-bar.html
@@ -96,3 +161,6 @@ The new content will be written back when this editor is closed.
   [7]: https://peps.python.org/pep-0508/
   [8]: https://www.jetbrains.com/help/pycharm/pyproject-toml-support.html#specify-project-dependencies
   [9]: https://youtrack.jetbrains.com/issue/PY-71120
+  [10]: https://peps.python.org/pep-0735/
+  [11]: #requirements-arrays-in-toml-files
+  [12]: https://packaging.python.org/en/latest/specifications/name-normalization/
