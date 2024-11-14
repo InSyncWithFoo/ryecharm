@@ -36,10 +36,9 @@ Latest tool versions at the time of release:
   
   * Errors will be reported if:
   
-    * A group's name is invalid
     * Two groups have the same name, [normalized][0.1.0-a4-a-2] or otherwise.
-    * A group [include][0.1.0-a4-a-3] a non-existent group
-    * A group references itself
+    * A group [includes][0.1.0-a4-a-3] an invalid or non-existent group.
+    * A group references itself.
   
   * Group references will be detected and highlighted on focus.
 
