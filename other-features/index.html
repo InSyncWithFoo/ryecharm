@@ -1024,6 +1024,66 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#installed-version-inlay-hints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installed version inlay hints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependency groups
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-injection_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language injection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references-finding" class="md-nav__link">
+    <span class="md-ellipsis">
+      References finding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-click-install-via-line-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      One-click-install via line markers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1136,6 +1196,66 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#installed-version-inlay-hints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installed version inlay hints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependency groups
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-injection_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language injection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references-finding" class="md-nav__link">
+    <span class="md-ellipsis">
+      References finding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-click-install-via-line-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      One-click-install via line markers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1220,7 +1340,7 @@ Such settings include:</p>
 <li>[<code>tool.uv</code>] <code>upgrade-package</code></li>
 <li>[<code>tool.uv</code>] <code>pip.upgrade-package</code></li>
 </ul>
-<p><code>project.optional-dependencies</code> is also supported.
+<p><code>project.optional-dependencies</code> and <code>dependency-groups</code> are also supported.
 This monkeypatches <a href="https://youtrack.jetbrains.com/issue/PY-71120">PY-71120</a>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="requirements-arrays-in-toml-files-pyprojecttoml" name="__tabbed_1" type="radio" /><input id="requirements-arrays-in-toml-files-uvtoml" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="requirements-arrays-in-toml-files-pyprojecttoml">pyproject.toml</label><label for="requirements-arrays-in-toml-files-uvtoml">uv.toml</label></div>
 <div class="tabbed-content">
@@ -1248,6 +1368,49 @@ The new content will be written back when this editor is closed.</p>
 </div>
 </div>
 </div>
+<h3 id="installed-version-inlay-hints">Installed version inlay hints<a class="headerlink" href="#installed-version-inlay-hints" title="Permanent link">#</a></h3>
+<p>In <code>pyproject.toml</code> and <code>uv.toml</code> files,
+elements of dependency specifier arrays
+will have inlay hints displayed next to them,
+showing the currently installed versions.</p>
+<p>This applies to the following arrays
+(configurable using <b>Settings</b> | <b>Inlay Hints</b> |
+<i>Other</i> | <i>TOML</i> | <i>Dependency versions</i>):</p>
+<ul>
+<li><code>project.dependencies</code> (default: enabled)</li>
+<li><code>project.optional-dependencies.*</code> (default: enabled)</li>
+<li><code>build-system.requires</code> (default: disabled)</li>
+<li><code>dependency-groups.*</code> (default: enabled)</li>
+<li>[<code>tool</code>] <code>uv.constraint-dependencies</code> (default: disabled)</li>
+<li>[<code>tool</code>] <code>uv.dev-dependencies</code> (default: enabled)</li>
+<li>[<code>tool</code>] <code>uv.override-dependencies</code> (default: disabled)</li>
+<li>[<code>tool</code>] <code>uv.upgrade-package</code> (default: disabled)</li>
+<li>[<code>tool</code>] <code>uv.pip.upgrade-dependencies</code> (default: disabled)</li>
+</ul>
+<p>This is equivalent to running <code>uv pip list</code> at the project's path.</p>
+<h3 id="dependency-groups">Dependency groups<a class="headerlink" href="#dependency-groups" title="Permanent link">#</a></h3>
+<p><a href="https://peps.python.org/pep-0735/">PEP 735</a> dependency groups are supported
+using a number of features.</p>
+<h4 id="language-injection_1">Language injection<a class="headerlink" href="#language-injection_1" title="Permanent link">#</a></h4>
+<p>See <a href="#requirements-arrays-in-toml-files">&sect; <i>Requirements arrays in TOML files</i></a>.</p>
+<p><img alt="" src="../assets/features-dependency-groups-language-injection.png" /></p>
+<h4 id="references-finding">References finding<a class="headerlink" href="#references-finding" title="Permanent link">#</a></h4>
+<p>On focus, an included group's name will be highlighted
+along with that group's declaration and vice versa.</p>
+<p><img alt="" src="../assets/features-dependency-groups-references-finding.png" /></p>
+<h4 id="one-click-install-via-line-markers">One-click-install via line markers<a class="headerlink" href="#one-click-install-via-line-markers" title="Permanent link">#</a></h4>
+<p>Dependency groups can be installed
+using their corresponding icons in the gutter.</p>
+<p>This is equivalent to running <code>uv sync --group ...</code> at the project's path
+with the group name as argument.</p>
+<p><img alt="" src="../assets/features-dependency-groups-line-markers.png" /></p>
+<h4 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permanent link">#</a></h4>
+<p>Errors will be reported for a dependency group if:</p>
+<ul>
+<li>It includes an invalid group.</li>
+<li>It includes itself.</li>
+<li>It has the same <a href="https://packaging.python.org/en/latest/specifications/name-normalization/">normalized name</a> as another group.</li>
+</ul>
 
 
 

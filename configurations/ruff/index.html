@@ -944,6 +944,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#show-editor-banner-for-file-level-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show editor banner for file-level diagnostics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tooltip-format" class="md-nav__link">
     <span class="md-ellipsis">
       Tooltip format
@@ -1429,6 +1438,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#show-editor-banner-for-file-level-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show editor banner for file-level diagnostics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tooltip-format" class="md-nav__link">
     <span class="md-ellipsis">
       Tooltip format
@@ -1776,10 +1794,24 @@ and the <a href="https://docs.astral.sh/ruff/editors/settings/#configuration"><c
 <p>Whether diagnostics for syntax errors should be shown.</p>
 <p>This corresponds to the <a href="https://docs.astral.sh/ruff/editors/settings/#showsyntaxerrors"><code>showSyntaxErrors</code></a> language server setting.</p>
 <p>Default: <code>false</code></p>
+<h4 id="show-editor-banner-for-file-level-diagnostics">Show editor banner for file-level diagnostics<a class="headerlink" href="#show-editor-banner-for-file-level-diagnostics" title="Permanent link">#</a></h4>
+<p>Whether diagnostics for the entire file (e.g., <a href="https://docs.astral.sh/ruff/rules/implicit-namespace-package/"><code>INP001</code></a>)
+should be shown at the very top of the editor for that file as a banner.</p>
+<p>Default: <code>false</code></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="show-editor-banner-for-file-level-diagnostics-enabled" name="__tabbed_1" type="radio" /><input id="show-editor-banner-for-file-level-diagnostics-disabled" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="show-editor-banner-for-file-level-diagnostics-enabled">Enabled</label><label for="show-editor-banner-for-file-level-diagnostics-disabled">Disabled</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/configurations-ruff-file-level-banner-demo-enabled.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/configurations-ruff-file-level-banner-demo-disabled.png" /></p>
+</div>
+</div>
+</div>
 <h4 id="tooltip-format">Tooltip format<a class="headerlink" href="#tooltip-format" title="Permanent link">#</a></h4>
 <p>The format in which tooltips are displayed.</p>
 <p>Default: <i>A123: Message</i></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="tooltip-format-message" name="__tabbed_1" type="radio" /><input id="tooltip-format-a123-message" name="__tabbed_1" type="radio" /><input id="tooltip-format-ruff-a123-message" name="__tabbed_1" type="radio" /><input id="tooltip-format-message-ruffa123" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="tooltip-format-message">Message</label><label for="tooltip-format-a123-message">A123: Message</label><label for="tooltip-format-ruff-a123-message">Ruff (A123): Message</label><label for="tooltip-format-message-ruffa123">Message Ruff(A123)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="tooltip-format-message" name="__tabbed_2" type="radio" /><input id="tooltip-format-a123-message" name="__tabbed_2" type="radio" /><input id="tooltip-format-ruff-a123-message" name="__tabbed_2" type="radio" /><input id="tooltip-format-message-ruffa123" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="tooltip-format-message">Message</label><label for="tooltip-format-a123-message">A123: Message</label><label for="tooltip-format-ruff-a123-message">Ruff (A123): Message</label><label for="tooltip-format-message-ruffa123">Message Ruff(A123)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><img alt="" src="../../assets/configurations-ruff-tooltip-format-demo-message.png" /></p>

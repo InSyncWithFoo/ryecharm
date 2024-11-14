@@ -77,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#advanced-settings" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -974,6 +979,32 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced settings
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registry-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registry keys
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1015,6 +1046,15 @@ to serve as the default settings for the project.</p>
 <p>Override settings are stored in the <code>ryecharm-overrides.xml</code> file
 in the same directory. This file should <em>not</em> be committed,
 as its purpose is to allow overriding project defaults.</p>
+<h2 id="advanced-settings">Advanced settings<a class="headerlink" href="#advanced-settings" title="Permanent link">#</a></h2>
+<p>Settings in this group are not expected to be used
+by the vast majority of users and might be changed at any time.
+They are thus deliberately undocumented.</p>
+<h2 id="registry-keys">Registry keys<a class="headerlink" href="#registry-keys" title="Permanent link">#</a></h2>
+<p>RyeCharm manages a few registry keys
+which enables development-specific features.
+They are useful if you want to contribute to RyeCharm
+and need to debug your code.</p>
 
 
 
