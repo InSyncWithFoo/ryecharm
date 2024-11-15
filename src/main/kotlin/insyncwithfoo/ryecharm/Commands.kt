@@ -5,22 +5,14 @@ import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.diagnostic.logger
-import com.intellij.openapi.util.registry.Registry
 import com.intellij.util.io.toByteArray
 import java.nio.CharBuffer
 import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
 
-private const val COMMAND_LOGGING_REGISTRY_KEY = "insyncwithfoo.ryecharm.logging.commands"
-
-
-private val commandLoggingIsEnabled: Boolean
-    get() = Registry.`is`(COMMAND_LOGGING_REGISTRY_KEY)
-
-
 private fun Logger.logCommandInfo(message: String) {
-    if (commandLoggingIsEnabled) {
+    if (RyeCharmRegistry.logging.commands) {
         info(message)
     }
 }

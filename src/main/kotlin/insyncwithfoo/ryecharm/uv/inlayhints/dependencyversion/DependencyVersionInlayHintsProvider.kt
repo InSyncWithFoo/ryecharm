@@ -77,11 +77,11 @@ private class Collector : OwnBypassCollector {
     
     @Suppress("UnstableApiUsage")
     private fun Module.getInstalledDependencies(): DependencyNamesToVersions? {
-        // TODO: Let uv discover environment on its own if interpreter is not specified (?)
-        val interpreter = interpreterPath ?: return null
         val uv = project.uv ?: return null
         
-        val command = uv.pipList(python = interpreter)
+        val command = uv.pipList(python = interpreterPath)
+        
+        // FIXME: Synchronous execution in read action
         val output = runBlockingCancellable {
             project.runInBackground(command)
         }

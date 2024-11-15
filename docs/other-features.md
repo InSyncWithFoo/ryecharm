@@ -108,7 +108,8 @@ This applies to the following arrays
 * \[`tool`] `uv.upgrade-package` (default: disabled)
 * \[`tool`] `uv.pip.upgrade-dependencies` (default: disabled)
 
-This is equivalent to running `uv pip list` at the project's path.
+This is equivalent to running `uv pip list` at the project's path
+with the corresponding interpreter as argument, if any.
 
 
 ### Dependency groups
