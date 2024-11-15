@@ -16,7 +16,7 @@ See [the documentation][0.1.0-a4-1] for more information.
 Latest tool versions at the time of release:
 
 * Ruff: [0.7.3][0.1.0-a4-2]
-* uv: [0.5.1][0.1.0-a4-3]
+* uv: [0.5.2][0.1.0-a4-3]
 * Rye: [0.42.0][0.1.0-a4-4]
 
 
@@ -100,7 +100,7 @@ Latest tool versions at the time of release:
 
   [0.1.0-a4-1]: https://insyncwithfoo.github.io/ryecharm/
   [0.1.0-a4-2]: https://github.com/astral-sh/ruff/releases/tag/0.7.3
-  [0.1.0-a4-3]: https://github.com/astral-sh/uv/releases/tag/0.5.1
+  [0.1.0-a4-3]: https://github.com/astral-sh/uv/releases/tag/0.5.2
   [0.1.0-a4-4]: https://github.com/astral-sh/rye/releases/tag/0.42.0
   [0.1.0-a4-a-1]: https://peps.python.org/pep-0735/
   [0.1.0-a4-a-2]: https://packaging.python.org/en/latest/specifications/name-normalization/#name-normalization
