@@ -111,6 +111,12 @@ This applies to the following arrays
 This is equivalent to running `uv pip list` at the project's path
 with the corresponding interpreter as argument, if any.
 
+!!! note
+
+    Due to technical limitations, this feature will cause a
+    "synchronous execution under read action" exception to be logged.
+    If you wish <em>not</em> to ignore this error, disable the feature.
+
 
 ### Dependency groups
 

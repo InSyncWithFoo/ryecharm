@@ -5,9 +5,8 @@ These modes all have their own pros and cons.
 While RyeCharm will try to maintain consistency where possible,
 a few features/settings are only available in one mode but not another.
 
-The default mode is <i>Command line</i>,
-which allows for the widest range of customizations.
-However, it is recommended to use <i>Native LSP client</i> if possible,
+The default mode is <i>Command line</i>.
+However, it is recommended to use either of the other two modes
 for performance and technical reasons.
 
 See <i>[Linting][1]</i> and <i>[Formatting][2]</i> for more information.
@@ -16,10 +15,16 @@ See <i>[Linting][1]</i> and <i>[Formatting][2]</i> for more information.
 ## <i>Command line</i> mode
 
 In <i>Command line</i> mode, RyeCharm will invoke
-the provided executable whenever it needs to run a task.
+the provided executable to retrieve necessary information
+for linting, formatting and `# noqa` documentation popups.
+
 This is in contrary to the language server modes,
 in which there is only one long-running process
-that handles all operations via the language server protocol.
+that handles such operations via the language server protocol (LSP).
+
+For features not directly available via LSP,
+the executable will still be invoked.
+This is done to provide a consistent experience across all modes.
 
 
 ## <i>Native LSP client</i> and <i>LSP4IJ</i> modes
@@ -38,7 +43,6 @@ On the other hand, [LSP4IJ][5] can be installed on any IDE.
 | Can be used on      | Paid IDEs                | All IDEs                  |
 | Supported features* | [Few][6]                 | [Much wider range][7]     |
 | UI integrations     | Better                   | Good                      |
-| Customizations      | Easy to implement        | Limited                   |
 | API stability       | Unstable                 | Unstable                  |
 
 <small>\* [Ruff's features][8] are supported equally well by both.</small>
