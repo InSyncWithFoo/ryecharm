@@ -1389,6 +1389,12 @@ showing the currently installed versions.</p>
 </ul>
 <p>This is equivalent to running <code>uv pip list</code> at the project's path
 with the corresponding interpreter as argument, if any.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to technical limitations, this feature will cause a
+"synchronous execution under read action" exception to be logged.
+If you wish <em>not</em> to ignore this error, disable the feature.</p>
+</div>
 <h3 id="dependency-groups">Dependency groups<a class="headerlink" href="#dependency-groups" title="Permanent link">#</a></h3>
 <p><a href="https://peps.python.org/pep-0735/">PEP 735</a> dependency groups are supported
 using a number of features.</p>

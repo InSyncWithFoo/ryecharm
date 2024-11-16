@@ -1095,17 +1095,20 @@
 <p>These modes all have their own pros and cons.
 While RyeCharm will try to maintain consistency where possible,
 a few features/settings are only available in one mode but not another.</p>
-<p>The default mode is <i>Command line</i>,
-which allows for the widest range of customizations.
-However, it is recommended to use <i>Native LSP client</i> if possible,
+<p>The default mode is <i>Command line</i>.
+However, it is recommended to use either of the other two modes
 for performance and technical reasons.</p>
 <p>See <i><a href="../linting/">Linting</a></i> and <i><a href="../formatting/">Formatting</a></i> for more information.</p>
 <h2 id="command-line-mode"><i>Command line</i> mode<a class="headerlink" href="#command-line-mode" title="Permanent link">#</a></h2>
 <p>In <i>Command line</i> mode, RyeCharm will invoke
-the provided executable whenever it needs to run a task.
-This is in contrary to the language server modes,
+the provided executable to retrieve necessary information
+for linting, formatting and <code># noqa</code> documentation popups.</p>
+<p>This is in contrary to the language server modes,
 in which there is only one long-running process
-that handles all operations via the language server protocol.</p>
+that handles such operations via the language server protocol (LSP).</p>
+<p>For features not directly available via LSP,
+the executable will still be invoked.
+This is done to provide a consistent experience across all modes.</p>
 <h2 id="native-lsp-client-and-lsp4ij-modes"><i>Native LSP client</i> and <i>LSP4IJ</i> modes<a class="headerlink" href="#native-lsp-client-and-lsp4ij-modes" title="Permanent link">#</a></h2>
 <p>These two modes make use of Ruff's <a href="https://docs.astral.sh/ruff/editors/#language-server-protocol">language server capabilities</a>,
 available via the <code>server</code> subcommand.</p>
@@ -1140,11 +1143,6 @@ On the other hand, <a href="https://plugins.jetbrains.com/plugin/23257-lsp4ij">L
 <td>UI integrations</td>
 <td>Better</td>
 <td>Good</td>
-</tr>
-<tr>
-<td>Customizations</td>
-<td>Easy to implement</td>
-<td>Limited</td>
 </tr>
 <tr>
 <td>API stability</td>
