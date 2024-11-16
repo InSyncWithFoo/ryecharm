@@ -6,6 +6,7 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
+import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.TOMLPath
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.isPyprojectToml
@@ -54,7 +55,7 @@ internal class DevDependenciesInspection : LocalInspectionTool(), DumbAware {
         Visitor(holder)
     
     companion object {
-        private const val SHORT_NAME = "insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
+        private const val SHORT_NAME = "${RyeCharm.ID}.uv.inspections.DevDependenciesInspection"
     }
     
 }

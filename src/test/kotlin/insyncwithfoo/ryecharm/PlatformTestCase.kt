@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
 
 
 private val KClass<*>.qualifiedNameWithoutPackagePrefix: String
-    get() = qualifiedName!!.removePrefix("insyncwithfoo.ryecharm.")
+    get() = qualifiedName!!.removePrefix("${RyeCharm.ID}.")
 
 
 private val KClass<*>.testDataPath: String

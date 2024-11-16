@@ -11,8 +11,8 @@ internal typealias ErrorNotificationGroup = NotificationGroup
 internal typealias InformationNotificationGroup = NotificationGroup
 
 
-private const val ERROR_GROUP_ID = "insyncwithfoo.ryecharm.errors"
-private const val INFORMATION_GROUP_ID = "insyncwithfoo.ryecharm.information"
+private const val ERROR_GROUP_ID = "${RyeCharm.ID}.errors"
+private const val INFORMATION_GROUP_ID = "${RyeCharm.ID}.information"
 private val ICON = RyeIcons.TINY_16
 
 

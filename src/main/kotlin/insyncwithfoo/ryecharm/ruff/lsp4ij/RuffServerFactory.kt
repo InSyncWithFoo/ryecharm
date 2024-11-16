@@ -6,6 +6,7 @@ import com.redhat.devtools.lsp4ij.LanguageServerFactory
 import com.redhat.devtools.lsp4ij.client.LanguageClientImpl
 import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
+import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
@@ -14,7 +15,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruffExecutable
 
 
-internal const val SERVER_ID = "insyncwithfoo.ryecharm.ruff"
+internal const val SERVER_ID = "${RyeCharm.ID}.ruff"
 
 
 internal class RuffServerFactory : LanguageServerFactory, LanguageServerEnablementSupport {

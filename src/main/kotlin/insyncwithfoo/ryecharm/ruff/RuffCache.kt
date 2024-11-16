@@ -7,6 +7,7 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import insyncwithfoo.ryecharm.RootDisposable
+import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.propertiesComponent
 import insyncwithfoo.ryecharm.ruff.documentation.options.OptionDocumentation
 import insyncwithfoo.ryecharm.ruff.documentation.options.OptionName
@@ -20,7 +21,7 @@ import kotlin.reflect.full.declaredMemberProperties
 private typealias JSON = String
 
 
-private const val PREFIX = "insyncwithfoo.ryecharm.ruff.caching"
+private const val PREFIX = "${RyeCharm.ID}.ruff.caching"
 
 
 private fun String.toUniqueKeyName() = "$PREFIX.$this"

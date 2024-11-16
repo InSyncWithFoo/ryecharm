@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm.ruff.linting
 import com.intellij.codeInspection.ex.ExternalAnnotatorBatchInspection
 import com.intellij.openapi.project.Project
 import com.jetbrains.python.inspections.PyInspection
+import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.inspectionProfileManager
 
 
@@ -11,7 +12,7 @@ internal class RuffInspection : PyInspection(), ExternalAnnotatorBatchInspection
     override fun getShortName() = SHORT_NAME
     
     companion object {
-        const val SHORT_NAME = "insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+        const val SHORT_NAME = "${RyeCharm.ID}.ruff.linting.RuffInspection"
     }
     
 }
