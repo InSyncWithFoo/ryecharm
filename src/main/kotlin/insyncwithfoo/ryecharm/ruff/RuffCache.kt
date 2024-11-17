@@ -9,8 +9,8 @@ import com.intellij.openapi.util.Disposer
 import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.propertiesComponent
-import insyncwithfoo.ryecharm.ruff.documentation.options.OptionDocumentation
-import insyncwithfoo.ryecharm.ruff.documentation.options.OptionName
+import insyncwithfoo.ryecharm.ruff.documentation.OptionDocumentation
+import insyncwithfoo.ryecharm.ruff.documentation.OptionName
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.reflect.KMutableProperty1

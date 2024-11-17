@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.ruff.documentation.rules
+package insyncwithfoo.ryecharm.ruff.documentation.providers
 
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.DocumentationTargetProvider
@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isRuffToml
 import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.keyValuePair
+import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffRuleDocumentationTarget
 import insyncwithfoo.ryecharm.stringContent
 import insyncwithfoo.ryecharm.wrappingTomlLiteral
 import org.toml.lang.TomlLanguage
@@ -96,10 +97,7 @@ internal class RuffRuleDocumentationTargetProvider : DocumentationTargetProvider
             return null
         }
         
-        val content = stringContent!!
-        val filename = containingFile.virtualFile!!.name
-        
-        return RuffRuleDocumentationTarget(this, content, filename)
+        return RuffRuleDocumentationTarget(this, stringContent!!)
     }
     
 }

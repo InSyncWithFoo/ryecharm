@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.ruff.documentation.options
+package insyncwithfoo.ryecharm.ruff.documentation.providers
 
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.DocumentationTargetProvider
@@ -8,6 +8,7 @@ import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isRuffToml
+import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffOptionDocumentationTarget
 import insyncwithfoo.ryecharm.wrappingTomlKey
 import org.toml.lang.TomlLanguage
 import org.toml.lang.psi.TomlKey
@@ -70,9 +71,7 @@ internal class RuffOptionDocumentationTargetProvider : DocumentationTargetProvid
         return key.toTarget(relativeName.toString())
     }
     
-    private fun TomlKey.toTarget(option: String): DocumentationTarget {
-        val filename = containingFile!!.virtualFile.name
-        return RuffOptionDocumentationTarget(this, option, filename)
-    }
+    private fun TomlKey.toTarget(option: String) =
+        RuffOptionDocumentationTarget(this, option)
     
 }

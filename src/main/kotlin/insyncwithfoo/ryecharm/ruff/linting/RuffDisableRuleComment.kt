@@ -11,9 +11,9 @@ import com.jetbrains.python.psi.impl.PyPsiUtils
 import insyncwithfoo.ryecharm.edit
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
-import insyncwithfoo.ryecharm.ruff.documentation.noqa.RuleCode
-import insyncwithfoo.ryecharm.ruff.documentation.noqa.noqaComment
-import insyncwithfoo.ryecharm.ruff.documentation.noqa.ruleCode
+import insyncwithfoo.ryecharm.ruff.RuleCode
+import insyncwithfoo.ryecharm.ruff.noqaComment
+import insyncwithfoo.ryecharm.ruff.ruleCode
 import org.jetbrains.annotations.VisibleForTesting
 
 

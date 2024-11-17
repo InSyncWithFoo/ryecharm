@@ -48,3 +48,12 @@ with the key's name as argument.
 
 === "`ruff.toml`"
     ![](../assets/ruff-documentation-demo-ruff-toml-setting-keys.png)
+
+
+## Link resolving
+
+Links to Ruff options (that is, those accepted by `ruff config`)
+are resolved in-place.
+
+Clicking on such a link will replace the current popup content
+with that option's documentation.

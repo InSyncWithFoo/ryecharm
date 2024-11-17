@@ -59,9 +59,8 @@ Latest tool versions at the time of release:
   * `dependency-groups.*`
   * \[`tool.uv`] `dev-dependencies`
 
-* Links to other Ruff options in documentation popups
-  are now resolved in-place, replacing the current popup content
-  with the new option's documentation.
+* Links to Ruff options in documentation popups are now resolved in-place,
+  replacing the current popup content with the option's documentation.
   Previously, such links would open the browser.
 
 
