@@ -14,7 +14,6 @@ import com.jetbrains.python.packaging.management.PythonPackageManager
 import com.jetbrains.python.packaging.ui.PyPackageManagementService
 import com.jetbrains.python.sdk.PyInterpreterInspectionQuickFixData
 import com.jetbrains.python.sdk.PySdkProvider
-import com.jetbrains.python.sdk.add.PyAddNewEnvPanel
 import com.jetbrains.python.sdk.add.v2.PythonAddNewEnvironmentPanel
 import insyncwithfoo.ryecharm.isUV
 import insyncwithfoo.ryecharm.uv.managing.UVPackageManager
@@ -76,22 +75,20 @@ internal class UVSDKProvider : PySdkProvider {
      * They have possibly been superseded by [PythonAddNewEnvironmentPanel]
      * and other classes in the same `sdk.add.v2` subpackage,
      * none of which makes use of "old" extension points.
+     * 
      * On IntelliJ IDEA, however, this is called
      * when its modular new project panel is opened.
-     * 
-     * IDEA is not a prioritized target, so this method is
-     * currently only overridden here for documentation purposes.
+     * IntelliJ IDEA is not supported, so [UVAddNewEnvPanel]
+     * only exists for informational purposes.
      */
-    // TODO: Support this.
     override fun createNewEnvironmentPanel(
         project: Project?,
         module: Module?,
         existingSdks: List<Sdk>,
         newProjectPath: String?,
         context: UserDataHolder
-    ): PyAddNewEnvPanel {
-        throw RuntimeException()
-    }
+    ) =
+        UVAddNewEnvPanel()
     
     /**
      * The string to be appended to the suggested SDK name
