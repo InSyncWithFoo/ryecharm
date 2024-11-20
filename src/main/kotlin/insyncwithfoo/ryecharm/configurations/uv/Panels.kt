@@ -41,6 +41,10 @@ private fun Row.packageManagingNonUVProjectInput(block: Cell<JBCheckBox>.() -> U
     checkBox(message("configurations.uv.packageManagingNonUVProject.label")).apply(block)
 
 
+private fun Row.retrieveDependenciesInReadActionInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.retrieveDependenciesInReadAction.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun UVPanel.makeComponent() = panel {
     
@@ -69,6 +73,13 @@ private fun UVPanel.makeComponent() = panel {
                 packageManagingNonUVProjectInput { bindSelected(state::packageManagingNonUVProject) }
                 overrideCheckbox(state::packageManagingNonUVProject)
             }
+        }
+    }
+    
+    advancedSettingsGroup {
+        row {
+            retrieveDependenciesInReadActionInput { bindSelected(state::retrieveDependenciesInReadAction) }
+            overrideCheckbox(state::retrieveDependenciesInReadAction)
         }
     }
     

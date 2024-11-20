@@ -7,10 +7,9 @@ as [the default (<i>Pure Python</i>) panel][1].
 ![](../assets/uv-new-project-panel.png)
 
 !!! note
-    Due to technical limitations, it is currently
-    not possible to extend the standard panel.
-    The <i>uv</i> panel cannot be used with existing framework panels.
-    This is expected to change in PyCharm 2024.3.
+    Due to technical limitations, it is not possible to
+    extend the standard panel. In other words,
+    uv cannot be used to generate framework-based projects.
 
 
 ## Settings
