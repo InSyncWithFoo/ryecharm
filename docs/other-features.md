@@ -113,9 +113,16 @@ with the corresponding interpreter as argument, if any.
 
 !!! note
 
-    Due to technical limitations, this feature will cause a
-    "synchronous execution under read action" exception to be logged.
-    If you wish <em>not</em> to ignore this error, disable the feature.
+    On IntelliJ IDEA, flickering might happen during computation.
+    The cause of this problem is as of yet unknown.
+    
+    As a workaround, enable the "Retrieve data for computing dependency version
+    inlay hints in read action" advanced setting in the <i>uv</i> subpanel.
+
+    This workaround has the disadvantage of delaying
+    the computation of other inlay hint providers,
+    causing a "synchronous execution under read action" exception.
+    Unless the delay proves to be a problem, you can safely ignore this warning.
 
 
 ### Dependency groups

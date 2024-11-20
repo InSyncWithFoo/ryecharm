@@ -95,6 +95,11 @@ internal abstract class AdaptivePanel<S>(val state: S, private val overrides: Ov
     }
     
     @Suppress("DialogTitleCapitalization")
+    fun Panel.advancedSettingsGroup(init: Panel.() -> Unit) {
+        collapsibleGroup(message("configurations.groups.advanced"), init = init)
+    }
+    
+    @Suppress("DialogTitleCapitalization")
     fun <E> Panel.timeoutGroup(timeouts: TimeoutMap, entries: List<E>) where E : Commented, E : Keyed {
         collapsibleGroup(message("configurations.timeouts.groupName"), indent = true) {
             row { label(message("configurations.timeouts.note")) }

@@ -15,7 +15,7 @@ See [the documentation][0.1.0-a4-1] for more information.
 
 Latest tool versions at the time of release:
 
-* Ruff: [0.7.3][0.1.0-a4-2]
+* Ruff: [0.7.4][0.1.0-a4-2]
 * uv: [0.5.2][0.1.0-a4-3]
 * Rye: [0.42.0][0.1.0-a4-4]
 
@@ -45,7 +45,7 @@ Latest tool versions at the time of release:
   * Groups can be installed by clicking their corresponding line markers.
 
 * Usages of [`uv.dev-dependencies`][0.1.0-a4-a-4] are now reported.
-  This field is deprecated as of [uv 0.2.27][0.1.0-a4-a-5];
+  This field is deprecated as of [uv 0.4.27][0.1.0-a4-a-5];
   it should be replaced with `dependency-groups.dev`.
 
 * Dependency specifier strings in `pyproject.toml` and `uv.toml`
@@ -59,9 +59,8 @@ Latest tool versions at the time of release:
   * `dependency-groups.*`
   * \[`tool.uv`] `dev-dependencies`
 
-* Links to other Ruff options in documentation popups
-  are now resolved in-place, replacing the current popup content
-  with the new option's documentation.
+* Links to Ruff options in documentation popups are now resolved in-place,
+  replacing the current popup content with the option's documentation.
   Previously, such links would open the browser.
 
 
@@ -99,7 +98,7 @@ Latest tool versions at the time of release:
 
 
   [0.1.0-a4-1]: https://insyncwithfoo.github.io/ryecharm/
-  [0.1.0-a4-2]: https://github.com/astral-sh/ruff/releases/tag/0.7.3
+  [0.1.0-a4-2]: https://github.com/astral-sh/ruff/releases/tag/0.7.4
   [0.1.0-a4-3]: https://github.com/astral-sh/uv/releases/tag/0.5.2
   [0.1.0-a4-4]: https://github.com/astral-sh/rye/releases/tag/0.42.0
   [0.1.0-a4-a-1]: https://peps.python.org/pep-0735/

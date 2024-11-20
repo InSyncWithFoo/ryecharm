@@ -313,7 +313,7 @@ private fun RuffPanel.makeComponent() = panel {
         }
     }
     
-    collapsibleGroup(message("configurations.ruff.groups.advanced")) {
+    advancedSettingsGroup {
         row {
             autoRestartServersInput { bindSelected(state::autoRestartServers) }
             overrideCheckbox(state::autoRestartServers)

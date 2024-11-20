@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.ruff.documentation.noqa
+package insyncwithfoo.ryecharm.ruff.documentation.providers
 
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.DocumentationTargetProvider
@@ -7,6 +7,8 @@ import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRuff
+import insyncwithfoo.ryecharm.ruff.NoqaComment
+import insyncwithfoo.ryecharm.ruff.documentation.targets.NoqaCodeDocumentationTarget
 
 
 /**
@@ -20,7 +22,7 @@ import insyncwithfoo.ryecharm.isSupportedByRuff
  *       #       ^ hover: ambiguous-unicode-character-string...
  * ```
  */
-internal class NoqaCommentRuleCodeDocumentationTargetProvider : DocumentationTargetProvider {
+internal class NoqaCodeDocumentationTargetProvider : DocumentationTargetProvider {
     
     override fun documentationTargets(file: PsiFile, offset: Int): List<DocumentationTarget> =
         listOfNotNull(documentationTarget(file, offset))
@@ -44,7 +46,7 @@ internal class NoqaCommentRuleCodeDocumentationTargetProvider : DocumentationTar
     private fun PsiComment.toTarget(hoverOffset: Int): DocumentationTarget? {
         val noqaComment = NoqaComment.parse(this) ?: return null
         
-        return NoqaCommentRuleCodeDocumentationTarget(this, noqaComment, hoverOffset)
+        return NoqaCodeDocumentationTarget(this, noqaComment, hoverOffset)
     }
     
 }

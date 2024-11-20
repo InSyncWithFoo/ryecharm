@@ -1,6 +1,9 @@
-package insyncwithfoo.ryecharm.ruff.documentation.noqa
+package insyncwithfoo.ryecharm.ruff
 
 import com.intellij.psi.PsiComment
+
+
+internal typealias RuleCode = String
 
 
 /**
@@ -39,9 +42,6 @@ private val fileNoqaComment = """(?x)
 	\h*(?i:noqa)\h*
 	(?::\h*(?<codeList>$ruleCode(?:[\h,]\h*$ruleCode)*)|$)
 """.toRegexBypassingIDELanguageInjection()
-
-
-internal typealias RuleCode = String
 
 
 private data class RuleCodeFragment(

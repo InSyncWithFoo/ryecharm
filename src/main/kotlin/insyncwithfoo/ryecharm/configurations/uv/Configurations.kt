@@ -17,6 +17,8 @@ internal class UVConfigurations : DisplayableState(), HasTimeouts {
     var packageManaging by property(true)
     var packageManagingNonUVProject by property(false)
     
+    var retrieveDependenciesInReadAction by property(false)
+    
     override var timeouts by map<SettingName, MillisecondsOrNoLimit>()
 }
 

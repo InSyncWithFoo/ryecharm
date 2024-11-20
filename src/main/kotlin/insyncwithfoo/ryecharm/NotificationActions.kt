@@ -5,26 +5,34 @@ import com.intellij.notification.BrowseNotificationAction
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.options.ShowSettingsUtil
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.util.ui.EmptyClipboardOwner
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 
 
-internal fun Notification.addOpenPluginIssueTrackerAction(): Notification {
-    val issueTrackerActionText = message("notificationActions.openPluginIssueTracker")
-    return addAction(BrowseNotificationAction(issueTrackerActionText, RyeCharm.ISSUE_TRACKER))
-}
+internal fun Notification.addAction(text: String, action: () -> Unit) =
+    addAction(NotificationAction.createSimple(text, action))
 
 
 internal fun Notification.addExpiringAction(text: String, action: () -> Unit) =
     addAction(NotificationAction.createSimpleExpiring(text, action))
 
 
-internal fun Notification.addAction(text: String, action: () -> Unit) =
-    addAction(NotificationAction.createSimple(text, action))
+internal fun Notification.addOpenBrowserAction(text: String, link: String) =
+    addAction(BrowseNotificationAction(text, link))
+
+
+internal fun Notification.addOpenPluginIssueTrackerAction() {
+    val text = message("notificationActions.openPluginIssueTracker")
+    val link = RyeCharm.ISSUE_TRACKER
+    
+    addOpenBrowserAction(text, link)
+}
 
 
 internal fun Notification.addCopyTextAction(text: String, content: String) {
@@ -56,6 +64,33 @@ internal fun Notification.addOpenSettingsAction(
         project.showSettingsDialog(configurableClass)
     }
 }
+
+
+private class OpenFileAction(text: String, private val path: String) : NotificationAction(text) {
+    
+    override fun actionPerformed(event: AnActionEvent, notification: Notification) {
+        val project = event.project ?: return cannotOpenFile()
+        
+        val fileSystem = LocalFileSystem.getInstance()
+        val virtualFile = fileSystem.findFileByPath(path) ?: return cannotOpenFile(project)
+        
+        project.fileEditorManager.openFileEditor(OpenFileDescriptor(project, virtualFile), true)
+    }
+    
+    private fun cannotOpenFile(project: Project? = null) {
+        val title = message("notifications.cannotOpenFile.title")
+        val content = message("notifications.cannotOpenFile.body", path)
+        
+        project.somethingIsWrong(title, content)
+    }
+    
+}
+
+
+internal fun Notification.addOpenFileAction(text: String? = null, path: String) {
+    addAction(OpenFileAction(text ?: message("notificationActions.openFile"), path))
+}
+
 
 
 internal class OpenTemporaryFileAction(

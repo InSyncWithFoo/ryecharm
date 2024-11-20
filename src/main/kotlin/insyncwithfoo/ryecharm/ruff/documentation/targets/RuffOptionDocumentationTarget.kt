@@ -1,14 +1,11 @@
-package insyncwithfoo.ryecharm.ruff.documentation.options
+package insyncwithfoo.ryecharm.ruff.documentation.targets
 
-import com.intellij.model.Pointer
 import com.intellij.openapi.application.readAction
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.text.HtmlChunk
 import com.intellij.platform.backend.documentation.DocumentationResult
-import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.DocumentationTargetProvider
-import com.intellij.platform.backend.presentation.TargetPresentation
-import com.intellij.psi.createSmartPointer
+import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.Definition
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.ProgressContext
@@ -18,39 +15,17 @@ import insyncwithfoo.ryecharm.removeSurroundingTag
 import insyncwithfoo.ryecharm.ruff.CachedResult
 import insyncwithfoo.ryecharm.ruff.RuffCache
 import insyncwithfoo.ryecharm.ruff.commands.ruff
+import insyncwithfoo.ryecharm.ruff.documentation.OptionDocumentation
+import insyncwithfoo.ryecharm.ruff.documentation.OptionInfo
+import insyncwithfoo.ryecharm.ruff.documentation.OptionName
+import insyncwithfoo.ryecharm.ruff.documentation.providers.RuffOptionDocumentationTargetProvider
+import insyncwithfoo.ryecharm.ruff.documentation.render
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.toDocumentationResult
 import insyncwithfoo.ryecharm.toHTML
 import insyncwithfoo.ryecharm.wrappedInCodeBlock
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import org.toml.TomlIcons
-import org.toml.lang.psi.TomlKey
-
-
-internal typealias OptionName = String
-internal typealias OptionDocumentation = HTML
-
-
-@Serializable
-internal data class OptionDeprecationInfo(
-    val since: String?,
-    val message: String?
-)
-
-
-@Serializable
-internal data class OptionInfo(
-    val doc: String,
-    val default: String,
-    @SerialName("value_type")
-    val valueType: String,
-    val scope: String?,
-    val example: String,
-    val deprecated: OptionDeprecationInfo?
-)
 
 
 /**
@@ -59,34 +34,15 @@ internal data class OptionInfo(
  *
  * Verifications are done at [RuffOptionDocumentationTargetProvider].
  * 
- * @see [toHTML]
+ * @see render
  */
-@Suppress("UnstableApiUsage")
 internal class RuffOptionDocumentationTarget(
-    private val element: TomlKey,
-    private val option: OptionName,
-    private val filename: String
-) : DocumentationTarget {
+    override val element: PsiElement,
+    private val option: OptionName
+) : RuffDocumentationTarget() {
     
-    private fun OptionName.toAbsoluteName() =
-        "ruff.$this"
-    
-    // This doesn't seem to do anything, despite being called.
-    override fun computePresentation() =
-        TargetPresentation.builder(filename)
-            .presentableText(filename)
-            .icon(TomlIcons.TomlFile)
-            .presentation()
-    
-    override fun createPointer(): Pointer<out DocumentationTarget> {
-        val elementPointer = element.createSmartPointer()
-        
-        return Pointer {
-            elementPointer.dereference()?.let {
-                RuffOptionDocumentationTarget(it, option, filename)
-            }
-        }
-    }
+    override fun fromDereferenced(element: PsiElement) =
+        RuffOptionDocumentationTarget(element, option)
     
     /**
      * Return the syntax-highlighted TOML key name wrapped
@@ -131,6 +87,9 @@ internal class RuffOptionDocumentationTarget(
         
         return Definition().apply { html(html) }.toString()
     }
+    
+    private fun OptionName.toAbsoluteName() =
+        "ruff.$this"
     
     /**
      * Return the information about the configuration,
@@ -204,9 +163,9 @@ internal class RuffOptionDocumentationTarget(
      * Return a new target whose [computeDocumentation] result
      * will be shown at the same place, but for [newOption].
      * 
-     * @see replaceSectionLinksWithSpecializedURIs
+     * @see insyncwithfoo.ryecharm.ruff.documentation.replaceSectionLinksWithSpecializedURIs
      */
     fun withOption(newOption: OptionName) =
-        RuffOptionDocumentationTarget(element, newOption, filename)
+        RuffOptionDocumentationTarget(element, newOption)
     
 }

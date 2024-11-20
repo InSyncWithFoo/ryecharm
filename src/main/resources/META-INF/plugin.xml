@@ -277,26 +277,26 @@
 		/>
 		
 		<platform.backend.documentation.targetProvider
-			id="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCommentRuleCodeDocumentationTargetProvider"
+			id="insyncwithfoo.ryecharm.ruff.documentation.providers.NoqaCodeDocumentationTargetProvider"
 			order="first"
-			implementation="insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaCommentRuleCodeDocumentationTargetProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.providers.NoqaCodeDocumentationTargetProvider"
 		/>
 		
 		<platform.backend.documentation.targetProvider
-			id="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
+			id="insyncwithfoo.ryecharm.ruff.documentation.providers.RuffOptionDocumentationTargetProvider"
 			order="first, before LSPDocumentationTargetProvider"
-			implementation="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationTargetProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.providers.RuffOptionDocumentationTargetProvider"
 		/>
 		
 		<platform.backend.documentation.targetProvider
-			id="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
+			id="insyncwithfoo.ryecharm.ruff.documentation.providers.RuffRuleDocumentationTargetProvider"
 			order="first, before LSPDocumentationTargetProvider"
-			implementation="insyncwithfoo.ryecharm.ruff.documentation.rules.RuffRuleDocumentationTargetProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.providers.RuffRuleDocumentationTargetProvider"
 		/>
 		
 		<platform.backend.documentation.linkHandler
-			id="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationLinkHandler"
-			implementation="insyncwithfoo.ryecharm.ruff.documentation.options.RuffOptionDocumentationLinkHandler"
+			id="insyncwithfoo.ryecharm.ruff.documentation.RuffDocumentationLinkHandler"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.RuffDocumentationLinkHandler"
 		/>
 	</extensions>
 	
