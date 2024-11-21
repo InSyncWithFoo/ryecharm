@@ -75,4 +75,9 @@ internal class UVTest : CommandFactoryTest() {
         assertEquals(projectPath, command.workingDirectory)
     }
     
+    @Test(expected = IllegalArgumentException::class)
+    fun `test sync - groups`() {
+        uv.sync(group = "foo", allGroups = true)
+    }
+    
 }

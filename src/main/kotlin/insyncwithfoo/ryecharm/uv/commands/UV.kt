@@ -88,11 +88,19 @@ internal class UV private constructor(
     fun remove(target: String) =
         RemoveCommand().build(CommandArguments(target))
     
-    fun sync(group: String? = null): Command {
+    fun sync(group: String? = null, allGroups: Boolean = false): Command {
         val arguments = CommandArguments()
+        
+        if (group != null && allGroups) {
+            throw IllegalArgumentException("--group cannot be used with --all-groups")
+        }
         
         if (group != null) {
             arguments["--group"] = group
+        }
+        
+        if (allGroups) {
+            arguments += "--all-groups"
         }
         
         return SyncCommand().build(arguments)

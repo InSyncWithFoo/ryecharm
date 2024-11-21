@@ -150,9 +150,11 @@ along with that group's declaration and vice versa.
 
 Dependency groups can be installed
 using their corresponding icons in the gutter.
+The icon corresponding to the `[dependency-groups]`
+table header installs all groups.
 
-This is equivalent to running `uv sync --group ...` at the project's path
-with the group name as argument.
+This is equivalent to running `uv sync --group ...`/`uv sync --all-groups`
+at the project's path.
 
 ![](./assets/features-dependency-groups-line-markers.png)
 
