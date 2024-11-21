@@ -1,15 +1,13 @@
-package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion
+package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions
 
 import com.intellij.codeInsight.hints.declarative.HintFontSize
 import com.intellij.codeInsight.hints.declarative.HintFormat
 import com.intellij.codeInsight.hints.declarative.InlayTreeSink
 import com.intellij.codeInsight.hints.declarative.InlineInlayPosition
 import com.intellij.codeInsight.hints.declarative.OwnBypassCollector
-import com.intellij.codeInsight.hints.declarative.SharedBypassCollector
 import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.endOffset
@@ -27,8 +25,8 @@ import insyncwithfoo.ryecharm.pep508Normalize
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.stringContent
 import insyncwithfoo.ryecharm.uv.commands.uv
-import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.Settings
-import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.dependencyVersionInlayHintsSettings
+import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.Settings
+import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.dependencyVersionInlayHintsSettings
 import insyncwithfoo.ryecharm.uv.parsePipListOutput
 import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlFile

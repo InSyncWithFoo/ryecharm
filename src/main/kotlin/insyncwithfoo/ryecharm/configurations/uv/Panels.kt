@@ -3,9 +3,11 @@ package insyncwithfoo.ryecharm.configurations.uv
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogPanel
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.ui.JBIntSpinner
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Row
+import com.intellij.ui.dsl.builder.bindIntValue
 import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.panel
 import insyncwithfoo.ryecharm.bindText
@@ -45,6 +47,10 @@ private fun Row.retrieveDependenciesInReadActionInput(block: Cell<JBCheckBox>.()
     checkBox(message("configurations.uv.retrieveDependenciesInReadAction.label")).apply(block)
 
 
+private fun Row.dependenciesDataMaxAgeInput(block: Cell<JBIntSpinner>.() -> Unit) =
+    spinner(0..1_000_000).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun UVPanel.makeComponent() = panel {
     
@@ -80,6 +86,10 @@ private fun UVPanel.makeComponent() = panel {
         row {
             retrieveDependenciesInReadActionInput { bindSelected(state::retrieveDependenciesInReadAction) }
             overrideCheckbox(state::retrieveDependenciesInReadAction)
+        }
+        row(message("configurations.uv.dependenciesDataMaxAge.label")) {
+            dependenciesDataMaxAgeInput { bindIntValue(state::dependenciesDataMaxAge) }
+            overrideCheckbox(state::dependenciesDataMaxAge)
         }
     }
     

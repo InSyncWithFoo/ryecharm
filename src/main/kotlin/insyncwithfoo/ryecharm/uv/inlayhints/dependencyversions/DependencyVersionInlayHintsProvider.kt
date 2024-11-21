@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion
+package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions
 
 import com.intellij.codeInsight.hints.declarative.InlayHintsCollector
 import com.intellij.codeInsight.hints.declarative.InlayHintsProvider
@@ -17,13 +17,46 @@ import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isUVToml
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.module
-import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.DependencyVersionInlayHintsCustomSettingsProvider
+import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.DependencyVersionInlayHintsCustomSettingsProvider
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import java.nio.file.Path
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 
-private val DEPENDENCIES = Key.create<DependencyMap>("${RyeCharm.ID}.uv.inlayhints.dependencyversion")
-private val CHANGED = Key.create<Boolean>("${RyeCharm.ID}.uv.inlayhints.dependencyversion.rendered")
+private val DEPENDENCIES = Key.create<DependencyMap>("${RyeCharm.ID}.uv.inlayhints.dependencyversions")
+private val LAST_UPDATED = Key.create<Instant>("${RyeCharm.ID}.uv.inlayhints.dependencyversions.timestamp")
+private val RETRIEVING = Key.create<Boolean>("${RyeCharm.ID}.uv.inlayhints.dependencyversions.retrieving")
+
+
+private var Editor.dependencies: DependencyMap?
+    get() = getUserData(DEPENDENCIES)
+    set(value) = putUserData(DEPENDENCIES, value)
+
+
+private var Editor.lastUpdatedDependencies: Instant?
+    get() = getUserData(LAST_UPDATED)
+    set(value) = putUserData(LAST_UPDATED, value)
+
+
+private var Editor.retrievingDependencies: Boolean
+    get() = getUserData(RETRIEVING) ?: false
+    set(value) = putUserData(RETRIEVING, value)
+
+
+private inline fun <T> Editor.doRetrieval(retrieve: () -> T): T? {
+    retrievingDependencies = true
+    
+    return try {
+        retrieve()
+    } catch (_: Throwable) {
+        null
+    } finally {
+        retrievingDependencies = false
+    }
+}
 
 
 @Service(Service.Level.PROJECT)
@@ -65,24 +98,33 @@ internal class DependencyVersionInlayHintsProvider : InlayHintsProvider, DumbAwa
             return DependencyVersionInlayHintsCollector()
         }
         
-        val dependencies = editor.getUserData(DEPENDENCIES)
-        val changed = editor.getUserData(CHANGED)
-        
-        if (dependencies == null || changed == false) {
-            project.collectDataAndTryAgainLater(editor, module?.interpreterPath)
+        if (editor.retrievingDependencies) {
             return null
         }
         
-        editor.putUserData(CHANGED, false)
+        val dependencies = editor.dependencies
+        val lastUpdated = editor.lastUpdatedDependencies
+        
+        val cacheMaxAge = configurations.dependenciesDataMaxAge.toDuration(DurationUnit.SECONDS)
+        val now = Clock.System.now()
+        
+        if (dependencies == null || lastUpdated == null || now - lastUpdated > cacheMaxAge) {
+            project.collectDataAndTryAgainLater(editor, module?.interpreterPath)
+            return null
+        }
         
         return DependencyVersionInlayHintsCollector(dependencies)
     }
     
     private fun Project.collectDataAndTryAgainLater(editor: Editor, interpreter: Path?) = launch<Coroutine> {
-        val dependencies = getInstalledDependencies(interpreter)
+        if (editor.retrievingDependencies) {
+            return@launch
+        }
         
-        editor.putUserData(DEPENDENCIES, dependencies)
-        editor.putUserData(CHANGED, true)
+        editor.dependencies = editor.doRetrieval {
+            getInstalledDependencies(interpreter)
+        }
+        editor.lastUpdatedDependencies = Clock.System.now()
         
         DeclarativeInlayHintsPassFactory.scheduleRecompute(editor, this@collectDataAndTryAgainLater)
     }

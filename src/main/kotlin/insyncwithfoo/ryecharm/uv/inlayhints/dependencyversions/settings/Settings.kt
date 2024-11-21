@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings
+package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings
 
 import insyncwithfoo.ryecharm.configurations.DisplayableState
 

@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings
+package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings
 
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.dsl.builder.Cell

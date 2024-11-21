@@ -303,8 +303,8 @@
 	<extensions defaultExtensionNs="com.intellij">
 		<!--suppress PluginXmlCapitalization -->
 		<codeInsight.declarativeInlayProvider
-			id="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.DependencyVersionInlayHintsProvider"
-			providerId="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.DependencyVersionInlayHintsProvider"
+			id="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider"
+			providerId="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider"
 			
 			language="TOML"
 			group="OTHER_GROUP"
@@ -314,16 +314,16 @@
 			descriptionKey="inlayHints.uv.dependencyVersions.description"
 			
 			isEnabledByDefault="true"
-			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.DependencyVersionInlayHintsProvider"
+			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider"
 		/>
 		
 		<codeInsight.declarativeInlayProviderCustomSettingsProvider
-			id="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.DependencyVersionInlayHintsCustomSettingsProvider"
-			providerId="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.DependencyVersionInlayHintsProvider"
+			id="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.DependencyVersionInlayHintsCustomSettingsProvider"
+			providerId="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider"
 			
 			language="TOML"
 			
-			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings.DependencyVersionInlayHintsCustomSettingsProvider"
+			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.DependencyVersionInlayHintsCustomSettingsProvider"
 		/>
 		
 		<directoryProjectGenerator

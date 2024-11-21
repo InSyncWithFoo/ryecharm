@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversion.settings
+package insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings
 
 import com.intellij.codeInsight.hints.declarative.InlayHintsCustomSettingsProvider
 import com.intellij.lang.Language
