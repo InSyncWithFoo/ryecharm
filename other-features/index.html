@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/icon-black.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.45">
     
     
       
@@ -1412,9 +1412,11 @@ along with that group's declaration and vice versa.</p>
 <p><img alt="" src="../assets/features-dependency-groups-references-finding.png" /></p>
 <h4 id="one-click-install-via-line-markers">One-click-install via line markers<a class="headerlink" href="#one-click-install-via-line-markers" title="Permanent link">#</a></h4>
 <p>Dependency groups can be installed
-using their corresponding icons in the gutter.</p>
-<p>This is equivalent to running <code>uv sync --group ...</code> at the project's path
-with the group name as argument.</p>
+using their corresponding icons in the gutter.
+The icon corresponding to the <code>[dependency-groups]</code>
+table header installs all groups.</p>
+<p>This is equivalent to running <code>uv sync --group ...</code>/<code>uv sync --all-groups</code>
+at the project's path.</p>
 <p><img alt="" src="../assets/features-dependency-groups-line-markers.png" /></p>
 <h4 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permanent link">#</a></h4>
 <p>Errors will be reported for a dependency group if:</p>
