@@ -10,6 +10,9 @@ internal class DependencyGroupInspectionTest : PlatformTestCase() {
     fun `test non-existent group`() = doTest("nonExistentGroup")
     
     @Test
+    fun `test non-normalized circular group`() = doTest("nonNormalizedCircularGroup")
+    
+    @Test
     fun `test non-normalized non-existent group`() = doTest("nonNormalizedNonExistentGroup")
     
     @Test
