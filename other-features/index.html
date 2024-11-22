@@ -1024,16 +1024,36 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installed-version-inlay-hints" class="md-nav__link">
     <span class="md-ellipsis">
       Installed version inlay hints
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Installed version inlay hints">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dependency-groups" class="md-nav__link">
     <span class="md-ellipsis">
       Dependency groups
@@ -1076,11 +1096,6 @@
       Inspection
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1196,16 +1211,36 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installed-version-inlay-hints" class="md-nav__link">
     <span class="md-ellipsis">
       Installed version inlay hints
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Installed version inlay hints">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dependency-groups" class="md-nav__link">
     <span class="md-ellipsis">
       Dependency groups
@@ -1248,11 +1283,6 @@
       Inspection
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1368,7 +1398,7 @@ The new content will be written back when this editor is closed.</p>
 </div>
 </div>
 </div>
-<h3 id="installed-version-inlay-hints">Installed version inlay hints<a class="headerlink" href="#installed-version-inlay-hints" title="Permanent link">#</a></h3>
+<h2 id="installed-version-inlay-hints">Installed version inlay hints<a class="headerlink" href="#installed-version-inlay-hints" title="Permanent link">#</a></h2>
 <p>In <code>pyproject.toml</code> and <code>uv.toml</code> files,
 elements of dependency specifier arrays
 will have inlay hints displayed next to them,
@@ -1389,36 +1419,33 @@ showing the currently installed versions.</p>
 </ul>
 <p>This is equivalent to running <code>uv pip list</code> at the project's path
 with the corresponding interpreter as argument, if any.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>On IntelliJ IDEA, flickering might happen during computation.
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">#</a></h3>
+<p>On IntelliJ IDEA, flickering might happen during recalculation.
 The cause of this problem is as of yet unknown.</p>
 <p>As a workaround, enable the "Retrieve data for computing dependency version
 inlay hints in read action" advanced setting in the <i>uv</i> subpanel.</p>
-<p>This workaround has the disadvantage of delaying
-the computation of other inlay hint providers,
-causing a "synchronous execution under read action" exception.
+<p>This workaround has the disadvantage of delaying other inlay hint providers,
+causing a "synchronous execution under read action" exception to be logged.
 Unless the delay proves to be a problem, you can safely ignore this warning.</p>
-</div>
-<h3 id="dependency-groups">Dependency groups<a class="headerlink" href="#dependency-groups" title="Permanent link">#</a></h3>
+<h2 id="dependency-groups">Dependency groups<a class="headerlink" href="#dependency-groups" title="Permanent link">#</a></h2>
 <p><a href="https://peps.python.org/pep-0735/">PEP 735</a> dependency groups are supported
 using a number of features.</p>
-<h4 id="language-injection_1">Language injection<a class="headerlink" href="#language-injection_1" title="Permanent link">#</a></h4>
+<h3 id="language-injection_1">Language injection<a class="headerlink" href="#language-injection_1" title="Permanent link">#</a></h3>
 <p>See <a href="#requirements-arrays-in-toml-files">&sect; <i>Requirements arrays in TOML files</i></a>.</p>
 <p><img alt="" src="../assets/features-dependency-groups-language-injection.png" /></p>
-<h4 id="references-finding">References finding<a class="headerlink" href="#references-finding" title="Permanent link">#</a></h4>
+<h3 id="references-finding">References finding<a class="headerlink" href="#references-finding" title="Permanent link">#</a></h3>
 <p>On focus, an included group's name will be highlighted
 along with that group's declaration and vice versa.</p>
 <p><img alt="" src="../assets/features-dependency-groups-references-finding.png" /></p>
-<h4 id="one-click-install-via-line-markers">One-click-install via line markers<a class="headerlink" href="#one-click-install-via-line-markers" title="Permanent link">#</a></h4>
+<h3 id="one-click-install-via-line-markers">One-click-install via line markers<a class="headerlink" href="#one-click-install-via-line-markers" title="Permanent link">#</a></h3>
 <p>Dependency groups can be installed
 using their corresponding icons in the gutter.
-The icon corresponding to the <code>[dependency-groups]</code>
+The icon next to the <code>[dependency-groups]</code>
 table header installs all groups.</p>
 <p>This is equivalent to running <code>uv sync --group ...</code>/<code>uv sync --all-groups</code>
 at the project's path.</p>
 <p><img alt="" src="../assets/features-dependency-groups-line-markers.png" /></p>
-<h4 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permanent link">#</a></h4>
+<h3 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permanent link">#</a></h3>
 <p>Errors will be reported for a dependency group if:</p>
 <ul>
 <li>It includes an invalid group.</li>
@@ -1511,7 +1538,7 @@ at the project's path.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "navigation.expand", "navigation.footer", "navigation.indexes", "search.suggest"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.tracking", "search.suggest"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
