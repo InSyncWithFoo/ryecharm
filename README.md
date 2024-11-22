@@ -65,14 +65,15 @@ Currently supported versions:
 
 Parts of this repository were taken or derived from:
 
+* [@alexander-doroshko/intellij-lsp-plugin-example][14]
 * [@astral-sh/ruff][1]
 * [@astral-sh/rye][3]
 * [@astral-sh/uv][2]
-* [@JetBrains/intellij-community][14]
-* [@JetBrains/intellij-platform-plugin-template][15]
-* [@koxudaxi/poetry-pycharm-plugin][16]
-* [@koxudaxi/ruff-pycharm-plugin][17]
-* [@lensvol/intellij-blackconnect][18]
+* [@JetBrains/intellij-community][15]
+* [@JetBrains/intellij-platform-plugin-template][16]
+* [@koxudaxi/poetry-pycharm-plugin][17]
+* [@koxudaxi/ruff-pycharm-plugin][18]
+* [@lensvol/intellij-blackconnect][19]
 
 
   [5]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml
@@ -84,8 +85,9 @@ Parts of this repository were taken or derived from:
   [11]: https://github.com/InSyncWithFoo/ryecharm/tree/build
   [12]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml
   [13]: https://www.jetbrains.com/help/pycharm/managing-plugins.html#install_plugin_from_disk
-  [14]: https://github.com/JetBrains/intellij-community
-  [15]: https://github.com/JetBrains/intellij-platform-plugin-template
-  [16]: https://github.com/koxudaxi/poetry-pycharm-plugin
-  [17]: https://github.com/koxudaxi/ruff-pycharm-plugin
-  [18]: https://github.com/lensvol/intellij-blackconnect
+  [14]: https://github.com/alexander-doroshko/intellij-lsp-plugin-example
+  [15]: https://github.com/JetBrains/intellij-community
+  [16]: https://github.com/JetBrains/intellij-platform-plugin-template
+  [17]: https://github.com/koxudaxi/poetry-pycharm-plugin
+  [18]: https://github.com/koxudaxi/ruff-pycharm-plugin
+  [19]: https://github.com/lensvol/intellij-blackconnect
