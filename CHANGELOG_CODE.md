@@ -27,7 +27,7 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 * [LSP4IJ][_0.1.0-a4-d1]: 0.5.0 &rarr; 0.7.0
 * [@astral-sh/setup-uv][_0.1.0-a4-d2]: 3.1.0 &rarr; 3
 * [`annotations`][_0.1.0-a4-d3]: 24.1.0 &rarr; 26.0.1
-* [Gradle][_0.1.0-a4-d4]: 8.10 &rarr; 8.11
+* [Gradle][_0.1.0-a4-d4]: 8.10 &rarr; 8.11.1
 * [IntelliJ Platform Gradle Plugin][_0.1.0-a4-d5]: 2.0.1 &rarr; 2.1.0
 * [Qodana][_0.1.0-a4-d6]: 2024.2.3 &rarr; 2024.2
 * [Kotlin JVM plugin][_0.1.0-a4-d7]: 2.0.20 &rarr; 2.0.21
