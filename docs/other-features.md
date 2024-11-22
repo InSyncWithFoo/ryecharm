@@ -87,7 +87,7 @@ The new content will be written back when this editor is closed.
     ![](./assets/features-edit-script-metadata-fragment-demo-new-editor.png)
 
 
-### Installed version inlay hints
+## Installed version inlay hints
 
 In `pyproject.toml` and `uv.toml` files,
 elements of dependency specifier arrays
@@ -111,34 +111,34 @@ This applies to the following arrays
 This is equivalent to running `uv pip list` at the project's path
 with the corresponding interpreter as argument, if any.
 
-!!! note
 
-    On IntelliJ IDEA, flickering might happen during computation.
-    The cause of this problem is as of yet unknown.
-    
-    As a workaround, enable the "Retrieve data for computing dependency version
-    inlay hints in read action" advanced setting in the <i>uv</i> subpanel.
+### Limitations
 
-    This workaround has the disadvantage of delaying
-    the computation of other inlay hint providers,
-    causing a "synchronous execution under read action" exception.
-    Unless the delay proves to be a problem, you can safely ignore this warning.
+On IntelliJ IDEA, flickering might happen during recalculation.
+The cause of this problem is as of yet unknown.
+
+As a workaround, enable the "Retrieve data for computing dependency version
+inlay hints in read action" advanced setting in the <i>uv</i> subpanel.
+
+This workaround has the disadvantage of delaying other inlay hint providers,
+causing a "synchronous execution under read action" exception to be logged.
+Unless the delay proves to be a problem, you can safely ignore this warning.
 
 
-### Dependency groups
+## Dependency groups
 
 [PEP 735][10] dependency groups are supported
 using a number of features.
 
 
-#### Language injection
+### Language injection
 
 See [&sect; <i>Requirements arrays in TOML files</i>][11].
 
 ![](./assets/features-dependency-groups-language-injection.png)
 
 
-#### References finding
+### References finding
 
 On focus, an included group's name will be highlighted
 along with that group's declaration and vice versa.
@@ -146,11 +146,11 @@ along with that group's declaration and vice versa.
 ![](./assets/features-dependency-groups-references-finding.png)
 
 
-#### One-click-install via line markers
+### One-click-install via line markers
 
 Dependency groups can be installed
 using their corresponding icons in the gutter.
-The icon corresponding to the `[dependency-groups]`
+The icon next to the `[dependency-groups]`
 table header installs all groups.
 
 This is equivalent to running `uv sync --group ...`/`uv sync --all-groups`
@@ -159,7 +159,7 @@ at the project's path.
 ![](./assets/features-dependency-groups-line-markers.png)
 
 
-#### Inspection
+### Inspection
 
 Errors will be reported for a dependency group if:
 

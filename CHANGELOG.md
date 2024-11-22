@@ -11,12 +11,17 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 
 ## [Unreleased]
 
+<i>This section is currently empty.</i>
+
+
+## [0.1.0-alpha-4] - 2024-11-22
+
 See [the documentation][0.1.0-a4-1] for more information.
 
 Latest tool versions at the time of release:
 
 * Ruff: [0.7.4][0.1.0-a4-2]
-* uv: [0.5.2][0.1.0-a4-3]
+* uv: [0.5.4][0.1.0-a4-3]
 * Rye: [0.42.0][0.1.0-a4-4]
 
 
@@ -95,11 +100,14 @@ Latest tool versions at the time of release:
   Previously, a threading error would be reported.
 * Ruff's violation fixes with multiple edits are now applied correctly
   in <i>Command line</i> mode.
+* The plugin now creates an informational-only
+  project generation panel on IntelliJ IDEA.
+  Previously, a `RuntimeException` would be thrown.
 
 
   [0.1.0-a4-1]: https://insyncwithfoo.github.io/ryecharm/
   [0.1.0-a4-2]: https://github.com/astral-sh/ruff/releases/tag/0.7.4
-  [0.1.0-a4-3]: https://github.com/astral-sh/uv/releases/tag/0.5.2
+  [0.1.0-a4-3]: https://github.com/astral-sh/uv/releases/tag/0.5.4
   [0.1.0-a4-4]: https://github.com/astral-sh/rye/releases/tag/0.42.0
   [0.1.0-a4-a-1]: https://peps.python.org/pep-0735/
   [0.1.0-a4-a-2]: https://packaging.python.org/en/latest/specifications/name-normalization/#name-normalization
@@ -261,7 +269,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..HEAD
+  [0.1.0-alpha-4]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..v0.1.0-alpha-4
   [0.1.0-alpha-3]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-2..v0.1.0-alpha-3
   [0.1.0-alpha-2]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-1..v0.1.0-alpha-2
   [0.1.0-alpha-1]: https://github.com/InSyncWithFoo/ryecharm/commits

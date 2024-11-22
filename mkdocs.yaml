@@ -33,6 +33,8 @@ theme:
     - navigation.expand
     - navigation.footer
     - navigation.indexes
+    - navigation.instant
+    - navigation.tracking
     - search.suggest
 
 markdown_extensions:
