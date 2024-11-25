@@ -21,6 +21,7 @@ import insyncwithfoo.ryecharm.rye.commands.homeDirectory
 import insyncwithfoo.ryecharm.uv.generator.ProjectKind
 import java.nio.file.Path
 import kotlin.io.path.div
+import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
 
 
@@ -155,7 +156,7 @@ internal class UV private constructor(
 
 
 private val Rye.Companion.uvSubdirectory: Path?
-    get() = homeDirectory?.let { it / "uv" }
+    get() = homeDirectory?.let { it / "uv" }?.takeIf { it.isDirectory() }
 
 
 private val Rye.Companion.latestUVSubdirectory: Path?
