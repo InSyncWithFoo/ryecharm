@@ -145,7 +145,7 @@ internal class Ruff private constructor(
 
 
 internal fun Ruff.Companion.detectExecutable() =
-    Rye.binaryDirectory?.findExecutableChild("ruff") ?: findExecutableInPath("ruff")
+    findExecutableInPath("ruff") ?: Rye.binaryDirectory?.findExecutableChild("ruff")
 
 
 internal val Project.ruff: Ruff?

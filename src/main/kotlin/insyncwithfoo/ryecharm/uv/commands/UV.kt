@@ -164,7 +164,7 @@ private val Rye.Companion.latestUVSubdirectory: Path?
 
 
 internal fun UV.Companion.detectExecutable() =
-    Rye.latestUVSubdirectory?.findExecutableChild("uv") ?: findExecutableInPath("uv")
+    findExecutableInPath("uv") ?: Rye.latestUVSubdirectory?.findExecutableChild("uv") 
 
 
 internal val Project.uv: UV?
