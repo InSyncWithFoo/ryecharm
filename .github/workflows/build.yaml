@@ -165,7 +165,7 @@ jobs:
           version: latest
       -
         name: Set up uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v4
       -
         name: Set up Ruff
         run: |
