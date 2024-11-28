@@ -147,7 +147,7 @@ jobs:
           java-version: 21
       -
         name: Clear Gradle home cache
-        if: matrix.platform == 'windows-latest'
+        if: matrix.platform == 'windows-latest' && github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
