@@ -227,7 +227,6 @@ jobs:
     name: Verify
     needs: [ build ]
     runs-on: ubuntu-latest
-    continue-on-error: true
     
     steps:
       -
@@ -256,6 +255,7 @@ jobs:
           key: plugin-verifier-${{ hashFiles('build/listProductsReleases.txt') }}
       -
         name: Run verifier
+        continue-on-error: true
         run: |
           chmod +x ./gradlew
           ./gradlew verifyPlugin -Dplugin.verifier.home.dir=${{ needs.build.outputs.pluginVerifierHomeDir }}
