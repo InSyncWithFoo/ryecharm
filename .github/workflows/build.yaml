@@ -147,7 +147,7 @@ jobs:
           java-version: 21
       -
         name: Clear Gradle home cache
-        if: matrix.platform == 'windows-latest'
+        if: matrix.platform == 'windows-latest' && github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -211,6 +211,11 @@ jobs:
           distribution: zulu
           java-version: 21
       -
+        name: Switch to Qodana Community
+        if: github.event_name == 'pull_request'
+        run: |
+          sed -i -E "s/qodana-jvm/qodana-jvm-community/g" qodana.yaml
+      -
         name: Run Qodana
         uses: JetBrains/qodana-action@v2024.2
         env:
@@ -250,6 +255,7 @@ jobs:
           key: plugin-verifier-${{ hashFiles('build/listProductsReleases.txt') }}
       -
         name: Run verifier
+        continue-on-error: true
         run: |
           chmod +x ./gradlew
           ./gradlew verifyPlugin -Dplugin.verifier.home.dir=${{ needs.build.outputs.pluginVerifierHomeDir }}

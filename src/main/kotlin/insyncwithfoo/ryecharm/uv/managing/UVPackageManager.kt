@@ -32,7 +32,6 @@ import insyncwithfoo.ryecharm.uv.parsePipListOutput
 internal class UVPackageManager(private val uv: UV, project: Project, sdk: Sdk) : PythonPackageManager(project, sdk) {
     
     override var installedPackages: List<PythonPackage> = emptyList()
-        private set
     
     override val repositoryManager by lazy { PipRepositoryManager(project, sdk) }
     
