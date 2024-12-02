@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/icon-black.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
@@ -1097,7 +1097,13 @@ While RyeCharm will try to maintain consistency where possible,
 a few features/settings are only available in one mode but not another.</p>
 <p>The default mode is <i>Command line</i>.
 However, it is recommended to use either of the other two modes
-for performance and technical reasons.</p>
+for performance and technical reasons:</p>
+<ul>
+<li>If you are using a paid IDE, prefer the <i>Native LSP client</i> mode,
+  especially if other language server plugins, bundled or third-party,
+  are present. This will help avoiding class loading errors (see below).</li>
+<li>Otherwise, prefer the <i>LSP4IJ</i> mode.</li>
+</ul>
 <p>See <i><a href="../linting/">Linting</a></i> and <i><a href="../formatting/">Formatting</a></i> for more information.</p>
 <h2 id="command-line-mode"><i>Command line</i> mode<a class="headerlink" href="#command-line-mode" title="Permanent link">#</a></h2>
 <p>In <i>Command line</i> mode, RyeCharm will invoke
@@ -1105,7 +1111,7 @@ the provided executable to retrieve necessary information
 for linting, formatting and <code># noqa</code> documentation popups.</p>
 <p>This is in contrary to the language server modes,
 in which there is only one long-running process
-that handles such operations via the language server protocol (LSP).</p>
+that handles these operations via the language server protocol (LSP).</p>
 <p>For features not directly available via LSP,
 the executable will still be invoked.
 This is done to provide a consistent experience across all modes.</p>
