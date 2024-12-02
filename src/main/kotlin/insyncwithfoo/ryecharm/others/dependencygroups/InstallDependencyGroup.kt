@@ -4,7 +4,6 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.Project
-import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message

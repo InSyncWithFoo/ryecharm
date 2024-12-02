@@ -82,7 +82,7 @@ private class Coroutine(override val scope: CoroutineScope) : CoroutineService
  * Each of the aforementioned can be disabled
  * via [DependencyVersionInlayHintsCustomSettingsProvider].
  * 
- * @see Collector
+ * @see DependencyVersionInlayHintsCollector
  */
 internal class DependencyVersionInlayHintsProvider : InlayHintsProvider, DumbAware {
     

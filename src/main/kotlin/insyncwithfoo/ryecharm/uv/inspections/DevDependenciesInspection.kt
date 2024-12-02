@@ -28,6 +28,7 @@ private class Visitor(private val holder: ProblemsHolder) : TomlVisitor() {
         }
     }
     
+    @Suppress("DialogTitleCapitalization")
     private fun report(element: TomlKey) {
         val message = message("inspections.uvDevDependencies.message")
         val problemHighlightType = ProblemHighlightType.WARNING

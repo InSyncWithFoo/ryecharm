@@ -7,7 +7,12 @@ a few features/settings are only available in one mode but not another.
 
 The default mode is <i>Command line</i>.
 However, it is recommended to use either of the other two modes
-for performance and technical reasons.
+for performance and technical reasons:
+
+* If you are using a paid IDE, prefer the <i>Native LSP client</i> mode,
+  especially if other language server plugins, bundled or third-party,
+  are present. This will help avoiding class loading errors (see below).
+* Otherwise, prefer the <i>LSP4IJ</i> mode.
 
 See <i>[Linting][1]</i> and <i>[Formatting][2]</i> for more information.
 
@@ -20,7 +25,7 @@ for linting, formatting and `# noqa` documentation popups.
 
 This is in contrary to the language server modes,
 in which there is only one long-running process
-that handles such operations via the language server protocol (LSP).
+that handles these operations via the language server protocol (LSP).
 
 For features not directly available via LSP,
 the executable will still be invoked.

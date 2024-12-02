@@ -7,11 +7,11 @@ from typing import ClassVar, cast
 
 class Changelog:
 	_pattern: ClassVar[re.Pattern[str]] = re.compile(
-		r"""(?mix)
+		r'''(?mix)
 		^\#\#\x20\[([^[\]]+)].*\n
 		((?s:.)+?)
 		(?=\n\#\#\x20|\n\x20\x20\[Unreleased])
-		"""
+		'''
 	)
 	
 	_text: str
@@ -30,7 +30,7 @@ class Changelog:
 		return {match[1]: match[2].strip() for match in matches}
 	
 	def get_section_or_unreleased(self, version: str) -> str:
-		return cast(str, self[version] or self["Unreleased"])
+		return cast(str, self[version] or self['Unreleased'])
 
 
 class Changelogs:
@@ -40,18 +40,18 @@ class Changelogs:
 	def __init__(self) -> None:
 		root = Path(__file__).parent.parent
 		
-		self.user = Changelog(root / "CHANGELOG.md")
-		self.code = Changelog(root / "CHANGELOG_CODE.md")
+		self.user = Changelog(root / 'CHANGELOG.md')
+		self.code = Changelog(root / 'CHANGELOG_CODE.md')
 	
 	def get_changelog_for(self, version: str) -> str:
-		return "\n".join(
+		return '\n'.join(
 			[
-				"## For users",
-				"",
+				'## For users',
+				'',
 				self.user.get_section_or_unreleased(version),
-				"\n",
-				"## For contributors",
-				"",
+				'\n',
+				'## For contributors',
+				'',
 				self.code.get_section_or_unreleased(version),
 			]
 		)
@@ -61,5 +61,5 @@ def main(version: str) -> None:
 	print(Changelogs().get_changelog_for(version))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 	main(sys.argv[1])

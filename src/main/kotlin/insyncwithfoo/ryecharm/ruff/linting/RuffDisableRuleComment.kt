@@ -31,14 +31,13 @@ private fun MatchGroup.toFragment(baseOffset: Int): NoqaCommentFragment {
 
 // FIXME: Merge this.
 /**
- * A fork of the synonymous class in
- * the `documentation.noqa` package.
+ * A fork of the synonymous class in the parent package.
  * 
  * They are only separated because their purposes
  * are not the same, and that the parsing algorithms for
  * file-level and line-level comments are subtly different.
  * 
- * @see insyncwithfoo.ryecharm.ruff.documentation.noqa.NoqaComment
+ * @see insyncwithfoo.ryecharm.ruff.NoqaComment
  */
 private class NoqaComment(private val codes: Set<RuleCode>) {
     
