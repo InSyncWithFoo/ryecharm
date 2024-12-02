@@ -10,6 +10,7 @@ import com.intellij.ui.dsl.builder.bindIntValue
 import com.intellij.ui.dsl.builder.bindItem
 import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.toMutableProperty
+import com.intellij.ui.dsl.builder.toNonNullableProperty
 import com.intellij.ui.dsl.builder.toNullableProperty
 import javax.swing.JComponent
 import kotlin.reflect.KMutableProperty0
@@ -21,13 +22,13 @@ private fun <T> KMutableProperty0<T?>.toNonNullableProperty(getDefaultValue: () 
 }
 
 
-private inline fun <C : JComponent, reified T : Any> Cell<C>.bind(property: KMutableProperty0<T?>): Cell<C> {
+internal inline fun <C : JComponent, reified T : Any> Cell<C>.bind(property: KMutableProperty0<T?>): Cell<C> {
     return bind(property.toNullableProperty(defaultValue = T::class.createInstance()))
 }
 
 
-internal fun <C : JComponent> Cell<C>.bindText(property: KMutableProperty0<String?>): Cell<C> {
-    return bind(property)
+internal fun <C : TextFieldWithBrowseButton> Cell<C>.bindText(property: KMutableProperty0<String?>): Cell<C> {
+    return bindText(property.toNonNullableProperty(""))
 }
 
 

@@ -5,7 +5,6 @@ import com.intellij.openapi.util.SystemInfo
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
 import kotlin.io.path.div
-import kotlin.io.path.exists
 import kotlin.io.path.getLastModifiedTime
 import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
@@ -47,7 +46,7 @@ internal fun String.toOSDependentFileName() = when {
 
 
 internal fun Path.toNullIfNotExists() =
-    this.takeIf { it.exists() }
+    this.takeIf { it.toFile().exists() }
 
 
 private fun Path.directoryIsEmpty() = listDirectoryEntries().isEmpty()
