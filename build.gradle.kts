@@ -67,9 +67,6 @@ dependencies {
         plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         
         jetbrainsRuntime()
-        instrumentationTools()
-        pluginVerifier()
-        zipSigner()
         testFramework(TestFrameworkType.Platform)
     }
 }
