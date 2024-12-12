@@ -29,7 +29,7 @@ type _Executable = Literal['ruff', 'uv', 'uvx', 'rye']
 _rye_version_details = re.compile(
 	r'''(?mx)
 	^rye\s+(?P<version>\S+)\n
-	.*?(?P=version)\s*(?P<commit_and_date>.+)
+	.*\s*(?P<commit_and_date>\(.+\))$
 	'''
 )
 
