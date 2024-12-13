@@ -39,8 +39,6 @@ private fun RyePanel.makeComponent() = panel {
         overrideCheckbox(state::executable)
     }
     
-    timeoutGroup(state.timeouts, RyeTimeouts.entries)
-    
 }
 
 

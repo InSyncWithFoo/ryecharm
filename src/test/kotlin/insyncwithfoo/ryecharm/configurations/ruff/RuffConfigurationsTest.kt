@@ -1,8 +1,6 @@
 package insyncwithfoo.ryecharm.configurations.ruff
 
-import insyncwithfoo.ryecharm.MillisecondsOrNoLimit
 import insyncwithfoo.ryecharm.configurations.ConfigurationsTest
-import insyncwithfoo.ryecharm.configurations.SettingName
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -13,7 +11,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 30) {
+        doShapeTest(expectedSize = 29) {
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
             assertEquals(null, configurationFile)
@@ -52,8 +50,6 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
             
             assertEquals(true, autoRestartServers)
             assertEquals(false, snoozeFormattingTaskError)
-            
-            assertEquals(emptyMap<SettingName, MillisecondsOrNoLimit>(), timeouts)
         }
     }
     

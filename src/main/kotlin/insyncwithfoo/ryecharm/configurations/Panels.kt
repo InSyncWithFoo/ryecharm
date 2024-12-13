@@ -1,24 +1,14 @@
 package insyncwithfoo.ryecharm.configurations
 
 import com.intellij.openapi.project.Project
-import com.intellij.ui.JBIntSpinner
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Panel
-import com.intellij.ui.dsl.builder.RightGap
 import com.intellij.ui.dsl.builder.Row
-import com.intellij.ui.dsl.builder.RowLayout
-import com.intellij.ui.dsl.builder.TopGap
 import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.selected
-import insyncwithfoo.ryecharm.Commented
-import insyncwithfoo.ryecharm.Keyed
-import insyncwithfoo.ryecharm.bindIntValue
-import insyncwithfoo.ryecharm.configurations.HasTimeouts.Companion.addTimeoutPrefix
 import insyncwithfoo.ryecharm.message
-import javax.swing.JComponent
-import javax.swing.JLabel
 import kotlin.reflect.KMutableProperty0
 import kotlin.reflect.full.declaredMemberProperties
 
@@ -32,19 +22,6 @@ private val Row.cells: List<Cell<*>>?
         
         return cells?.filterIsInstance<Cell<*>>()
     }
-
-
-private fun <C : JComponent> Cell<C>.forceAlignRight() = this.apply {
-    align(AlignX.RIGHT)
-    resizableColumn()
-}
-
-
-private fun Panel.visuallySeparatedRow(block: Row.() -> Unit) = row {
-    layout(RowLayout.LABEL_ALIGNED)
-    topGap(TopGap.SMALL)
-    block()
-}
 
 
 private fun Row.rightAligningOverrideCheckbox(block: Cell<JBCheckBox>.() -> Unit) =
@@ -97,47 +74,6 @@ internal abstract class AdaptivePanel<S>(val state: S, private val overrides: Ov
     @Suppress("DialogTitleCapitalization")
     fun Panel.advancedSettingsGroup(init: Panel.() -> Unit) {
         collapsibleGroup(message("configurations.groups.advanced"), init = init)
-    }
-    
-    @Suppress("DialogTitleCapitalization")
-    fun <E> Panel.timeoutGroup(timeouts: TimeoutMap, entries: List<E>) where E : Commented, E : Keyed {
-        collapsibleGroup(message("configurations.timeouts.groupName"), indent = true) {
-            row { label(message("configurations.timeouts.note")) }
-            
-            timeoutRows(timeouts, entries)
-        }
-    }
-    
-    private fun <E> Panel.timeoutRows(map: TimeoutMap, entries: List<E>) where E : Commented, E : Keyed {
-        val keys = entries.map { it.key }
-        val labels = entries.associate { it.key to it.label }
-        val comments = entries.associate { it.key to it.comment }
-        
-        keys.forEach { key ->
-            timeoutRow(map, key, labels[key]!!, comments[key]!!)
-        }
-    }
-    
-    @Suppress("DialogTitleCapitalization")
-    private fun Panel.timeoutRow(map: TimeoutMap, key: SettingName, label: String, comment: String) {
-        visuallySeparatedRow {
-            timeoutLabel(message("configurations.timeouts.label", label)) {
-                comment(message("configurations.timeouts.comment", comment))
-            }
-            timeoutInput { bindIntValue(map, key, defaultValue = HasTimeouts.NO_LIMIT) }
-            label(message("configurations.timeouts.unit"))
-            timeoutOverrideCheckbox(key)
-        }
-    }
-    
-    private fun Row.timeoutLabel(text: String, block: Cell<JLabel>.() -> Unit) =
-        label(text).gap(RightGap.SMALL).apply(block)
-    
-    private fun Row.timeoutInput(block: Cell<JBIntSpinner>.() -> Unit) =
-        spinner(-1..3_600_000, step = 100).forceAlignRight().gap(RightGap.SMALL).apply(block)
-    
-    private fun Row.timeoutOverrideCheckbox(settingName: SettingName) {
-        overrideCheckbox(settingName.addTimeoutPrefix())
     }
     
 }

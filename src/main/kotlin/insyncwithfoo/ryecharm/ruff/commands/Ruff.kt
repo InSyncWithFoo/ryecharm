@@ -4,11 +4,7 @@ import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
-import insyncwithfoo.ryecharm.CommandWithTimeout
-import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.globalRuffExecutable
-import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurable
-import insyncwithfoo.ryecharm.configurations.ruff.globalRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruffExecutable
 import insyncwithfoo.ryecharm.findExecutableChild
@@ -20,17 +16,7 @@ import insyncwithfoo.ryecharm.rye.commands.binaryDirectory
 import java.nio.file.Path
 
 
-internal interface RuffCommand : CommandWithTimeout {
-    
-    override val configurable: Class<out PanelBasedConfigurable<*>>
-        get() = RuffConfigurable::class.java
-    
-    override fun getTimeout(project: Project?) = when {
-        project?.isDefault != false -> globalRuffConfigurations.timeouts[timeoutKey]
-        else -> project.ruffConfigurations.timeouts[timeoutKey]
-    }
-    
-}
+internal interface RuffCommand
 
 
 internal class Ruff private constructor(

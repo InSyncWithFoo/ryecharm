@@ -13,10 +13,7 @@ import com.jetbrains.python.sdk.PythonSdkType
 import com.jetbrains.python.sdk.PythonSdkUtil
 import com.jetbrains.python.sdk.excludeInnerVirtualEnv
 import com.jetbrains.python.sdk.getOrCreateAdditionalData
-import insyncwithfoo.ryecharm.configurations.HasTimeouts
 import insyncwithfoo.ryecharm.configurations.changeGlobalUVConfigurations
-import insyncwithfoo.ryecharm.configurations.uv.UVTimeouts
-import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.invokeLater
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.message
@@ -122,9 +119,7 @@ internal class VenvCreator(private val uvExecutable: Path, private val projectPa
         val uv = UV.create(uvExecutable, projectPath)
         
         val command = uv.venv(baseInterpreterPath)
-        val timeout = globalUVConfigurations.timeouts[UVTimeouts.VENV.key] ?: HasTimeouts.NO_LIMIT
-        
-        val output = command.run(timeout)  // FIXME: Run this properly
+        val output = command.run()
         
         when (val newVenvName = extractNewVenvName(output)) {
             null -> invokeLater { somethingIsWrong(message("messages.uvReportedError.body")) }

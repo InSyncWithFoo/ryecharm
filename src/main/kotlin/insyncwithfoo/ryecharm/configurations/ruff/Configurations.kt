@@ -1,11 +1,7 @@
 package insyncwithfoo.ryecharm.configurations.ruff
 
-import insyncwithfoo.ryecharm.Commented
-import insyncwithfoo.ryecharm.Keyed
 import insyncwithfoo.ryecharm.Labeled
-import insyncwithfoo.ryecharm.MillisecondsOrNoLimit
 import insyncwithfoo.ryecharm.configurations.DisplayableState
-import insyncwithfoo.ryecharm.configurations.HasTimeouts
 import insyncwithfoo.ryecharm.configurations.ProjectOverrideState
 import insyncwithfoo.ryecharm.configurations.SettingName
 import insyncwithfoo.ryecharm.message
@@ -51,7 +47,7 @@ internal enum class LogLevel(override val label: String) : Labeled {
 }
 
 
-internal class RuffConfigurations : DisplayableState(), HasTimeouts {
+internal class RuffConfigurations : DisplayableState() {
     var executable by string(null)
     var crossPlatformExecutableResolution by property(true)
     var configurationFile by string(null)
@@ -90,21 +86,6 @@ internal class RuffConfigurations : DisplayableState(), HasTimeouts {
     
     var autoRestartServers by property(true)
     var snoozeFormattingTaskError by property(false)
-    
-    override var timeouts by map<SettingName, MillisecondsOrNoLimit>()
-}
-
-
-internal enum class RuffTimeouts(override val key: String, override val comment: String) : Keyed, Commented {
-    CHECK("check", message("configurations.timeouts.ruff.check")),
-    FORMAT("format", message("configurations.timeouts.ruff.format")),
-    CLEAN("clean", message("configurations.timeouts.ruff.clean")),
-    RULE("rule", message("configurations.timeouts.ruff.rule")),
-    CONFIG("config", message("configurations.timeouts.ruff.config")),
-    LINTER("linter", message("configurations.timeouts.ruff.linter")),
-    VERSION("version", message("configurations.timeouts.ruff.version"));
-    
-    override val label by ::key
 }
 
 

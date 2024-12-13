@@ -4,8 +4,6 @@ import com.intellij.openapi.components.BaseState
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
-import insyncwithfoo.ryecharm.MillisecondsOrNoLimit
-import insyncwithfoo.ryecharm.configurations.HasTimeouts.Companion.removeTimeoutPrefix
 import kotlinx.serialization.SerialName
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
@@ -16,7 +14,6 @@ import kotlin.reflect.jvm.isAccessible
 
 internal typealias SettingName = String
 internal typealias Overrides = MutableMap<SettingName, Boolean>
-internal typealias TimeoutMap = MutableMap<SettingName, MillisecondsOrNoLimit>
 
 
 internal fun Overrides.add(name: SettingName) {
@@ -56,30 +53,6 @@ internal abstract class DisplayableState : BaseState(), Copyable {
 }
 
 
-internal interface HasTimeouts {
-    
-    var timeouts: TimeoutMap
-    
-    companion object {
-        
-        private const val SETTING_NAME_PREFIX = "timeout."
-        
-        const val NO_LIMIT = -1
-        
-        private val SettingName.isTimeoutSetting: Boolean
-            get() = this.startsWith(SETTING_NAME_PREFIX)
-        
-        internal fun SettingName.addTimeoutPrefix(): SettingName =
-            SETTING_NAME_PREFIX + this
-        
-        internal fun SettingName.removeTimeoutPrefix(): SettingName? =
-            this.removePrefix(SETTING_NAME_PREFIX).takeIf { this.isTimeoutSetting }
-        
-    }
-    
-}
-
-
 private fun <T> KProperty1<T, *>.makeAccessible() =
     this.apply { isAccessible = true }
 
@@ -91,7 +64,12 @@ internal val <S : BaseState> KClass<S>.fields: Map<String, KProperty1<S, *>>
 private inline fun <reified S : Any> applicationService() = service<S>()
 
 
-private inline fun <reified S : DisplayableState> S.mergeWithExcludingTimeouts(other: S, overrides: Overrides): S {
+/**
+ * Merge global and local states into a new state instance.
+ * 
+ * @receiver The global state. Will be copied.
+ */
+private inline fun <reified S : DisplayableState> S.mergeWith(other: S, overrides: Overrides): S {
     val all = this.copy()
     
     S::class.fields.forEach { (name, property) ->
@@ -99,31 +77,8 @@ private inline fun <reified S : DisplayableState> S.mergeWithExcludingTimeouts(o
             return@forEach
         }
         
-        if (this is HasTimeouts && name == ::timeouts.name) {
-            return@forEach
-        }
-        
         val overriddenValue = property.get(other)
         property.setter.call(all, overriddenValue)
-    }
-    
-    return all
-}
-
-
-/**
- * Merge global and local states into a new state instance.
- * 
- * @receiver The global state. Will be copied.
- */
-private inline fun <reified S : DisplayableState> S.mergeWith(other: S, overrides: Overrides): S {
-    val all = this.mergeWithExcludingTimeouts(other, overrides)
-    
-    if (this is HasTimeouts && other is HasTimeouts && all is HasTimeouts) {
-        val timeoutOverrides = overrides.keys.mapNotNull { it.removeTimeoutPrefix() }
-        val overridden = other.timeouts.filterKeys { it in timeoutOverrides }
-        
-        all.timeouts = (this.timeouts + overridden).toMutableMap()
     }
     
     return all

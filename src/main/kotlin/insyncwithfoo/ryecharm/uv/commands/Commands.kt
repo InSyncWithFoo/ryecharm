@@ -1,14 +1,12 @@
 package insyncwithfoo.ryecharm.uv.commands
 
 import insyncwithfoo.ryecharm.Command
-import insyncwithfoo.ryecharm.configurations.uv.UVTimeouts
 import insyncwithfoo.ryecharm.message
 
 
 internal class InitCommand : Command(), UVCommand {
     
     override val subcommand = "init"
-    override val timeoutKey = UVTimeouts.INIT.key
     
     override val runningMessage: String
         get() = message("progresses.command.uv.init")
@@ -19,7 +17,6 @@ internal class InitCommand : Command(), UVCommand {
 internal class AddCommand : Command(), UVCommand {
     
     override val subcommand = "add"
-    override val timeoutKey = UVTimeouts.ADD.key
     
     override val runningMessage: String
         get() = message("progresses.command.uv.add")
@@ -30,7 +27,6 @@ internal class AddCommand : Command(), UVCommand {
 internal class RemoveCommand : Command(), UVCommand {
     
     override val subcommand = "remove"
-    override val timeoutKey = UVTimeouts.REMOVE.key
     
     override val runningMessage: String
         get() = message("progresses.command.uv.remove")
@@ -41,7 +37,6 @@ internal class RemoveCommand : Command(), UVCommand {
 internal class UpgradeCommand : Command(), UVCommand {
     
     override val subcommand = "add"
-    override val timeoutKey = UVTimeouts.ADD.key
     
     override val runningMessage: String
         get() = message("progresses.command.uv.upgrade")
@@ -52,7 +47,6 @@ internal class UpgradeCommand : Command(), UVCommand {
 internal class SyncCommand : Command(), UVCommand {
     
     override val subcommand = "sync"
-    override val timeoutKey = UVTimeouts.SYNC.key
     
     override val runningMessage: String
         get() = message("progresses.command.uv.sync")
@@ -63,7 +57,6 @@ internal class SyncCommand : Command(), UVCommand {
 internal class VenvCommand : Command(), UVCommand {
     
     override val subcommand = "venv"
-    override val timeoutKey = UVTimeouts.VENV.key
     
     override val runningMessage: String
         get() = message("progresses.command.uv.venv")
@@ -74,7 +67,6 @@ internal class VenvCommand : Command(), UVCommand {
 internal class VersionCommand : Command(), UVCommand {
     
     override val subcommand = "version"
-    override val timeoutKey = UVTimeouts.VERSION.key
     
     override val runningMessage: String
         get() = message("progresses.command.uv.version")

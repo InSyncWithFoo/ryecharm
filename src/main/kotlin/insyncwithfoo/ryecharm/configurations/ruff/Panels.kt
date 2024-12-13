@@ -324,8 +324,6 @@ private fun RuffPanel.makeComponent() = panel {
         }
     }
     
-    timeoutGroup(state.timeouts, RuffTimeouts.entries)
-    
 }
 
 

@@ -5,11 +5,7 @@ import com.jetbrains.python.packaging.common.PythonPackageSpecification
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
-import insyncwithfoo.ryecharm.CommandWithTimeout
-import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.globalUVExecutable
-import insyncwithfoo.ryecharm.configurations.uv.UVConfigurable
-import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.configurations.uvExecutable
 import insyncwithfoo.ryecharm.findExecutableChild
@@ -29,17 +25,7 @@ internal fun PythonPackageSpecification.toPEP508Format() =
     name + versionSpecs.orEmpty()
 
 
-internal interface UVCommand : CommandWithTimeout {
-    
-    override val configurable: Class<out PanelBasedConfigurable<*>>
-        get() = UVConfigurable::class.java
-    
-    override fun getTimeout(project: Project?) = when {
-        project?.isDefault != false -> globalUVConfigurations.timeouts[timeoutKey]
-        else -> project.uvConfigurations.timeouts[timeoutKey]
-    }
-    
-}
+internal interface UVCommand
 
 
 internal class UV private constructor(

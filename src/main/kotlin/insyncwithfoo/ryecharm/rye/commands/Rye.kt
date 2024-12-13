@@ -4,12 +4,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.SystemInfo
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
-import insyncwithfoo.ryecharm.CommandWithTimeout
-import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.globalRyeExecutable
-import insyncwithfoo.ryecharm.configurations.rye.RyeConfigurable
-import insyncwithfoo.ryecharm.configurations.rye.globalRyeConfigurations
-import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
 import insyncwithfoo.ryecharm.configurations.ryeExecutable
 import insyncwithfoo.ryecharm.findExecutableInPath
 import insyncwithfoo.ryecharm.path
@@ -28,17 +23,7 @@ internal enum class VersionBumpType {
 }
 
 
-internal interface RyeCommand : CommandWithTimeout {
-    
-    override val configurable: Class<out PanelBasedConfigurable<*>>
-        get() = RyeConfigurable::class.java
-    
-    override fun getTimeout(project: Project?) = when {
-        project?.isDefault != false -> globalRyeConfigurations.timeouts[timeoutKey]
-        else -> project.ryeConfigurations.timeouts[timeoutKey]
-    }
-    
-}
+internal interface RyeCommand
 
 
 internal class Rye private constructor(

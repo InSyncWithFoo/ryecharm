@@ -98,12 +98,9 @@ private fun ErrorNotificationGroup.processTimeout(command: Command): Notificatio
 }
 
 
+// FIXME: This might never be reached, as timeouts are no longer configurable.
 internal fun Project.processTimeout(command: Command) =
-    errorNotificationGroup.processTimeout(command).runThenNotify(this) {
-        if (command is CommandWithTimeout) {
-            addOpenSettingsAction(this@processTimeout, command.configurable)
-        }
-    }
+    errorNotificationGroup.processTimeout(command).notify(this)
 
 
 private fun ErrorNotificationGroup.noProjectFound(): Notification {

@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm.uv.commands
 
 import insyncwithfoo.ryecharm.Command
-import insyncwithfoo.ryecharm.configurations.uv.UVTimeouts
 import insyncwithfoo.ryecharm.message
 
 
@@ -14,7 +13,6 @@ internal data class PythonInstallation(val name: String, val path: String? = nul
 internal class PythonListCommand : Command(), UVCommand {
     
     override val subcommand = "python"
-    override val timeoutKey = UVTimeouts.PYTHON_LIST.key
     
     override val runningMessage: String
         get() = message("progresses.command.uv.pythonlist")

@@ -1,6 +1,5 @@
 package insyncwithfoo.ryecharm
 
-import com.intellij.execution.process.ProcessOutput
 import java.nio.file.Path
 
 
@@ -30,11 +29,7 @@ internal fun command(
 
 internal class CommandContext(private val workingDirectory: Path) {
     
-    fun run(vararg fragments: String, stdin: String? = null): ProcessOutput {
-        val command = command(fragments.toList(), workingDirectory, stdin)
-        val noTimeout = -1
-        
-        return command.run(noTimeout)
-    }
+    fun run(vararg fragments: String, stdin: String? = null) =
+        command(fragments.toList(), workingDirectory, stdin).run()
     
 }

@@ -16,7 +16,6 @@ import com.jetbrains.python.black.BlackFormattingService
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.addOpenPluginIssueTrackerAction
 import insyncwithfoo.ryecharm.addSeeOutputActions
-import insyncwithfoo.ryecharm.configurations.ruff.RuffTimeouts
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.errorNotificationGroup
@@ -159,10 +158,6 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
     
     /**
      * Return the limit at which the process will be destroyed.
-     * 
-     * This method should ideally respect [RuffTimeouts.FORMAT],
-     * but it receives zero context and thus
-     * cannot retrieve the necessary information.
      * 
      * @see AsyncDocumentFormattingService.DEFAULT_TIMEOUT
      */

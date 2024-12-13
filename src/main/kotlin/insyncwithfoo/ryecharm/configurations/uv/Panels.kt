@@ -93,8 +93,6 @@ private fun UVPanel.makeComponent() = panel {
         }
     }
     
-    timeoutGroup(state.timeouts, UVTimeouts.entries)
-    
 }
 
 

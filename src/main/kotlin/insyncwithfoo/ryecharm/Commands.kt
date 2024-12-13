@@ -96,16 +96,17 @@ internal abstract class Command {
     
     override fun toString() = commandLine.commandLineString
     
-    fun run(timeout: MillisecondsOrNoLimit): ProcessOutput {
+    fun run(): ProcessOutput {
         LOGGER.logCommandInfo("Running: ($workingDirectory) $this")
         
-        return processHandler.runProcess(timeout).also {
+        return processHandler.runProcess(NO_TIME_LIMIT).also {
             LOGGER.logCommandInfo("Output: ${ProcessOutputSurrogate(it)}")
         }
     }
     
     companion object {
         protected val LOGGER = logger<Command>()
+        private const val NO_TIME_LIMIT = -1
     }
     
 }

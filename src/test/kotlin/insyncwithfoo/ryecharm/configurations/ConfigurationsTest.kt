@@ -30,15 +30,8 @@ internal abstract class ConfigurationsTest<C : BaseState> {
     }
     
     protected fun doMessagesTest(getKeyForName: (String) -> String) {
-        val state = this.state
-        
         fields.forEach { (name, _) ->
             val key = getKeyForName(name)
-            
-            if (state is HasTimeouts && name == state::timeouts.name) {
-                return@forEach
-            }
-            
             assertNotEquals("!$key!", message(key))
         }
     }

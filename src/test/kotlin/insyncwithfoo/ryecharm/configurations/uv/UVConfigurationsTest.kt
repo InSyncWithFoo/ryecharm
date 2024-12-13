@@ -1,8 +1,6 @@
 package insyncwithfoo.ryecharm.configurations.uv
 
-import insyncwithfoo.ryecharm.MillisecondsOrNoLimit
 import insyncwithfoo.ryecharm.configurations.ConfigurationsTest
-import insyncwithfoo.ryecharm.configurations.SettingName
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -13,7 +11,7 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 7) {
+        doShapeTest(expectedSize = 6) {
             assertEquals(null, executable)
             assertEquals(null, configurationFile)
             
@@ -22,8 +20,6 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
             
             assertEquals(false, retrieveDependenciesInReadAction)
             assertEquals(5, dependenciesDataMaxAge)
-            
-            assertEquals(emptyMap<SettingName, MillisecondsOrNoLimit>(), timeouts)
         }
     }
     
