@@ -2,6 +2,7 @@ package insyncwithfoo.ryecharm
 
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.notification.Notification
+import com.intellij.notification.NotificationGroup
 import com.intellij.openapi.project.Project
 import java.nio.file.Path
 
@@ -39,7 +40,7 @@ internal fun Project.notifyProcessResult(command: Command, output: ProcessOutput
     }
 
 
-internal fun ErrorNotificationGroup.genericWarning(content: String) =
+internal fun NotificationGroup.genericWarning(content: String) =
     warning(message("notifications.warning.title"), content)
 
 
@@ -50,14 +51,14 @@ internal fun Project.notifyWarningsFromOutput(output: ProcessOutput) {
     warnings.forEach {
         val content = it.groups[1]!!.value
         
-        errorNotificationGroup.genericWarning(content).runThenNotify(this) {
+        importantNotificationGroup.genericWarning(content).runThenNotify(this) {
             addSeeOutputActions(output)
         }
     }
 }
 
 
-private fun InformationNotificationGroup.processCompletedSuccessfully(content: String? = null): Notification {
+private fun NotificationGroup.processCompletedSuccessfully(content: String? = null): Notification {
     val title = message("notifications.successful.title")
     val defaultContent = message("notifications.successful.body")
     
@@ -69,10 +70,10 @@ private fun InformationNotificationGroup.processCompletedSuccessfully(content: S
 
 
 internal fun Project.processCompletedSuccessfully(content: String? = null) =
-    informationNotificationGroup.processCompletedSuccessfully(content).notify(this)
+    unimportantNotificationGroup.processCompletedSuccessfully(content).notify(this)
 
 
-private fun ErrorNotificationGroup.unknownError(
+private fun NotificationGroup.unknownError(
     command: Command,
     processOutput: ProcessOutput? = null
 ): Notification {
@@ -88,67 +89,67 @@ private fun ErrorNotificationGroup.unknownError(
 
 
 internal fun Project.unknownError(command: Command, processOutput: ProcessOutput? = null) =
-    errorNotificationGroup.unknownError(command, processOutput).notify(this)
+    importantNotificationGroup.unknownError(command, processOutput).notify(this)
 
 
-private fun ErrorNotificationGroup.processTimeout(command: Command): Notification {
+private fun NotificationGroup.processTimeout(command: Command): Notification {
     val title = message("notifications.processTimeout.title")
-    val content = message("notifications.processTimeout.body", command)
+    val body = message("notifications.processTimeout.body", command)
     
-    return warning(title, content)
+    return warning(title, body)
 }
 
 
 // FIXME: This might never be reached, as timeouts are no longer configurable.
 internal fun Project.processTimeout(command: Command) =
-    errorNotificationGroup.processTimeout(command).notify(this)
+    importantNotificationGroup.processTimeout(command).notify(this)
 
 
-private fun ErrorNotificationGroup.noProjectFound(): Notification {
+private fun NotificationGroup.noProjectFound(): Notification {
     val title = message("notifications.noProjectFound.title")
-    val content = message("notifications.noProjectFound.body")
+    val body = message("notifications.noProjectFound.body")
     
-    return error(title, content)
+    return error(title, body)
 }
 
 
 internal fun noProjectFound() =
-    errorNotificationGroup.noProjectFound().notify(defaultProject)
+    importantNotificationGroup.noProjectFound().notify(defaultProject)
 
 
-private fun ErrorNotificationGroup.unableToRunCommand(): Notification {
+private fun NotificationGroup.unableToRunCommand(): Notification {
     val title = message("notifications.unableToRunCommand.title")
-    val content = message("notifications.unableToRunCommand.body")
+    val body = message("notifications.unableToRunCommand.body")
     
-    return error(title, content)
+    return error(title, body)
 }
 
 
 internal fun Project.unableToRunCommand() =
-    errorNotificationGroup.unableToRunCommand().notify(this)
+    importantNotificationGroup.unableToRunCommand().notify(this)
 
 
-private fun ErrorNotificationGroup.noInterpreterFound(): Notification {
+private fun NotificationGroup.noInterpreterFound(): Notification {
     val title = message("notifications.noInterpreterFound.title")
-    val content = message("notifications.noInterpreterFound.body")
+    val body = message("notifications.noInterpreterFound.body")
     
-    return error(title, content)
+    return error(title, body)
 }
 
 
 internal fun Project.noInterpreterFound() =
-    errorNotificationGroup.noInterpreterFound().notify(this)
+    importantNotificationGroup.noInterpreterFound().notify(this)
 
 
-private fun ErrorNotificationGroup.cannotOpenFile(path: Path): Notification {
+private fun NotificationGroup.cannotOpenFile(path: Path): Notification {
     val title = message("notifications.cannotOpenFile.title")
-    val content = message("notifications.cannotOpenFile.body", path)
+    val body = message("notifications.cannotOpenFile.body", path)
     
-    return error(title, content).apply {
+    return error(title, body).apply {
         addCopyPathAction(path)
     }
 }
 
 
 internal fun Project.cannotOpenFile(path: Path) =
-    errorNotificationGroup.cannotOpenFile(path).notify(this)
+    importantNotificationGroup.cannotOpenFile(path).notify(this)

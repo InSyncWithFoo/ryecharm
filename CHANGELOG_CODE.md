@@ -31,7 +31,7 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 
 * [LSP4IJ][_0.1.0-a4-d1]: 0.5.0 &rarr; 0.7.0
 * [@astral-sh/setup-uv][_0.1.0-a4-d2]: 3.1.0 &rarr; 3
-* [`annotations`][_0.1.0-a4-d3]: 24.1.0 &rarr; 26.0.1
+* [@JetBrains/java-annotations][_0.1.0-a4-d3]: 24.1.0 &rarr; 26.0.1
 * [Gradle][_0.1.0-a4-d4]: 8.10 &rarr; 8.11.1
 * [IntelliJ Platform Gradle Plugin][_0.1.0-a4-d5]: 2.0.1 &rarr; 2.1.0
 * [Qodana][_0.1.0-a4-d6]: 2024.2.3 &rarr; 2024.2
@@ -55,7 +55,7 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 
 * [@astral-sh/setup-uv][_0.1.0-a3-d1]: 2.1.0 &rarr; 3.1.0
 * [Qodana][_0.1.0-a3-d2]: 2024.1.9 &rarr; 2024.2.3
-* [`kotlinx-serialization-json`][_0.1.0-a3-d3]: 1.7.2 &rarr; 1.7.3
+* [@Kotlin/kotlinx.serialization][_0.1.0-a3-d3]: 1.7.2 &rarr; 1.7.3
 * [MkDocs][_0.1.0-a3-d4]: 1.6.0 &rarr; 1.6.1
 * [Material for MkDocs][_0.1.0-a3-d5]: 9.5.33 &rarr; 9.5.35
 

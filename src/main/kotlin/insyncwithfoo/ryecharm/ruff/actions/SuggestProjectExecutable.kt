@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.ruff.actions
 
+import com.intellij.notification.NotificationGroup
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
@@ -7,7 +8,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.startup.ProjectActivity
 import com.jetbrains.python.packaging.common.PythonPackageManagementListener
-import insyncwithfoo.ryecharm.InformationNotificationGroup
+import insyncwithfoo.ryecharm.UnimportantNotificationGroup
 import insyncwithfoo.ryecharm.addExpiringAction
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
@@ -15,7 +16,7 @@ import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.information
-import insyncwithfoo.ryecharm.informationNotificationGroup
+import insyncwithfoo.ryecharm.unimportantNotificationGroup
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
@@ -26,22 +27,22 @@ import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
 
-private fun InformationNotificationGroup.suggestExecutable(executableRelativized: Path) =
+private fun NotificationGroup.suggestExecutable(executableRelativized: Path) =
     information(
         title = message("notifications.suggestExecutable.title"),
-        content = message("notifications.suggestExecutable.body", executableRelativized)
+        body = message("notifications.suggestExecutable.body", executableRelativized)
     )
 
 
-private fun InformationNotificationGroup.noExecutableFound() =
+private fun NotificationGroup.noExecutableFound() =
     information(
         title = message("notifications.noExecutableFound.title"),
-        content = message("notifications.noExecutableFound.content")
+        body = message("notifications.noExecutableFound.body")
     )
 
 
 private fun Project.noExecutableFound() =
-    informationNotificationGroup.noExecutableFound().notify(this)
+    unimportantNotificationGroup.noExecutableFound().notify(this)
 
 
 private fun Project.setAsExecutable(newValue: String, crossPlatform: Boolean) {
@@ -74,7 +75,7 @@ internal fun Project.suggestExecutable(executable: Path) {
     val projectPath = path ?: return
     val executableRelativized = projectPath.relativize(executable)
     
-    val notification = informationNotificationGroup.suggestExecutable(executableRelativized)
+    val notification = unimportantNotificationGroup.suggestExecutable(executableRelativized)
     
     notification.runThenNotify(this) {
         addExpiringAction(message("notificationActions.setNameOnly")) {

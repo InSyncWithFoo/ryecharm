@@ -36,16 +36,16 @@ internal fun Notification.addOpenPluginIssueTrackerAction() {
 }
 
 
-internal fun Notification.addCopyTextAction(text: String, content: String) {
-    addAction(text) {
+internal fun Notification.addCopyTextAction(actionText: String, contentToCopy: String) {
+    addAction(actionText) {
         val clipboard = Toolkit.getDefaultToolkit().systemClipboard
-        clipboard.setContents(StringSelection(content), EmptyClipboardOwner.INSTANCE)
+        clipboard.setContents(StringSelection(contentToCopy), EmptyClipboardOwner.INSTANCE)
     }
 }
 
 
-internal fun Notification.addCopyTextAction(content: String) =
-    addCopyTextAction(message("notificationActions.copyTextToClipboard"), content)
+internal fun Notification.addCopyTextAction(text: String) =
+    addCopyTextAction(message("notificationActions.copyTextToClipboard"), text)
 
 
 internal fun Notification.addCopyCommandAction(command: Command) =
@@ -84,9 +84,9 @@ private class OpenFileAction(text: String, private val path: String) : Notificat
     
     private fun cannotOpenFile(project: Project? = null) {
         val title = message("notifications.cannotOpenFile.title")
-        val content = message("notifications.cannotOpenFile.body", path)
+        val body = message("notifications.cannotOpenFile.body", path)
         
-        project.somethingIsWrong(title, content)
+        project.somethingIsWrong(title, body)
     }
     
 }

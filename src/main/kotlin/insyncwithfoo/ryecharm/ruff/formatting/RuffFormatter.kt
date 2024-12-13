@@ -18,9 +18,9 @@ import insyncwithfoo.ryecharm.addOpenPluginIssueTrackerAction
 import insyncwithfoo.ryecharm.addSeeOutputActions
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.editorFactory
-import insyncwithfoo.ryecharm.errorNotificationGroup
+import insyncwithfoo.ryecharm.importantNotificationGroup
 import insyncwithfoo.ryecharm.information
-import insyncwithfoo.ryecharm.informationNotificationGroup
+import insyncwithfoo.ryecharm.unimportantNotificationGroup
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
@@ -52,7 +52,7 @@ private fun Project.fileContainsSyntaxError(output: ProcessOutput) {
     val title = message("notifications.fileContainsSyntaxError.title")
     val body = message("notifications.fileContainsSyntaxError.body")
     
-    informationNotificationGroup.information(title, body).runThenNotify(this) {
+    unimportantNotificationGroup.information(title, body).runThenNotify(this) {
         addSeeOutputActions(output)
     }
 }
@@ -62,7 +62,7 @@ private fun Project.unknownFormattingError(output: ProcessOutput) {
     val title = message("notifications.unknownFormattingError.title")
     val body = message("notifications.unknownFormattingError.body")
     
-    informationNotificationGroup.information(title, body).runThenNotify(this) {
+    unimportantNotificationGroup.information(title, body).runThenNotify(this) {
         addSeeOutputActions(output)
         addOpenPluginIssueTrackerAction()
     }
@@ -138,7 +138,7 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
     override fun getName() = "Ruff"
     
     override fun getNotificationGroupId() =
-        errorNotificationGroup.displayId
+        importantNotificationGroup.displayId
     
     // https://github.com/astral-sh/ruff/issues/8232
     /**

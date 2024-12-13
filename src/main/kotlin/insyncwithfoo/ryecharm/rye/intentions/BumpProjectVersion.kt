@@ -62,7 +62,7 @@ internal abstract class BumpProjectVersion(val bumpType: VersionBumpType) :
         val newVersion = extractNewVersion(output.stdout)
             ?: return unknownError(command, output)
         
-        val successfulContent = message("notifications.versionSetTo", newVersion)
+        val successfulContent = message("notifications.versionSetTo.title", newVersion)
         processCompletedSuccessfully(successfulContent)
     }
     

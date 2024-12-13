@@ -9,7 +9,7 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.addCopyPathAction
 import insyncwithfoo.ryecharm.error
-import insyncwithfoo.ryecharm.errorNotificationGroup
+import insyncwithfoo.ryecharm.importantNotificationGroup
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
@@ -79,7 +79,7 @@ internal class OpenUserConfigurationFile : AnAction(), DumbAware {
             else -> message("notifications.fileNotFound.body.withPath", path)
         }
         
-        errorNotificationGroup.error(title, body).runThenNotify(this) {
+        importantNotificationGroup.error(title, body).runThenNotify(this) {
             if (path != null) {
                 addCopyPathAction(path)
             }
