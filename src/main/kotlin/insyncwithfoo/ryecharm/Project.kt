@@ -10,6 +10,7 @@ import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.profile.codeInspection.ProjectInspectionProfileManager
 import com.intellij.psi.PsiDocumentManager
@@ -90,6 +91,13 @@ internal val Project.inspectionProfileManager: ProjectInspectionProfileManager
 internal fun Project.findExecutableInVenv(nameWithoutExtension: String) =
     interpreterDirectory?.listDirectoryEntries()
         ?.find { it.nameWithoutExtension == nameWithoutExtension }
+
+
+internal fun Project.openFile(virtualFile: VirtualFile?) {
+    val focusEditor = true
+    
+    fileEditorManager.openFile(virtualFile!!, focusEditor)
+}
 
 
 internal fun Project.openLightFile(filename: String, content: String) {

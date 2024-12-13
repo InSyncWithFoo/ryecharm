@@ -438,6 +438,15 @@
 			description="Find a Ruff executable in the virtual environment and suggest setting that as the project executable"
 			icon="AllIcons.Actions.Search"
 		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.OpenUserConfigurationFile"
+			class="insyncwithfoo.ryecharm.ruff.actions.OpenUserConfigurationFile"
+			text="Ruff: Open user configuration file"
+			description="Open the configuration file that would be used by Ruff when the project has no such file"
+			icon="AllIcons.Actions.Edit"
+		/>
 	</actions>
 	
 	<actions>

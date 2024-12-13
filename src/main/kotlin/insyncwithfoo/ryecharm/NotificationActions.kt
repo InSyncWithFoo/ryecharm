@@ -13,6 +13,7 @@ import com.intellij.util.ui.EmptyClipboardOwner
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
+import java.nio.file.Path
 
 
 internal fun Notification.addAction(text: String, action: () -> Unit) =
@@ -49,6 +50,10 @@ internal fun Notification.addCopyTextAction(content: String) =
 
 internal fun Notification.addCopyCommandAction(command: Command) =
     addCopyTextAction(message("notificationActions.copyCommandToClipboard"), command.toString())
+
+
+internal fun Notification.addCopyPathAction(path: Path) =
+    addCopyTextAction(message("notificationActions.copyPathToClipboard"), path.toString())
 
 
 private fun <C : PanelBasedConfigurable<*>> Project.showSettingsDialog(toSelect: Class<C>) {

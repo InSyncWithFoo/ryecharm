@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.notification.Notification
 import com.intellij.openapi.project.Project
+import java.nio.file.Path
 
 
 internal fun Project.notifyIfProcessIsUnsuccessfulOr(
@@ -137,3 +138,17 @@ private fun ErrorNotificationGroup.noInterpreterFound(): Notification {
 
 internal fun Project.noInterpreterFound() =
     errorNotificationGroup.noInterpreterFound().notify(this)
+
+
+private fun ErrorNotificationGroup.cannotOpenFile(path: Path): Notification {
+    val title = message("notifications.cannotOpenFile.title")
+    val content = message("notifications.cannotOpenFile.body", path)
+    
+    return error(title, content).apply {
+        addCopyPathAction(path)
+    }
+}
+
+
+internal fun Project.cannotOpenFile(path: Path) =
+    errorNotificationGroup.cannotOpenFile(path).notify(this)
