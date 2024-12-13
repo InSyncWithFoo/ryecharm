@@ -17,17 +17,18 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.addOpenPluginIssueTrackerAction
 import insyncwithfoo.ryecharm.addSeeOutputActions
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.importantNotificationGroup
 import insyncwithfoo.ryecharm.information
-import insyncwithfoo.ryecharm.unimportantNotificationGroup
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
+import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getOneBasedRange
 import insyncwithfoo.ryecharm.runThenNotify
-import insyncwithfoo.ryecharm.unableToRunCommand
+import insyncwithfoo.ryecharm.unimportantNotificationGroup
 import java.time.Duration
 
 
@@ -191,7 +192,12 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
         val ruff = project.ruff
         
         if (ruff == null) {
-            project.unableToRunCommand()
+            project.couldNotConstructCommandFactory<Ruff>(
+                """
+                |Was trying to create formatting task from context:
+                |$context
+                """.trimMargin()
+            )
             return null
         }
         

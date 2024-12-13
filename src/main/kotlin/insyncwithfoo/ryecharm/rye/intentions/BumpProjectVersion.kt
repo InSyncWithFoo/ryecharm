@@ -8,6 +8,7 @@ import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.ExternalIntentionAction
 import insyncwithfoo.ryecharm.WriteIntentionAction
+import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.launch
@@ -17,9 +18,9 @@ import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInForeground
+import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.VersionBumpType
 import insyncwithfoo.ryecharm.rye.commands.rye
-import insyncwithfoo.ryecharm.unableToRunCommand
 import insyncwithfoo.ryecharm.unknownError
 
 
@@ -36,7 +37,17 @@ internal abstract class BumpProjectVersion(val bumpType: VersionBumpType) :
     
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
         val document = file!!.viewProvider.document ?: return
-        val rye = project.rye ?: return project.unableToRunCommand()
+        val rye = project.rye
+        
+        if (rye == null) {
+            project.couldNotConstructCommandFactory<Rye>(
+                """
+                |Was trying to bump project version.
+                """.trimMargin()
+            )
+            return
+        }
+        
         val command = rye.version(bumpType)
         
         if (project.path == null) {

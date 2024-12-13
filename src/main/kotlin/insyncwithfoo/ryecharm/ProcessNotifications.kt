@@ -4,6 +4,12 @@ import com.intellij.execution.process.ProcessOutput
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationGroup
 import com.intellij.openapi.project.Project
+import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.configurations.ruffExecutable
+import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
+import insyncwithfoo.ryecharm.configurations.ryeExecutable
+import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
+import insyncwithfoo.ryecharm.configurations.uvExecutable
 import java.nio.file.Path
 
 
@@ -125,8 +131,37 @@ private fun NotificationGroup.unableToRunCommand(): Notification {
 }
 
 
-internal fun Project.unableToRunCommand() =
-    importantNotificationGroup.unableToRunCommand().notify(this)
+internal fun Project.unableToRunCommand(debugNote: String) {
+    val debugInfo = """
+        |${debugNote}
+        |
+        |Project path: ${this.path}
+        |Configurations:
+        |    * Ruff: ${this.ruffConfigurations}
+        |    * uv: ${this.uvConfigurations}
+        |    * Rye: ${this.ryeConfigurations}
+        |Resolved executables:
+        |    * Ruff: ${this.ruffExecutable}
+        |    * uv: ${this.uvExecutable}
+        |    * Rye: ${this.ryeExecutable}
+    """.trimMargin()
+    
+    return importantNotificationGroup.unableToRunCommand().runThenNotify(this) {
+        val title = message("notificationActions.seeDebugInfo")
+        
+        addOpenTemporaryFileAction(title, "debug-info.txt", debugInfo)
+    }
+}
+
+
+internal inline fun <reified F : CommandFactory> Project.couldNotConstructCommandFactory(extraNote: String) {
+    unableToRunCommand(
+        """
+        |Could not construct command factory of type ${F::class.simpleName}.
+        |${extraNote}
+        """.trimMargin()
+    )
+}
 
 
 private fun NotificationGroup.noInterpreterFound(): Notification {

@@ -5,12 +5,12 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.CoroutineService
+import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInBackground
-import insyncwithfoo.ryecharm.unableToRunCommand
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.uv
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 
 private sealed class InstallKind {
     data object All : InstallKind()
-    class Group(val name: String) : InstallKind()
+    data class Group(val name: String) : InstallKind()
 }
 
 
@@ -33,7 +33,16 @@ internal class InstallDependencyGroup private constructor(
 ) : AnAction() {
     
     override fun actionPerformed(event: AnActionEvent) {
-        val uv = project.uv ?: return project.unableToRunCommand()
+        val uv = project.uv
+        
+        if (uv == null) {
+            val debugNote = """
+                |Was trying to install dependency group of kind:
+                |$kind
+            """.trimMargin()
+            
+            return project.couldNotConstructCommandFactory<UV>(debugNote)
+        }
         
         project.runUVSyncAndReport(uv)
     }

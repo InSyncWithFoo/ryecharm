@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.ExternalIntentionAction
 import insyncwithfoo.ryecharm.WriteIntentionAction
+import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.launch
@@ -17,7 +18,6 @@ import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.saveAllDocumentsAsIs
-import insyncwithfoo.ryecharm.unableToRunCommand
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.uv
 
@@ -32,7 +32,16 @@ internal class SynchronizeProject : AnAction(), ExternalIntentionAction, WriteIn
         editor != null && file?.virtualFile?.isPyprojectToml == true
     
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
-        val uv = project.uv ?: return project.unableToRunCommand()
+        val uv = project.uv
+        
+        if (uv == null) {
+            project.couldNotConstructCommandFactory<UV>(
+                """
+                |Was trying to synchronize project from intention.
+                """.trimMargin()
+            )
+            return
+        }
         
         fileDocumentManager.saveAllDocumentsAsIs()
         project.runUVSyncAndReport(uv)
@@ -40,7 +49,16 @@ internal class SynchronizeProject : AnAction(), ExternalIntentionAction, WriteIn
     
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return noProjectFound()
-        val uv = project.uv ?: return project.unableToRunCommand()
+        val uv = project.uv
+        
+        if (uv == null) {
+            project.couldNotConstructCommandFactory<UV>(
+                """
+                |Was trying to synchronize project from action.
+                """.trimMargin()
+            )
+            return
+        }
         
         project.runUVSyncAndReport(uv)
     }
