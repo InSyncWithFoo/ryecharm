@@ -13,6 +13,7 @@ import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import insyncwithfoo.ryecharm.Command
+import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.defaultProject
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
@@ -20,7 +21,6 @@ import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
-import insyncwithfoo.ryecharm.unableToRunCommand
 import insyncwithfoo.ryecharm.unknownError
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
@@ -134,7 +134,16 @@ internal class ShowLinters : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: defaultProject
-        val ruff = project.ruff ?: return project.unableToRunCommand()
+        val ruff = project.ruff
+        
+        if (ruff == null) {
+            project.couldNotConstructCommandFactory<Ruff>(
+                """
+                |Was trying to retrieve upstream linters information.
+                """.trimMargin()
+            )
+            return
+        }
         
         project.runRuffLinterAndShowTable(ruff)
     }

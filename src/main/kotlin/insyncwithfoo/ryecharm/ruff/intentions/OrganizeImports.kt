@@ -8,15 +8,16 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.ExternalIntentionAction
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.paste
+import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.runWriteCommandAction
-import insyncwithfoo.ryecharm.unableToRunCommand
 
 
 internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction {
@@ -40,8 +41,18 @@ internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction {
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
         val document = file!!.viewProvider.document ?: return
         val path = file.virtualFile.toNioPath()
+        val ruff = project.ruff
         
-        val ruff = project.ruff ?: return project.unableToRunCommand()
+        if (ruff == null) {
+            project.couldNotConstructCommandFactory<Ruff>(
+                """
+                |Was trying to organize imports:
+                |$path
+                """.trimMargin()
+            )
+            return
+        }
+        
         val command = ruff.organizeImports(document.text, path)
         
         project.runCommandAndLoadResult(command, file)

@@ -8,6 +8,7 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.cannotOpenFile
+import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
@@ -18,7 +19,6 @@ import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.rye
 import insyncwithfoo.ryecharm.toPathOrNull
-import insyncwithfoo.ryecharm.unableToRunCommand
 import insyncwithfoo.ryecharm.unknownError
 import java.nio.file.Path
 
@@ -27,7 +27,16 @@ internal class OpenConfigurationFile : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return noProjectFound()
-        val rye = project.rye ?: return project.unableToRunCommand()
+        val rye = project.rye
+        
+        if (rye == null) {
+            project.couldNotConstructCommandFactory<Rye>(
+                """
+                |Was trying to open Rye configuration file.
+                """.trimMargin()
+            )
+            return
+        }
         
         project.runRyeConfigAndOpenFile(rye)
     }
