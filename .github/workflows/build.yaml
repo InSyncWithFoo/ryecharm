@@ -174,7 +174,7 @@ jobs:
         name: Run tests
         run: |
           chmod +x ./gradlew
-          ./gradlew check
+          ./gradlew check --scan
       -
         name: Upload result
         if: failure()
