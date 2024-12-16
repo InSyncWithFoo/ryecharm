@@ -14,6 +14,50 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-5] - 2024-12-16
+
+See [the documentation][0.1.0-a5-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.8.3][0.1.0-a5-2]
+* uv: [0.5.9][0.1.0-a5-3]
+* Rye: [0.43.0][0.1.0-a5-4]
+
+
+### Added
+
+* User-level `ruff.toml`/`.ruff.toml` file can now be opened using an action.
+* "Unable to run command" notifications now have an action
+  to view debug information.
+
+
+### Changed
+
+* `ruff` and `uv` executables from `PATH` are now prioritized during detection.
+  Previously, those installed by Rye would be checked first.
+
+
+### Removed
+
+* 2024.3 is no longer supported.
+* Timeout settings are removed entirely. To cancel long-running processes,
+  use the cross buttons next to progress indicators.
+
+
+### Fixed
+
+* Previously, due to a bug in the executable detector, the UI might freeze.
+  This has been fixed.
+* Path input fields (e.g., configuration files) now function correctly.
+
+
+  [0.1.0-a5-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a5-2]: https://github.com/astral-sh/ruff/releases/tag/0.8.3
+  [0.1.0-a5-3]: https://github.com/astral-sh/uv/releases/tag/0.5.9
+  [0.1.0-a5-4]: https://github.com/astral-sh/rye/releases/tag/0.43.0
+
+
 ## [0.1.0-alpha-4] - 2024-11-22
 
 See [the documentation][0.1.0-a4-1] for more information.
@@ -269,7 +313,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..HEAD
+  [0.1.0-alpha-5]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..v0.1.0-alpha-5
   [0.1.0-alpha-4]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..v0.1.0-alpha-4
   [0.1.0-alpha-3]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-2..v0.1.0-alpha-3
   [0.1.0-alpha-2]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-1..v0.1.0-alpha-2

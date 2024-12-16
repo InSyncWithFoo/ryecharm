@@ -14,6 +14,28 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-5] - 2024-12-16
+
+### Dependencies
+
+* [@astral-sh/setup-uv][_0.1.0-a5-d1]: 3 &rarr; 4
+* [Kotlin JVM plugin][_0.1.0-a5-d2]: 2.0.20 &rarr; 2.0.21
+* [Foojay Toolchains][_0.1.0-a5-d3]: 0.8.0 &rarr; 0.9.0
+* [LSP4IJ][_0.1.0-a5-d4]: 0.7.0 &rarr; 0.8.1
+* [IntelliJ Platform Gradle Plugin][_0.1.0-a5-d5]: 2.1.0 &rarr; 2.2.1
+* [Qodana][_0.1.0-a5-d6]: 2024.2 &rarr; 2024.3
+* [Kover][_0.1.0-a5-d7]: 0.8.3 &rarr; 0.9.0
+
+
+  [_0.1.0-a5-d1]: https://github.com/astral-sh/setup-uv
+  [_0.1.0-a5-d2]: https://github.com/JetBrains/kotlin
+  [_0.1.0-a5-d3]: https://github.com/gradle/foojay-toolchains
+  [_0.1.0-a5-d4]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a5-d5]: https://github.com/JetBrains/intellij-platform-gradle-plugin
+  [_0.1.0-a5-d6]: https://github.com/JetBrains/qodana-action
+  [_0.1.0-a5-d7]: https://github.com/Kotlin/kotlinx-kover
+
+
 ## [0.1.0-alpha-4] - 2024-11-22
 
 ### Changed
@@ -132,7 +154,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..HEAD
+  [0.1.0-alpha-5]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..v0.1.0-alpha-5
   [0.1.0-alpha-4]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..v0.1.0-alpha-4
   [0.1.0-alpha-3]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-2..v0.1.0-alpha-3
   [0.1.0-alpha-2]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-1..v0.1.0-alpha-2

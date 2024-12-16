@@ -12,6 +12,12 @@ While the cache is automatically invalidated whenever the executable changes,
 manually clearing it might sometimes be useful.
 
 
+## Open configuration file
+
+Open the global Ruff configuration file (`ruff.toml`/`.ruff.toml`)
+in the editor.
+
+
 ## Show executable
 
 Show the Ruff executable that would be used for the project,

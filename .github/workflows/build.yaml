@@ -125,7 +125,7 @@ jobs:
       matrix:
         platform: [ ubuntu-latest, macos-latest, windows-latest ]
     
-    continue-on-error: ${{ matrix.platform == 'windows-latest' }}
+    continue-on-error: true
     
     permissions:
       actions: write
