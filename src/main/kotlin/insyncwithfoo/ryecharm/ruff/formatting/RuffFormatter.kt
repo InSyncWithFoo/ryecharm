@@ -44,6 +44,14 @@ private fun AsyncFormattingRequest.cannotFormatMultipleRanges() {
 }
 
 
+private fun AsyncFormattingRequest.invalidRange() {
+    val title = message("notifications.invalidFormatRange.title")
+    val body = message("notifications.invalidFormatRange.body")
+    
+    onError(title, body)
+}
+
+
 private fun AsyncFormattingRequest.noChange() {
     onTextReady(null)
 }
@@ -203,7 +211,12 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
         
         val text = request.documentText
         val path = context.virtualFile?.toNioPathOrNull()
-        val range = ranges.singleOrNull()?.let { text.getOneBasedRange(it) }
+        val range = try {
+            ranges.singleOrNull()?.let { text.getOneBasedRange(it) }
+        } catch (_: IndexOutOfBoundsException) {
+            request.invalidRange()
+            return null
+        }
         
         val command = ruff.format(text, path, range, quiet = false)
         
