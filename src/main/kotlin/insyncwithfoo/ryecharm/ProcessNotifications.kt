@@ -123,6 +123,18 @@ internal fun noProjectFound() =
     importantNotificationGroup.noProjectFound().notify(defaultProject)
 
 
+private fun NotificationGroup.noDocumentFound(): Notification {
+    val title = message("notifications.noDocumentFound.title")
+    val body = message("notifications.noDocumentFound.body")
+    
+    return error(title, body)
+}
+
+
+internal fun Project.noDocumentFound() =
+    unimportantNotificationGroup.noDocumentFound().notify(this)
+
+
 private fun NotificationGroup.unableToRunCommand(): Notification {
     val title = message("notifications.unableToRunCommand.title")
     val body = message("notifications.unableToRunCommand.body")

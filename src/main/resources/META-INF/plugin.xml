@@ -447,6 +447,15 @@
 			description="Open the configuration file that would be used by Ruff when the project has no such file"
 			icon="AllIcons.Actions.Edit"
 		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.FixAll"
+			class="insyncwithfoo.ryecharm.ruff.actions.FixAll"
+			text="Ruff: Fix all fixable violations"
+			description="Fix all safely fixable violations found in the current editor"
+			icon="AllIcons.Actions.Edit"
+		/>
 	</actions>
 	
 	<actions>
