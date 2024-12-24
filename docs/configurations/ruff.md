@@ -101,7 +101,7 @@ Whether [quick fixes][8] (code actions) should be suggested.
 Default: `true`
 
 
-#### Fix all fixable violations
+#### Fix all safely fixable violations
 
 Whether a quick fix to fix all safely fixable violations should be suggested.
 

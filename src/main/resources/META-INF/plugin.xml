@@ -452,7 +452,7 @@
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.FixAll"
 			class="insyncwithfoo.ryecharm.ruff.actions.FixAll"
-			text="Ruff: Fix all fixable violations"
+			text="Ruff: Fix all safely fixable violations"
 			description="Fix all safely fixable violations found in the current editor"
 			icon="AllIcons.Actions.Edit"
 		/>

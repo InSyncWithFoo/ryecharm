@@ -8,7 +8,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.startup.ProjectActivity
 import com.jetbrains.python.packaging.common.PythonPackageManagementListener
-import insyncwithfoo.ryecharm.UnimportantNotificationGroup
 import insyncwithfoo.ryecharm.addExpiringAction
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
@@ -16,13 +15,13 @@ import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.information
-import insyncwithfoo.ryecharm.unimportantNotificationGroup
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.runThenNotify
+import insyncwithfoo.ryecharm.unimportantNotificationGroup
 import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
@@ -71,7 +70,7 @@ private fun Project.disableSuggester() {
 }
 
 
-internal fun Project.suggestExecutable(executable: Path) {
+private fun Project.suggestExecutable(executable: Path) {
     val projectPath = path ?: return
     val executableRelativized = projectPath.relativize(executable)
     

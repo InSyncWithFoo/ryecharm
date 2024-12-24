@@ -1,8 +1,9 @@
 package insyncwithfoo.ryecharm.ruff.actions
 
-import com.intellij.jupyter.core.jupyter.helper.editor
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
@@ -22,6 +23,10 @@ import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.runWriteCommandAction
 
 
+private val AnActionEvent.editor: Editor?
+    get() = dataContext.getData(CommonDataKeys.EDITOR)
+
+
 internal class FixAll : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {
@@ -33,7 +38,7 @@ internal class FixAll : AnAction(), DumbAware {
         if (ruff == null) {
             project.couldNotConstructCommandFactory<Ruff>(
                 """
-                |Was trying to fix all fixable problems.
+                |Was trying to fix all safely fixable violations.
                 """.trimMargin()
             )
             return
