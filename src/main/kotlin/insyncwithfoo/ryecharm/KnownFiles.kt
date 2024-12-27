@@ -31,6 +31,11 @@ private val PsiFile.isReST: Boolean
     get() = virtualFile?.extension == "rst"
 
 
+// https://github.com/InSyncWithFoo/ryecharm/issues/47
+private val PsiFile.isJupyter: Boolean
+    get() = virtualFile?.extension == "ipynb"
+
+
 // TODO: .ipynb / Allow configuring what files
 internal fun VirtualFile.isSupportedByRuff(project: Project? = null): Boolean {
     return extension == "py" || extension == "pyi" || extension == "pyw"
@@ -38,4 +43,5 @@ internal fun VirtualFile.isSupportedByRuff(project: Project? = null): Boolean {
 
 
 internal val PsiFile.isSupportedByRuff: Boolean
-    get() = this is PyFile && !this.isReST || virtualFile?.isSupportedByRuff(project) == true
+    get() = this is PyFile && !this.isReST && !this.isJupyter
+        || virtualFile?.isSupportedByRuff(project) == true
