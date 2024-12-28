@@ -152,12 +152,6 @@
 			implementation="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupReferenceContributor"
 		/>
 		
-		<runLineMarkerContributor
-			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInstaller"
-			language="TOML"
-			implementationClass="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInstaller"
-		/>
-		
 		<localInspection
 			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
 			suppressId="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
@@ -172,6 +166,12 @@
 			enabledByDefault="true"
 			level="WARNING"
 			implementationClass="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
+		/>
+		
+		<runLineMarkerContributor
+			id="insyncwithfoo.ryecharm.others.installers.GutterInstallButtonsProvider"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.others.installers.GutterInstallButtonsProvider"
 		/>
 	</extensions>
 	

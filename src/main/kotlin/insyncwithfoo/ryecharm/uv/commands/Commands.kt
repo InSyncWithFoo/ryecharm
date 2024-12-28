@@ -54,6 +54,16 @@ internal class SyncCommand : Command(), UVCommand {
 }
 
 
+internal class InstallDependenciesCommand(private val kind: String) : Command(), UVCommand {
+    
+    override val subcommand = "sync"
+    
+    override val runningMessage: String
+        get() = message("progresses.command.uv.installDependencies", kind)
+    
+}
+
+
 internal class VenvCommand : Command(), UVCommand {
     
     override val subcommand = "venv"

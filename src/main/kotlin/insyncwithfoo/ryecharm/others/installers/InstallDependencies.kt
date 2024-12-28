@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.others.dependencygroups
+package insyncwithfoo.ryecharm.others.installers
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -17,17 +17,19 @@ import kotlinx.coroutines.CoroutineScope
 
 
 private sealed class InstallKind {
-    data object All : InstallKind()
     data class Group(val name: String) : InstallKind()
+    data object AllGroups : InstallKind()
+    data class Extra(val name: String) : InstallKind()
+    data object AllExtras : InstallKind()
 }
 
 
 /**
- * Install a dependency group using `uv sync --group <group>`.
+ * Install a dependency group or extra using `uv sync`.
  * 
- * @see DependencyGroupInstaller
+ * @see GutterInstallButtonsProvider
  */
-internal class InstallDependencyGroup private constructor(
+internal class InstallDependencies private constructor(
     private val project: Project,
     private val kind: InstallKind
 ) : AnAction() {
@@ -37,7 +39,7 @@ internal class InstallDependencyGroup private constructor(
         
         if (uv == null) {
             val debugNote = """
-                |Was trying to install dependency group of kind:
+                |Was trying to install dependencies:
                 |$kind
             """.trimMargin()
             
@@ -57,19 +59,29 @@ internal class InstallDependencyGroup private constructor(
     }
     
     private fun getCommand(uv: UV) = when (kind) {
-        is InstallKind.All -> uv.sync(allGroups = true)
-        is InstallKind.Group -> uv.sync(group = kind.name)
+        is InstallKind.Group -> uv.installGroup(kind.name)
+        is InstallKind.AllGroups -> uv.installAllGroups()
+        is InstallKind.Extra -> uv.installExtra(kind.name)
+        is InstallKind.AllExtras -> uv.installAllExtras()
     }
     
     @Service(Service.Level.PROJECT)
     private class Coroutine(override val scope: CoroutineScope) : CoroutineService
     
     companion object {
-        fun all(project: Project) =
-            InstallDependencyGroup(project, InstallKind.All)
         
         fun group(project: Project, name: String) =
-            InstallDependencyGroup(project, InstallKind.Group(name))
+            InstallDependencies(project, InstallKind.Group(name))
+        
+        fun allGroups(project: Project) =
+            InstallDependencies(project, InstallKind.AllGroups)
+        
+        fun extra(project: Project, name: String) =
+            InstallDependencies(project, InstallKind.Extra(name))
+        
+        fun allExtras(project: Project) =
+            InstallDependencies(project, InstallKind.AllExtras)
+        
     }
     
 }

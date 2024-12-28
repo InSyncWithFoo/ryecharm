@@ -11,6 +11,7 @@ import insyncwithfoo.ryecharm.configurations.uvExecutable
 import insyncwithfoo.ryecharm.findExecutableChild
 import insyncwithfoo.ryecharm.findExecutableInPath
 import insyncwithfoo.ryecharm.lastModified
+import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.homeDirectory
@@ -75,22 +76,31 @@ internal class UV private constructor(
     fun remove(target: String) =
         RemoveCommand().build(CommandArguments(target))
     
-    fun sync(group: String? = null, allGroups: Boolean = false): Command {
-        val arguments = CommandArguments()
+    fun sync() =
+        SyncCommand().build()
+    
+    fun installGroup(name: String): Command {
+        val kind = message("progresses.command.uv.installDependencies.kind.group", name)
         
-        if (group != null && allGroups) {
-            throw IllegalArgumentException("--group cannot be used with --all-groups")
-        }
+        return InstallDependenciesCommand(kind).build(CommandArguments("--group", name))
+    }
+    
+    fun installAllGroups(): Command {
+        val kind = message("progresses.command.uv.installDependencies.kind.allGroups")
         
-        if (group != null) {
-            arguments["--group"] = group
-        }
+        return InstallDependenciesCommand(kind).build(CommandArguments("--all-groups"))
+    }
+    
+    fun installExtra(name: String): Command {
+        val kind = message("progresses.command.uv.installDependencies.kind.extra", name)
         
-        if (allGroups) {
-            arguments += "--all-groups"
-        }
+        return InstallDependenciesCommand(kind).build(CommandArguments("--extra", name))
+    }
+    
+    fun installAllExtras(): Command {
+        val kind = message("progresses.command.uv.installDependencies.kind.allExtras")
         
-        return SyncCommand().build(arguments)
+        return InstallDependenciesCommand(kind).build(CommandArguments("--all-extras"))
     }
     
     fun venv(baseInterpreter: Path, name: String? = null): Command {
