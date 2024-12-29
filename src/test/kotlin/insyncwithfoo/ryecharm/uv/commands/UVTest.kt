@@ -16,6 +16,17 @@ internal class UVTest : CommandFactoryTest() {
         uv = project.uv!!
     }
     
+    private fun randomPEP508Name(): String {
+        val first = listOf(lowercase, uppercase).random()
+        val last = listOf(lowercase, uppercase).random()
+        
+        val middle = buildString(0..20) {
+            listOf(lowercase, uppercase, digit, '.', '_', '-').random()
+        }
+        
+        return first + middle + last
+    }
+    
     @Test
     fun `test init`() {
         val randomNameCharacter = { listOf(lowercase, uppercase, digit, "-", ".", "_").random() }
@@ -75,9 +86,38 @@ internal class UVTest : CommandFactoryTest() {
         assertEquals(projectPath, command.workingDirectory)
     }
     
-    @Test(expected = IllegalArgumentException::class)
-    fun `test sync - groups`() {
-        uv.sync(group = "foo", allGroups = true)
+    @Test
+    fun `test install group`() {
+        val name = randomPEP508Name()
+        val command = uv.installGroup(name)
+        
+        assertEquals("sync", command.subcommand)
+        assertTrue(command.arguments include listOf("--group", name))
+    }
+    
+    @Test
+    fun `test install all groups`() {
+        val command = uv.installAllGroups()
+        
+        assertEquals("sync", command.subcommand)
+        assertContains(command.arguments, "--all-groups")
+    }
+    
+    @Test
+    fun `test install extra`() {
+        val name = randomPEP508Name()
+        val command = uv.installExtra(name)
+        
+        assertEquals("sync", command.subcommand)
+        assertTrue(command.arguments include listOf("--extra", name))
+    }
+    
+    @Test
+    fun `test install all extras`() {
+        val command = uv.installAllExtras()
+        
+        assertEquals("sync", command.subcommand)
+        assertContains(command.arguments, "--all-extras")
     }
     
 }
