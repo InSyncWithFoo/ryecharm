@@ -8,6 +8,7 @@ import com.redhat.devtools.lsp4ij.client.features.LSPDiagnosticFeature
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
+import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
 import insyncwithfoo.ryecharm.ruff.isForSyntaxError
 import insyncwithfoo.ryecharm.ruff.isRuffDisableRuleComment
@@ -30,7 +31,7 @@ internal class DiagnosticFeature : LSPDiagnosticFeature() {
         val rule = diagnostic.codeAsString
         val message = diagnostic.message
         
-        return configurations.tooltipFormat % Pair(message, rule)
+        return configurations.getFormattedTooltip(message, rule)
     }
     
     override fun getHighlightSeverity(diagnostic: Diagnostic) =

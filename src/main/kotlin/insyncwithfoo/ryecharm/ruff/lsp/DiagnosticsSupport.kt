@@ -8,6 +8,7 @@ import com.intellij.platform.lsp.api.customization.LspDiagnosticsSupport
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
+import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
 import insyncwithfoo.ryecharm.ruff.isForSyntaxError
 import insyncwithfoo.ryecharm.ruff.isRuffDisableRuleComment
 import insyncwithfoo.ryecharm.ruff.isRuffFixViolation
@@ -26,7 +27,7 @@ internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
         val rule = diagnostic.codeAsString
         val message = diagnostic.message
         
-        return configurations.tooltipFormat % Pair(message, rule)
+        return configurations.getFormattedTooltip(message, rule)
     }
     
     override fun getHighlightSeverity(diagnostic: Diagnostic) =

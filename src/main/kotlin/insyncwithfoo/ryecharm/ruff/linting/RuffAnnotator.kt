@@ -18,7 +18,6 @@ import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
-import insyncwithfoo.ryecharm.configurations.ruff.TooltipFormat
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.isSupportedByRuff
@@ -27,6 +26,7 @@ import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
+import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
 import insyncwithfoo.ryecharm.ruff.toZeroBased
 import insyncwithfoo.ryecharm.runInBackground
@@ -58,10 +58,6 @@ private val Diagnostic.isUnsuppressable: Boolean
  */
 private val Diagnostic.isForFile: Boolean
     get() = oneBasedRange == OneBasedRange.FILE_LEVEL
-
-
-private fun Diagnostic.getFormattedTooltip(format: TooltipFormat) =
-    format % Pair(message, code)
 
 
 private fun Document.rangeIsAfterEndOfLine(range: TextRange): Boolean {
@@ -163,7 +159,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             val message = diagnostic.message
             val builder = holder.newAnnotation(highlightSeverity, message)
             
-            val tooltip = diagnostic.getFormattedTooltip(configurations.tooltipFormat)
+            val tooltip = configurations.getFormattedTooltip(diagnostic.message, diagnostic.code)
             val range = document.getOffsetRange(diagnostic.oneBasedRange)
             val noqaOffset = when (diagnostic.noqaRow) {
                 null -> range.startOffset

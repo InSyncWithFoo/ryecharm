@@ -57,6 +57,7 @@ internal class RuffConfigurations : DisplayableState() {
     var linting by property(true)
     var showSyntaxErrors by property(false)
     var fileLevelBanner by property(false)
+    var renderTooltips by property(false)
     var tooltipFormat by enum(TooltipFormat.RULE_MESSAGE)
     
     var quickFixes by property(true)

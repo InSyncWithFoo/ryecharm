@@ -62,6 +62,10 @@ private fun Row.fileLevelBannerInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.fileLevelBanner.label")).apply(block)
 
 
+private fun Row.renderTooltipsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.renderTooltips.label")).apply(block)
+
+
 private fun Row.tooltipFormatInput(block: Cell<ComboBox<TooltipFormat>>.() -> Unit) =
     comboBox<TooltipFormat>().label(message("configurations.ruff.tooltipFormat.label")).apply(block)
 
@@ -202,6 +206,10 @@ private fun RuffPanel.makeComponent() = panel {
             row {
                 fileLevelBannerInput { bindSelected(state::fileLevelBanner) }
                 overrideCheckbox(state::fileLevelBanner)
+            }
+            row {
+                renderTooltipsInput { bindSelected(state::renderTooltips) }
+                overrideCheckbox(state::renderTooltips)
             }
             row {
                 tooltipFormatInput { bindItem(state::tooltipFormat) }
