@@ -29,8 +29,13 @@ import kotlinx.coroutines.CoroutineScope
  */
 internal class RuffImportOptimizer : ImportOptimizer {
     
-    override fun supports(file: PsiFile) =
-        file.project.ruffConfigurations.run { formatting && formatOnOptimizeImports } && file.isSupportedByRuff
+    override fun supports(file: PsiFile): Boolean {
+        if (!file.isSupportedByRuff) {
+            return false
+        }
+        
+        return file.project.ruffConfigurations.run { executable != null && formatting && formatOnOptimizeImports }
+    }
     
     override fun processFile(file: PsiFile) =
         file.makeProcessor() ?: Runnable {}
