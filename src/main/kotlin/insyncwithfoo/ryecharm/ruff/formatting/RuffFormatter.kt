@@ -162,9 +162,13 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
      */
     override fun getFeatures() = setOf(Feature.FORMAT_FRAGMENTS)
     
-    override fun canFormat(file: PsiFile) =
-        file.project.ruffConfigurations.run { executable != null && formatting && formatOnReformat } &&
-            file.isSupportedByRuff
+    override fun canFormat(file: PsiFile): Boolean {
+        if (!file.isSupportedByRuff) {
+            return false
+        }
+        
+        return file.project.ruffConfigurations.run { executable != null && formatting && formatOnReformat }
+    }
     
     /**
      * Return the limit at which the process will be destroyed.
