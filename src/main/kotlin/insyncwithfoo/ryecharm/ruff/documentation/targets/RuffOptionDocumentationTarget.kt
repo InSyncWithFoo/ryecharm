@@ -9,7 +9,9 @@ import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.Definition
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.ProgressContext
+import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
+import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.removeSurroundingTag
 import insyncwithfoo.ryecharm.ruff.CachedResult
@@ -24,8 +26,6 @@ import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.toDocumentationResult
 import insyncwithfoo.ryecharm.toHTML
 import insyncwithfoo.ryecharm.wrappedInCodeBlock
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
 
 
 /**
@@ -101,30 +101,14 @@ internal class RuffOptionDocumentationTarget(
         element.project.getDocumentation(option)?.toDocumentationResult()
     }
     
-    private suspend fun Project.getDocumentation(option: OptionName): OptionDocumentation? {
-        val ruff = this.ruff ?: return null
-        val executable = ruff.executable
-        
-        val cache = RuffCache.getInstance(this)
-        val cached = cache.optionsDocumentation
-        
-        if (cached?.matches(executable) == true) {
-            val documentation = cached.result[option]
-            
-            if (documentation != null) {
-                return documentation
-            }
+    private suspend fun Project.getDocumentation(option: OptionName) =
+        when (ruffConfigurations.cacheConfigDocumentation) {
+            true -> getDocumentationCached(option)
+            else -> getDocumentationUncached(option)
         }
-        
-        val newData = getNewDocumentationData()?.also {
-            cache.optionsDocumentation = CachedResult(it, executable)
-        }
-        
-        return newData?.get(option)
-    }
     
-    private suspend fun Project.getNewDocumentationData(): Map<OptionName, OptionDocumentation>? {
-        val command = ruff!!.config()
+    private suspend fun Project.getDocumentationUncached(option: OptionName): OptionDocumentation? {
+        val command = ruff!!.config(option)
         val output = ProgressContext.IO.compute {
             runInBackground(command)
         }
@@ -139,23 +123,55 @@ internal class RuffOptionDocumentationTarget(
         }
         
         return readAction {
-            parseAndConvertToHTML(output.stdout)
+            val info = output.stdout.parseAsJSONLeniently<OptionInfo>()
+            
+            info?.render(option.toAbsoluteName())
         }
     }
     
-    private fun parseAndConvertToHTML(raw: String): Map<OptionName, OptionDocumentation>? {
-        return parseConfigOutput(raw)?.mapValues { (name, info) ->
-            info.render(name.toAbsoluteName())
-        }
-    }
-    
-    private fun parseConfigOutput(raw: String): Map<OptionName, OptionInfo>? {
-        val json = Json { ignoreUnknownKeys = true }
+    private suspend fun Project.getDocumentationCached(option: OptionName): OptionDocumentation? {
+        val ruff = this.ruff ?: return null
+        val executable = ruff.executable
         
-        return try {
-            json.decodeFromString<Map<OptionName, OptionInfo>>(raw)
-        } catch (_: SerializationException) {
-            null
+        val cache = RuffCache.getInstance(this)
+        val cached = cache.optionsDocumentation
+        
+        if (cached?.matches(executable) == true) {
+            val documentation = cached.result[option]
+            
+            if (documentation != null) {
+                return documentation
+            }
+        }
+        
+        val newData = getNewDocumentationDataForCache()?.also {
+            cache.optionsDocumentation = CachedResult(it, executable)
+        }
+        
+        return newData?.get(option)
+    }
+    
+    private suspend fun Project.getNewDocumentationDataForCache(): Map<OptionName, OptionDocumentation>? {
+        val command = ruff!!.allConfig()
+        val output = ProgressContext.IO.compute {
+            runInBackground(command)
+        }
+        
+        if (output.isTimeout) {
+            processTimeout(command)
+            return null
+        }
+        
+        if (output.isCancelled || !output.isSuccessful) {
+            return null
+        }
+        
+        return readAction {
+            val map = output.stdout.parseAsJSONLeniently<Map<OptionName, OptionInfo>>()
+            
+            map?.mapValues { (name, info) ->
+                info.render(name.toAbsoluteName())
+            }
         }
     }
     

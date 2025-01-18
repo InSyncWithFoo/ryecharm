@@ -61,15 +61,16 @@ internal class Ruff private constructor(
     fun rule(code: String) =
         RuleCommand().build(CommandArguments(code))
     
-    fun config(option: String? = null): Command {
-        val arguments = CommandArguments("--output-format" to "json")
+    fun config(option: String): Command {
+        val arguments = CommandArguments(option)
         
-        if (option != null) {
-            arguments += option
-        }
+        arguments["--output-format"] = "json"
         
         return ConfigCommand().build(arguments)
     }
+    
+    fun allConfig() =
+        ConfigCommand().build(CommandArguments("--output-format" to "json"))
     
     fun linter() =
         LinterCommand().build(CommandArguments("--output-format" to "json"))
