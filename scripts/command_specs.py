@@ -1,5 +1,5 @@
 # /// script
-# requires-python = ">=3.12"
+# requires-python = ">=3.13"
 # dependencies = [
 #     "more-itertools",
 #     "nccsp",
@@ -68,11 +68,17 @@ def _get_version(executable: _Executable) -> str:
 			argument = 'version'
 		case 'uvx' | 'rye':
 			argument = '--version'
+		case _:
+			raise ValueError
 	
 	output = subprocess.check_output([executable, argument]).decode('utf-8').strip()
 	
 	if executable == 'rye':
 		version_details = _rye_version_details.search(output)
+		
+		if version_details is None:
+			raise ValueError
+		
 		output = f'rye {version_details['version']} {version_details['commit_and_date']}'
 	
 	return output
@@ -86,6 +92,8 @@ def _get_data(executable: _Executable) -> list[nccsp.Command]:
 			arguments = ['--generate-shell-completion']
 		case 'rye':
 			arguments = ['self', 'completion', '--shell']
+		case _:
+			raise ValueError
 	
 	output_stream = subprocess.check_output([executable, *arguments, 'nushell'])
 	output = output_stream.decode('utf-8')
@@ -134,7 +142,7 @@ def _get_and_dump_data(executable: _Executable) -> None:
 	_dump_data(version, tree, filename = executable)
 
 
-def main() -> None:  # noqa: D103
+def main() -> None:
 	_get_and_dump_data('ruff')
 	_get_and_dump_data('uv')
 	_get_and_dump_data('uvx')
