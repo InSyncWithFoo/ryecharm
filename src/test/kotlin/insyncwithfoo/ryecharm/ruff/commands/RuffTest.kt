@@ -99,6 +99,19 @@ internal class RuffTest : CommandFactoryTest() {
     }
     
     @Test
+    fun `test allRules`() {
+        val command = ruff.allRules()
+        val arguments = command.arguments
+        
+        assertEquals("rule", command.subcommand)
+        assertEquals(projectPath, command.workingDirectory)
+        
+        assertContains(arguments, "--all")
+        
+        assertTrue(arguments include listOf("--select", "I,F401"))
+    }
+    
+    @Test
     fun `test config`() {
         val option = buildString(10..30) {
             listOf(lowercase, '.', '-').random()
@@ -107,6 +120,15 @@ internal class RuffTest : CommandFactoryTest() {
         
         assertEquals("config", command.subcommand)
         assertEquals(listOf(option, "--output-format", "json"), command.arguments)
+        assertEquals(projectPath, command.workingDirectory)
+    }
+    
+    @Test
+    fun `test allConfig`() {
+        val command = ruff.allConfig()
+        
+        assertEquals("config", command.subcommand)
+        assertEquals(listOf("--output-format", "json"), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }
     

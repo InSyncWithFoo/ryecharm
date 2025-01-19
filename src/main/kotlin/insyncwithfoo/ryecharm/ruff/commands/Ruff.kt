@@ -61,6 +61,14 @@ internal class Ruff private constructor(
     fun rule(code: String) =
         RuleCommand().build(CommandArguments(code))
     
+    fun allRules(): Command {
+        val arguments = CommandArguments("--all")
+        
+        arguments["--output-format"] = "json"
+        
+        return RuleCommand().build(arguments)
+    }
+    
     fun config(option: String): Command {
         val arguments = CommandArguments(option)
         

@@ -3,7 +3,7 @@ package insyncwithfoo.ryecharm.ruff.documentation.targets
 import com.intellij.platform.backend.documentation.DocumentationResult
 import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.ruff.NoqaComment
-import insyncwithfoo.ryecharm.ruff.documentation.getDocumentationForRule
+import insyncwithfoo.ryecharm.ruff.documentation.getRuleDocumentation
 import insyncwithfoo.ryecharm.ruff.documentation.providers.NoqaCodeDocumentationTargetProvider
 import insyncwithfoo.ryecharm.toDocumentationResult
 
@@ -24,7 +24,7 @@ internal class NoqaCodeDocumentationTarget(
         val ruleCode = noqaComment.findRuleCodeAtOffset(offset) ?: return null
         
         return DocumentationResult.asyncDocumentation {
-            project.getDocumentationForRule(ruleCode)?.toDocumentationResult()
+            project.getRuleDocumentation(ruleCode)?.toDocumentationResult()
         }
     }
     

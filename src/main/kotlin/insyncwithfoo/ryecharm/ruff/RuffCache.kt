@@ -84,11 +84,18 @@ internal class RuffCache(private val project: Project) {
             .filterIsInstance<KMutableProperty1<*, *>>()
     
     /**
-     * Store the result of `ruff config`.
+     * Store the output of `ruff config`.
      */
     var optionsDocumentation: CachedResult<Map<OptionName, OptionDocumentation>>?
         get() = RuffCache::optionsDocumentation.getStoredValue()
         set(value) = RuffCache::optionsDocumentation.setStoredValue(value)
+    
+    /**
+     * Store part of the output of `ruff rule --all`.
+     */
+    var ruleNameToCodeMap: CachedResult<Map<String, String>>?
+        get() = RuffCache::ruleNameToCodeMap.getStoredValue()
+        set(value) = RuffCache::ruleNameToCodeMap.setStoredValue(value)
     
     private inline fun <reified R : Any> KProperty<CachedResult<R>?>.getStoredValue(): CachedResult<R>? {
         if (parseCache[this] == null) {
