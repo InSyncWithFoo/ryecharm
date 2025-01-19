@@ -108,7 +108,9 @@ internal class RuffOptionDocumentationTarget(
         }
     
     private suspend fun Project.getDocumentationUncached(option: OptionName): OptionDocumentation? {
-        val command = ruff!!.config(option)
+        val ruff = this.ruff ?: return null
+        
+        val command = ruff.config(option)
         val output = ProgressContext.IO.compute {
             runInBackground(command)
         }

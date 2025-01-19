@@ -123,7 +123,6 @@ private fun OptionInfo.makeDocumentationPopup(name: OptionName) = popup {
 
 // Upstream issue: https://github.com/astral-sh/ruff/issues/12960
 // Logic based on: https://github.com/astral-sh/ruff/blob/4881d32c/crates/ruff_workspace/src/options_base.rs#L395
-
 internal fun OptionInfo.render(name: OptionName): HTML {
     val style = HtmlChunk.styleTag("th { white-space: pre; }")
     val body = this.makeDocumentationPopup(name)

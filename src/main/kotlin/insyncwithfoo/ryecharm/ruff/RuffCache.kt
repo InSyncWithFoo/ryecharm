@@ -8,33 +8,20 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.RyeCharm
+import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.propertiesComponent
 import insyncwithfoo.ryecharm.ruff.documentation.OptionDocumentation
 import insyncwithfoo.ryecharm.ruff.documentation.OptionName
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import insyncwithfoo.ryecharm.stringifyToJSON
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty
 import kotlin.reflect.full.declaredMemberProperties
-
-
-private typealias JSON = String
 
 
 private const val PREFIX = "${RyeCharm.ID}.ruff.caching"
 
 
 private fun String.toUniqueKeyName() = "$PREFIX.$this"
-
-
-private inline fun <reified T> JSON.parse(): T {
-    return Json.decodeFromString<T>(this)
-}
-
-
-private inline fun <reified T : Any> T.stringify(): JSON {
-    return Json.encodeToString<T>(this)
-}
 
 
 private operator fun PropertiesComponent.get(property: KProperty<*>): String? {
@@ -63,7 +50,7 @@ private class ParseCache : Disposable {
     
     @Suppress("UNCHECKED_CAST")
     inline operator fun <reified R : Any> get(property: KProperty<CachedResult<R>?>): CachedResult<R>? =
-        parsed[property.name] as? CachedResult<R>?
+        parsed[property.name] as? CachedResult<R>
     
     inline operator fun <reified R : Any> set(property: KProperty<CachedResult<R>?>, value: CachedResult<R>?) {
         when {
@@ -105,14 +92,14 @@ internal class RuffCache(private val project: Project) {
     
     private inline fun <reified R : Any> KProperty<CachedResult<R>?>.getStoredValue(): CachedResult<R>? {
         if (parseCache[this] == null) {
-            parseCache[this] = storage[this]?.parse()
+            parseCache[this] = storage[this]?.parseAsJSON()
         }
         
         return parseCache[this]
     }
     
     private inline fun <reified R : Any> KProperty<CachedResult<R>?>.setStoredValue(value: CachedResult<R>?) {
-        storage[this] = value?.stringify()
+        storage[this] = value?.stringifyToJSON()
         parseCache[this] = null
     }
     

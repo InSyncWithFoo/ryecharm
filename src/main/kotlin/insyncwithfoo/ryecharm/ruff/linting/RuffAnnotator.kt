@@ -21,6 +21,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.isSupportedByRuff
+import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
@@ -31,8 +32,6 @@ import insyncwithfoo.ryecharm.ruff.getOffsetRange
 import insyncwithfoo.ryecharm.ruff.toZeroBased
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unknownError
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
 import java.nio.file.Path
 
 
@@ -121,7 +120,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         val output = runBlockingCancellable {
             project.runInBackground(command)
         }
-        val results = parseCheckOutput(output.stdout)
+        val results = output.stdout.parseAsJSON<List<Diagnostic>>()
         
         if (output.isCancelled) {
             return null
@@ -138,12 +137,6 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         }
         
         return AnnotationResult(configurations, results)
-    }
-    
-    private fun parseCheckOutput(raw: String) = try {
-        Json.decodeFromString<List<Diagnostic>>(raw)
-    } catch (_: SerializationException) {
-        null
     }
     
     override fun apply(file: PsiFile, annotationResult: AnnotationResult?, holder: AnnotationHolder) {

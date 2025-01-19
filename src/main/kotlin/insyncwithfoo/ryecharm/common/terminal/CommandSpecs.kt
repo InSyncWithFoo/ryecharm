@@ -2,8 +2,8 @@
 
 package insyncwithfoo.ryecharm.common.terminal
 
+import insyncwithfoo.ryecharm.parseAsJSON
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import org.jetbrains.plugins.terminal.block.completion.spec.ShellCommandSpec
 import org.jetbrains.plugins.terminal.block.completion.spec.dsl.ShellArgumentContext
 import org.jetbrains.plugins.terminal.block.completion.spec.dsl.ShellChildCommandsContext
@@ -120,7 +120,7 @@ private fun ShellCommandSpec(tree: CommandNode) =
 
 
 private fun ClassLoader.loadCommandTreeFrom(path: String) =
-    getResource(path)?.readText()?.let { Json.decodeFromString<CommandTreeAndVersion>(it) }
+    getResource(path)?.readText()?.parseAsJSON<CommandTreeAndVersion>()
 
 
 internal fun ClassLoader.loadCommandSpecFrom(path: String) =

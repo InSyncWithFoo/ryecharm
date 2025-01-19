@@ -82,7 +82,7 @@ internal class UV private constructor(
     fun installGroup(name: String): Command {
         val kind = message("progresses.command.uv.installDependencies.kind.group", name)
         
-        return InstallDependenciesCommand(kind).build(CommandArguments("--group", name))
+        return InstallDependenciesCommand(kind).build(CommandArguments("--group" to name))
     }
     
     fun installAllGroups(): Command {
@@ -94,7 +94,7 @@ internal class UV private constructor(
     fun installExtra(name: String): Command {
         val kind = message("progresses.command.uv.installDependencies.kind.extra", name)
         
-        return InstallDependenciesCommand(kind).build(CommandArguments("--extra", name))
+        return InstallDependenciesCommand(kind).build(CommandArguments("--extra" to name))
     }
     
     fun installAllExtras(): Command {

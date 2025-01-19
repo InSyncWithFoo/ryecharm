@@ -2,8 +2,6 @@ package insyncwithfoo.ryecharm
 
 import com.intellij.execution.process.ProcessOutput
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 
 /**
@@ -28,7 +26,7 @@ internal class ProcessOutputSurrogate(
     val isTimeout: Boolean,
     val isCancelled: Boolean
 ) {
-    override fun toString() = Json.encodeToString(this)
+    override fun toString() = this.stringifyToJSON()
 }
 
 

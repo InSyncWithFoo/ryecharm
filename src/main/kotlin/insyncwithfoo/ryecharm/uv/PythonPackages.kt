@@ -1,10 +1,9 @@
 package insyncwithfoo.ryecharm.uv
 
 import com.jetbrains.python.packaging.common.PythonPackage
+import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
 
 
 @Serializable
@@ -26,14 +25,7 @@ private fun PythonPackage(surrogate: PythonPackageSurrogate) =
     }
 
 
-internal fun parsePipListOutput(raw: String): List<PythonPackage>? {
-    val json = Json { ignoreUnknownKeys = true }
-    
-    val parsed = try {
-        json.decodeFromString<List<PythonPackageSurrogate>>(raw)
-    } catch (_: SerializationException) {
-        return null
+internal fun parsePipListOutput(raw: String) =
+    raw.parseAsJSONLeniently<List<PythonPackageSurrogate>>()?.map {
+        PythonPackage(it)
     }
-    
-    return parsed.map { PythonPackage(it) }
-}

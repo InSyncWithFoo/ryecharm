@@ -16,6 +16,7 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.defaultProject
 import insyncwithfoo.ryecharm.launch
+import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
@@ -23,8 +24,6 @@ import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unknownError
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -159,20 +158,10 @@ internal class ShowLinters : AnAction(), DumbAware {
     }
     
     private fun Project.parseOutputAndShowLinters(command: Command, output: ProcessOutput) {
-        val linters = parseRuffLinterOutput(output.stdout)
+        val linters = output.stdout.parseAsJSONLeniently<List<Linter>>()
             ?: return unknownError(command, output)
         
         LintersDialog(linters, this).show()
-    }
-    
-    private fun parseRuffLinterOutput(raw: String): List<Linter>? {
-        val json = Json { ignoreUnknownKeys = true }
-        
-        return try {
-            json.decodeFromString<List<Linter>>(raw)
-        } catch (_: SerializationException) {
-            null
-        }
     }
     
 }
