@@ -953,6 +953,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#render-tooltips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Render tooltips
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tooltip-format" class="md-nav__link">
     <span class="md-ellipsis">
       Tooltip format
@@ -1447,6 +1456,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#render-tooltips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Render tooltips
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tooltip-format" class="md-nav__link">
     <span class="md-ellipsis">
       Tooltip format
@@ -1808,10 +1826,23 @@ should be shown at the very top of the editor for that file as a banner.</p>
 </div>
 </div>
 </div>
+<h4 id="render-tooltips">Render tooltips<a class="headerlink" href="#render-tooltips" title="Permanent link">#</a></h4>
+<p>Whether error messages should be rendered as Markdown.</p>
+<p>Default: <code>false</code></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="render-tooltips-enabled" name="__tabbed_2" type="radio" /><input id="render-tooltips-disabled" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="render-tooltips-enabled">Enabled</label><label for="render-tooltips-disabled">Disabled</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/configurations-ruff-render-tooltips-demo-enabled.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/configurations-ruff-render-tooltips-demo-disabled.png" /></p>
+</div>
+</div>
+</div>
 <h4 id="tooltip-format">Tooltip format<a class="headerlink" href="#tooltip-format" title="Permanent link">#</a></h4>
 <p>The format in which tooltips are displayed.</p>
 <p>Default: <i>A123: Message</i></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="tooltip-format-message" name="__tabbed_2" type="radio" /><input id="tooltip-format-a123-message" name="__tabbed_2" type="radio" /><input id="tooltip-format-ruff-a123-message" name="__tabbed_2" type="radio" /><input id="tooltip-format-message-ruffa123" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="tooltip-format-message">Message</label><label for="tooltip-format-a123-message">A123: Message</label><label for="tooltip-format-ruff-a123-message">Ruff (A123): Message</label><label for="tooltip-format-message-ruffa123">Message Ruff(A123)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:4"><input checked="checked" id="tooltip-format-message" name="__tabbed_3" type="radio" /><input id="tooltip-format-a123-message" name="__tabbed_3" type="radio" /><input id="tooltip-format-ruff-a123-message" name="__tabbed_3" type="radio" /><input id="tooltip-format-message-ruffa123" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="tooltip-format-message">Message</label><label for="tooltip-format-a123-message">A123: Message</label><label for="tooltip-format-ruff-a123-message">Ruff (A123): Message</label><label for="tooltip-format-message-ruffa123">Message Ruff(A123)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><img alt="" src="../../assets/configurations-ruff-tooltip-format-demo-message.png" /></p>
@@ -1906,7 +1937,7 @@ in the file before it is saved.</p>
 <p>Whether RyeCharm should automatically find a potential
 Ruff executable and suggest setting that as the executable
 for the current project on some events.</p>
-<p>This feature can also be <a href="../../ruff/actions/#suggest-project-executable">triggered as an action</a>.</p>
+<p>This functionality can also be <a href="../../ruff/actions/#suggest-project-executable">triggered as an action</a>.</p>
 <h4 id="on-project-open">On project open<a class="headerlink" href="#on-project-open" title="Permanent link">#</a></h4>
 <p>Whether a potential executable should be suggested when a project is opened.</p>
 <p>Default: <code>true</code></p>
