@@ -14,6 +14,61 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-6] - 2025-01-20
+
+See [the documentation][0.1.0-a6-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.9.2][0.1.0-a6-2]
+* uv: [0.5.21][0.1.0-a6-3]
+* Rye: [0.43.0][0.1.0-a6-4]
+
+
+### Added
+
+* Ruff's "Fix all" can now be used as an action.
+  Previously, this functionality was only accessible via an intention.
+* `optional-dependency` ("extras") now have corresponding install buttons
+  in the gutter similar to that of `dependency-groups`.
+* Ruff's Markdown error messages are displayed as-is in tooltips by default.
+  It is now possible to render them using a new advanced setting.
+* Links to Ruff rules in documentation popups are now resolved in-place,
+  replacing the current popup content with the rule's documentation.
+  Previously, such links would open the browser.
+
+
+### Changed
+
+* If a Ruff executable is not specified, one will be detected during execution.
+  When Ruff is not installed but "Formatting" is enabled,
+  the formatter will fail with an error notification.
+  As PyCharm triggers the formatter automatically on paste,
+  this might cause some confusion.
+  The formatter will now not run unless the executable is specified directly
+  using the Ruff setting panel.
+* The output of `ruff config` is now no longer cached by default.
+  This might result in a noticeable delay that would previously
+  only happen in the first run.
+  The old behaviour can be toggled using a new advanced setting.
+
+
+### Fixed
+
+* An error notification will now be displayed if
+  an invalid range is given to the formatter.
+  Previously, this would result in an `IndexOutOfBoundsException`.
+* Due to a logic error, RyeCharm would naively run Ruff on Jupyter notebooks.
+  This has been fixed.
+  Jupyter notebooks have never been supported by any versions of RyeCharm.
+
+
+  [0.1.0-a6-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a6-2]: https://github.com/astral-sh/ruff/releases/tag/0.9.2
+  [0.1.0-a6-3]: https://github.com/astral-sh/uv/releases/tag/0.5.21
+  [0.1.0-a6-4]: https://github.com/astral-sh/rye/releases/tag/0.43.0
+
+
 ## [0.1.0-alpha-5] - 2024-12-16
 
 See [the documentation][0.1.0-a5-1] for more information.
@@ -313,7 +368,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..HEAD
+  [0.1.0-alpha-6]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..v0.1.0-alpha-6
   [0.1.0-alpha-5]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..v0.1.0-alpha-5
   [0.1.0-alpha-4]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..v0.1.0-alpha-4
   [0.1.0-alpha-3]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-2..v0.1.0-alpha-3

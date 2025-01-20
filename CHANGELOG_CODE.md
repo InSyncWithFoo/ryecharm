@@ -14,6 +14,22 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-6] - 2025-01-20
+
+### Dependencies
+
+* [LSP4IJ][_0.1.0-a6-d1]: 0.8.1 &rarr; 0.9.0
+* [Gradle][_0.1.0-a6-d2]: 8.11.1 &rarr; 8.12
+* [@astral-sh/setup-uv][_0.1.0-a6-d3]: 4 &rarr; 5
+* [Qodana][_0.1.0-a6-d4]: 2024.3.2 &rarr; 2024.3.4
+
+
+  [_0.1.0-a6-d1]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a6-d2]: https://github.com/gradle/gradle
+  [_0.1.0-a6-d3]: https://github.com/astral-sh/setup-uv
+  [_0.1.0-a6-d4]: https://github.com/JetBrains/qodana-action
+
+
 ## [0.1.0-alpha-5] - 2024-12-16
 
 ### Dependencies
@@ -154,7 +170,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..HEAD
+  [0.1.0-alpha-6]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..v0.1.0-alpha-6
   [0.1.0-alpha-5]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..v0.1.0-alpha-5
   [0.1.0-alpha-4]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..v0.1.0-alpha-4
   [0.1.0-alpha-3]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-2..v0.1.0-alpha-3

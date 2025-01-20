@@ -12,6 +12,12 @@ While the cache is automatically invalidated whenever the executable changes,
 manually clearing it might sometimes be useful.
 
 
+## Fix all
+
+This action has the same functionalities as that of
+[the similarly-named intention][2].
+
+
 ## Open configuration file
 
 Open the global Ruff configuration file (`ruff.toml`/`.ruff.toml`)
@@ -58,3 +64,4 @@ will detect such executables automatically.
 
 
   [1]: documentation.md
+  [2]: intentions.md#fix-all

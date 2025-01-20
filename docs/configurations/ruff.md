@@ -75,6 +75,19 @@ Default: `false`
     ![](../assets/configurations-ruff-file-level-banner-demo-disabled.png)
 
 
+#### Render tooltips
+
+Whether error messages should be rendered as Markdown.
+
+Default: `false`
+
+=== "Enabled"
+    ![](../assets/configurations-ruff-render-tooltips-demo-enabled.png)
+
+=== "Disabled"
+    ![](../assets/configurations-ruff-render-tooltips-demo-disabled.png)
+
+
 #### Tooltip format
 
 The format in which tooltips are displayed.
@@ -252,7 +265,7 @@ Whether RyeCharm should automatically find a potential
 Ruff executable and suggest setting that as the executable
 for the current project on some events.
 
-This feature can also be [triggered as an action][19].
+This functionality can also be [triggered as an action][19].
 
 
 #### On project open

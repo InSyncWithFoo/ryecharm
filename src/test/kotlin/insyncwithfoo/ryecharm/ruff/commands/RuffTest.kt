@@ -108,7 +108,7 @@ internal class RuffTest : CommandFactoryTest() {
         
         assertContains(arguments, "--all")
         
-        assertTrue(arguments include listOf("--select", "I,F401"))
+        assertTrue(arguments include listOf("--output-format", "json"))
     }
     
     @Test
