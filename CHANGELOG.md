@@ -29,10 +29,10 @@ Latest tool versions at the time of release:
 
 * Ruff's "Fix all" can now be used as an action.
   Previously, this functionality was only accessible via an intention.
-* `optional-dependency` ("extras") now have corresponding install buttons
+* `optional-dependencies` ("extras") now have corresponding install buttons
   in the gutter similar to that of `dependency-groups`.
 * Ruff's Markdown error messages are displayed as-is in tooltips by default.
-  It is now possible to render them using a new advanced setting.
+  It is now possible to render them using a new setting.
 * Links to Ruff rules in documentation popups are now resolved in-place,
   replacing the current popup content with the rule's documentation.
   Previously, such links would open the browser.

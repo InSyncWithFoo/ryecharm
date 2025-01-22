@@ -8,7 +8,6 @@ import insyncwithfoo.ryecharm.Markdown
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.isSuccessful
-import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.ruff.CachedResult

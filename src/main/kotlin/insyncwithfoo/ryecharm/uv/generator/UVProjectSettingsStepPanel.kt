@@ -25,8 +25,8 @@ import com.jetbrains.python.sdk.add.PySdkComboBoxItem
 import com.jetbrains.python.sdk.add.PySdkPathChoosingComboBox
 import com.jetbrains.python.sdk.add.addInterpretersAsync
 import com.jetbrains.python.sdk.detectSystemWideSdks
-import insyncwithfoo.ryecharm.bindSelected
 import insyncwithfoo.ryecharm.bind
+import insyncwithfoo.ryecharm.bindSelected
 import insyncwithfoo.ryecharm.configurations.globalUVExecutable
 import insyncwithfoo.ryecharm.isNonEmptyDirectory
 import insyncwithfoo.ryecharm.makeFlexible

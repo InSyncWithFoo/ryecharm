@@ -2,7 +2,6 @@ package insyncwithfoo.ryecharm.ruff.documentation.targets
 
 import com.intellij.platform.backend.documentation.DocumentationResult
 import com.intellij.psi.PsiElement
-import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.documentation.getRuleDocumentation
 import insyncwithfoo.ryecharm.ruff.documentation.providers.RuffRuleDocumentationTargetProvider
 import insyncwithfoo.ryecharm.toDocumentationResult
