@@ -194,7 +194,13 @@
 		
 		<intentionAction>
 			<language/>
-			<className>insyncwithfoo.ryecharm.ruff.intentions.FixAll</className>
+			<className>insyncwithfoo.ryecharm.ruff.intentions.FixAllSafe</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.ruff.intentions.FixAllUnsafe</className>
 			<category>RyeCharm</category>
 		</intentionAction>
 		
@@ -450,10 +456,19 @@
 		
 		<!--suppress PluginXmlCapitalization -->
 		<action
-			id="insyncwithfoo.ryecharm.ruff.actions.FixAll"
-			class="insyncwithfoo.ryecharm.ruff.actions.FixAll"
+			id="insyncwithfoo.ryecharm.ruff.actions.FixAllSafe"
+			class="insyncwithfoo.ryecharm.ruff.actions.FixAllSafe"
 			text="Ruff: Fix all safely fixable violations"
 			description="Fix all safely fixable violations found in the current editor"
+			icon="AllIcons.Actions.Edit"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.FixAllUnsafe"
+			class="insyncwithfoo.ryecharm.ruff.actions.FixAllUnsafe"
+			text="Ruff: Fix all fixable violations, unsafe included"
+			description="Fix all violations found in the current editor, unsafe included"
 			icon="AllIcons.Actions.Edit"
 		/>
 	</actions>

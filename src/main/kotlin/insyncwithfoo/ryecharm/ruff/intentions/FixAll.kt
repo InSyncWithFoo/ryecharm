@@ -20,11 +20,9 @@ import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.runWriteCommandAction
 
 
-internal class FixAll : ExternalIntentionAction, LowPriorityAction {
+internal abstract class FixAll(private val unsafe: Boolean) : ExternalIntentionAction, LowPriorityAction {
     
     override fun startInWriteAction() = false
-    
-    override fun getFamilyName() = message("intentions.ruff.fixAll.familyName")
     
     override fun getText() = familyName
     
@@ -53,7 +51,7 @@ internal class FixAll : ExternalIntentionAction, LowPriorityAction {
             return
         }
         
-        val command = ruff.fixAll(document.text, path)
+        val command = ruff.fixAll(document.text, path, unsafeFixes = unsafe)
         
         project.runCommandAndLoadResult(command, file)
     }
@@ -73,4 +71,14 @@ internal class FixAll : ExternalIntentionAction, LowPriorityAction {
         }
     }
     
+}
+
+
+internal class FixAllSafe : FixAll(unsafe = false) {
+    override fun getFamilyName() = message("intentions.ruff.fixAll.familyName.safe")
+}
+
+
+internal class FixAllUnsafe : FixAll(unsafe = true) {
+    override fun getFamilyName() = message("intentions.ruff.fixAll.familyName.unsafe")
 }

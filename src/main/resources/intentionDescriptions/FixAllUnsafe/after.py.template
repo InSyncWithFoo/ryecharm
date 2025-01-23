@@ -1,0 +1,5 @@
+sorted([])  # C413
+
+def foo_bar() -> None:
+    if baz_qux:
+        lorem_ipsum()

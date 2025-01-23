@@ -85,7 +85,7 @@ internal class RuffOnSaveTasksRunner : ActionOnSave() {
         var newText = originalText
         
         if (configurations.fixOnSave) {
-            val command = ruff.fixAll(newText, path)
+            val command = ruff.fixAll(newText, path, unsafeFixes = false)
             newText = getResultOrNull(command) ?: return null
         }
         

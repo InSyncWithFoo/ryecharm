@@ -27,7 +27,7 @@ private val AnActionEvent.editor: Editor?
     get() = dataContext.getData(CommonDataKeys.EDITOR)
 
 
-internal class FixAll : AnAction(), DumbAware {
+internal abstract class FixAll(private val unsafe: Boolean) : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return noProjectFound()
@@ -38,7 +38,7 @@ internal class FixAll : AnAction(), DumbAware {
         if (ruff == null) {
             project.couldNotConstructCommandFactory<Ruff>(
                 """
-                |Was trying to fix all safely fixable violations.
+                |Was trying to fix all violations.
                 """.trimMargin()
             )
             return
@@ -49,7 +49,7 @@ internal class FixAll : AnAction(), DumbAware {
             ?: return project.noDocumentFound()
         val path = file.virtualFile.toNioPath()
         
-        val command = ruff.fixAll(document.text, path)
+        val command = ruff.fixAll(document.text, path, unsafeFixes = unsafe)
         
         project.runCommandAndLoadResult(command, file)
     }
@@ -70,3 +70,7 @@ internal class FixAll : AnAction(), DumbAware {
     }
     
 }
+
+
+internal class FixAllSafe : FixAll(unsafe = false)
+internal class FixAllUnsafe : FixAll(unsafe = true)
