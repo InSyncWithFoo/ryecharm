@@ -4,6 +4,7 @@ import com.intellij.openapi.util.text.HtmlChunk
 import insyncwithfoo.ryecharm.DocumentationURI
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.Markdown
+import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.popup
 import insyncwithfoo.ryecharm.removeSurroundingTag
 import insyncwithfoo.ryecharm.toHTML
@@ -128,4 +129,16 @@ internal fun OptionInfo.render(name: OptionName): HTML {
     val body = this.makeDocumentationPopup(name)
     
     return "${style}${body}"
+}
+
+
+internal fun Map<OptionName, OptionInfo>.render(name: OptionName): HTML {
+    val list = this.entries.map { (childName, _) ->
+        val path = "${name}.${childName}"
+        val uri = DocumentationURI(RUFF_OPTION_HOST, path)
+        
+        "* [`${childName}`]($uri)"
+    }
+    
+    return message("documentation.popup.groupInfo", name, list.joinToString("\n")).toHTML()
 }

@@ -124,11 +124,15 @@ internal class RuffOptionDocumentationTarget(
             return null
         }
         
-        return readAction {
-            val info = output.stdout.parseAsJSONLeniently<OptionInfo>()
-            
-            info?.render(option.toAbsoluteName())
+        output.stdout.parseAsJSONLeniently<Map<OptionName, OptionInfo>>()?.let {
+            return readAction { it.render(name = option) }
         }
+        
+        output.stdout.parseAsJSONLeniently<OptionInfo>()?.let {
+            return readAction { it.render(name = option.toAbsoluteName()) }
+        }
+        
+        return null
     }
     
     private suspend fun Project.getDocumentationCached(option: OptionName): OptionDocumentation? {
