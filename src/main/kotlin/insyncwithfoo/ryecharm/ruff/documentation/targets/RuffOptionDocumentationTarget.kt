@@ -101,13 +101,7 @@ internal class RuffOptionDocumentationTarget(
         element.project.getDocumentation(option)?.toDocumentationResult()
     }
     
-    private suspend fun Project.getDocumentation(option: OptionName) =
-        when (ruffConfigurations.cacheConfigDocumentation) {
-            true -> getDocumentationCached(option)
-            else -> getDocumentationUncached(option)
-        }
-    
-    private suspend fun Project.getDocumentationUncached(option: OptionName): OptionDocumentation? {
+    private suspend fun Project.getDocumentation(option: OptionName): OptionDocumentation? {
         val ruff = this.ruff ?: return null
         
         val command = ruff.config(option)
@@ -133,52 +127,6 @@ internal class RuffOptionDocumentationTarget(
         }
         
         return null
-    }
-    
-    private suspend fun Project.getDocumentationCached(option: OptionName): OptionDocumentation? {
-        val ruff = this.ruff ?: return null
-        val executable = ruff.executable
-        
-        val cache = RuffCache.getInstance(this)
-        val cached = cache.optionsDocumentation
-        
-        if (cached?.matches(executable) == true) {
-            val documentation = cached.result[option]
-            
-            if (documentation != null) {
-                return documentation
-            }
-        }
-        
-        val newData = getNewDocumentationDataForCache()?.also {
-            cache.optionsDocumentation = CachedResult(it, executable)
-        }
-        
-        return newData?.get(option)
-    }
-    
-    private suspend fun Project.getNewDocumentationDataForCache(): Map<OptionName, OptionDocumentation>? {
-        val command = ruff!!.allConfig()
-        val output = ProgressContext.IO.compute {
-            runInBackground(command)
-        }
-        
-        if (output.isTimeout) {
-            processTimeout(command)
-            return null
-        }
-        
-        if (output.isCancelled || !output.isSuccessful) {
-            return null
-        }
-        
-        return readAction {
-            val map = output.stdout.parseAsJSONLeniently<Map<OptionName, OptionInfo>>()
-            
-            map?.mapValues { (name, info) ->
-                info.render(name.toAbsoluteName())
-            }
-        }
     }
     
 }
