@@ -38,6 +38,10 @@ private fun String.anchorToTOMLPath() =
     this.replace("_", ".")
 
 
+internal fun OptionName.toAbsoluteName(): OptionName =
+    "ruff.$this"
+
+
 @Serializable
 internal data class OptionDeprecationInfo(
     val since: String?,
@@ -103,7 +107,7 @@ private val OptionInfo.renderedExampleBlock: HTML
 
 
 private fun OptionInfo.makeDocumentationPopup(name: OptionName) = popup {
-    definition(name.toDefinitionBlock())
+    definition(name.toAbsoluteName().toDefinitionBlock())
     
     separator()
     
@@ -132,13 +136,21 @@ internal fun OptionInfo.render(name: OptionName): HTML {
 }
 
 
-internal fun Map<OptionName, OptionInfo>.render(name: OptionName): HTML {
-    val list = this.entries.map { (childName, _) ->
+private fun Map<OptionName, OptionInfo>.makeDocumentationPopup(name: OptionName) = popup {
+    val list = entries.joinToString("\n") { (childName, _) ->
         val path = "${name}.${childName}"
         val uri = DocumentationURI(RUFF_OPTION_HOST, path)
         
         "* [`${childName}`]($uri)"
     }
     
-    return message("documentation.popup.groupInfo", name, list.joinToString("\n")).toHTML()
+    definition(name.toAbsoluteName().toDefinitionBlock())
+    
+    separator()
+    
+    content(message("documentation.popup.configGroupInfo", name, list).toHTML())
 }
+
+
+internal fun Map<OptionName, OptionInfo>.render(name: OptionName) =
+    makeDocumentationPopup(name).toString()

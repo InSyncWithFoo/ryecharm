@@ -26,8 +26,8 @@ private enum class TableKind {
     
     companion object {
         fun from(table: TomlTable) = when {
-            table.isDependencyGroupsTable -> TableKind.DependencyGroups
-            table.isOptionalDependenciesTable -> TableKind.ProjectOptionalDependencies
+            table.isDependencyGroupsTable -> DependencyGroups
+            table.isOptionalDependenciesTable -> ProjectOptionalDependencies
             else -> null
         }
     }

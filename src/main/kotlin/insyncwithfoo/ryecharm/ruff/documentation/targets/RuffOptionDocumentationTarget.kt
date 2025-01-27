@@ -9,19 +9,17 @@ import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.Definition
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.ProgressContext
-import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.removeSurroundingTag
-import insyncwithfoo.ryecharm.ruff.CachedResult
-import insyncwithfoo.ryecharm.ruff.RuffCache
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.documentation.OptionDocumentation
 import insyncwithfoo.ryecharm.ruff.documentation.OptionInfo
 import insyncwithfoo.ryecharm.ruff.documentation.OptionName
 import insyncwithfoo.ryecharm.ruff.documentation.providers.RuffOptionDocumentationTargetProvider
 import insyncwithfoo.ryecharm.ruff.documentation.render
+import insyncwithfoo.ryecharm.ruff.documentation.toAbsoluteName
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.toDocumentationResult
 import insyncwithfoo.ryecharm.toHTML
@@ -88,9 +86,6 @@ internal class RuffOptionDocumentationTarget(
         return Definition().apply { html(html) }.toString()
     }
     
-    private fun OptionName.toAbsoluteName() =
-        "ruff.$this"
-    
     /**
      * Return the information about the configuration,
      * rendered as a documentation popup.
@@ -123,7 +118,7 @@ internal class RuffOptionDocumentationTarget(
         }
         
         output.stdout.parseAsJSONLeniently<OptionInfo>()?.let {
-            return readAction { it.render(name = option.toAbsoluteName()) }
+            return readAction { it.render(name = option) }
         }
         
         return null

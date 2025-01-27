@@ -10,8 +10,6 @@ import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.propertiesComponent
-import insyncwithfoo.ryecharm.ruff.documentation.OptionDocumentation
-import insyncwithfoo.ryecharm.ruff.documentation.OptionName
 import insyncwithfoo.ryecharm.stringifyToJSON
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty
@@ -82,13 +80,6 @@ internal class RuffCache(private val project: Project) {
     private val allProperties: List<KProperty<*>>
         get() = this::class.declaredMemberProperties
             .filterIsInstance<KMutableProperty1<*, *>>()
-    
-    /**
-     * Store the output of `ruff config`.
-     */
-    var optionsDocumentation: CachedResult<Map<OptionName, OptionDocumentation>>?
-        get() = RuffCache::optionsDocumentation.getStoredValue()
-        set(value) = RuffCache::optionsDocumentation.setStoredValue(value)
     
     /**
      * Store part of the output of `ruff rule --all`.
