@@ -78,8 +78,6 @@ nav:
     - Intentions: ruff/intentions.md
   - uv:
     - uv integration: uv/index.md
-    - Generating new projects: uv/generating.md
-    - Managing packages: uv/managing.md
     - Actions: uv/actions.md
     - Intentions: uv/intentions.md
     - Inspections: uv/inspections.md
