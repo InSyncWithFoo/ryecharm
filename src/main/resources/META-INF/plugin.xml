@@ -332,11 +332,6 @@
 			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.DependencyVersionInlayHintsCustomSettingsProvider"
 		/>
 		
-		<directoryProjectGenerator
-			id="insyncwithfoo.ryecharm.uv.generator.UVProjectGenerator"
-			implementation="insyncwithfoo.ryecharm.uv.generator.UVProjectGenerator"
-		/>
-		
 		<editorNotificationProvider
 			id="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
 			implementation="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
@@ -361,32 +356,6 @@
 			enabledByDefault="true"
 			level="WARNING"
 			implementationClass="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
-		/>
-	</extensions>
-	
-	<extensions defaultExtensionNs="Pythonid">
-		<pythonFlavorProvider
-			id="insyncwithfoo.ryecharm.uv.sdk.UVSDKFlavorProvider"
-			implementation="insyncwithfoo.ryecharm.uv.sdk.UVSDKFlavorProvider"
-		/>
-		
-		<!--suppress PluginXmlValidity -->
-		<pySdkProvider
-			id="insyncwithfoo.ryecharm.uv.sdk.UVSDKProvider"
-			implementation="insyncwithfoo.ryecharm.uv.sdk.UVSDKProvider"
-		/>
-		
-		<!--suppress PluginXmlValidity -->
-		<pythonPackageManagerProvider
-			id="insyncwithfoo.ryecharm.uv.managing.UVPackageManagerProvider"
-			order="first"
-			implementation="insyncwithfoo.ryecharm.uv.managing.UVPackageManagerProvider"
-		/>
-		
-		<PythonPackagingToolwindowActionProvider
-			id="insyncwithfoo.ryecharm.uv.managing.UVPackagingToolwindowActionProvider"
-			order="first"
-			implementation="insyncwithfoo.ryecharm.uv.managing.UVPackagingToolwindowActionProvider"
 		/>
 	</extensions>
 	
