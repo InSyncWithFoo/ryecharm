@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm.uv.commands
 
 import insyncwithfoo.ryecharm.CommandFactoryTest
-import insyncwithfoo.ryecharm.uv.generator.ProjectKind
 import org.junit.Test
 import kotlin.test.assertContains
 

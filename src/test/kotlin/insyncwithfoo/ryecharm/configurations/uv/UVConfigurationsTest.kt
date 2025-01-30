@@ -11,12 +11,9 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 6) {
+        doShapeTest(expectedSize = 4) {
             assertEquals(null, executable)
             assertEquals(null, configurationFile)
-            
-            assertEquals(true, packageManaging)
-            assertEquals(false, packageManagingNonUVProject)
             
             assertEquals(false, retrieveDependenciesInReadAction)
             assertEquals(5, dependenciesDataMaxAge)

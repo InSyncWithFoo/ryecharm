@@ -5,6 +5,7 @@ import com.jetbrains.python.packaging.common.PythonPackageSpecification
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
+import insyncwithfoo.ryecharm.Labeled
 import insyncwithfoo.ryecharm.configurations.globalUVExecutable
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.configurations.uvExecutable
@@ -15,11 +16,17 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.homeDirectory
-import insyncwithfoo.ryecharm.uv.generator.ProjectKind
 import java.nio.file.Path
 import kotlin.io.path.div
 import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
+
+
+internal enum class ProjectKind(override val label: String) : Labeled {
+    APP(message("newProjectPanel.settings.projectKind.app")),
+    LIBRARY(message("newProjectPanel.settings.projectKind.library")),
+    PACKAGED_APP(message("newProjectPanel.settings.projectKind.packagedApp"));
+}
 
 
 internal fun PythonPackageSpecification.toPEP508Format() =

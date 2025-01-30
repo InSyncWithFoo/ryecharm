@@ -35,14 +35,6 @@ private fun Row.configurationFileInput(block: Cell<TextFieldWithBrowseButton>.()
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.packageManagingInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.uv.packageManaging.label")).apply(block)
-
-
-private fun Row.packageManagingNonUVProjectInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.uv.packageManagingNonUVProject.label")).apply(block)
-
-
 private fun Row.retrieveDependenciesInReadActionInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.uv.retrieveDependenciesInReadAction.label")).apply(block)
 
@@ -67,19 +59,6 @@ private fun UVPanel.makeComponent() = panel {
     row(message("configurations.uv.configurationFile.label")) {
         configurationFileInput { bindText(state::configurationFile) }
         overrideCheckbox(state::configurationFile)
-    }
-    
-    group(message("configurations.uv.groups.packageManagement")) {
-        row {
-            packageManagingInput { bindSelected(state::packageManaging) }
-            overrideCheckbox(state::packageManaging)
-        }
-        indent {
-            row {
-                packageManagingNonUVProjectInput { bindSelected(state::packageManagingNonUVProject) }
-                overrideCheckbox(state::packageManagingNonUVProject)
-            }
-        }
     }
     
     advancedSettingsGroup {
