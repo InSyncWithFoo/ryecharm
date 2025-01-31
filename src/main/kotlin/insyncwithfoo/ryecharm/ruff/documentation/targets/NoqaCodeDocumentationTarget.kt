@@ -21,7 +21,7 @@ internal class NoqaCodeDocumentationTarget(
         NoqaCodeDocumentationTarget(element, noqaComment, offset)
     
     override fun computeDocumentation(): DocumentationResult? {
-        val ruleCode = noqaComment.findRuleCodeAtOffset(offset) ?: return null
+        val ruleCode = noqaComment.findCodeAtOffset(offset) ?: return null
         
         return DocumentationResult.asyncDocumentation {
             project.getRuleDocumentation(ruleCode)?.toDocumentationResult()

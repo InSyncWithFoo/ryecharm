@@ -16,6 +16,6 @@ private object Bundle {
 @Nls
 internal fun message(
     @PropertyKey(resourceBundle = BUNDLE_PATH) key: String,
-    vararg params: Any,
+    vararg params: Any
 ) =
     Bundle.instance.getMessage(key, *params)

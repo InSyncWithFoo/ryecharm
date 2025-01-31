@@ -34,7 +34,7 @@ internal data class ExpandedEdit(
     val content: String,
     override val location: SourceLocation,
     @SerialName("end_location")
-    override val endLocation: SourceLocation,
+    override val endLocation: SourceLocation
 ) : Ranged
 
 

@@ -52,7 +52,7 @@ class Changelogs:
 				'\n',
 				'## For contributors',
 				'',
-				self.code.get_section_or_unreleased(version),
+				self.code.get_section_or_unreleased(version)
 			]
 		)
 

@@ -15,5 +15,5 @@ internal data class RuleInfo(
     val messageFormats: List<String>,
     val fix: String,
     val explanation: String?,
-    val preview: Boolean,
+    val preview: Boolean
 )
