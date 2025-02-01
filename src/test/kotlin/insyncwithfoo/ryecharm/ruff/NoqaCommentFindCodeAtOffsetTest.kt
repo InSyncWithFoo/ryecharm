@@ -31,7 +31,9 @@ internal class NoqaCommentFindCodeAtOffsetTest(
             arrayOf("middle", "# noqa: A123, B456", 15, "B456"),
             arrayOf("end", "# noqa: A123, B456", 12, "A123"),
             arrayOf("no separator", "# noqa: A123B456", 12, "A123"),
-            arrayOf("before", "# noqa: A123B456", 5, null)
+            arrayOf("before", "# noqa: A123B456", 5, null),
+            arrayOf("leading content", "# foo # noqa: A123, B456", 14, "A123"),
+            arrayOf("leading content 2", "# foo # noqa: A123", 18, "A123")
         )
     }
     

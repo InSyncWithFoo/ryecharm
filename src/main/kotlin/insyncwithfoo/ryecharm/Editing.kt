@@ -21,6 +21,11 @@ internal fun Document.replaceString(range: TextRange, value: CharSequence) {
 }
 
 
+internal fun Document.replaceString(range: IntRange, value: CharSequence) {
+    replaceString(range.first, range.last + 1, value)
+}
+
+
 internal fun Document.replaceContentWith(newContent: CharSequence) {
     replaceString(0, textLength, newContent)
 }

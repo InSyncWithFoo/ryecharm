@@ -66,6 +66,5 @@ internal fun Path.findExecutableChild(name: String) =
     resolve(name.toOSDependentFileName()).toNullIfNotExists()
 
 
-internal fun findExecutableInPath(name: String): Path? {
-    return PathEnvironmentVariableUtil.findInPath(name.toOSDependentFileName())?.toPath()
-}
+internal fun findExecutableInPath(name: String) =
+    PathEnvironmentVariableUtil.findInPath(name.toOSDependentFileName())?.toPath()

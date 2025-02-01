@@ -157,7 +157,7 @@ internal class NoqaComment private constructor(
         }
         
         if (toBeRetained.isEmpty()) {
-            return "#"
+            return ""
         }
         
         val newText = StringBuilder("${prefix}${colon}")
@@ -208,23 +208,20 @@ internal class NoqaComment private constructor(
             return NoqaComment(
                 prefix = Fragment(prefix, elementOffset),
                 colon = colon?.let { Fragment(it, elementOffset) },
-                codes = collectCodes(codeList, elementOffset, match.range),
+                codes = collectCodes(codeList, elementOffset),
                 lastSeparator = lastSeparator?.value,
                 fileLevel = fileLevel,
                 original = Fragment(match.groups[0]!!, elementOffset)
             )
         }
         
-        private fun collectCodes(codeListGroup: MatchGroup?, elementOffset: Int, matchRange: IntRange): List<Fragment> {
+        private fun collectCodes(codeListGroup: MatchGroup?, elementOffset: Int): List<Fragment> {
             if (codeListGroup == null) {
                 return emptyList()
             }
             
-            val codeListOffsetRelativeToMatch = codeListGroup.range.first
-            val matchOffsetRelativeToElement = matchRange.first
-            
-            val codeListAbsoluteOffset =
-                elementOffset + matchOffsetRelativeToElement + codeListOffsetRelativeToMatch
+            val codeListOffsetRelativeToElement = codeListGroup.range.first
+            val codeListAbsoluteOffset = elementOffset + codeListOffsetRelativeToElement
             
             return ruleCode.findAll(codeListGroup.value).mapTo(mutableListOf()) {
                 Fragment(it.groups[0]!!, codeListAbsoluteOffset)

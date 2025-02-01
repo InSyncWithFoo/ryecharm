@@ -212,6 +212,12 @@
 		
 		<intentionAction>
 			<language/>
+			<className>insyncwithfoo.ryecharm.ruff.intentions.ReenableRule</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
 			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectMajorVersion</className>
 			<category>RyeCharm</category>
 		</intentionAction>

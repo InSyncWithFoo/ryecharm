@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-private class PythonPackageSurrogate(
+private data class PythonPackageSurrogate(
     val name: String,
     val version: String,
     @SerialName("editable_project_location")

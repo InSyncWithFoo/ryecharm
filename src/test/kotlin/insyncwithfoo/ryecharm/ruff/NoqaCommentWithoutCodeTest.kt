@@ -33,7 +33,7 @@ internal class NoqaCommentWithoutCodeTest(
             arrayOf("has code - middle", "# noqa: A123, B456 C789", "B456", "# noqa: A123 C789"),
             arrayOf("has code - end", "# noqa: A123, B456 C789", "C789", "# noqa: A123, B456"),
             arrayOf("duplicated code", "# noqa: A123, B456 C789 ,B456", "B456", "# noqa: A123 C789"),
-            arrayOf("duplicated code - no other code", "# noqa: A123, A123,,A123", "A123", "#"),
+            arrayOf("duplicated code - no other code", "# noqa: A123, A123,,A123", "A123", ""),
             arrayOf(
                 "consecutive duplicated - start",
                 "# noqa: A123, A123,,B456 C789 ,B456",
