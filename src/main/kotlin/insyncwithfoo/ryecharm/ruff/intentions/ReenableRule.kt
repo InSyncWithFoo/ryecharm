@@ -25,7 +25,7 @@ internal class ReenableRule : ExternalIntentionAction {
     
     override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean {
         val offset = editor?.caretModel?.offset ?: return false
-        val comment = file?.findElementAt(offset) as? PsiComment ?: return false
+        val comment = file?.findCommentAtOrNearby(offset) ?: return false
         
         val noqaComment = NoqaComment.parse(comment) ?: return false
         
@@ -36,7 +36,7 @@ internal class ReenableRule : ExternalIntentionAction {
     
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
         val offset = editor?.caretModel?.offset ?: return
-        val element = file?.findElementAt(offset) as? PsiComment ?: return
+        val element = file?.findCommentAtOrNearby(offset) ?: return
         
         val noqaComment = NoqaComment.parse(element) ?: return
         val code = noqaComment.findCodeAtOffset(offset) ?: return
@@ -50,10 +50,16 @@ internal class ReenableRule : ExternalIntentionAction {
         val restRange = noqaComment.toString().length..<element.textLength
         val restTrimmed = element.text.slice(restRange).trimStart()
         
-        when (restTrimmed.startsWith("#")) {
+        when (restTrimmed.startsWith("#") || restTrimmed.isEmpty()) {
             true -> file.edit { it.replaceString(element.textRange, restTrimmed) }
             else -> file.edit { it.replaceString(noqaComment.range, "#") }
         }
     }
+    
+    private fun PsiFile.findCommentAt(offset: Int) =
+        findElementAt(offset) as? PsiComment
+    
+    private fun PsiFile.findCommentAtOrNearby(offset: Int) =
+        findCommentAt(offset) ?: findCommentAt(offset - 1)
     
 }
