@@ -518,9 +518,27 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#fix-all-unsafe-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix all, unsafe included
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#organize-imports" class="md-nav__link">
     <span class="md-ellipsis">
       Organize imports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reenable-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reenable rule
     </span>
   </a>
   
@@ -1003,9 +1021,27 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#fix-all-unsafe-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix all, unsafe included
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#organize-imports" class="md-nav__link">
     <span class="md-ellipsis">
       Organize imports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reenable-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reenable rule
     </span>
   </a>
   
@@ -1048,6 +1084,10 @@
 <p>This intention is always available,
 given that the <a href="../running-modes/">running mode</a> is set to <i>Command line</i>.</p>
 <p>This is equivalent to running <code>ruff check --fix</code> with the file as input.</p>
+<h2 id="fix-all-unsafe-included">Fix all, unsafe included<a class="headerlink" href="#fix-all-unsafe-included" title="Permanent link">#</a></h2>
+<p>This intention is always available.</p>
+<p>This is equivalent to running <code>ruff check --fix --unsafe-fixes</code>
+with the file as input.</p>
 <h2 id="organize-imports">Organize imports<a class="headerlink" href="#organize-imports" title="Permanent link">#</a></h2>
 <p>This intention is always available,
 given that the <a href="../running-modes/">running mode</a> is set to <i>Command line</i>.</p>
@@ -1055,6 +1095,21 @@ given that the <a href="../running-modes/">running mode</a> is set to <i>Command
 unlike <i><a href="../formatting/#optimize-imports">Optimize imports</a></i>.</p>
 <p>This is equivalent to running <code>ruff check --fix select I</code>
 with the file as input.</p>
+<h2 id="reenable-rule">Reenable rule<a class="headerlink" href="#reenable-rule" title="Permanent link">#</a></h2>
+<p>This intention is available when the cursor is placed
+in the range of a <code># noqa</code> rule code.</p>
+<p>It removes that rule code in-place.
+If that code is the only code, the entire comment will be removed.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="reenable-rule-before" name="__tabbed_1" type="radio" /><input id="reenable-rule-after" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="reenable-rule-before">Before</label><label for="reenable-rule-after">After</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/ruff-intentions-reenable-rule-demo-before.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/ruff-intentions-reenable-rule-demo-after.png" /></p>
+</div>
+</div>
+</div>
 
 
 
