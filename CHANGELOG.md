@@ -14,6 +14,41 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-7] - 2025-02-02
+
+See [the documentation][0.1.0-a7-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.9.4][0.1.0-a7-2]
+* uv: [0.5.26][0.1.0-a7-3]
+* Rye: [0.43.0][0.1.0-a7-4]
+
+
+### Added
+
+* RyeCharm now supports 2025.1 and 2024.3.2.
+* Unsafe fixes can now be applied via the corresponding intention and action.
+* When keys for Ruff configuration groups (e.g., `tool.ruff.lint`) are hovered,
+  a list of its subkeys will now be shown,
+  where each item can be clicked on to view its full description.
+* Disabled rule codes in `# noqa` comments can now be re-enabled
+  using an intention.
+
+
+### Removed
+
+* 2024.3.1 is no longer supported.
+* The old project generator, package manager and SDK flavor
+  have all been removed in favor of the native support added in 2024.3.2.
+
+
+  [0.1.0-a7-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a7-2]: https://github.com/astral-sh/ruff/releases/tag/0.9.4
+  [0.1.0-a7-3]: https://github.com/astral-sh/uv/releases/tag/0.5.26
+  [0.1.0-a7-4]: https://github.com/astral-sh/rye/releases/tag/0.43.0
+
+
 ## [0.1.0-alpha-6] - 2025-01-20
 
 See [the documentation][0.1.0-a6-1] for more information.
@@ -368,7 +403,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..HEAD
+  [0.1.0-alpha-7]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..v0.1.0-alpha-7
   [0.1.0-alpha-6]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..v0.1.0-alpha-6
   [0.1.0-alpha-5]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..v0.1.0-alpha-5
   [0.1.0-alpha-4]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..v0.1.0-alpha-4

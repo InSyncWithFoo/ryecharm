@@ -52,8 +52,7 @@ with the key's name as argument.
 
 ## Link resolving
 
-Links to Ruff options (that is, those accepted by `ruff config`)
-are resolved in-place.
+Links to Ruff options and rules are resolved in-place.
 
-Clicking on such a link will replace the current popup content
-with that option's documentation.
+In other words, clicking on such a link will replace the current popup content
+with that option or rule's documentation.

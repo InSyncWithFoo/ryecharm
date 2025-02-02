@@ -14,6 +14,24 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-7] - 2025-02-02
+
+### Dependencies
+
+* [@JetBrains/java-annotations][_0.1.0-a7-d1]: 26.0.1 &rarr; 26.0.2
+* [@Kotlin/kotlinx.serialization][_0.1.0-a7-d2]: 1.7.3 &rarr; 1.8.0
+* [Kover][_0.1.0-a7-d3]: 0.9.0 &rarr; 0.9.1
+* [Kotlin JVM plugin][_0.1.0-a7-d4]: 2.1.0 &rarr; 2.1.10
+* [Gradle][_0.1.0-a7-d5]: 8.12 &rarr; 8.12.1
+
+
+  [_0.1.0-a7-d1]: https://github.com/JetBrains/java-annotations
+  [_0.1.0-a7-d2]: https://github.com/Kotlin/kotlinx.serialization
+  [_0.1.0-a7-d3]: https://github.com/Kotlin/kotlinx-kover
+  [_0.1.0-a7-d4]: https://github.com/JetBrains/kotlin
+  [_0.1.0-a7-d5]: https://github.com/gradle/gradle
+
+
 ## [0.1.0-alpha-6] - 2025-01-20
 
 ### Dependencies
@@ -35,7 +53,7 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 ### Dependencies
 
 * [@astral-sh/setup-uv][_0.1.0-a5-d1]: 3 &rarr; 4
-* [Kotlin JVM plugin][_0.1.0-a5-d2]: 2.0.20 &rarr; 2.0.21
+* [Kotlin JVM plugin][_0.1.0-a5-d2]: 2.0.21 &rarr; 2.1.0
 * [Foojay Toolchains][_0.1.0-a5-d3]: 0.8.0 &rarr; 0.9.0
 * [LSP4IJ][_0.1.0-a5-d4]: 0.7.0 &rarr; 0.8.1
 * [IntelliJ Platform Gradle Plugin][_0.1.0-a5-d5]: 2.1.0 &rarr; 2.2.1
@@ -170,7 +188,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..HEAD
+  [0.1.0-alpha-7]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..v0.1.0-alpha-7
   [0.1.0-alpha-6]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..v0.1.0-alpha-6
   [0.1.0-alpha-5]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..v0.1.0-alpha-5
   [0.1.0-alpha-4]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..v0.1.0-alpha-4

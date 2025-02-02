@@ -18,6 +18,12 @@ This action has the same functionalities as that of
 [the similarly-named intention][2].
 
 
+## Fix all, unsafe included
+
+This action has the same functionalities as that of
+[the similarly-named intention][3].
+
+
 ## Open configuration file
 
 Open the global Ruff configuration file (`ruff.toml`/`.ruff.toml`)
@@ -65,3 +71,4 @@ will detect such executables automatically.
 
   [1]: documentation.md
   [2]: intentions.md#fix-all
+  [3]: intentions.md#fix-all-unsafe-included
