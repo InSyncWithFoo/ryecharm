@@ -140,6 +140,12 @@
 			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
 		/>
 		
+		<enterHandlerDelegate
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBlockEnterHandler"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBlockEnterHandler"
+		/>
+		
 		<languageInjectionContributor
 			id="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
 			language="TOML"

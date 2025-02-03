@@ -13,7 +13,7 @@ internal val scriptBlock = """(?mx)
         (?:\n\#(?:\x20.*)?)*
     )
     \n
-    \#\x20///${'$'}
+    \#\x20///$
 """.toRegex()
 
 
