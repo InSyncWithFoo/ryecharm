@@ -5,6 +5,7 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
+import insyncwithfoo.ryecharm.TopPriorityAction
 import insyncwithfoo.ryecharm.edit
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.replaceContentWith
@@ -41,7 +42,7 @@ private fun Document.getInterleavedRanges(ranges: Iterable<TextRange>): List<Tex
 
 
 @Suppress("ActionIsNotPreviewFriendly")
-internal class RuffFixViolation(private val code: String, private val fix: Fix) : LocalQuickFix {
+internal class RuffFixViolation(private val code: String, private val fix: Fix) : LocalQuickFix, TopPriorityAction {
     
     override fun getFamilyName(): String {
         val (message, applicability) = Pair(fix.message, fix.applicability)

@@ -1,6 +1,8 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.codeInsight.intention.IntentionAction
+import com.intellij.codeInsight.intention.PriorityAction
+import com.intellij.codeInsight.intention.PriorityAction.Priority
 import com.intellij.codeInsight.intention.preview.IntentionPreviewInfo
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -33,4 +35,9 @@ internal interface ExternalIntentionAction : IntentionAction {
         return IntentionPreviewInfo.EMPTY
     }
     
+}
+
+
+internal interface TopPriorityAction : PriorityAction {
+    override fun getPriority() = Priority.TOP
 }

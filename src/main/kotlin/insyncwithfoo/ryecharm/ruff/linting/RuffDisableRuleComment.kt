@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.ruff.linting
 
+import com.intellij.codeInsight.intention.HighPriorityAction
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.openapi.editor.Document
@@ -35,7 +36,8 @@ private fun Document.appendToLine(line: Int, value: String) {
  * will be used to separate the new element.
  * Otherwise, comma-space (`, `) is used.
  */
-internal class RuffDisableRuleComment(private val code: RuleCode, private val offset: ZeroBasedIndex) : LocalQuickFix {
+internal class RuffDisableRuleComment(private val code: RuleCode, private val offset: ZeroBasedIndex) :
+    LocalQuickFix, HighPriorityAction {
     
     override fun getFamilyName() = message("intentions.ruff.disableRuleComment.familyName")
     

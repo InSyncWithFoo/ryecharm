@@ -1,11 +1,13 @@
 package insyncwithfoo.ryecharm.ruff.intentions
 
+import com.intellij.codeInsight.intention.HighPriorityAction
+import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.startOffset
-import insyncwithfoo.ryecharm.ExternalIntentionAction
 import insyncwithfoo.ryecharm.edit
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.replaceString
@@ -13,15 +15,15 @@ import insyncwithfoo.ryecharm.ruff.NoqaComment
 import insyncwithfoo.ryecharm.ruff.RuleCode
 
 
-internal class ReenableRule : ExternalIntentionAction {
+internal class ReenableRule : IntentionAction, HighPriorityAction, DumbAware {
     
-    private var code: RuleCode? = null
+    private lateinit var code: RuleCode
     
     override fun startInWriteAction() = true
     
     override fun getFamilyName() = message("intentions.ruff.reenableRule.familyName")
     
-    override fun getText() = message("intentions.ruff.reenableRule.name", code.toString())
+    override fun getText() = message("intentions.ruff.reenableRule.name", code)
     
     override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean {
         val offset = editor?.caretModel?.offset ?: return false

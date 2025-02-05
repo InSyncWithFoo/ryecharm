@@ -2,6 +2,7 @@ package insyncwithfoo.ryecharm.ruff.intentions
 
 import com.intellij.codeInsight.intention.LowPriorityAction
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
@@ -20,7 +21,7 @@ import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.runWriteCommandAction
 
 
-internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction {
+internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction, DumbAware {
     
     override fun startInWriteAction() = false
     
