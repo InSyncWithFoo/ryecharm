@@ -11,10 +11,20 @@ import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
 
+const val MAX_MESSAGE_LENGTH = 1000
+
+
 private fun Logger.logCommandInfo(message: String) {
-    if (RyeCharmRegistry.logging.commands) {
-        info(message)
+    if (!RyeCharmRegistry.logging.commands) {
+        return
     }
+    
+    val trimmed = when (message.length > MAX_MESSAGE_LENGTH) {
+        true -> message.slice(0..<MAX_MESSAGE_LENGTH) + "..."
+        else -> message
+    }
+    
+    info(trimmed)
 }
 
 

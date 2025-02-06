@@ -67,7 +67,7 @@ internal class RuffFixViolation(private val code: String, private val fix: Fix) 
         val rangesToEdits = edits.associateBy { getOffsetRange(it.oneBasedRange) }
         val interleavedRanges = getInterleavedRanges(rangesToEdits.keys)
         
-        val newText = StringBuilder()
+        val newText = StringBuilder(textLength)
         
         for (range in interleavedRanges) {
             when (val edit = rangesToEdits[range]) {

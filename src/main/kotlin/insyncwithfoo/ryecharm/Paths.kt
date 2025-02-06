@@ -49,12 +49,6 @@ internal fun Path.toNullIfNotExists() =
     this.takeIf { it.toFile().exists() }
 
 
-private fun Path.directoryIsEmpty() = listDirectoryEntries().isEmpty()
-
-
-internal fun Path.isNonEmptyDirectory() = isDirectory() && !directoryIsEmpty()
-
-
 internal fun Path.removeExtension() =
     when {
         parent == null -> nameWithoutExtension.toPathOrNull()
@@ -67,4 +61,4 @@ internal fun Path.findExecutableChild(name: String) =
 
 
 internal fun findExecutableInPath(name: String) =
-    PathEnvironmentVariableUtil.findInPath(name.toOSDependentFileName())?.toPath()
+    PathEnvironmentVariableUtil.findExecutableInPathOnAnyOS(name)?.toPath()
