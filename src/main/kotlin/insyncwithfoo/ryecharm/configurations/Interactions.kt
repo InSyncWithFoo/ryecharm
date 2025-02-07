@@ -60,7 +60,7 @@ internal val Project.ruffExecutable: Path?
 
 
 /**
- * The UV executable associated with this project, if it exists.
+ * The uv executable associated with this project, if it exists.
  */
 internal val Project.uvExecutable: Path?
     get() = uvConfigurations.executable?.toPathIfItExists() ?: UV.detectExecutable()
@@ -97,9 +97,4 @@ internal fun Project.changeRuffConfigurations(action: RuffConfigurations.() -> U
 
 internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
     RuffOverrideService.getInstance(this).state.names.apply(action)
-}
-
-
-internal fun changeGlobalUVConfigurations(action: UVConfigurations.() -> Unit) {
-    UVGlobalService.getInstance().state.apply(action)
 }

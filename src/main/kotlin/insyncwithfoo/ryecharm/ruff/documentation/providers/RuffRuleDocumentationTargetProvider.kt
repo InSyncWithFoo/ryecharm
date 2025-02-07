@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isRuffToml
 import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.keyValuePair
+import insyncwithfoo.ryecharm.ruff.documentation.isRuleSelector
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffRuleDocumentationTarget
 import insyncwithfoo.ryecharm.stringContent
 import insyncwithfoo.ryecharm.wrappingTomlLiteral
@@ -97,7 +98,13 @@ internal class RuffRuleDocumentationTargetProvider : DocumentationTargetProvider
             return null
         }
         
-        return RuffRuleDocumentationTarget(this, stringContent!!)
+        val selector = stringContent!!
+        
+        if (!selector.isRuleSelector) {
+            return null
+        }
+        
+        return RuffRuleDocumentationTarget(this, selector)
     }
     
 }

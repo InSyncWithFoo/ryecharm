@@ -46,9 +46,7 @@ internal abstract class PanelBasedConfigurable<S : BaseState> : Configurable {
 
 
 internal val <S : BaseState> PanelBasedConfigurable<S>.projectAndOverrides: Pair<Project?, Overrides?>
-    get() = try {
-        (this as ProjectBasedConfigurable)
-            .run { Pair(project, overrides) }
-    } catch (_: ClassCastException) {
-        Pair(null, null)
+    get() = when (this is ProjectBasedConfigurable) {
+        true -> Pair(project, overrides)
+        else -> Pair(null, null)
     }

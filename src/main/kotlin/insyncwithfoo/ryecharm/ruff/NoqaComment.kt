@@ -121,12 +121,6 @@ internal class NoqaComment private constructor(
     val separator: String
         get() = lastSeparator ?: ", "
     
-    val codeListRange: IntRange
-        get() = when (colon) {
-            null -> prefix.end..<prefix.end
-            else -> codes.first().start..<codes.last().end
-        }
-    
     fun findCodeAtOffset(offset: Int) =
         codes.firstNotNullOfOrNull { code ->
             code.content.takeIf { offset in code.inclusiveRange }

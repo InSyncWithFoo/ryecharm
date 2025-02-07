@@ -2,7 +2,8 @@ package insyncwithfoo.ryecharm.ruff.documentation.targets
 
 import com.intellij.platform.backend.documentation.DocumentationResult
 import com.intellij.psi.PsiElement
-import insyncwithfoo.ryecharm.ruff.documentation.getRuleDocumentation
+import insyncwithfoo.ryecharm.ruff.documentation.RuleSelectorOrName
+import insyncwithfoo.ryecharm.ruff.documentation.getRuleDocumentationOrList
 import insyncwithfoo.ryecharm.ruff.documentation.providers.RuffRuleDocumentationTargetProvider
 import insyncwithfoo.ryecharm.toDocumentationResult
 
@@ -12,14 +13,14 @@ import insyncwithfoo.ryecharm.toDocumentationResult
  */
 internal class RuffRuleDocumentationTarget(
     override val element: PsiElement,
-    private val rule: String
+    private val selectorOrName: RuleSelectorOrName
 ) : RuffDocumentationTarget() {
     
     override fun fromDereferenced(element: PsiElement) =
-        RuffRuleDocumentationTarget(element, rule)
+        RuffRuleDocumentationTarget(element, selectorOrName)
     
     override fun computeDocumentation() = DocumentationResult.asyncDocumentation {
-        element.project.getRuleDocumentation(rule)?.toDocumentationResult()
+        element.project.getRuleDocumentationOrList(selectorOrName)?.toDocumentationResult()
     }
     
 }

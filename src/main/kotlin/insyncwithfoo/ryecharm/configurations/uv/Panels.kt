@@ -43,7 +43,6 @@ private fun Row.dependenciesDataMaxAgeInput(block: Cell<JBIntSpinner>.() -> Unit
     spinner(0..1_000_000).apply(block)
 
 
-@Suppress("DialogTitleCapitalization")
 private fun UVPanel.makeComponent() = panel {
     
     row(message("configurations.uv.executable.label")) {

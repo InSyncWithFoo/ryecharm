@@ -8,15 +8,37 @@ import insyncwithfoo.ryecharm.Markdown
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.isSuccessful
+import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.ruff.CachedResult
 import insyncwithfoo.ryecharm.ruff.RuffCache
 import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.commands.ruff
-import insyncwithfoo.ryecharm.ruff.ruleCode
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.toHTML
+
+
+/**
+ * Either a full code (e.g., `RUF100`) or a prefix (e.g., `RUF`, `RUF1`, `RUF10`).
+ */
+internal typealias RuleSelector = String
+
+/**
+ * A rule name (e.g., `unused-noqa`).
+ */
+internal typealias RuleName = String
+
+/**
+ * Either a [RuleSelector] or a [RuleName].
+ */
+internal typealias RuleSelectorOrName = String
+
+
+/**
+ * A fork of [insyncwithfoo.ryecharm.ruff.ruleCode].
+ */
+private val ruleSelector = """(?<linter>[A-Z]+)(?<number>[0-9]*)""".toRegex()
 
 
 private val optionsSection = """(?mx)
@@ -26,18 +48,22 @@ private val optionsSection = """(?mx)
 
 
 private val optionNameInListItem = """(?m)(?<prefix>^[-*]\h*\[?)`(?<path>[A-Za-z0-9.-]+)`""".toRegex()
-private val ruleLink = """https://docs\.astral\.sh/ruff/rules/(?<rule>[a-z-]+)""".toRegex()
+private val ruleLink = """https://docs\.astral\.sh/ruff/rules/(?<rule>[a-z-]+)/?""".toRegex()
 
 
-private val String.isRuleCode: Boolean
-    get() = ruleCode.matchEntire(this) != null
+internal val String.isRuleSelector: Boolean
+    get() = ruleSelector.matchEntire(this) != null
+
+
+private val RuleSelectorOrName.isPylintCodePrefix: Boolean
+    get() = this in listOf("PLC", "PLE", "PLR", "PLW")
 
 
 // https://github.com/astral-sh/ruff/issues/14348
 /**
  * Replace option names with links to specialized URIs.
  */
-private fun String.insertOptionLinks() = this.replace(optionsSection) {
+private fun Markdown.insertOptionLinks() = this.replace(optionsSection) {
     it.value.replace(optionNameInListItem) { match ->
         val prefix = match.groups["prefix"]!!.value
         val path = match.groups["path"]!!.value
@@ -49,7 +75,7 @@ private fun String.insertOptionLinks() = this.replace(optionsSection) {
 }
 
 
-private fun String.replaceRuleLinksWithSpecializedURIs() = this.replace(ruleLink) {
+private fun Markdown.replaceRuleLinksWithSpecializedURIs() = this.replace(ruleLink) {
     val rule = it.groups["rule"]!!.value
     val uri = DocumentationURI(RUFF_RULE_HOST, rule)
     
@@ -57,7 +83,7 @@ private fun String.replaceRuleLinksWithSpecializedURIs() = this.replace(ruleLink
 }
 
 
-private suspend fun Project.getNewRuleNameToCodeMap(): Map<RuleCode, String>? {
+private suspend fun Project.getNewRuleNameToCodeMap(): Map<RuleName, RuleCode>? {
     val ruff = this.ruff ?: return null
     val command = ruff.allRules()
     
@@ -75,7 +101,7 @@ private suspend fun Project.getNewRuleNameToCodeMap(): Map<RuleCode, String>? {
 }
 
 
-private suspend fun Project.getCodeForRuleName(name: String): String? {
+private suspend fun Project.getRuleNameToCodeMap(): Map<RuleName, RuleCode>? {
     val ruff = this.ruff ?: return null
     val executable = ruff.executable
     
@@ -83,23 +109,18 @@ private suspend fun Project.getCodeForRuleName(name: String): String? {
     val cached = cache.ruleNameToCodeMap
     
     if (cached?.matches(executable) == true) {
-        return cached.result[name]
+        return cached.result
     }
     
     val newData = getNewRuleNameToCodeMap()?.also {
         cache.ruleNameToCodeMap = CachedResult(it, executable)
     }
     
-    return newData?.get(name)
+    return newData
 }
 
 
-private suspend fun Project.getRuleMarkdownDocumentation(rule: String): Markdown? {
-    val code = when (rule.isRuleCode) {
-        true -> rule
-        else -> getCodeForRuleName(rule) ?: return null
-    }
-    
+private suspend fun Project.getRuleDocumentationByFullCode(code: RuleCode): Markdown? {
     val ruff = this.ruff ?: return null
     val command = ruff.rule(code)
     
@@ -117,16 +138,53 @@ private suspend fun Project.getRuleMarkdownDocumentation(rule: String): Markdown
     }
     
     return output.stdout
+        .insertOptionLinks()
+        .replaceRuleLinksWithSpecializedURIs()
 }
 
 
-internal suspend fun Project.getRuleDocumentation(rule: String): HTML? {
-    val markdownDocumentation = getRuleMarkdownDocumentation(rule) ?: return null
+private suspend fun Project.getRuleDocumentationByRuleName(name: RuleName) =
+    getRuleNameToCodeMap()?.get(name)?.let {
+        getRuleDocumentationByFullCode(it)
+    }
+
+
+private suspend fun Project.getRuleListByPrefix(selector: RuleSelector): Markdown? {
+    val nameToCodeMap = getRuleNameToCodeMap() ?: return null
+    val ruleList = StringBuilder()
     
-    return readAction {
-        markdownDocumentation
-            .insertOptionLinks()
-            .replaceRuleLinksWithSpecializedURIs()
-            .toHTML()
+    for ((name, code) in nameToCodeMap) {
+        // TODO: Precise prefix matching
+        if (code.startsWith(selector)) {
+            val uri = DocumentationURI(RUFF_RULE_HOST, code)
+            ruleList.append("\n* [`$name`]($uri) (`$code`)")
+        }
+    }
+    
+    return when (ruleList.isEmpty()) {
+        true -> message("documentation.popup.ruleList.empty", selector)
+        else -> message("documentation.popup.ruleList", selector, ruleList)
+    }
+}
+
+
+internal suspend fun Project.getRuleDocumentationOrList(selectorOrName: RuleSelectorOrName): HTML? {
+    val match = ruleSelector.matchEntire(selectorOrName)
+    
+    val markdownDocumentation = when (match == null) {
+        true -> getRuleDocumentationByRuleName(selectorOrName)
+        
+        else -> {
+            val (linter, number) = match.destructured
+            
+            when (linter.isPylintCodePrefix && number.length == 4 || number.length == 3) {
+                true -> getRuleDocumentationByFullCode(selectorOrName)
+                else -> getRuleListByPrefix(selectorOrName)
+            }
+        }
+    }
+    
+    return markdownDocumentation?.let {
+        readAction { it.toHTML() }
     }
 }
