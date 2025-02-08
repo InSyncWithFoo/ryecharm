@@ -7,6 +7,7 @@ import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.Markdown
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.completedAbnormally
+import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.parseAsJSON
@@ -150,6 +151,10 @@ private suspend fun Project.getRuleDocumentationByRuleName(name: RuleName) =
 
 
 private suspend fun Project.getRuleListByPrefix(selector: RuleSelector): Markdown? {
+    if (!ruffConfigurations.showRuleListForPrefixSelectors) {
+        return null
+    }
+    
     val nameToCodeMap = getRuleNameToCodeMap() ?: return null
     val ruleList = StringBuilder()
     

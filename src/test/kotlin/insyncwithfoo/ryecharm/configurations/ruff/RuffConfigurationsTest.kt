@@ -11,7 +11,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 30) {
+        doShapeTest(expectedSize = 32) {
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
             assertEquals(null, configurationFile)
@@ -51,6 +51,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
             
             assertEquals(true, autoRestartServers)
             assertEquals(false, snoozeFormattingTaskError)
+            assertEquals(false, showRuleListForPrefixSelectors)
         }
     }
     
