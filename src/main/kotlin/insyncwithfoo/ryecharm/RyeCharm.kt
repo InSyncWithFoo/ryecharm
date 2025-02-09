@@ -1,6 +1,9 @@
 package insyncwithfoo.ryecharm
 
 
+/**
+ * Plugin-related constants.
+ */
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 internal object RyeCharm {
     const val ID = "insyncwithfoo.ryecharm"

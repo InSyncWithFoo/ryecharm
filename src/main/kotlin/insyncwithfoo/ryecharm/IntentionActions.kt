@@ -15,11 +15,19 @@ internal fun FileDocumentManager.saveAllDocumentsAsIs() {
 }
 
 
+/**
+ * Marker for intentions that should start in write action.
+ */
 internal interface WriteIntentionAction : IntentionAction {
     override fun startInWriteAction() = true
 }
 
 
+/**
+ * Marker for intentions that are mainly based on external processes.
+ * 
+ * @see generatePreview
+ */
 internal interface ExternalIntentionAction : IntentionAction {
     
     /**
@@ -38,6 +46,10 @@ internal interface ExternalIntentionAction : IntentionAction {
 }
 
 
+/**
+ * Marker for intentions that should be placed
+ * at the very top of the context actions panel.
+ */
 internal interface TopPriorityAction : PriorityAction {
     override fun getPriority() = Priority.TOP
 }

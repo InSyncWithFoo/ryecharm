@@ -9,6 +9,9 @@ import kotlinx.serialization.json.JsonBuilder
 private val lenientParser = Json { ignoreUnknownKeys = true }
 
 
+/**
+ * Parse the given string as JSON, ignoring unknown keys and returning `null` on failure.
+ */
 internal inline fun <reified T> String.parseAsJSONLeniently() =
     try {
         lenientParser.decodeFromString<T>(this)
@@ -17,6 +20,9 @@ internal inline fun <reified T> String.parseAsJSONLeniently() =
     }
 
 
+/**
+ * Parse the given string as JSON, returning `null` on failure.
+ */
 internal inline fun <reified T> String.parseAsJSON() =
     try {
         Json.decodeFromString<T>(this)
@@ -25,6 +31,11 @@ internal inline fun <reified T> String.parseAsJSON() =
     }
 
 
+/**
+ * Parse the given string as JSON
+ * using the builder built with [builderAction],
+ * returning `null` on failure.
+ */
 internal inline fun <reified T> String.parseAsJSON(noinline builderAction: JsonBuilder.() -> Unit): T? {
     val json = Json(builderAction = builderAction)
     
@@ -36,5 +47,8 @@ internal inline fun <reified T> String.parseAsJSON(noinline builderAction: JsonB
 }
 
 
+/**
+ * Convert the given string to JSON.
+ */
 internal inline fun <reified T : Any> T.stringifyToJSON() =
     Json.encodeToString<T>(this)

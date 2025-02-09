@@ -21,8 +21,12 @@ private fun ShellCommandSpec.toInfo() =
  * in the new terminal.
  * 
  * The information is read from bundled JSON files
- * (generated using `.scripts/command_specs.py`)
+ * (generated using `scripts/command_specs.py`)
  * and then reconstructed via [makeContentBuilder].
+ * 
+ * The exact format is decided by the script.
+ * It is replicated here as [CommandTreeAndVersion],
+ * [CommandNode] and [OptionOrArgumentNode].
  */
 internal class RyeCharmCommandSpecsProvider : ShellCommandSpecsProvider {
     

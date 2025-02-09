@@ -7,6 +7,9 @@ import com.intellij.openapi.util.SystemInfo
 import com.intellij.platform.lsp.api.LspServerSupportProvider
 
 
+/**
+ * Whether LSP4IJ is both installed and enabled.
+ */
 internal val lsp4ijIsAvailable: Boolean
     get() {
         val pluginID = PluginId.getId("com.redhat.devtools.lsp4ij")
@@ -14,6 +17,13 @@ internal val lsp4ijIsAvailable: Boolean
     }
 
 
+/**
+ * Whether the native client is available.
+ * 
+ * According to [the docs](https://plugins.jetbrains.com/docs/intellij/language-server-protocol.html#supported-ides),
+ * it is part of IntelliJ IDEA Ultimate, WebStorm, PhpStorm, PyCharm Professional,
+ * DataSpell, RubyMine, CLion, Aqua, DataGrip, GoLand, Rider, and RustRover.
+ */
 @Suppress("UnstableApiUsage")
 internal val lspIsAvailable by lazy {
     try {
@@ -25,6 +35,9 @@ internal val lspIsAvailable by lazy {
 }
 
 
+/**
+ * Whether the IDE has WSL-specific support.
+ */
 @Suppress("UNUSED_EXPRESSION")
 internal val wslIsSupported by lazy {
     SystemInfo.isWindows && try {

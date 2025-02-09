@@ -90,6 +90,9 @@ internal val globalUVExecutable: Path?
     get() = globalUVConfigurations.executable?.toPathIfItExists() ?: UV.detectExecutable()
 
 
+/**
+ * Change Ruff configurations in-place.
+ */
 internal fun Project.changeRuffConfigurations(action: RuffConfigurations.() -> Unit) {
     RuffLocalService.getInstance(this).state.apply(action)
 }

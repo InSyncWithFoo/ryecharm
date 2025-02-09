@@ -12,7 +12,23 @@ import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.isAccessible
 
 
+/**
+ * A setting's name to be stored in `.xml` files.
+ * This is also the corresponding Kotlin property's name.
+ */
 internal typealias SettingName = String
+
+/**
+ * A map of names whose corresponding settings' values
+ * are to be taken from the project `.xml` file.
+ * 
+ * The values are always `true`.
+ * This is a map rather than a set since
+ * sets are only second-class citizens to [BaseState].
+ * 
+ * @see BaseState.map
+ * @see BaseState.stringSet
+ */
 internal typealias Overrides = MutableMap<SettingName, Boolean>
 
 
@@ -21,11 +37,19 @@ internal fun Overrides.add(name: SettingName) {
 }
 
 
+/**
+ * Marker for state classes that store [Overrides].
+ */
 internal interface ProjectOverrideState {
     var names: Overrides
 }
 
 
+/**
+ * Marker for state classes to allow them to use [copy].
+ * 
+ * @see DisplayableState
+ */
 internal interface Copyable
 
 
@@ -34,6 +58,12 @@ internal fun <C : Copyable> C.copy(): C {
 }
 
 
+/**
+ * The base class from which concrete state classes derive.
+ * 
+ * This provides copyability via [Copyable]/[copy] and
+ * a [toString] function similar to that of data classes.
+ */
 internal abstract class DisplayableState : BaseState(), Copyable {
     
     private val displayName: String
@@ -86,7 +116,7 @@ private inline fun <reified S : DisplayableState> S.mergeWith(other: S, override
 
 
 /**
- * Thin wrapper around [mergeWith].
+ * Thin wrapper around [mergeWith] that allows for ergonomic syntax.
  */
 internal inline fun <
     reified GlobalService : ConfigurationService<S>,
