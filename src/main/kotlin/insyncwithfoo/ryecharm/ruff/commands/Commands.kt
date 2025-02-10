@@ -54,6 +54,16 @@ internal class FixAllCommand : Command(), RuffCommand {
 }
 
 
+internal class ShowSettingsCommand : Command(), RuffCommand {
+    
+    override val subcommand = "check"
+    
+    override val runningMessage: String
+        get() = message("progresses.command.ruff.showSettings")
+    
+}
+
+
 internal class OrganizeImportsCommand : Command(), RuffCommand {
     
     override val subcommand = "check"

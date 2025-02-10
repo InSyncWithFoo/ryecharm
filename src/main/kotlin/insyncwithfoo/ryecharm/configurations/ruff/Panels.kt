@@ -154,10 +154,6 @@ private fun Row.snoozeFormattingTaskErrorInput(block: Cell<JBCheckBox>.() -> Uni
     checkBox(message("configurations.ruff.snoozeFormattingTaskError.label")).apply(block)
 
 
-private fun Row.showRuleListForPrefixSelectorsInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.showRuleListForPrefixSelectors.label")).apply(block)
-
-
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
@@ -333,10 +329,6 @@ private fun RuffPanel.makeComponent() = panel {
         row {
             snoozeFormattingTaskErrorInput { bindSelected(state::snoozeFormattingTaskError) }
             overrideCheckbox(state::snoozeFormattingTaskError)
-        }
-        row {
-            showRuleListForPrefixSelectorsInput { bindSelected(state::showRuleListForPrefixSelectors) }
-            overrideCheckbox(state::showRuleListForPrefixSelectors)
         }
     }
     

@@ -11,6 +11,7 @@ import insyncwithfoo.ryecharm.findExecutableChild
 import insyncwithfoo.ryecharm.findExecutableInPath
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
+import insyncwithfoo.ryecharm.ruff.documentation.RuleSelector
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.binaryDirectory
 import java.nio.file.Path
@@ -124,11 +125,25 @@ internal class Ruff private constructor(
         return OrganizeImportsCommand().build(arguments, text)
     }
     
+    fun showSettings(select: List<RuleSelector>? = null, isolated: Boolean = true): Command {
+        val arguments = CommandArguments("--show-settings")
+        
+        if (isolated) {
+            arguments += "--isolated"
+        }
+        
+        if (select != null) {
+            arguments["--select"] = select.joinToString(",")
+        }
+        
+        return ShowSettingsCommand().build(arguments)
+    }
+    
     override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.ruffConfigurations
         val configurationFile = configurations?.configurationFile
         
-        if (configurationFile != null) {
+        if (configurationFile != null && "--isolated" !in this) {
             this["--config"] = configurationFile
         }
     }

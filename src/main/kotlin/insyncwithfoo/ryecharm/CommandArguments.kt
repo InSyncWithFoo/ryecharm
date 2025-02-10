@@ -40,6 +40,9 @@ internal class CommandArguments() {
         add(option to parameter)
     }
     
+    operator fun contains(other: String) =
+        other in withParameters || other in withoutParameters
+    
     fun toList(): List<String> {
         return withoutParameters + withParameters.flatMap { listOfNotNull(it.key, it.value) }
     }

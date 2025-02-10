@@ -7,7 +7,6 @@ import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.Markdown
 import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.completedAbnormally
-import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.parseAsJSON
@@ -16,6 +15,7 @@ import insyncwithfoo.ryecharm.ruff.CachedResult
 import insyncwithfoo.ryecharm.ruff.RuffCache
 import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.commands.ruff
+import insyncwithfoo.ryecharm.ruff.ruleCode
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.toHTML
 
@@ -36,10 +36,23 @@ internal typealias RuleName = String
 internal typealias RuleSelectorOrName = String
 
 
+private const val ALL: RuleSelector = "ALL"
+
+
 /**
  * A fork of [insyncwithfoo.ryecharm.ruff.ruleCode].
  */
 private val ruleSelector = """(?<linter>[A-Z]+)(?<number>[0-9]*)""".toRegex()
+
+
+private val enabledRulesArray = """(?x)
+    linter\.rules\.enabled\h*=\h*\[(?<list>[^\[\]]*)]
+""".toRegex()
+
+
+private val ruleNameAndCode = """(?mx)
+    ^\h*(?<name>[a-z0-9-]+)\h+\((?<code>$ruleCode)\),?\h*$
+""".toRegex()
 
 
 private val optionsSection = """(?mx)
@@ -150,25 +163,48 @@ private suspend fun Project.getRuleDocumentationByRuleName(name: RuleName) =
     }
 
 
-private suspend fun Project.getRuleListByPrefix(selector: RuleSelector): Markdown? {
-    if (!ruffConfigurations.showRuleListForPrefixSelectors) {
+private suspend fun Project.getEnabledRules(selector: RuleSelector): Map<RuleName, RuleCode>? {
+    val ruff = this.ruff ?: return null
+    val command = ruff.showSettings(select = listOf(selector))
+    
+    val output = ProgressContext.IO.compute {
+        runInBackground(command)
+    }
+    
+    if (output.completedAbnormally) {
         return null
     }
     
-    val nameToCodeMap = getRuleNameToCodeMap() ?: return null
+    val (array) = enabledRulesArray.find(output.stdout)?.destructured ?: return null
+    
+    return ruleNameAndCode.findAll(array).associate {
+        val (name, code) = it.destructured
+        Pair(name, code)
+    }
+}
+
+
+private suspend fun Project.getRuleListBySelector(selector: RuleSelector): Markdown? {
+    if (selector == ALL) {
+        return message("documentation.popup.ruleList.all")
+    }
+    
+    val enabledRules = getEnabledRules(selector) ?: return null
+    
+    if (enabledRules.isEmpty()) {
+        return null
+    }
+    
     val ruleList = StringBuilder()
     
-    for ((name, code) in nameToCodeMap) {
-        // TODO: Precise prefix matching
-        if (code.startsWith(selector)) {
-            val uri = DocumentationURI(RUFF_RULE_HOST, code)
-            ruleList.append("\n* [`$name`]($uri) (`$code`)")
-        }
+    for ((name, code) in enabledRules) {
+        val uri = DocumentationURI(RUFF_RULE_HOST, code)
+        ruleList.append("\n* [`$name`]($uri) (`$code`)")
     }
     
     return when (ruleList.isEmpty()) {
         true -> message("documentation.popup.ruleList.empty", selector)
-        else -> message("documentation.popup.ruleList", selector, ruleList)
+        else -> message("documentation.popup.ruleList", selector, enabledRules.size, ruleList)
     }
 }
 
@@ -184,7 +220,7 @@ internal suspend fun Project.getRuleDocumentationOrList(selectorOrName: RuleSele
             
             when (linter.isPylintCodePrefix && number.length == 4 || number.length == 3) {
                 true -> getRuleDocumentationByFullCode(selectorOrName)
-                else -> getRuleListByPrefix(selectorOrName)
+                else -> getRuleListBySelector(selectorOrName)
             }
         }
     }

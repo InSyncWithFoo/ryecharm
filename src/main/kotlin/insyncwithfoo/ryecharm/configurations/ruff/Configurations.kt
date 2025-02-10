@@ -87,7 +87,6 @@ internal class RuffConfigurations : DisplayableState() {
     
     var autoRestartServers by property(true)
     var snoozeFormattingTaskError by property(false)
-    var showRuleListForPrefixSelectors by property(false)
 }
 
 
