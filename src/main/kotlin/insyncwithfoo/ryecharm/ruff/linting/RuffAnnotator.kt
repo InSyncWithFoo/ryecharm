@@ -171,6 +171,11 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
                 builder.registerQuickFix(file, message, it)
             }
             
+            diagnostic.makeFixSimilarViolationsFixes(configurations)?.let { (safe, unsafe) ->
+                builder.registerQuickFix(file, message, safe)
+                builder.registerQuickFix(file, message, unsafe)
+            }
+            
             diagnostic.makeDisableRuleCommentFix(configurations, noqaOffset)?.let {
                 builder.registerQuickFix(file, message, it)
             }
@@ -188,6 +193,16 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             !configurations.quickFixes || !configurations.fixViolation -> null
             fix == null || code == null -> null
             else -> RuffFixViolation(code, fix)
+        }
+    
+    private fun Diagnostic.makeFixSimilarViolationsFixes(configurations: RuffConfigurations) =
+        when {
+            !configurations.quickFixes || !configurations.fixSimilarViolations -> null
+            fix == null || code == null -> null
+            else -> Pair(
+                RuffFixSimilarViolations(code, unsafe = false),
+                RuffFixSimilarViolations(code, unsafe = true)
+            )
         }
     
     private fun Diagnostic.makeDisableRuleCommentFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) =

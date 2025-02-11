@@ -44,12 +44,12 @@ internal class OptimizeImportsCommand : Command(), RuffCommand {
 }
 
 
-internal class FixAllCommand : Command(), RuffCommand {
+internal class FixCommand : Command(), RuffCommand {
     
     override val subcommand = "check"
     
     override val runningMessage: String
-        get() = message("progresses.command.ruff.fixAll")
+        get() = message("progresses.command.ruff.fix")
     
 }
 

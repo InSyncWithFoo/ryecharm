@@ -65,6 +65,7 @@ internal class RuffConfigurations : DisplayableState() {
     var organizeImports by property(true)
     var disableRuleComment by property(true)
     var fixViolation by property(true)
+    var fixSimilarViolations by property(true)
     
     var formatting by property(true)
     var formatOnReformat by property(true)

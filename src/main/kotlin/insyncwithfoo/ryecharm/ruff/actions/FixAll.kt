@@ -64,7 +64,7 @@ internal abstract class FixAll(private val unsafe: Boolean) : AnAction(), DumbAw
     }
     
     private fun Project.writeNewTextBack(file: PsiFile, newText: String) = launch<IntentionCoroutine> {
-        runWriteCommandAction(message("progresses.command.ruff.fixAll")) {
+        runWriteCommandAction(message("progresses.command.ruff.fix")) {
             file.paste(newText)
         }
     }

@@ -4,6 +4,8 @@ import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.codeInsight.intention.PriorityAction
 import com.intellij.codeInsight.intention.PriorityAction.Priority
 import com.intellij.codeInsight.intention.preview.IntentionPreviewInfo
+import com.intellij.codeInspection.LocalQuickFix
+import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
@@ -40,6 +42,21 @@ internal interface ExternalIntentionAction : IntentionAction {
      * @see IntentionAction.generatePreview
      */
     override fun generatePreview(project: Project, editor: Editor, file: PsiFile): IntentionPreviewInfo {
+        return IntentionPreviewInfo.EMPTY
+    }
+    
+}
+
+
+/**
+ * @see ExternalIntentionAction
+ */
+internal interface ExternalQuickFix : LocalQuickFix {
+    
+    /**
+     * @see ExternalIntentionAction.generatePreview
+     */
+    override fun generatePreview(project: Project, previewDescriptor: ProblemDescriptor): IntentionPreviewInfo {
         return IntentionPreviewInfo.EMPTY
     }
     

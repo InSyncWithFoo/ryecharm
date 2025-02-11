@@ -99,8 +99,12 @@ internal class Ruff private constructor(
         return OptimizeImportsCommand().build(arguments, text)
     }
     
-    fun fixAll(text: String, stdinFilename: Path?, unsafeFixes: Boolean): Command {
+    fun fix(text: String, stdinFilename: Path?, select: List<RuleSelector>?, unsafeFixes: Boolean): Command {
         val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+        
+        if (select != null) {
+            arguments["--select"] = select.joinToString(",")
+        }
         
         if (unsafeFixes) {
             arguments += "--unsafe-fixes"
@@ -110,8 +114,11 @@ internal class Ruff private constructor(
             arguments["--stdin-filename"] = stdinFilename.toString()
         }
         
-        return FixAllCommand().build(arguments, text)
+        return FixCommand().build(arguments, text)
     }
+    
+    fun fixAll(text: String, stdinFilename: Path?, unsafeFixes: Boolean) =
+        fix(text, stdinFilename, select = null, unsafeFixes)
     
     fun organizeImports(text: String, stdinFilename: Path?): Command {
         val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")

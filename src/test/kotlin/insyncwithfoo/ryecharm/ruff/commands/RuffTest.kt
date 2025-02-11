@@ -176,6 +176,37 @@ internal class RuffTest : CommandFactoryTest() {
     }
     
     @Test
+    fun `test fix`() {
+        val text = randomText()
+        val path = randomPath().orRandomlyNull()
+        val select = List((0..10).random()) { randomText() }
+        val unsafeFixes = boolean
+        
+        val command = ruff.fix(text, path, select, unsafeFixes)
+        val arguments = command.arguments
+        
+        assertEquals("check", command.subcommand)
+        assertEquals(text, command.stdin)
+        assertEquals(projectPath, command.workingDirectory)
+        
+        assertContains(arguments, "-")
+        assertContains(arguments, "--fix")
+        assertContains(arguments, "--fix-only")
+        assertContains(arguments, "--exit-zero")
+        assertContains(arguments, "--quiet")
+        
+        assertTrue(arguments include listOf("--select", select.joinToString(",")))
+        
+        if (path != null) {
+            assertTrue(arguments include listOf("--stdin-filename", path.toString()))
+        }
+        
+        if (unsafeFixes) {
+            assertContains(arguments, "--unsafe-fixes")
+        }
+    }
+    
+    @Test
     fun `test fixAll`() {
         val text = randomText()
         val path = randomPath().orRandomlyNull()
@@ -193,6 +224,8 @@ internal class RuffTest : CommandFactoryTest() {
         assertContains(arguments, "--fix-only")
         assertContains(arguments, "--exit-zero")
         assertContains(arguments, "--quiet")
+        
+        assertTrue("--select" !in arguments)
         
         if (path != null) {
             assertTrue(arguments include listOf("--stdin-filename", path.toString()))
