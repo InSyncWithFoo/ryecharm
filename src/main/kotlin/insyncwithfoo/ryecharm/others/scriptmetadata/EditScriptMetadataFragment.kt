@@ -25,6 +25,7 @@ import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.paste
 import insyncwithfoo.ryecharm.runWriteCommandAction
+import insyncwithfoo.ryecharm.writeUnderAction
 import kotlinx.coroutines.CoroutineScope
 import org.toml.lang.psi.TomlFile
 
@@ -147,7 +148,9 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
             val oldContent = hostFile.viewProvider.document?.charsSequence ?: return@addReleaseListener
             val newContent = oldContent.replace(scriptBlock, newBlock).removeSuffix("\n")
             
-            project.writeNewTextBack(hostFile, newContent)
+            val title = message("intentions.main.editScriptMetadataFragment.progressTitle")
+            
+            project.writeUnderAction<Coroutine>(title, hostFile, newContent)
         }
     }
     
@@ -194,12 +197,6 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
     private fun String.asPEP723BlockLine() = when {
         this.isEmpty() -> "#"
         else -> "# $this"
-    }
-    
-    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = launch<Coroutine> {
-        runWriteCommandAction(message("intentions.main.editScriptMetadataFragment.progressTitle")) {
-            file.paste(newText)
-        }
     }
     
     @Service(Service.Level.PROJECT)

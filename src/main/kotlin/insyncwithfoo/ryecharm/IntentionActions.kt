@@ -18,7 +18,7 @@ internal fun FileDocumentManager.saveAllDocumentsAsIs() {
 
 
 /**
- * Marker for intentions that should start in write action.
+ * Marker for intentions that modifies files externally.
  */
 internal interface WriteIntentionAction : IntentionAction {
     override fun startInWriteAction() = true

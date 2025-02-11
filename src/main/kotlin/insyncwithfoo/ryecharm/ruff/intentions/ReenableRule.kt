@@ -19,7 +19,7 @@ internal class ReenableRule : IntentionAction, HighPriorityAction, DumbAware {
     
     private lateinit var code: RuleCode
     
-    override fun startInWriteAction() = true
+    override fun startInWriteAction() = false
     
     override fun getFamilyName() = message("intentions.ruff.reenableRule.familyName")
     

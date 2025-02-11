@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiFile
 import com.jetbrains.python.psi.PyUtil
@@ -28,4 +29,15 @@ internal fun Document.replaceString(range: IntRange, value: CharSequence) {
 
 internal fun Document.replaceContentWith(newContent: CharSequence) {
     replaceString(0, textLength, newContent)
+}
+
+
+internal inline fun <reified C : CoroutineService> Project.writeUnderAction(
+    title: String,
+    file: PsiFile,
+    text: CharSequence
+) = launch<C> {
+    runWriteCommandAction(title) {
+        file.paste(text)
+    }
 }

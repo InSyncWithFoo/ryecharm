@@ -19,6 +19,7 @@ import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runWriteCommandAction
 import insyncwithfoo.ryecharm.unableToRunCommand
+import insyncwithfoo.ryecharm.writeUnderAction
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -76,13 +77,9 @@ internal class RuffImportOptimizer : ImportOptimizer {
         val newText = output.stdout
         
         notifyIfProcessIsUnsuccessfulOr(command, output) {
-            writeNewTextBack(file, newText)
-        }
-    }
-    
-    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = launch<Coroutine> {
-        runWriteCommandAction(message("progresses.command.ruff.optimizeImports")) {
-            file.paste(newText)
+            val title = message("progresses.command.ruff.optimizeImports")
+            
+            writeUnderAction<Coroutine>(title, file, newText)
         }
     }
     

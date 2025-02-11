@@ -21,6 +21,7 @@ import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.intentions.IntentionCoroutine
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.runWriteCommandAction
+import insyncwithfoo.ryecharm.writeUnderAction
 
 
 private val AnActionEvent.editor: Editor?
@@ -59,13 +60,9 @@ internal abstract class FixAll(private val unsafe: Boolean) : AnAction(), DumbAw
         val newText = output.stdout
         
         notifyIfProcessIsUnsuccessfulOr(command, output) {
-            writeNewTextBack(file, newText)
-        }
-    }
-    
-    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = launch<IntentionCoroutine> {
-        runWriteCommandAction(message("progresses.command.ruff.fix")) {
-            file.paste(newText)
+            val title = message("progresses.command.ruff.fix")
+            
+            writeUnderAction<IntentionCoroutine>(title, file, newText)
         }
     }
     

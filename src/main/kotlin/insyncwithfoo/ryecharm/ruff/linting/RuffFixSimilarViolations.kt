@@ -17,6 +17,7 @@ import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.runWriteCommandAction
+import insyncwithfoo.ryecharm.writeUnderAction
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -62,13 +63,9 @@ internal class RuffFixSimilarViolations(private val code: RuleCode, private val 
         val newText = output.stdout
         
         notifyIfProcessIsUnsuccessfulOr(command, output) {
-            writeNewTextBack(file, newText)
-        }
-    }
-    
-    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = launch<Coroutine> {
-        runWriteCommandAction(message("progresses.command.ruff.fix")) {
-            file.paste(newText)
+            val title = message("progresses.command.ruff.fix")
+            
+            writeUnderAction<Coroutine>(title, file, newText)
         }
     }
     

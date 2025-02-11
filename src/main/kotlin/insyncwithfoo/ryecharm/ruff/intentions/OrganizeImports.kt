@@ -19,6 +19,7 @@ import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.runWriteCommandAction
+import insyncwithfoo.ryecharm.writeUnderAction
 
 
 internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction, DumbAware {
@@ -64,13 +65,9 @@ internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction, Dum
         val newText = output.stdout
         
         notifyIfProcessIsUnsuccessfulOr(command, output) {
-            writeNewTextBack(file, newText)
-        }
-    }
-    
-    private fun Project.writeNewTextBack(file: PsiFile, newText: String) = launch<IntentionCoroutine> {
-        runWriteCommandAction(message("progresses.command.ruff.organizeImports")) {
-            file.paste(newText)
+            val title = message("progresses.command.ruff.organizeImports")
+            
+            writeUnderAction<IntentionCoroutine>(title, file, newText)
         }
     }
     
