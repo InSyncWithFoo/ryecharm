@@ -2,9 +2,12 @@ package insyncwithfoo.ryecharm
 
 import com.intellij.execution.configurations.PathEnvironmentVariableUtil
 import com.intellij.openapi.util.SystemInfo
+import java.io.File
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
+import java.nio.file.Files
 import kotlin.io.path.div
+import kotlin.io.path.exists
 import kotlin.io.path.getLastModifiedTime
 import kotlin.io.path.nameWithoutExtension
 
@@ -33,20 +36,39 @@ internal fun String.toPathOrNull() =
     }
 
 
+/**
+ * Attempt to convert the string to a normalized [Path],
+ * then call [toNullIfNotExists] on it.
+ */
 internal fun String.toPathIfItExists() =
     this.toPathOrNull()?.normalize()?.toNullIfNotExists()
 
 
+/**
+ * Append `.exe` to the string if the current system is Windows.
+ */
 internal fun String.toOSDependentFileName() = when {
     SystemInfo.isWindows -> "$this.exe"
     else -> this
 }
 
 
+/**
+ * Return the path unchanged if it is occupied.
+ * Otherwise, return `null`.
+ * 
+ * This necessarily uses [File.exists] rather than [Path.exists],
+ * which itself calls [Files.exists].
+ */
 internal fun Path.toNullIfNotExists() =
     this.takeIf { it.toFile().exists() }
 
 
+/**
+ * Return a new path with the extension removed.
+ * 
+ * Example: `foo/bar.qux` &rarr; `foo/bar`.
+ */
 internal fun Path.removeExtension() =
     when {
         parent == null -> nameWithoutExtension.toPathOrNull()
@@ -54,9 +76,16 @@ internal fun Path.removeExtension() =
     }
 
 
+/**
+ * Return the path constructed by joining the current one with [name],
+ * if it is occupied.
+ */
 internal fun Path.findExecutableChild(name: String) =
     resolve(name.toOSDependentFileName()).toNullIfNotExists()
 
 
+/**
+ * Look for [name] in PATH.
+ */
 internal fun findExecutableInPath(name: String) =
     PathEnvironmentVariableUtil.findExecutableInPathOnAnyOS(name)?.toPath()

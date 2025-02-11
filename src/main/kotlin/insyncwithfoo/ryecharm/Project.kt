@@ -30,6 +30,14 @@ internal val openProjects: Sequence<Project>
     get() = projectManager.openProjects.asSequence()
 
 
+/**
+ * Return the so-called "default" project singleton.
+ * 
+ * The default project is used to
+ * store default settings for new projects.
+ * 
+ * In extreme cases, it is used in lieu of an actual project.
+ */
 internal val defaultProject: Project
     get() = projectManager.defaultProject
 
@@ -51,7 +59,9 @@ internal val Project.modules: Array<Module>
 
 
 /**
- * @see [pythonSdk]
+ * The Python SDK of this project.
+ * 
+ * @see pythonSdk
  */
 private val Project.sdk: Sdk?
     get() = rootManager.projectSdk?.takeIf { PythonSdkUtil.isPythonSdk(it) }
@@ -62,6 +72,12 @@ internal val Project.path: Path?
         ?: basePath?.toPathOrNull()?.toNullIfNotExists()
 
 
+/**
+ * Attempt to convert the result of [Sdk.getHomePath] to a [Path].
+ * 
+ * @see sdk
+ * @see toPathIfItExists
+ */
 internal val Project.interpreterPath: Path?
     get() = sdk?.homePath?.toPathIfItExists()
 
@@ -88,11 +104,21 @@ internal val Project.inspectionProfileManager: ProjectInspectionProfileManager
     get() = ProjectInspectionProfileManager.getInstance(this)
 
 
+/**
+ * Return the first file in the project's environment
+ * whose name without extension matches the given name.
+ * 
+ * @see interpreterDirectory
+ */
 internal fun Project.findExecutableInVenv(nameWithoutExtension: String) =
     interpreterDirectory?.listDirectoryEntries()
         ?.find { it.nameWithoutExtension == nameWithoutExtension }
 
 
+/**
+ * Attempt to open the given [virtualFile]
+ * and switch focus to the new editor.
+ */
 internal fun Project.openFile(virtualFile: VirtualFile?) {
     val focusEditor = true
     
@@ -100,6 +126,10 @@ internal fun Project.openFile(virtualFile: VirtualFile?) {
 }
 
 
+/**
+ * Create a new [LightVirtualFile] with the given [filename] and [content]
+ * and open an editor for it.
+ */
 internal fun Project.openLightFile(filename: String, content: String) {
     val fileType = FileTypeManager.getInstance().getFileTypeByFileName(filename)
     val file = LightVirtualFile(filename, fileType, content)

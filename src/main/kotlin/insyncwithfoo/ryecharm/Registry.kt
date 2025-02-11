@@ -25,7 +25,7 @@ internal class Logging(override val parentPrefix: String) : Prefixed {
 
 
 /**
- * Thin wrapper around [Registry] to allow for .
+ * Thin wrapper around [Registry] to allow for ergonomic syntax.
  */
 internal object RyeCharmRegistry : Prefixed {
     

@@ -13,10 +13,19 @@ internal val ProcessOutput.isSuccessful: Boolean
     get() = exitCode == 0
 
 
+/**
+ * Whether the process is cancelled, timed out or unsuccessful.
+ * 
+ * @see [isSuccessful]
+ */
 internal val ProcessOutput.completedAbnormally: Boolean
     get() = isTimeout || isCancelled || !isSuccessful
 
 
+/**
+ * [ProcessOutput] in serializable form,
+ * to be used in logging functions.
+ */
 @Suppress("unused")
 @Serializable
 internal class ProcessOutputSurrogate(
