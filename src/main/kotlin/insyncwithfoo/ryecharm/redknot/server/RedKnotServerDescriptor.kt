@@ -1,0 +1,43 @@
+package insyncwithfoo.ryecharm.redknot.server
+
+import com.intellij.execution.configurations.GeneralCommandLine
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
+import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
+import insyncwithfoo.ryecharm.isSupportedByRuff
+import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.path
+import java.nio.file.Path
+
+
+@Suppress("UnstableApiUsage")
+internal class RedKnotServerDescriptor(project: Project, private val executable: Path) :
+    ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME) {
+    
+    private val configurations = project.redKnotConfigurations
+    
+    init {
+        LOGGER.info(configurations.toString())
+    }
+    
+    override fun isSupportedFile(file: VirtualFile) =
+        file.isSupportedByRuff(project)
+    
+    override fun createInitializationOptions() =
+        Object()
+    
+    override fun createCommandLine() = GeneralCommandLine().apply {
+        withWorkingDirectory(project.path)
+        withCharset(Charsets.UTF_8)
+        
+        withExePath(executable.toString())
+        addParameter("server")
+    }
+    
+    companion object {
+        private val LOGGER by ::LOG
+        private val PRESENTABLE_NAME = message("languageServers.redknot.presentableName")
+    }
+    
+}

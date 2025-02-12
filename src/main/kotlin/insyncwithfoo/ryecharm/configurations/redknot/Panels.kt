@@ -13,9 +13,10 @@ import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
 import insyncwithfoo.ryecharm.emptyText
-import insyncwithfoo.ryecharm.findExecutableInPath
 import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.redknot.commands.RedKnot
+import insyncwithfoo.ryecharm.redknot.commands.detectExecutable
 import insyncwithfoo.ryecharm.singleFileTextField
 
 
@@ -31,7 +32,7 @@ private fun RedKnotPanel.makeComponent() = panel {
     
     row(message("configurations.redknot.executable.label")) {
         executableInput {
-            val detectedExecutable = findExecutableInPath("red_knot")?.toString()
+            val detectedExecutable = RedKnot.detectExecutable()?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
             emptyText = detectedExecutable ?: message("configurations.redknot.executable.placeholder")

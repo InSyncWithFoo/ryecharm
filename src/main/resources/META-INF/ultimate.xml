@@ -5,5 +5,11 @@
 			id="insyncwithfoo.ryecharm.ruff.lsp.RuffServerSupportProvider"
 			implementation="insyncwithfoo.ryecharm.ruff.lsp.RuffServerSupportProvider"
 		/>
+		
+		<!--suppress PluginXmlValidity -->
+		<platform.lsp.serverSupportProvider
+			id="insyncwithfoo.ryecharm.redknot.server.RedKnotServerSupportProvider"
+			implementation="insyncwithfoo.ryecharm.redknot.server.RedKnotServerSupportProvider"
+		/>
 	</extensions>
 </idea-plugin>

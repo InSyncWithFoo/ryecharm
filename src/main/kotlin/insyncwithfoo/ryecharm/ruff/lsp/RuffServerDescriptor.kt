@@ -51,7 +51,7 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
     
     companion object {
         private val LOGGER by ::LOG
-        private val PRESENTABLE_NAME = message("languageServer.presentableName")
+        private val PRESENTABLE_NAME = message("languageServers.ruff.presentableName")
     }
     
 }
