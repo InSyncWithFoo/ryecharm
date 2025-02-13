@@ -27,13 +27,13 @@ internal class NoqaCommentFindCodeAtOffsetTest(
         @JvmStatic
         @Parameters(name = "{0}")
         fun data() = arrayOf(
-            arrayOf("start", "# noqa: A123, B456", 14, "B456"),
-            arrayOf("middle", "# noqa: A123, B456", 15, "B456"),
-            arrayOf("end", "# noqa: A123, B456", 12, "A123"),
-            arrayOf("no separator", "# noqa: A123B456", 12, "A123"),
-            arrayOf("before", "# noqa: A123B456", 5, null),
-            arrayOf("leading content", "# foo # noqa: A123, B456", 14, "A123"),
-            arrayOf("leading content 2", "# foo # noqa: A123", 18, "A123")
+            arrayOf<Any?>("start", "# noqa: A123, B456", 14, "B456"),
+            arrayOf<Any?>("middle", "# noqa: A123, B456", 15, "B456"),
+            arrayOf<Any?>("end", "# noqa: A123, B456", 12, "A123"),
+            arrayOf<Any?>("no separator", "# noqa: A123B456", 12, "A123"),
+            arrayOf<Any?>("before", "# noqa: A123B456", 5, null),
+            arrayOf<Any?>("leading content", "# foo # noqa: A123, B456", 14, "A123"),
+            arrayOf<Any?>("leading content 2", "# foo # noqa: A123", 18, "A123")
         )
     }
     
