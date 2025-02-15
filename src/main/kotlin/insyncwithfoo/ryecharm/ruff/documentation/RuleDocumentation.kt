@@ -5,7 +5,6 @@ import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.DocumentationURI
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.Markdown
-import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.message
@@ -17,6 +16,7 @@ import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.ruleCode
 import insyncwithfoo.ryecharm.runInBackground
+import insyncwithfoo.ryecharm.runUnderIOThread
 import insyncwithfoo.ryecharm.toHTML
 
 
@@ -101,7 +101,7 @@ private suspend fun Project.getNewRuleNameToCodeMap(): Map<RuleName, RuleCode>? 
     val ruff = this.ruff ?: return null
     val command = ruff.allRules()
     
-    val output = ProgressContext.IO.compute {
+    val output = runUnderIOThread {
         runInBackground(command)
     }
     
@@ -138,7 +138,7 @@ private suspend fun Project.getRuleDocumentationByFullCode(code: RuleCode): Mark
     val ruff = this.ruff ?: return null
     val command = ruff.rule(code)
     
-    val output = ProgressContext.IO.compute {
+    val output = runUnderIOThread {
         runInBackground(command)
     }
     
@@ -167,7 +167,7 @@ private suspend fun Project.getEnabledRules(selector: RuleSelector): Map<RuleNam
     val ruff = this.ruff ?: return null
     val command = ruff.showSettings(select = listOf(selector))
     
-    val output = ProgressContext.IO.compute {
+    val output = runUnderIOThread {
         runInBackground(command)
     }
     

@@ -8,8 +8,6 @@ import insyncwithfoo.ryecharm.configurations.ruff.globalRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.globalRyeConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
-import insyncwithfoo.ryecharm.configurations.uv.UVConfigurations
-import insyncwithfoo.ryecharm.configurations.uv.UVGlobalService
 import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.findExecutableInVenv

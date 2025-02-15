@@ -26,11 +26,11 @@ private suspend inline fun runIOCommandThenUICallback(
     crossinline runCommand: CommandRunner,
     crossinline callback: UICallback
 ) {
-    val output = ProgressContext.IO.compute {
+    val output = runUnderIOThread {
         runCommand(command)
     }
     
-    ProgressContext.UI.launch {
+    runUnderUIThread {
         callback(output)
     }
 }

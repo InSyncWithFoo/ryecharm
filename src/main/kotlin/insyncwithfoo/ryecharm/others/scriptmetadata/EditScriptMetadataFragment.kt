@@ -21,10 +21,7 @@ import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.fileEditorManager
-import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
-import insyncwithfoo.ryecharm.paste
-import insyncwithfoo.ryecharm.runWriteCommandAction
 import insyncwithfoo.ryecharm.writeUnderAction
 import kotlinx.coroutines.CoroutineScope
 import org.toml.lang.psi.TomlFile

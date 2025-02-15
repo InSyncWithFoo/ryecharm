@@ -6,7 +6,6 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
-import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.cannotOpenFile
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.isSuccessful
@@ -16,6 +15,7 @@ import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.openFile
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.runInBackground
+import insyncwithfoo.ryecharm.runUnderUIThread
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.rye
 import insyncwithfoo.ryecharm.toPathOrNull
@@ -63,7 +63,7 @@ internal class OpenConfigurationFile : AnAction(), DumbAware {
             LocalFileSystem.getInstance().findFileByNioFile(path)
         }
         
-        ProgressContext.UI.launch {
+        runUnderUIThread {
             tryOpeningFile(path, virtualFile)
         }
     }

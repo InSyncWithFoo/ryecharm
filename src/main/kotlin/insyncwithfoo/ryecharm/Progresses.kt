@@ -10,7 +10,6 @@ import com.intellij.platform.ide.progress.withModalProgress
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 
 private fun TaskCancellation(cancellable: Boolean) = when (cancellable) {
@@ -65,14 +64,16 @@ internal suspend fun <T> Project.runWriteCommandAction(title: String, action: ()
     writeCommandAction(this, title, action)
 
 
-internal enum class ProgressContext(private val context: CoroutineContext) {
-    IO(Dispatchers.IO),
-    UI(Dispatchers.EDT);
-    
-    suspend fun <T> compute(action: suspend CoroutineScope.() -> T) =
-        withContext(context, action)
-    
-    suspend fun launch(action: suspend CoroutineScope.() -> Unit) {
-        compute(action)
-    }
+/**
+ * Run [action] with [Dispatchers.IO] as context.
+ */
+internal suspend fun <T> runUnderIOThread(action: suspend CoroutineScope.() -> T) =
+    withContext(Dispatchers.IO, action)
+
+
+/**
+ * Run [action] with [Dispatchers.EDT] as context.
+ */
+internal suspend fun runUnderUIThread(action: suspend CoroutineScope.() -> Unit) {
+    withContext(Dispatchers.EDT, action)
 }

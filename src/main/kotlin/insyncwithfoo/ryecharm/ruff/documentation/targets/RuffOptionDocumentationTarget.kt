@@ -8,7 +8,6 @@ import com.intellij.platform.backend.documentation.DocumentationTargetProvider
 import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.Definition
 import insyncwithfoo.ryecharm.HTML
-import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.processTimeout
@@ -21,6 +20,7 @@ import insyncwithfoo.ryecharm.ruff.documentation.providers.RuffOptionDocumentati
 import insyncwithfoo.ryecharm.ruff.documentation.render
 import insyncwithfoo.ryecharm.ruff.documentation.toAbsoluteName
 import insyncwithfoo.ryecharm.runInBackground
+import insyncwithfoo.ryecharm.runUnderIOThread
 import insyncwithfoo.ryecharm.toDocumentationResult
 import insyncwithfoo.ryecharm.toHTML
 import insyncwithfoo.ryecharm.wrappedInCodeBlock
@@ -100,7 +100,7 @@ internal class RuffOptionDocumentationTarget(
         val ruff = this.ruff ?: return null
         
         val command = ruff.config(option)
-        val output = ProgressContext.IO.compute {
+        val output = runUnderIOThread {
             runInBackground(command)
         }
         

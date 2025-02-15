@@ -6,7 +6,6 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.SystemInfo
 import com.intellij.openapi.vfs.LocalFileSystem
-import insyncwithfoo.ryecharm.ProgressContext
 import insyncwithfoo.ryecharm.addCopyPathAction
 import insyncwithfoo.ryecharm.error
 import insyncwithfoo.ryecharm.importantNotificationGroup
@@ -16,6 +15,7 @@ import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.openFile
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runThenNotify
+import insyncwithfoo.ryecharm.runUnderUIThread
 import insyncwithfoo.ryecharm.toPathOrNull
 import java.nio.file.Path
 import kotlin.io.path.div
@@ -37,7 +37,7 @@ internal class OpenUserConfigurationFile : AnAction(), DumbAware {
             LocalFileSystem.getInstance().findFileByNioFile(path)
         }
         
-        ProgressContext.UI.launch {
+        runUnderUIThread {
             openFile(virtualFile)
         }
     }
