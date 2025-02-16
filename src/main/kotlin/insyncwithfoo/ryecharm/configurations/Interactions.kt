@@ -1,6 +1,8 @@
 package insyncwithfoo.ryecharm.configurations
 
 import com.intellij.openapi.project.Project
+import insyncwithfoo.ryecharm.configurations.redknot.globalRedKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffLocalService
 import insyncwithfoo.ryecharm.configurations.ruff.RuffOverrideService
@@ -13,6 +15,8 @@ import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.interpreterDirectory
 import insyncwithfoo.ryecharm.path
+import insyncwithfoo.ryecharm.redknot.commands.RedKnot
+import insyncwithfoo.ryecharm.redknot.commands.detectExecutable
 import insyncwithfoo.ryecharm.removeExtension
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.detectExecutable
@@ -65,6 +69,13 @@ internal val Project.uvExecutable: Path?
 
 
 /**
+ * The Red Knot executable associated with this project, if it exists.
+ */
+internal val Project.redKnotExecutable: Path?
+    get() = redKnotConfigurations.executable?.toPathIfItExists() ?: RedKnot.detectExecutable()
+
+
+/**
  * The Rye executable defined in the global panel,
  * or one detected in PATH.
  */
@@ -86,6 +97,13 @@ internal val globalRuffExecutable: Path?
  */
 internal val globalUVExecutable: Path?
     get() = globalUVConfigurations.executable?.toPathIfItExists() ?: UV.detectExecutable()
+
+/**
+ * The Red Knot executable defined in the project panel,
+ * or one detected in PATH.
+ */
+internal val globalRedKnotExecutable: Path?
+    get() = globalRedKnotConfigurations.executable?.toPathIfItExists() ?: RedKnot.detectExecutable()
 
 
 /**

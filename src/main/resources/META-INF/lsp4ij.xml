@@ -4,8 +4,8 @@
 		<server
 			id="insyncwithfoo.ryecharm.ruff"
 			bundle="messages.ryecharm"
-			nameKey="languageServer.presentableName"
-			descriptionKey="languageServer.description"
+			nameKey="languageServers.ruff.presentableName"
+			descriptionKey="languageServers.ruff.description"
 			factoryClass="insyncwithfoo.ryecharm.ruff.lsp4ij.RuffServerFactory"
 		/>
 		
