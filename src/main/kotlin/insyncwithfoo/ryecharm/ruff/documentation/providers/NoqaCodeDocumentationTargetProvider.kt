@@ -6,6 +6,7 @@ import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.findCommentAtOrNearby
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.ruff.NoqaComment
 import insyncwithfoo.ryecharm.ruff.documentation.targets.NoqaCodeDocumentationTarget
@@ -38,7 +39,7 @@ internal class NoqaCodeDocumentationTargetProvider : DocumentationTargetProvider
             !file.isSupportedByRuff -> return null
         }
         
-        val psiComment = file.findElementAt(offset) as? PsiComment
+        val psiComment = file.findCommentAtOrNearby(offset)
         
         return psiComment?.toTarget(offset)
     }

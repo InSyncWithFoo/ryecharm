@@ -5,10 +5,10 @@ import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.startOffset
 import insyncwithfoo.ryecharm.edit
+import insyncwithfoo.ryecharm.findCommentAtOrNearby
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.replaceString
 import insyncwithfoo.ryecharm.ruff.NoqaComment
@@ -57,11 +57,5 @@ internal class ReenableRule : IntentionAction, HighPriorityAction, DumbAware {
             else -> file.edit { it.replaceString(noqaComment.range, "#") }
         }
     }
-    
-    private fun PsiFile.findCommentAt(offset: Int) =
-        findElementAt(offset) as? PsiComment
-    
-    private fun PsiFile.findCommentAtOrNearby(offset: Int) =
-        findCommentAt(offset) ?: findCommentAt(offset - 1)
     
 }
