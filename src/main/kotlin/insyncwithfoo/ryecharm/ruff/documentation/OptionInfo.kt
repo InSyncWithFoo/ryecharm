@@ -87,7 +87,10 @@ private fun OptionName.toDefinitionBlock() =
 
 
 private val OptionInfo.renderedContentBlock: HTML
-    get() = doc.replaceSectionLinksWithSpecializedURIs().toHTML()
+    get() = doc
+        .replaceSectionLinksWithSpecializedURIs()
+        .replaceRuleLinksWithSpecializedURIs()
+        .toHTML()
 
 
 private val OptionInfo.renderedDefaultValue: HTML

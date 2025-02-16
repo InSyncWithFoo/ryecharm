@@ -62,6 +62,18 @@ private val optionsSection = """(?mx)
 
 
 private val optionNameInListItem = """(?m)(?<prefix>^[-*]\h*\[?)`(?<path>[A-Za-z0-9.-]+)`""".toRegex()
+
+
+// https://github.com/astral-sh/ruff/blob/977447f9b8/scripts/check_docs_formatted.py#L19-L24
+private val optionPseudoLinkOrCodeBlock = """(?mx)
+    ^```\h*+\w*+\h*+\n
+    (?s:.*?)\n
+    ```\h*$
+    |
+    \[`(?<name>[a-z0-9][a-z0-9.-]*)`](?![\[(])
+""".toRegex()
+
+
 private val ruleLink = """https://docs\.astral\.sh/ruff/rules/(?<rule>[a-z-]+)/?""".toRegex()
 
 
@@ -89,7 +101,18 @@ private fun Markdown.insertOptionLinks() = this.replace(optionsSection) {
 }
 
 
-private fun Markdown.replaceRuleLinksWithSpecializedURIs() = this.replace(ruleLink) {
+private fun Markdown.replaceOptionPseudoLinksWithActualLinks() = this.replace(optionPseudoLinkOrCodeBlock) {
+    when (val name = it.groups["name"]?.value) {
+        null -> it.value
+        else -> {
+            val uri = DocumentationURI(RUFF_OPTION_HOST, name)
+            "[`$name`]($uri)"
+        }
+    }
+}
+
+
+internal fun Markdown.replaceRuleLinksWithSpecializedURIs() = this.replace(ruleLink) {
     val rule = it.groups["rule"]!!.value
     val uri = DocumentationURI(RUFF_RULE_HOST, rule)
     
@@ -153,6 +176,7 @@ private suspend fun Project.getRuleDocumentationByFullCode(code: RuleCode): Mark
     
     return output.stdout
         .insertOptionLinks()
+        .replaceOptionPseudoLinksWithActualLinks()
         .replaceRuleLinksWithSpecializedURIs()
 }
 
