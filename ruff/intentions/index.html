@@ -544,6 +544,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#fix-all-similar-violations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix all similar violations
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1047,6 +1056,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#fix-all-similar-violations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix all similar violations
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1110,6 +1128,13 @@ If that code is the only code, the entire comment will be removed.</p>
 </div>
 </div>
 </div>
+<h2 id="fix-all-similar-violations">Fix all similar violations<a class="headerlink" href="#fix-all-similar-violations" title="Permanent link">#</a></h2>
+<p>This code action is only available as quick fix for violations.
+Its availability does not depend on the rule's fixability.</p>
+<p>It fixes the violation and all other violations of the same rule.
+There are two variants: safe and unsafe.</p>
+<p>This is equivalent to running <code>ruff check --fix select ...</code>
+with the rule code as input (optionally with <code>--unsafe-fixes</code>).</p>
 
 
 
