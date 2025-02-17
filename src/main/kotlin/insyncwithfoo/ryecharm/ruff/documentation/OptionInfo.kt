@@ -76,7 +76,7 @@ private fun Markdown.replaceSectionLinksWithSpecializedURIs() = this.replace(sec
     val text = match.groups["text"]!!.value
     val target = match.groups["target"]!!.value
     
-    val uri = DocumentationURI(RUFF_OPTION_HOST, target.anchorToTOMLPath())
+    val uri = DocumentationURI.ruffOption(target.anchorToTOMLPath())
     
     "[$text]($uri)"
 }
@@ -142,7 +142,7 @@ internal fun OptionInfo.render(name: OptionName): HTML {
 private fun Map<OptionName, OptionInfo>.makeDocumentationPopup(name: OptionName) = popup {
     val list = entries.joinToString("\n") { (childName, _) ->
         val path = "${name}.${childName}"
-        val uri = DocumentationURI(RUFF_OPTION_HOST, path)
+        val uri = DocumentationURI.ruffOption(path)
         
         "* [`${childName}`]($uri)"
     }

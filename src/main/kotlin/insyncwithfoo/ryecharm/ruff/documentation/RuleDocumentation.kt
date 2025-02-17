@@ -94,7 +94,7 @@ private fun Markdown.insertOptionLinks() = this.replace(optionsSection) {
         val prefix = match.groups["prefix"]!!.value
         val path = match.groups["path"]!!.value
         
-        val uri = DocumentationURI(RUFF_OPTION_HOST, path)
+        val uri = DocumentationURI.ruffOption(path)
         
         "$prefix[`$path`]($uri)"
     }
@@ -105,7 +105,7 @@ private fun Markdown.replaceOptionPseudoLinksWithActualLinks() = this.replace(op
     when (val name = it.groups["name"]?.value) {
         null -> it.value
         else -> {
-            val uri = DocumentationURI(RUFF_OPTION_HOST, name)
+            val uri = DocumentationURI.ruffOption(name)
             "[`$name`]($uri)"
         }
     }
@@ -114,7 +114,7 @@ private fun Markdown.replaceOptionPseudoLinksWithActualLinks() = this.replace(op
 
 internal fun Markdown.replaceRuleLinksWithSpecializedURIs() = this.replace(ruleLink) {
     val rule = it.groups["rule"]!!.value
-    val uri = DocumentationURI(RUFF_RULE_HOST, rule)
+    val uri = DocumentationURI.ruffRule(rule)
     
     uri.toString()
 }
@@ -222,7 +222,7 @@ private suspend fun Project.getRuleListBySelector(selector: RuleSelector): Markd
     val ruleList = StringBuilder()
     
     for ((name, code) in enabledRules) {
-        val uri = DocumentationURI(RUFF_RULE_HOST, code)
+        val uri = DocumentationURI.ruffRule(code)
         ruleList.append("\n* [`$name`]($uri) (`$code`)")
     }
     

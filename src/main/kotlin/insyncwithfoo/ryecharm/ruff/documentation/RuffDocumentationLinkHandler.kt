@@ -4,13 +4,10 @@ import com.intellij.platform.backend.documentation.DocumentationLinkHandler
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.LinkResolveResult
 import insyncwithfoo.ryecharm.DocumentationURI
+import insyncwithfoo.ryecharm.DocumentationURIHost
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffDocumentationTarget
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffOptionDocumentationTarget
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffRuleDocumentationTarget
-
-
-internal const val RUFF_OPTION_HOST = "ruff.option"
-internal const val RUFF_RULE_HOST = "ruff.rule"
 
 
 private typealias URL = String
@@ -36,9 +33,8 @@ internal class RuffDocumentationLinkHandler : DocumentationLinkHandler {
         val uri = DocumentationURI.parse(url) ?: return null
         
         return when (uri.host) {
-            RUFF_OPTION_HOST -> RuffOptionDocumentationTarget(target.element, uri.path)
-            RUFF_RULE_HOST -> RuffRuleDocumentationTarget(target.element, uri.path)
-            else -> null
+            DocumentationURIHost.RUFF_OPTION -> RuffOptionDocumentationTarget(target.element, uri.path)
+            DocumentationURIHost.RUFF_RULE -> RuffRuleDocumentationTarget(target.element, uri.path)
         }
     }
     

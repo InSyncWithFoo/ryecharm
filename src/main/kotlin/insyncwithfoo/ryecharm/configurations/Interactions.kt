@@ -98,6 +98,7 @@ internal val globalRuffExecutable: Path?
 internal val globalUVExecutable: Path?
     get() = globalUVConfigurations.executable?.toPathIfItExists() ?: UV.detectExecutable()
 
+
 /**
  * The Red Knot executable defined in the project panel,
  * or one detected in PATH.
