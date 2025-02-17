@@ -22,6 +22,7 @@ import insyncwithfoo.ryecharm.isUVToml
  */
 internal class RyeCharmFilesIconProvider : FileIconProvider, DumbAware {
     
+    // TODO: Custom icon for `.python-version`
     override fun getIcon(file: VirtualFile, flags: Int, project: Project?) =
         when {
             file.isRyeConfigToml -> RyeIcons.TINY_16

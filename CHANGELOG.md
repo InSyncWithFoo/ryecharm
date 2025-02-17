@@ -14,6 +14,46 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-8] - 2025-02-17
+
+See [the documentation][0.1.0-a8-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.9.6][0.1.0-a8-2]
+* uv: [0.6.0][0.1.0-a8-3]
+* Rye: [0.43.0][0.1.0-a8-4]
+
+
+### Added
+
+* Previously, pressing Enter in the middle of a script metadata block
+  would break it, causing the code to no longer being highlighted as TOML.
+  Now, doing so will insert a new empty comment.
+* When a rule selector in a TOML configuration file is hovered,
+  RyeCharm will now display a popup showing all rules matching that selector.
+* It is now possible to fix all violations of the same code using a quick fix.
+
+
+### Changed
+
+* Code actions provided by RyeCharm are now ordered,
+  with Ruff violation fixes being at the top of the code action popup.
+
+
+### Fixed
+
+* Previously, the documentation for a rule would not be shown
+  if both its code and the cursor were placed at the very end of a comment.
+  This has been fixed.
+
+
+  [0.1.0-a8-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a8-2]: https://github.com/astral-sh/ruff/releases/tag/0.9.4
+  [0.1.0-a8-3]: https://github.com/astral-sh/uv/releases/tag/0.5.26
+  [0.1.0-a8-4]: https://github.com/astral-sh/rye/releases/tag/0.43.0
+
+
 ## [0.1.0-alpha-7] - 2025-02-02
 
 See [the documentation][0.1.0-a7-1] for more information.
@@ -403,7 +443,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..HEAD
+  [0.1.0-alpha-8]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..v0.1.0-alpha-8
   [0.1.0-alpha-7]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..v0.1.0-alpha-7
   [0.1.0-alpha-6]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..v0.1.0-alpha-6
   [0.1.0-alpha-5]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..v0.1.0-alpha-5

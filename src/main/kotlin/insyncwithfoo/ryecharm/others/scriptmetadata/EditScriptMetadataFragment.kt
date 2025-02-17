@@ -191,8 +191,8 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
         """.trimMargin()
     }
     
-    private fun String.asPEP723BlockLine() = when {
-        this.isEmpty() -> "#"
+    private fun String.asPEP723BlockLine() = when (this.isEmpty()) {
+        true -> "#"
         else -> "# $this"
     }
     

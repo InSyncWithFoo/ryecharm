@@ -33,6 +33,9 @@ This is equivalent to running `ruff rule ...` with the rule code as argument.
 === "Rule selector array"
     ![](../assets/ruff-documentation-demo-rule-selector-array.png)
 
+=== "Rule selector array &ndash; prefix"
+    ![](../assets/ruff-documentation-demo-selector-rule-list.png)
+
 
 ## TOML setting keys
 

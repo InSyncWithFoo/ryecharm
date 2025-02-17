@@ -14,7 +14,7 @@ def main(latest: str) -> None:
 		
 		tag = f'v{version}'
 		
-		subprocess.run([
+		subprocess.run([  # noqa: S607, PLW1510
 			'gh', 'release', 'edit', tag,
 			'--notes', changelogs.get_changelog_for(version)
 		])

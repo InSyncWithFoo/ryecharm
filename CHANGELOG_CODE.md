@@ -14,6 +14,16 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-8] - 2025-02-17
+
+### Dependencies
+
+* [LSP4IJ][_0.1.0-a8-d1]: 0.9.0 &rarr; 0.10.0
+
+
+  [_0.1.0-a8-d1]: https://github.com/redhat-developer/lsp4ij
+
+
 ## [0.1.0-alpha-7] - 2025-02-02
 
 ### Dependencies
@@ -188,7 +198,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..HEAD
+  [0.1.0-alpha-8]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..v0.1.0-alpha-8
   [0.1.0-alpha-7]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..v0.1.0-alpha-7
   [0.1.0-alpha-6]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..v0.1.0-alpha-6
   [0.1.0-alpha-5]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-4..v0.1.0-alpha-5

@@ -41,6 +41,13 @@ internal val VirtualFile.isRuffToml: Boolean
     get() = name == "ruff.toml" || name == ".ruff.toml"
 
 
+/**
+ * Whether the given file is `.python-version`.
+ */
+internal val VirtualFile.isPythonVersion: Boolean
+    get() = name == ".python-version"
+
+
 // https://github.com/InSyncWithFoo/ryecharm/issues/5
 /**
  * Whether the given file's extension is `.rst`.

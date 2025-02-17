@@ -41,5 +41,17 @@ If that code is the only code, the entire comment will be removed.
     ![](../assets/ruff-intentions-reenable-rule-demo-after.png)
 
 
+## Fix all similar violations
+
+This code action is only available as quick fix for violations.
+Its availability does not depend on the rule's fixability.
+
+It fixes the violation and all other violations of the same rule.
+There are two variants: safe and unsafe.
+
+This is equivalent to running `ruff check --fix select ...`
+with the rule code as input (optionally with `--unsafe-fixes`).
+
+
   [1]: running-modes.md
   [2]: formatting.md#optimize-imports

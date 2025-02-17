@@ -60,7 +60,7 @@ Such settings include:
 * \[`tool.uv`] `override-dependencies`
 * \[`tool.uv`] `upgrade-package`
 * \[`tool.uv`] `pip.upgrade-package`
-  
+
 `project.optional-dependencies` and `dependency-groups` are also supported.
 This monkeypatches [PY-71120][9].
 
