@@ -48,6 +48,13 @@ internal val VirtualFile.isPythonVersion: Boolean
     get() = name == ".python-version"
 
 
+/**
+ * Whether the given file is `py.typed`.
+ */
+internal val VirtualFile.isPyTyped: Boolean
+    get() = name == "py.typed"
+
+
 // https://github.com/InSyncWithFoo/ryecharm/issues/5
 /**
  * Whether the given file's extension is `.rst`.
