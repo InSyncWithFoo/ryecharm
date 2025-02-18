@@ -11,6 +11,8 @@ import insyncwithfoo.ryecharm.findExecutableChild
 import insyncwithfoo.ryecharm.findExecutableInPath
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
+import insyncwithfoo.ryecharm.ruff.RuleCode
+import insyncwithfoo.ryecharm.ruff.documentation.OptionName
 import insyncwithfoo.ryecharm.ruff.documentation.RuleSelector
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.binaryDirectory
@@ -59,7 +61,7 @@ internal class Ruff private constructor(
     fun clean(path: Path) =
         CleanCommand().build().also { it.workingDirectory = path }
     
-    fun rule(code: String) =
+    fun rule(code: RuleCode) =
         RuleCommand().build(CommandArguments(code))
     
     fun allRules(): Command {
@@ -70,10 +72,12 @@ internal class Ruff private constructor(
         return RuleCommand().build(arguments)
     }
     
-    fun config(option: String): Command {
-        val arguments = CommandArguments(option)
+    fun config(option: OptionName): Command {
+        val arguments = CommandArguments("--output-format" to "json")
         
-        arguments["--output-format"] = "json"
+        if (option.isNotEmpty()) {
+            arguments += option
+        }
         
         return ConfigCommand().build(arguments)
     }

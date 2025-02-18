@@ -13,7 +13,6 @@ import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.removeSurroundingTag
 import insyncwithfoo.ryecharm.ruff.commands.ruff
-import insyncwithfoo.ryecharm.ruff.documentation.OptionDocumentation
 import insyncwithfoo.ryecharm.ruff.documentation.OptionInfo
 import insyncwithfoo.ryecharm.ruff.documentation.OptionName
 import insyncwithfoo.ryecharm.ruff.documentation.providers.RuffOptionDocumentationTargetProvider
@@ -96,7 +95,7 @@ internal class RuffOptionDocumentationTarget(
         element.project.getDocumentation(option)?.toDocumentationResult()
     }
     
-    private suspend fun Project.getDocumentation(option: OptionName): OptionDocumentation? {
+    private suspend fun Project.getDocumentation(option: OptionName): HTML? {
         val ruff = this.ruff ?: return null
         
         val command = ruff.config(option)

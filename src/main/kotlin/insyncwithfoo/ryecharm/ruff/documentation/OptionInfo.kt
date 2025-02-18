@@ -16,17 +16,42 @@ import kotlinx.serialization.Serializable
 private const val FORCE_LINEBREAK = "  "
 
 
+/**
+ * A Ruff option name of one of the following forms:
+ * 
+ * * `foo` (relative name)
+ * * `ruff.foo` (absolute name)
+ * * Empty string (root name)
+ */
 internal typealias OptionName = String
-internal typealias OptionDocumentation = HTML
 
 
-private val sectionLinks: Regex
-    get() {
-        val text = """(?<text>[^\[\]]+)"""
-        val target = """(?<target>[\w-]+)"""
-        
-        return """\[$text]\(#$target\)""".toRegex()
-    }
+private val sectionLinks = """(?x)
+    \[(?<text>[^\[\]]+)]
+    \(\#(?<target>[\w-]+)\)
+""".toRegex()
+
+
+/**
+ * A `<span>`-wrapped part of a rendered TOML key
+ * in the "Definition" block:
+ * 
+ * ```html
+ * <div class="definition">
+ *   <span style="color:#cfa58f;">ruff</span>
+ *   <span style="">.</span>
+ *   <span style="color:#cfa58f;">lint</span>
+ *   <span style="">.</span>
+ *   <span style="color:#cfa58f;">fixable</span>
+ * </div>
+ * ```
+ */
+private val definitionHighlightedKeySegment = """(?x)
+    <span\s+style="[^"<>]+"\s*>
+        [a-z0-9-]+
+    </span>
+""".toRegex()
+
 
 
 /**
@@ -39,7 +64,10 @@ private fun String.anchorToTOMLPath() =
 
 
 internal fun OptionName.toAbsoluteName(): OptionName =
-    "ruff.$this"
+    when (this.isEmpty()) {
+        true -> "ruff"
+        else -> "ruff.$this"
+    }
 
 
 @Serializable
@@ -82,8 +110,25 @@ private fun Markdown.replaceSectionLinksWithSpecializedURIs() = this.replace(sec
 }
 
 
-private fun OptionName.toDefinitionBlock() =
-    this.wrappedInCodeBlock("toml").toHTML().removeSurroundingTag("pre")
+private fun OptionName.toDefinitionBlock(): HTML {
+    val fragments = this.split(".")
+    val html = this.wrappedInCodeBlock("toml").toHTML().removeSurroundingTag("pre")
+    
+    var index = 0
+    
+    return html.replace(definitionHighlightedKeySegment) {
+        if (index == fragments.lastIndex) {
+            return@replace it.value
+        }
+        
+        val prefix = fragments.slice(1..index).joinToString(".")
+        val uri = DocumentationURI.ruffOption(prefix)
+        
+        index++
+        
+        """<a href="$uri">${it.value}</a>"""
+    }
+}
 
 
 private val OptionInfo.renderedContentBlock: HTML
@@ -141,17 +186,25 @@ internal fun OptionInfo.render(name: OptionName): HTML {
 
 private fun Map<OptionName, OptionInfo>.makeDocumentationPopup(name: OptionName) = popup {
     val list = entries.joinToString("\n") { (childName, _) ->
-        val path = "${name}.${childName}"
+        val path = when (name.isEmpty()) {
+            true -> childName
+            else -> "${name}.${childName}"
+        }
         val uri = DocumentationURI.ruffOption(path)
         
         "* [`${childName}`]($uri)"
+    }
+    
+    val content = when (name.isEmpty()) {
+        true -> message("documentation.popup.configGroupInfo.root", list)
+        else -> message("documentation.popup.configGroupInfo", name, list)
     }
     
     definition(name.toAbsoluteName().toDefinitionBlock())
     
     separator()
     
-    content(message("documentation.popup.configGroupInfo", name, list).toHTML())
+    content(content.toHTML())
 }
 
 
