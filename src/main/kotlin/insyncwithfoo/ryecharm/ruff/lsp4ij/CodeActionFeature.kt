@@ -16,7 +16,9 @@ import org.eclipse.lsp4j.CodeAction
 @Suppress("UnstableApiUsage")
 internal class CodeActionFeature : LSPCodeActionFeature() {
     
-    private val configurations = project.ruffConfigurations
+    private val configurations by lazy {
+        project.ruffConfigurations
+    }
     
     override fun isEnabled(file: PsiFile) =
         configurations.quickFixes

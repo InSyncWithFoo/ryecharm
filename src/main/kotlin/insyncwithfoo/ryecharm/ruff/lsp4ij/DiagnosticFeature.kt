@@ -22,7 +22,9 @@ import org.eclipse.lsp4j.Diagnostic
 @Suppress("UnstableApiUsage")
 internal class DiagnosticFeature : LSPDiagnosticFeature() {
     
-    private val configurations = project.ruffConfigurations
+    private val configurations by lazy {
+        project.ruffConfigurations
+    }
     
     override fun isEnabled(file: PsiFile) =
         configurations.linting

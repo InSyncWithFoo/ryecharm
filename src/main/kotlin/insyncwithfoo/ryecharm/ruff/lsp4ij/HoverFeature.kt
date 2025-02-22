@@ -11,7 +11,9 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 @Suppress("UnstableApiUsage")
 internal class HoverFeature : LSPHoverFeature() {
     
-    private val configurations = project.ruffConfigurations
+    private val configurations by lazy {
+        project.ruffConfigurations
+    }
     
     override fun isEnabled(file: PsiFile) =
         configurations.documentationPopups

@@ -12,7 +12,9 @@ import insyncwithfoo.ryecharm.isSupportedByRuff
 @Suppress("UnstableApiUsage")
 internal class FormattingFeature : LSPFormattingFeature() {
     
-    private val configurations = project.ruffConfigurations
+    private val configurations by lazy {
+        project.ruffConfigurations
+    }
     
     override fun isEnabled(file: PsiFile) =
         configurations.formatting
