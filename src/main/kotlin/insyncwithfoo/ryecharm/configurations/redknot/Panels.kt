@@ -3,8 +3,10 @@ package insyncwithfoo.ryecharm.configurations.redknot
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogPanel
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Row
+import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.panel
 import insyncwithfoo.ryecharm.RyeCharmRegistry
 import insyncwithfoo.ryecharm.bindText
@@ -28,6 +30,10 @@ private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Uni
     singleFileTextField().makeFlexible().apply(block)
 
 
+private fun Row.enableInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.redknot.enable.label")).apply(block)
+
+
 private fun RedKnotPanel.makeComponent() = panel {
     
     row(message("configurations.redknot.executable.label")) {
@@ -38,6 +44,13 @@ private fun RedKnotPanel.makeComponent() = panel {
             emptyText = detectedExecutable ?: message("configurations.redknot.executable.placeholder")
         }
         overrideCheckbox(state::executable)
+    }
+    
+    separator()
+    
+    row {
+        enableInput { bindSelected(state::enable) }
+        overrideCheckbox(state::enable)
     }
     
 }

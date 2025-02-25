@@ -8,6 +8,7 @@ import insyncwithfoo.ryecharm.configurations.SettingName
 
 internal class RedKnotConfigurations : DisplayableState(), Copyable {
     var executable by string(null)
+    var enable by property(true)
 }
 
 
