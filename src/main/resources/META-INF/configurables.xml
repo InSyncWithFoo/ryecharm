@@ -1,0 +1,85 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.main.Global"
+			parentId="tools"
+			bundle="messages.ryecharm"
+			key="configurations.main.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.main.MainConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.main.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			groupWeight="1"
+			instance="insyncwithfoo.ryecharm.configurations.main.MainProjectConfigurable"
+		/>
+		
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.ruff.Global"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.ruff.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.ruff.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.ruff.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.ruff.RuffProjectConfigurable"
+		/>
+		
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.rye.Global"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.rye.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.rye.RyeConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.rye.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.rye.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.rye.RyeProjectConfigurable"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.uv.Global"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.uv.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.uv.UVConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.uv.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.uv.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.uv.UVProjectConfigurable"
+		/>
+		
+		<applicationConfigurable
+			id="insyncwithfoo.ryecharm.configurations.redknot.Global"
+			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
+			bundle="messages.ryecharm"
+			key="configurations.redknot.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.redknot.RedKnotConfigurable"
+		/>
+		
+		<projectConfigurable
+			id="insyncwithfoo.ryecharm.configurations.redknot.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.redknot.Global"
+			bundle="messages.ryecharm"
+			key="configurations.project.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.redknot.RedKnotProjectConfigurable"
+		/>
+	</extensions>
+</idea-plugin>

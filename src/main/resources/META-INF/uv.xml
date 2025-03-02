@@ -1,0 +1,92 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<!--suppress PluginXmlCapitalization -->
+		<codeInsight.declarativeInlayProvider
+			id="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider"
+			providerId="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider"
+			
+			language="TOML"
+			group="OTHER_GROUP"
+			
+			bundle="messages.ryecharm"
+			nameKey="inlayHints.uv.dependencyVersions.name"
+			descriptionKey="inlayHints.uv.dependencyVersions.description"
+			
+			isEnabledByDefault="true"
+			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider"
+		/>
+		
+		<codeInsight.declarativeInlayProviderCustomSettingsProvider
+			id="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.DependencyVersionInlayHintsCustomSettingsProvider"
+			providerId="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider"
+			
+			language="TOML"
+			
+			implementationClass="insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.DependencyVersionInlayHintsCustomSettingsProvider"
+		/>
+		
+		<editorNotificationProvider
+			id="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
+			implementation="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
+		/>
+		
+		<fileType
+			name="TOML"
+			fileNames="uv.lock"
+		/>
+		
+		<localInspection
+			id="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
+			suppressId="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
+			shortName="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
+			
+			language="TOML"
+			groupName="RyeCharm"
+			
+			bundle="messages.ryecharm"
+			key="inspections.uvDevDependencies.displayName"
+			
+			enabledByDefault="true"
+			level="WARNING"
+			implementationClass="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject</className>
+			<category>RyeCharm</category>
+			<skipBeforeAfter>true</skipBeforeAfter>
+		</intentionAction>
+	</extensions>
+	
+	<actions>
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.uv.actions.ShowExecutable"
+			class="insyncwithfoo.ryecharm.uv.actions.ShowExecutable"
+			text="uv: Show executable"
+			description="Show the uv executable that would be used for related operations"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.uv.actions.ShowVersion"
+			class="insyncwithfoo.ryecharm.uv.actions.ShowVersion"
+			text="uv: Show version"
+			description="Show the output of `uv version`"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
+			class="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
+			text="uv: Synchronize project"
+			description="Run `uv sync`"
+			icon="AllIcons.Actions.Refresh"
+		/>
+	</actions>
+</idea-plugin>

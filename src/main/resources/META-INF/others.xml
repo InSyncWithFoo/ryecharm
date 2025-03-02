@@ -1,0 +1,71 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<fileIconProvider
+			id="insyncwithfoo.ryecharm.common.icons.RyeCharmFilesIconProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.common.icons.RyeCharmFilesIconProvider"
+		/>
+		
+		<multiHostInjector
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
+		/>
+		
+		<formatting.injectedOptions
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataInjector"
+		/>
+		
+		<enterHandlerDelegate
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBlockEnterHandler"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBlockEnterHandler"
+		/>
+		
+		<defaultLiveTemplates
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.template"
+			file="/liveTemplates/scriptMetadata.xml"
+		/>
+		
+		<liveTemplateContext
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataTemplateContext"
+			contextId="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataTemplateContext"
+			baseContextId="Python"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataTemplateContext"
+		/>
+		
+		<languageInjectionContributor
+			id="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
+		/>
+		
+		<psi.referenceContributor
+			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupReferenceContributor"
+			language="TOML"
+			implementation="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupReferenceContributor"
+		/>
+		
+		<localInspection
+			id="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
+			suppressId="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
+			shortName="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
+			
+			language="TOML"
+			groupName="RyeCharm"
+			
+			bundle="messages.ryecharm"
+			key="inspections.dependencyGroupNames.displayName"
+			
+			enabledByDefault="true"
+			level="WARNING"
+			implementationClass="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
+		/>
+		
+		<runLineMarkerContributor
+			id="insyncwithfoo.ryecharm.others.installers.GutterInstallButtonsProvider"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.others.installers.GutterInstallButtonsProvider"
+		/>
+	</extensions>
+</idea-plugin>

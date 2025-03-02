@@ -1,0 +1,50 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectMajorVersion</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectMinorVersion</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectPatchVersion</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+	</extensions>
+	
+	<actions>
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.rye.actions.ShowExecutable"
+			class="insyncwithfoo.ryecharm.rye.actions.ShowExecutable"
+			text="Rye: Show executable"
+			description="Show the Rye executable that would be used for related operations"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.rye.actions.OpenConfigurationFile"
+			class="insyncwithfoo.ryecharm.rye.actions.OpenConfigurationFile"
+			text="Rye: Open configuration file"
+			description="Open the file at the path returned by `rye config --show-path`"
+			icon="AllIcons.Actions.Edit"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.rye.actions.ShowProjectInformation"
+			class="insyncwithfoo.ryecharm.rye.actions.ShowProjectInformation"
+			text="Rye: Show project information"
+			description="See project information as output by Rye in editor"
+			icon="AllIcons.General.ShowInfos"
+		/>
+	</actions>
+</idea-plugin>

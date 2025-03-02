@@ -1,0 +1,10 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
+		<!--suppress PluginXmlValidity -->
+		<commandSpecsProvider
+			id="insyncwithfoo.ryecharm.common.terminal.RyeCharmCommandSpecsProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.common.terminal.RyeCharmCommandSpecsProvider"
+		/>
+	</extensions>
+</idea-plugin>

@@ -1,0 +1,194 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<actionOnSave
+			id="insyncwithfoo.ryecharm.ruff.onsave.RuffOnSaveTasksRunner"
+			implementation="insyncwithfoo.ryecharm.ruff.onsave.RuffOnSaveTasksRunner"
+		/>
+		
+		<externalAnnotator
+			id="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
+			language="Python"
+			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
+		/>
+		
+		<localInspection
+			id="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+			suppressId="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+			shortName="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+			
+			language="Python"
+			groupName="RyeCharm"
+			
+			bundle="messages.ryecharm"
+			key="inspections.ruff.displayName"
+			
+			enabledByDefault="true"
+			level="WARNING"
+			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+		/>
+		
+		<formattingService
+			id="insyncwithfoo.ryecharm.ruff.formatting.RuffFormatter"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.ruff.formatting.RuffFormatter"
+		/>
+		
+		<lang.importOptimizer
+			id="insyncwithfoo.ryecharm.ruff.formatting.RuffImportOptimizer"
+			language="Python"
+			order="first"
+			implementationClass="insyncwithfoo.ryecharm.ruff.formatting.RuffImportOptimizer"
+		/>
+		
+		<postStartupActivity
+			id="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable.ProjectActivity"
+			implementation="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
+		/>
+		
+		<platform.backend.documentation.targetProvider
+			id="insyncwithfoo.ryecharm.ruff.documentation.providers.NoqaCodeDocumentationTargetProvider"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.providers.NoqaCodeDocumentationTargetProvider"
+		/>
+		
+		<platform.backend.documentation.targetProvider
+			id="insyncwithfoo.ryecharm.ruff.documentation.providers.RuffOptionDocumentationTargetProvider"
+			order="first, before LSPDocumentationTargetProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.providers.RuffOptionDocumentationTargetProvider"
+		/>
+		
+		<platform.backend.documentation.targetProvider
+			id="insyncwithfoo.ryecharm.ruff.documentation.providers.RuffRuleDocumentationTargetProvider"
+			order="first, before LSPDocumentationTargetProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.providers.RuffRuleDocumentationTargetProvider"
+		/>
+		
+		<platform.backend.documentation.linkHandler
+			id="insyncwithfoo.ryecharm.ruff.documentation.RuffDocumentationLinkHandler"
+			implementation="insyncwithfoo.ryecharm.ruff.documentation.RuffDocumentationLinkHandler"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.others.scriptmetadata.EditScriptMetadataFragment</className>
+			<category>RyeCharm</category>
+			<skipBeforeAfter>true</skipBeforeAfter>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.ruff.intentions.FixAllSafe</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.ruff.intentions.FixAllUnsafe</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.ruff.intentions.OrganizeImports</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.ruff.intentions.ReenableRule</className>
+			<category>RyeCharm</category>
+		</intentionAction>
+	</extensions>
+	
+	<actions>
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.ShowExecutable"
+			class="insyncwithfoo.ryecharm.ruff.actions.ShowExecutable"
+			text="Ruff: Show executable"
+			description="Show the Ruff executable that would be used for related operations"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.ShowVersion"
+			class="insyncwithfoo.ryecharm.ruff.actions.ShowVersion"
+			text="Ruff: Show version"
+			description="Show the output of `ruff version`"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.CleanCache"
+			class="insyncwithfoo.ryecharm.ruff.actions.CleanCache"
+			text="Ruff: Clean project cache"
+			description="Clean all caches for this project"
+			icon="AllIcons.Actions.ClearCash"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.ShowLinters"
+			class="insyncwithfoo.ryecharm.ruff.actions.ShowLinters"
+			text="Ruff: Show upstream linters"
+			description="Show a table of all upstream linters that Ruff supports"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.ClearPluginCache"
+			class="insyncwithfoo.ryecharm.ruff.actions.ClearPluginCache"
+			text="Ruff: Clear plugin cache"
+			description="Clear all internal cache stored by the plugin"
+			icon="AllIcons.Actions.ClearCash"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable.Action"
+			class="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
+			text="Ruff: Suggest project executable"
+			description="Find a Ruff executable in the virtual environment and suggest setting that as the project executable"
+			icon="AllIcons.Actions.Search"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.OpenUserConfigurationFile"
+			class="insyncwithfoo.ryecharm.ruff.actions.OpenUserConfigurationFile"
+			text="Ruff: Open user configuration file"
+			description="Open the configuration file that would be used by Ruff when the project has no such file"
+			icon="AllIcons.Actions.Edit"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.FixAllSafe"
+			class="insyncwithfoo.ryecharm.ruff.actions.FixAllSafe"
+			text="Ruff: Fix all safely fixable violations"
+			description="Fix all safely fixable violations found in the current editor"
+			icon="AllIcons.Actions.Edit"
+		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.ruff.actions.FixAllUnsafe"
+			class="insyncwithfoo.ryecharm.ruff.actions.FixAllUnsafe"
+			text="Ruff: Fix all fixable violations, unsafe included"
+			description="Fix all violations found in the current editor, unsafe included"
+			icon="AllIcons.Actions.Edit"
+		/>
+	</actions>
+	
+	<projectListeners>
+		<listener
+			class="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
+			topic="com.jetbrains.python.packaging.common.PythonPackageManagementListener"
+		/>
+	</projectListeners>
+</idea-plugin>

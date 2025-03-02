@@ -1,0 +1,17 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<notificationGroup
+			id="insyncwithfoo.ryecharm.important"
+			displayType="STICKY_BALLOON"
+			bundle="messages.ryecharm"
+			key="notifications.group.important.displayName"
+		/>
+		
+		<notificationGroup
+			id="insyncwithfoo.ryecharm.unimportant"
+			displayType="BALLOON"
+			bundle="messages.ryecharm"
+			key="notifications.group.unimportant.displayName"
+		/>
+	</extensions>
+</idea-plugin>
