@@ -170,6 +170,18 @@
 			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBlockEnterHandler"
 		/>
 		
+		<defaultLiveTemplates
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.template"
+			file="/liveTemplates/scriptMetadata.xml"
+		/>
+		
+		<liveTemplateContext
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataTemplateContext"
+			contextId="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataTemplateContext"
+			baseContextId="Python"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataTemplateContext"
+		/>
+		
 		<languageInjectionContributor
 			id="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
 			language="TOML"

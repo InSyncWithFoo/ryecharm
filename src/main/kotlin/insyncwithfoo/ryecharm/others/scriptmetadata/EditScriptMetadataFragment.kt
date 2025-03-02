@@ -141,9 +141,9 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
         val fragmentEditor = project.openNewEditor(injectedFile, hostFileName, offsetInFragment) ?: return
         
         fragmentEditor.addReleaseListener(project) { document ->
-            val newBlock = document.charsSequence.asPEP723Block()
+            val newBlock = document.charsSequence.removeSuffix("\n").asPEP723Block()
             val oldContent = hostFile.viewProvider.document?.charsSequence ?: return@addReleaseListener
-            val newContent = oldContent.replace(scriptBlock, newBlock).removeSuffix("\n")
+            val newContent = oldContent.replace(scriptBlock, newBlock)
             
             val title = message("intentions.main.editScriptMetadataFragment.progressTitle")
             

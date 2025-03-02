@@ -12,10 +12,8 @@ internal class RootDisposable : Disposable {
     override fun dispose() {}
     
     companion object {
-        
         fun getInstance() = service<RootDisposable>()
-        
         fun getInstance(project: Project) = project.service<RootDisposable>()
-        
     }
+    
 }

@@ -1,0 +1,15 @@
+<templateSet>
+	<template
+		name="script"
+		value="# /// script&#10;# $END$&#10;# ///&#10;"
+		toReformat="false"
+		toShortenFQNames="false"
+		useStaticImport="false"
+		resource-bundle="messages.ryecharm"
+		key="templates.scriptMetadata.description"
+	>
+		<context>
+			<option name="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataTemplateContext" value="true" />
+		</context>
+	</template>
+</templateSet>
