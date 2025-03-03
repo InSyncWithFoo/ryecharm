@@ -7,6 +7,15 @@ import com.jetbrains.python.psi.LanguageLevel
 import insyncwithfoo.ryecharm.message
 
 
+/**
+ * Determine whether the `script` live template should be suggested.
+ * 
+ * The cursor is considered to be "in context" when
+ * all of the following are true:
+ * 
+ * * The first character of the current line is not a space.
+ * * The file has yet to have a script metadata block.
+ */
 internal class ScriptMetadataTemplateContext :
     TemplateContextType(message("templates.scriptMetadata.presentableName")) {
     

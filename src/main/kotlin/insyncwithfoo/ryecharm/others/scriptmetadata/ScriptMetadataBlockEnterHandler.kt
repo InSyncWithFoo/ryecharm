@@ -22,7 +22,7 @@ private val possiblyEmptyScriptBlock = """(?mx)
 
 
 /**
- * Insert `# ` when the user presses Enter
+ * Insert a leading `#` when the user presses Enter
  * in the middle of a script metadata block.
  * 
  * Before:

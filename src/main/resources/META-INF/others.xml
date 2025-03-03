@@ -34,6 +34,13 @@
 			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataTemplateContext"
 		/>
 		
+		<lang.foldingBuilder
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataFoldingBuilder"
+			order="first"
+			language="Python"
+			implementationClass="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataFoldingBuilder"
+		/>
+		
 		<languageInjectionContributor
 			id="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
 			language="TOML"
