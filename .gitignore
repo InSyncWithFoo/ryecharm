@@ -17,8 +17,11 @@ TODO.md
 .sources/
 site/
 
+pyproject.toml
 pyrightconfig.json
 ruff.toml
+
+uv.lock
 
 ### Generated ###
 .gradle/
