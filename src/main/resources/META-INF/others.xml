@@ -75,4 +75,12 @@
 			implementationClass="insyncwithfoo.ryecharm.others.installers.GutterInstallButtonsProvider"
 		/>
 	</extensions>
+	
+	<extensions defaultExtensionNs="JavaScript">
+		<JsonSchema.ProviderFactory
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataSchemaProviderFactory"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataSchemaProviderFactory"
+		/>
+	</extensions>
 </idea-plugin>

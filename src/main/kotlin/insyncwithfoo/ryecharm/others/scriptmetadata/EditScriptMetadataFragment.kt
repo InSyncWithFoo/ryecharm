@@ -173,6 +173,9 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
         return fileEditorManager.openTextEditor(descriptor, focusEditor)
     }
     
+    /**
+     * @see ScriptMetadataSchemaProvider.isAvailable
+     */
     private fun TomlFile.asNewVirtualFile(hostFilename: String): VirtualFile? {
         val name = message("intentions.main.editScriptMetadataFragment.filename", hostFilename)
         val content = viewProvider.document?.charsSequence ?: return null
