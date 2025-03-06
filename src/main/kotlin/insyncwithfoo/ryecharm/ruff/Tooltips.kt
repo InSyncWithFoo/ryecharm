@@ -4,7 +4,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.toHTML
 
 
-internal fun RuffConfigurations.getFormattedTooltip(message: String, rule: String?): String {
+internal fun RuffConfigurations.getFormattedTooltip(message: String, rule: RuleCode?): String {
     val formatted = tooltipFormat % Pair(message, rule)
     
     return when (renderTooltips) {
