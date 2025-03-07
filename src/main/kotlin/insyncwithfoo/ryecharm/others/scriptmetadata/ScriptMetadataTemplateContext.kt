@@ -25,7 +25,7 @@ internal class ScriptMetadataTemplateContext :
     override fun isInContext(templateActionContext: TemplateActionContext): Boolean {
         val file = templateActionContext.file
         
-        if (file.virtualFile.extension != "py") {
+        if (file.virtualFile?.extension != "py") {
             return false
         }
         
