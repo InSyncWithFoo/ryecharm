@@ -11,7 +11,7 @@ import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
 
-const val MAX_MESSAGE_LENGTH = 1000
+private const val MAX_MESSAGE_LENGTH = 1000
 
 
 private fun Logger.logCommandInfo(message: String) {

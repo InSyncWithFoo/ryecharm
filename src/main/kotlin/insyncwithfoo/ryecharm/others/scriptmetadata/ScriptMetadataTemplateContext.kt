@@ -23,13 +23,13 @@ internal class ScriptMetadataTemplateContext :
         PyHighlighter(LanguageLevel.getLatest())
     
     override fun isInContext(templateActionContext: TemplateActionContext): Boolean {
-        val file = templateActionContext.file
+        val viewProvider = templateActionContext.file.viewProvider
         
-        if (file.virtualFile?.extension != "py") {
+        if (viewProvider.virtualFile.extension != "py") {
             return false
         }
         
-        val document = file.viewProvider.document ?: return false
+        val document = viewProvider.document ?: return false
         val offset = templateActionContext.startOffset
         val text = document.charsSequence
         

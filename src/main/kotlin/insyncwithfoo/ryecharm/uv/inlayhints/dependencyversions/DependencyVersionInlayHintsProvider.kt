@@ -31,17 +31,17 @@ private val LAST_UPDATED = Key.create<Instant>("${RyeCharm.ID}.uv.inlayhints.dep
 private val RETRIEVING = Key.create<Boolean>("${RyeCharm.ID}.uv.inlayhints.dependencyversions.retrieving")
 
 
-private var Editor.dependencies: DependencyMap?
+private inline var Editor.dependencies: DependencyMap?
     get() = getUserData(DEPENDENCIES)
     set(value) = putUserData(DEPENDENCIES, value)
 
 
-private var Editor.lastUpdatedDependencies: Instant?
+private inline var Editor.lastUpdatedDependencies: Instant?
     get() = getUserData(LAST_UPDATED)
     set(value) = putUserData(LAST_UPDATED, value)
 
 
-private var Editor.retrievingDependencies: Boolean
+private inline var Editor.retrievingDependencies: Boolean
     get() = getUserData(RETRIEVING) ?: false
     set(value) = putUserData(RETRIEVING, value)
 
