@@ -1,4 +1,4 @@
-<templateSet>
+<templateSet group="Python">
 	<template
 		name="script"
 		value="# /// script&#10;# $END$&#10;# ///&#10;"

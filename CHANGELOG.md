@@ -14,6 +14,62 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-9] - 2025-03-09
+
+See [the documentation][0.1.0-a9-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.9.10][0.1.0-a9-2]
+* uv: [0.6.5][0.1.0-a9-3]
+* Rye: [0.44.0][0.1.0-a9-4]
+
+
+### Added
+
+* `.python-version` and `py.typed` now have specialized icons.
+* Previously, in light mode, `uv.lock`'s icon has bad contrast.
+  It now uses a new, more accessible icon.
+* Non-topmost TOML key segments in a Ruff option documentation popup
+  (e.g., `ruff` and `lint` in `ruff.lint.select`)
+  are now clickable.
+  They can be used to navigate between options.
+* Toggling the registry entry used to be the only way to disable Red Knot.
+  Now, it can also be disabled using an UI setting.
+* Typing `script` at the top-level of a `.py` file now suggests
+  a live template that expands to a PEP 723 script metadata block.
+* Script metadata blocks now displays `# /// script` when folded
+  instead of the default `...` for multicomment blocks.
+* Temporary script metadata files
+  (created by the "Edit script metadata fragment" intention)
+  now have automatic JSON schema mapping.
+
+
+### Changed
+
+* The bundled plugin <i>Terminal</i> is now an optional dependency.
+
+
+### Removed
+
+* 2024.3.2 is no longer supported.
+
+
+### Fixed
+
+* Previously, Ruff's language server would not work correctly
+  if the client was LSP4IJ.
+  This has been fixed.
+* "Unsuppress rule" intention now works as expected
+  instead of causing a threading error.
+
+
+  [0.1.0-a9-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a9-2]: https://github.com/astral-sh/ruff/releases/tag/0.9.10
+  [0.1.0-a9-3]: https://github.com/astral-sh/uv/releases/tag/0.6.5
+  [0.1.0-a9-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+
+
 ## [0.1.0-alpha-8] - 2025-02-17
 
 See [the documentation][0.1.0-a8-1] for more information.
@@ -443,7 +499,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..HEAD
+  [0.1.0-alpha-9]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..v0.1.0-alpha-9
   [0.1.0-alpha-8]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..v0.1.0-alpha-8
   [0.1.0-alpha-7]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..v0.1.0-alpha-7
   [0.1.0-alpha-6]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..v0.1.0-alpha-6

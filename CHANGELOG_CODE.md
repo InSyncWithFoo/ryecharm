@@ -14,6 +14,22 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-9] - 2025-03-09
+
+### Dependencies
+
+* [Material for MkDocs][_0.1.0-a9-d1]: 9.5.43 &rarr; 9.6.6
+* [LSP4IJ][_0.1.0-a9-d2]: 0.10.0 &rarr; 0.11.0
+* [Gradle][_0.1.0-a9-d3]: 8.12.1 &rarr; 8.13
+* [IntelliJ Platform Gradle Plugin][_0.1.0-a9-d4]: 2.2.1 &rarr; 2.3.0
+
+
+  [_0.1.0-a9-d1]: https://github.com/squidfunk/mkdocs-material
+  [_0.1.0-a9-d2]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a9-d3]: https://github.com/gradle/gradle
+  [_0.1.0-a9-d4]: https://github.com/JetBrains/intellij-platform-gradle-plugin
+
+
 ## [0.1.0-alpha-8] - 2025-02-17
 
 ### Dependencies
@@ -198,7 +214,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..HEAD
+  [0.1.0-alpha-9]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..v0.1.0-alpha-9
   [0.1.0-alpha-8]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..v0.1.0-alpha-8
   [0.1.0-alpha-7]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..v0.1.0-alpha-7
   [0.1.0-alpha-6]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-5..v0.1.0-alpha-6

@@ -46,11 +46,11 @@ private fun RedKnotPanel.makeComponent() = panel {
         overrideCheckbox(state::executable)
     }
     
-    separator()
-    
-    row {
-        enableInput { bindSelected(state::enable) }
-        overrideCheckbox(state::enable)
+    group {
+        row {
+            enableInput { bindSelected(state::enable) }
+            overrideCheckbox(state::enable)
+        }
     }
     
 }
