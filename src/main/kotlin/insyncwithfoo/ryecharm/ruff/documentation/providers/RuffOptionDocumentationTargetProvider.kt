@@ -8,6 +8,7 @@ import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isRuffToml
+import insyncwithfoo.ryecharm.others.scriptmetadata.isScriptMetadataTemporaryFile
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffOptionDocumentationTarget
 import insyncwithfoo.ryecharm.wrappingTomlKey
 import org.toml.lang.TomlLanguage
@@ -17,7 +18,7 @@ import org.toml.lang.psi.TomlKey
 // Upstream issue: https://youtrack.jetbrains.com/issue/PY-66325
 /**
  * Provide documentation for keys of:
- * * The `tool.ruff` table of `pyproject.toml`
+ * * The `tool.ruff` table of `pyproject.toml` and script metadata temporary files
  * * `.ruff.toml`/`ruff.toml` files
  * 
  * ```toml
@@ -56,15 +57,15 @@ internal class RuffOptionDocumentationTargetProvider : DocumentationTargetProvid
             !configurations.documentationPopups -> return null
             !configurations.documentationPopupsForTOMLOptions -> return null
             !file.language.isKindOf(TomlLanguage) -> return null
-            !virtualFile.isPyprojectToml && !virtualFile.isRuffToml -> return null
+            !virtualFile.run { isPyprojectToml || isRuffToml || isScriptMetadataTemporaryFile } -> return null
         }
         
         val element = file.findElementAt(offset) ?: return null
         val key = element.wrappingTomlKey ?: return null
         
         val absoluteName = key.absoluteName
-        val relativeName = when {
-            virtualFile.isPyprojectToml -> absoluteName.relativize("tool.ruff") ?: return null
+        val relativeName = when (virtualFile.run { isPyprojectToml || isScriptMetadataTemporaryFile }) {
+            true -> absoluteName.relativize("tool.ruff") ?: return null
             else -> absoluteName
         }
         

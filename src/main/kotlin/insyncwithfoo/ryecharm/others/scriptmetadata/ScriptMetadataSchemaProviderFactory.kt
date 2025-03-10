@@ -18,7 +18,7 @@ internal class ScriptMetadataSchemaProvider : JsonSchemaFileProvider {
      * @see EditScriptMetadataFragment.asNewVirtualFile
      */
     override fun isAvailable(file: VirtualFile) =
-        file.name.startsWith("Script metadata (") && file.name.endsWith(").toml")
+        file.isScriptMetadataTemporaryFile
     
     override fun getSchemaFile() =
         virtualFileManager.findFileByUrl(URL)

@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isRuffToml
 import insyncwithfoo.ryecharm.isString
 import insyncwithfoo.ryecharm.keyValuePair
+import insyncwithfoo.ryecharm.others.scriptmetadata.isScriptMetadataTemporaryFile
 import insyncwithfoo.ryecharm.ruff.documentation.isRuleSelector
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffRuleDocumentationTarget
 import insyncwithfoo.ryecharm.stringContent
@@ -57,7 +58,7 @@ internal class RuffRuleDocumentationTargetProvider : DocumentationTargetProvider
             !configurations.documentationPopups -> return null
             !configurations.documentationPopupsForTOMLRuleCodes -> return null
             !file.language.isKindOf(TomlLanguage) -> return null
-            !virtualFile.isPyprojectToml && !virtualFile.isRuffToml -> return null
+            !virtualFile.run { isPyprojectToml || isRuffToml || isScriptMetadataTemporaryFile } -> return null
         }
         
         val element = file.findElementAt(offset) ?: return null
@@ -68,8 +69,8 @@ internal class RuffRuleDocumentationTargetProvider : DocumentationTargetProvider
         val key = keyValuePair.key
         
         val absoluteName = key.absoluteName
-        val nameRelativeToRoot = when {
-            virtualFile.isPyprojectToml -> absoluteName.relativize("tool.ruff") ?: return null
+        val nameRelativeToRoot = when (virtualFile.run { isPyprojectToml || isScriptMetadataTemporaryFile }) {
+            true -> absoluteName.relativize("tool.ruff") ?: return null
             else -> absoluteName
         }
         
