@@ -55,6 +55,34 @@ internal val VirtualFile.isPyTyped: Boolean
     get() = name == "py.typed"
 
 
+// TODO: Use `putUserData()`/`getUserData()` instead?
+/**
+ * @see insyncwithfoo.ryecharm.others.scriptmetadata.EditScriptMetadataFragment.asNewVirtualFile
+ */
+internal val VirtualFile.isScriptMetadataTemporaryFile: Boolean
+    get() = name.startsWith("Script metadata (") && name.endsWith(").toml")
+
+
+/**
+ * Whether any of the following returns `true`:
+ * 
+ * * [isRuffToml]
+ * * [isPyprojectTomlLike]
+ */
+internal val VirtualFile.mayContainRuffOptions: Boolean
+    get() = isRuffToml || isPyprojectTomlLike
+
+
+/**
+ * Whether any of the following returns `true`:
+ *
+ * * [isPyprojectToml]
+ * * [isScriptMetadataTemporaryFile]
+ */
+internal val VirtualFile.isPyprojectTomlLike: Boolean
+    get() = isPyprojectToml || isScriptMetadataTemporaryFile
+
+
 // https://github.com/InSyncWithFoo/ryecharm/issues/5
 /**
  * Whether the given file's extension is `.rst`.

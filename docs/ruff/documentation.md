@@ -1,4 +1,4 @@
-On hover or <i>Quick Documentation</i> (<kbd>Ctrl</kbd> + <kbd>Q</kbd>),
+On hover or <i>Quick Documentation</i> (++ctrl+q++),
 RyeCharm will show documentation popups for the currently selected symbol
 if it is a recognized one.
 

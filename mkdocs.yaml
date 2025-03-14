@@ -42,6 +42,9 @@ markdown_extensions:
   codehilite:
   md_in_html:
   pymdownx.details:
+  pymdownx.keys:
+    key_map:
+      middle-click: "Middle click"
   pymdownx.tabbed:
     alternate_style: true
     combine_header_slug: true

@@ -174,7 +174,7 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
     }
     
     /**
-     * @see isScriptMetadataTemporaryFile
+     * @see insyncwithfoo.ryecharm.isScriptMetadataTemporaryFile
      */
     private fun TomlFile.asNewVirtualFile(hostFilename: String): VirtualFile? {
         val name = message("intentions.main.editScriptMetadataFragment.filename", hostFilename)

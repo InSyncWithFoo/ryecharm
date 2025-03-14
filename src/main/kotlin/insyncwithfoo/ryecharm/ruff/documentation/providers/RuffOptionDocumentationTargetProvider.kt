@@ -6,9 +6,8 @@ import com.intellij.platform.backend.documentation.PsiDocumentationTargetProvide
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.isPyprojectToml
-import insyncwithfoo.ryecharm.isRuffToml
-import insyncwithfoo.ryecharm.others.scriptmetadata.isScriptMetadataTemporaryFile
+import insyncwithfoo.ryecharm.isPyprojectTomlLike
+import insyncwithfoo.ryecharm.mayContainRuffOptions
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffOptionDocumentationTarget
 import insyncwithfoo.ryecharm.wrappingTomlKey
 import org.toml.lang.TomlLanguage
@@ -57,14 +56,14 @@ internal class RuffOptionDocumentationTargetProvider : DocumentationTargetProvid
             !configurations.documentationPopups -> return null
             !configurations.documentationPopupsForTOMLOptions -> return null
             !file.language.isKindOf(TomlLanguage) -> return null
-            !virtualFile.run { isPyprojectToml || isRuffToml || isScriptMetadataTemporaryFile } -> return null
+            !virtualFile.mayContainRuffOptions -> return null
         }
         
         val element = file.findElementAt(offset) ?: return null
         val key = element.wrappingTomlKey ?: return null
         
         val absoluteName = key.absoluteName
-        val relativeName = when (virtualFile.run { isPyprojectToml || isScriptMetadataTemporaryFile }) {
+        val relativeName = when (virtualFile.isPyprojectTomlLike) {
             true -> absoluteName.relativize("tool.ruff") ?: return null
             else -> absoluteName
         }

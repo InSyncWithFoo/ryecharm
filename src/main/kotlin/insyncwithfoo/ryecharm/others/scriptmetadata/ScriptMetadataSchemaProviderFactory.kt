@@ -5,6 +5,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.jetbrains.jsonSchema.extension.JsonSchemaFileProvider
 import com.jetbrains.jsonSchema.extension.JsonSchemaProviderFactory
 import com.jetbrains.jsonSchema.extension.SchemaType
+import insyncwithfoo.ryecharm.isScriptMetadataTemporaryFile
 import insyncwithfoo.ryecharm.virtualFileManager
 
 
