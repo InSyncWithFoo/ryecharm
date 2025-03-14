@@ -158,6 +158,10 @@ private fun Row.snoozeFormattingTaskErrorInput(block: Cell<JBCheckBox>.() -> Uni
     checkBox(message("configurations.ruff.snoozeFormattingTaskError.label")).apply(block)
 
 
+private fun Row.foldSingleRuleSelectorsByDefaultInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.foldSingleRuleSelectorsByDefault.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
@@ -325,6 +329,16 @@ private fun RuffPanel.makeComponent() = panel {
             row {
                 suggestExecutableOnPackagesChangeInput { bindSelected(state::suggestExecutableOnPackagesChange) }
                 overrideCheckbox(state::suggestExecutableOnPackagesChange)
+            }
+        }
+        
+        row {
+            label(message("configurations.ruff.subgroups.folding.groupLabel"))
+        }
+        indent {
+            row {
+                foldSingleRuleSelectorsByDefaultInput { bindSelected(state::foldSingleRuleSelectorsByDefault) }
+                overrideCheckbox(state::foldSingleRuleSelectorsByDefault)
             }
         }
     }

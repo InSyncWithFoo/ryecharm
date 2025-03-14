@@ -67,6 +67,13 @@
 			id="insyncwithfoo.ryecharm.ruff.documentation.RuffDocumentationLinkHandler"
 			implementation="insyncwithfoo.ryecharm.ruff.documentation.RuffDocumentationLinkHandler"
 		/>
+		
+		<lang.foldingBuilder
+			id="insyncwithfoo.ryecharm.ruff.folding.RuffRuleSelectorFoldingBuilder"
+			order="first"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.ruff.folding.RuffRuleSelectorFoldingBuilder"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">

@@ -3,19 +3,12 @@ package insyncwithfoo.ryecharm.ruff.documentation.providers
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.DocumentationTargetProvider
 import com.intellij.psi.PsiFile
-import insyncwithfoo.ryecharm.TOMLPath
-import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.isPyprojectTomlLike
-import insyncwithfoo.ryecharm.isString
-import insyncwithfoo.ryecharm.keyValuePair
 import insyncwithfoo.ryecharm.mayContainRuffOptions
-import insyncwithfoo.ryecharm.ruff.documentation.isRuleSelector
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffRuleDocumentationTarget
-import insyncwithfoo.ryecharm.stringContent
+import insyncwithfoo.ryecharm.ruff.extractRuleSelector
 import insyncwithfoo.ryecharm.wrappingTomlLiteral
 import org.toml.lang.TomlLanguage
-import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlLiteral
 
 
@@ -61,50 +54,11 @@ internal class RuffRuleDocumentationTargetProvider : DocumentationTargetProvider
         }
         
         val element = file.findElementAt(offset) ?: return null
-        val string = element.wrappingTomlLiteral?.takeIf { it.isString } ?: return null
+        val string = element.wrappingTomlLiteral ?: return null
         
-        val array = string.parent as? TomlArray ?: return null
-        val keyValuePair = array.keyValuePair ?: return null
-        val key = keyValuePair.key
+        val selector = string.extractRuleSelector(virtualFile) ?: return null
         
-        val absoluteName = key.absoluteName
-        val nameRelativeToRoot = when (virtualFile.isPyprojectTomlLike) {
-            true -> absoluteName.relativize("tool.ruff") ?: return null
-            else -> absoluteName
-        }
-        
-        return string.toTarget(nameRelativeToRoot)
-    }
-    
-    private fun TOMLStringLiteral.toTarget(nameRelativeToRoot: TOMLPath): DocumentationTarget? {
-        val nameRelativeToLint = nameRelativeToRoot.relativize("lint") ?: nameRelativeToRoot
-        
-        val recognizedArrays = TOMLPath.listOf(
-            "fixable", "extend-fixable",
-            "ignore", "extend-ignore",
-            "select", "extend-select",
-            "unfixable", "extend-unfixable",
-            "extend-safe-fixes", "extend-unsafe-fixes"
-        )
-        val recognizedMaps = TOMLPath.listOf(
-            "per-file-ignores",
-            "extend-per-file-ignores"
-        )
-        
-        val notRecognizedArray = nameRelativeToLint !in recognizedArrays
-        val notRecognizedMap = recognizedMaps.none { nameRelativeToLint isChildOf it }
-        
-        if (notRecognizedArray && notRecognizedMap) {
-            return null
-        }
-        
-        val selector = stringContent!!
-        
-        if (!selector.isRuleSelector) {
-            return null
-        }
-        
-        return RuffRuleDocumentationTarget(this, selector)
+        return RuffRuleDocumentationTarget(string, selector)
     }
     
 }

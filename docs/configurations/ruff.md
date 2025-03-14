@@ -283,6 +283,22 @@ a package is installed via the <i>Python Packages</i> toolwindow.
 Default: `true`
 
 
+### Folding
+
+Settings related to [code folding][20] functionalities.
+
+
+#### Fold single-rule selectors by default
+
+Whether single-rule selectors should be
+initially displayed in their folded forms (i.e., their names).
+
+Note that such selectors are always manually foldable,
+regardless of this setting.
+
+Default: `true`
+
+
 ## Advanced settings
 
 
@@ -313,3 +329,4 @@ Default: `true`
   [17]: https://docs.astral.sh/ruff/editors/settings/#loglevel
   [18]: https://docs.astral.sh/ruff/editors/settings/#logfile
   [19]: ../ruff/actions.md#suggest-project-executable
+  [20]: ../ruff/folding.md

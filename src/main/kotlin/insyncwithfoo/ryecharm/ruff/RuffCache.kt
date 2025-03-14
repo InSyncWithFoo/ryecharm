@@ -29,11 +29,11 @@ private operator fun PropertiesComponent.get(property: KProperty<*>): String? {
 
 
 private operator fun PropertiesComponent.set(property: KProperty<*>, value: String?) {
-    val keyName = property.name.toUniqueKeyName()
+    val key = property.name.toUniqueKeyName()
     
-    when {
-        value == null -> unsetValue(keyName)
-        else -> setValue(keyName, value)
+    when (value) {
+        null -> unsetValue(key)
+        else -> setValue(key, value)
     }
 }
 
@@ -52,8 +52,8 @@ private class ParseCache : Disposable {
         parsed[property.name] as? CachedResult<R>
     
     inline operator fun <reified R : Any> set(property: KProperty<CachedResult<R>?>, value: CachedResult<R>?) {
-        when {
-            value == null -> parsed.remove(property.name)
+        when (value) {
+            null -> parsed.remove(property.name)
             else -> parsed[property.name] = value
         }
     }

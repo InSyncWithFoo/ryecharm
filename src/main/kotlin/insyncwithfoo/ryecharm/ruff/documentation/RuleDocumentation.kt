@@ -138,7 +138,7 @@ private suspend fun Project.getNewRuleNameToCodeMap(): Map<RuleName, RuleCode>? 
 }
 
 
-private suspend fun Project.getRuleNameToCodeMap(): Map<RuleName, RuleCode>? {
+internal suspend fun Project.getRuleNameToCodeMap(): Map<RuleName, RuleCode>? {
     val ruff = this.ruff ?: return null
     val executable = ruff.executable
     

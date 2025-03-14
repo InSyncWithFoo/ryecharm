@@ -11,7 +11,6 @@ import insyncwithfoo.ryecharm.mayContainRuffOptions
 import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffOptionDocumentationTarget
 import insyncwithfoo.ryecharm.wrappingTomlKey
 import org.toml.lang.TomlLanguage
-import org.toml.lang.psi.TomlKey
 
 
 // Upstream issue: https://youtrack.jetbrains.com/issue/PY-66325
@@ -68,10 +67,7 @@ internal class RuffOptionDocumentationTargetProvider : DocumentationTargetProvid
             else -> absoluteName
         }
         
-        return key.toTarget(relativeName.toString())
+        return RuffOptionDocumentationTarget(key, relativeName.toString())
     }
-    
-    private fun TomlKey.toTarget(option: String) =
-        RuffOptionDocumentationTarget(this, option)
     
 }
