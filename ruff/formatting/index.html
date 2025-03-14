@@ -319,6 +319,8 @@
       
         
       
+        
+      
     
     
     
@@ -500,6 +502,28 @@
   
   <span class="md-ellipsis">
     Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../folding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Folding
     
   </span>
   
@@ -1089,21 +1113,20 @@
 
 <p>RyeCharm can trigger Ruff to format a file on three events:</p>
 <ul>
-<li>Reformat (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>)</li>
-<li>Optimize imports (<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>O</kbd>)</li>
-<li>File save (<kbd>Ctrl</kbd> + <kbd>S</kbd>, editor tab close, IDE close, etc.)</li>
+<li>Reformat (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-l">L</kbd></span>)</li>
+<li>Optimize imports (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-o">O</kbd></span>)</li>
+<li>File save (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span>, editor tab close, IDE close, etc.)</li>
 </ul>
 <p>Unsupported files are not affected.</p>
 <h2 id="reformat">Reformat<a class="headerlink" href="#reformat" title="Permanent link">#</a></h2>
 <p>This event happens when the <a href="https://www.jetbrains.com/help/pycharm/reformat-and-rearrange-code.html"><i>Reformat Code</i></a> action
-(<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>)
-is triggered, possibly with some code selected.</p>
+(<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-l">L</kbd></span>) is triggered, possibly with some code selected.</p>
 <p>In <i>Command line</i> mode, this is equivalent to
 running <code>ruff format --range ...</code>
 with the file and the selected range as input.</p>
 <h2 id="optimize-imports">Optimize imports<a class="headerlink" href="#optimize-imports" title="Permanent link">#</a></h2>
 <p>This event happens when the <a href="https://www.jetbrains.com/help/pycharm/creating-and-optimizing-imports.html#optimize-imports"><i>Optimize Imports</i></a> action
-(<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>O</kbd>) is triggered.</p>
+(<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-o">O</kbd></span>) is triggered.</p>
 <p>This is equivalent to running <code>ruff check --fix --select I,F401</code>
 with the file as input.</p>
 <h2 id="file-save">File save<a class="headerlink" href="#file-save" title="Permanent link">#</a></h2>
