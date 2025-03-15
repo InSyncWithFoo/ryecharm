@@ -15,48 +15,38 @@ internal typealias RuleCode = String
 private fun String.toRegexBypassingIDELanguageInjection() = this.toRegex()
 
 
-// From:
-// https://github.com/astral-sh/ruff/blob/5c548dcc04/crates/ruff_linter/src/noqa.rs#L180
-internal val ruleCode = """[A-Z]+[0-9]+""".toRegexBypassingIDELanguageInjection()
+internal val ruleCode = """(?>[A-Z]+[0-9]+)""".toRegexBypassingIDELanguageInjection()
+
+internal val notFollowedByInvalidSuffix = """(?!$ruleCode*+(?!$|[\h\#,]))""".toRegexBypassingIDELanguageInjection()
 
 // From:
-// https://github.com/astral-sh/ruff/blob/5c548dcc04/crates/ruff_linter/src/noqa.rs#L56
+// https://github.com/astral-sh/ruff/blob/27e9d1fe3e/crates/ruff_linter/src/noqa.rs#L373-L605
 //
-// Ruff uses Rust's `char.is_whitespace()` / `str.trim_end()`.
-// They are replaced with `\h` here for simplicity.
+// Ruff uses Rust's `char.is_whitespace()`;
+// it is replaced with `\h` here for simplicity.
+//
+// FIXME: Pare this down a bit
 internal val noqaComment = """(?x)
     (?<prefix>
         \#\h*
+        (?<fileLevelPrefix>(?:flake8|ruff)\h*:\h*)?+
         (?i:noqa)
     )
     (?:
-        (?<colon>:(?:\h+(?=$ruleCode|$))?)
+        (?=$|\#|\h++(?!:))
+    |
+        (?<colon>\h*:(?:\h+(?=$|$ruleCode))?+)
         (?<codeList>
-            $ruleCode
-            (?:(?<lastSeparator>[\h,]*+)$ruleCode)*+
-        )?
-    )?
-""".toRegexBypassingIDELanguageInjection()
-
-
-// From:
-// https://github.com/astral-sh/ruff/blob/5c548dcc04/crates/ruff_linter/src/noqa.rs#L437
-//
-// File-level comments actually uses `[A-Z]+[A-Za-z0-9]+` for codes,
-// but this doesn't seem to be a good choice.
-private val fileNoqaComment = """(?x)
-    (?<prefix>
-        ^\#\h*
-        (?:flake8|ruff)\h*:\h*
-        (?i:noqa)
+            (?!$ruleCode)
+        |
+            $ruleCode$notFollowedByInvalidSuffix
+            (?>
+                (?=[\h,]*+$ruleCode$notFollowedByInvalidSuffix)
+                (?<lastSeparator>\h++|,\h*+)*+
+                $ruleCode$notFollowedByInvalidSuffix
+            )*
+        )
     )
-	(?:
-        (?<colon>\h*:(?:\h+(?=$ruleCode|$))?)
-        (?<codeList>
-            $ruleCode
-            (?:(?<lastSeparator>[\h,]\h*)$ruleCode)*
-        )?
-    )?
 """.toRegexBypassingIDELanguageInjection()
 
 
@@ -184,27 +174,21 @@ internal class NoqaComment private constructor(
         fun fromCode(code: RuleCode) =
             parse("# noqa: $code")
         
-        fun parse(text: String, elementOffset: Int = 0) =
-            parseFileLevelComment(text, elementOffset) ?: parseLineComment(text, elementOffset)
-        
-        private fun parseFileLevelComment(text: String, elementOffset: Int) =
-            fileNoqaComment.find(text)?.let { fromMatchResult(it, elementOffset, fileLevel = true) }
-        
-        private fun parseLineComment(text: String, elementOffset: Int) =
-            noqaComment.find(text)?.let { fromMatchResult(it, elementOffset, fileLevel = false) }
-        
-        private fun fromMatchResult(match: MatchResult, elementOffset: Int, fileLevel: Boolean): NoqaComment {
+        fun parse(text: String, elementOffset: Int = 0): NoqaComment? {
+            val match = noqaComment.find(text) ?: return null
+            
             val prefix = match.groups["prefix"]!!
             val colon = match.groups["colon"]
             val codeList = match.groups["codeList"]
             val lastSeparator = match.groups["lastSeparator"]
+            val fileLevelPrefix = match.groups["fileLevelPrefix"]
             
             return NoqaComment(
                 prefix = Fragment(prefix, elementOffset),
                 colon = colon?.let { Fragment(it, elementOffset) },
                 codes = collectCodes(codeList, elementOffset),
                 lastSeparator = lastSeparator?.value,
-                fileLevel = fileLevel,
+                fileLevel = fileLevelPrefix != null,
                 original = Fragment(match.groups[0]!!, elementOffset)
             )
         }

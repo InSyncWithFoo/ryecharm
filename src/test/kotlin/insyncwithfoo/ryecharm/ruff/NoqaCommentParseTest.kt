@@ -43,8 +43,9 @@ internal class NoqaCommentParseTest(
         @Parameters(name = "{0}")
         fun data() = arrayOf(
             arrayOf("line - invalid prefix", "# noq a", null, null, null),
-            arrayOf("line - invalid colon", "# noqa :", 0, 6, noCodes()),
+            arrayOf("line - distanced colon", "# noqa :", 0, 8, noCodes()),
             arrayOf("line - no colon", "# noqa", 0, 6, noCodes()),
+            arrayOf("line - no whitespace", "#noqa", 0, 5, noCodes()),
             arrayOf("line - casing", "# nOqA", 0, 6, noCodes()),
             arrayOf("line - colon", "# noqa:", 0, 7, noCodes()),
             arrayOf("line - colon and trailing space", "# noqa:  ", 0, 9, noCodes()),
@@ -52,16 +53,26 @@ internal class NoqaCommentParseTest(
             arrayOf("line - leading content", "# lorem # noqa", 8, 14, noCodes()),
             arrayOf("line - trailing content", "# noqa # lorem", 0, 6, noCodes()),
             arrayOf("line - surrounding content", "# lorem # noqa # ipsum", 8, 14, noCodes()),
-            arrayOf("line - codes", "# noqa: A123 B456C789", 0, 21, listOf("A123", "B456", "C789")),
+            arrayOf("line - codes 1", "# foo # noQa: A123 B456C789", 6, 27, listOf("A123", "B456", "C789")),
+            arrayOf("line - codes 2", "# noqa : A123,,B456C789 foobar", 0, 23, listOf("A123", "B456", "C789")),
+            arrayOf("line - codes 3", "# noqa : A123 , ,B456 , ", 0, 21, listOf("A123", "B456")),
+            arrayOf("line - incomplete codes 1", "# noqa: A", 0, 7, noCodes()),
+            arrayOf("line - incomplete codes 2", "# noqa: A123, B", 0, 12, listOf("A123")),
+            arrayOf("line - incomplete codes 3", "# noqa: A123B", null, null, null),
+            arrayOf("line - incomplete codes 4", "# noqa: A123B456C", null, null, null),
+            arrayOf("line - incomplete codes 5", "# noqa: A123, B456C", 0, 12, listOf("A123")),
+            arrayOf("line - incomplete codes 6", "# noqa: A123B456, C789D", 0, 16, listOf("A123", "B456")),
+            arrayOf("line - invalid suffix 1", "# noqa: A123b456", null, null, null),
+            arrayOf("line - invalid suffix 2", "# noqa[A123]", null, null, null),
             
             arrayOf("file - flake8", "# flake8: noqa", 0, 14, noCodes()),
-            arrayOf("file - leading content", "# lorem # ruff: noqa", null, null, null),
+            arrayOf("file - leading content", "# lorem # ruff: noqa", 8, 20, noCodes()),
             arrayOf("file - trailing content", "# ruff: noqa  # lorem", 0, 12, noCodes()),
             arrayOf("file - colon and trailing space", "# ruff: noqa:  ", 0, 15, noCodes()),
             arrayOf("file - colon and trailing content", "# ruff: noqa:  # lorem", 0, 13, noCodes()),
             arrayOf("file - codes", "# ruff: noqa : A123,B456  C789", 0, 30, listOf("A123", "B456", "C789")),
-            arrayOf("file - bad separators 1", "# ruff: noqa: A123,,B456", 0, 18, listOf("A123")),
-            arrayOf("file - bad separators 2", "# ruff: noqa: A123 ,B456", 0, 18, listOf("A123"))
+            arrayOf("file - bad separators 1", "# ruff: noqa: A123,,B456", 0, 24, listOf("A123", "B456")),
+            arrayOf("file - bad separators 2", "# ruff: noqa: A123 ,B456", 0, 24, listOf("A123", "B456"))
         )
     }
     

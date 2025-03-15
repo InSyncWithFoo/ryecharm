@@ -29,7 +29,10 @@ internal class NoqaCommentSeparatorTest(
             arrayOf("no codes", "# noqa", ", "),
             arrayOf("one code", "# noqa: A123", ", "),
             arrayOf("one separator", "# noqa: A123,B456", ","),
-            arrayOf("multiple separators", "# noqa: A123,B456 ,C789", " ,")
+            arrayOf("multiple separators 1", "# noqa: A123,B456 ,C789", ","),
+            arrayOf("multiple separators 2", "# noqa : A123 , ,B456 , ", ","),
+            arrayOf("multiple separators 3", "# noqa: A123B456,C789D", ", "),
+            arrayOf("multiple separators 3", "# noqa: A123,B456C789, D012E", ",")
         )
     }
     
