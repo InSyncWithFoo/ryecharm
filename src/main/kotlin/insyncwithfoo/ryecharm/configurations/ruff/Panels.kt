@@ -162,6 +162,10 @@ private fun Row.foldSingleRuleSelectorsByDefaultInput(block: Cell<JBCheckBox>.()
     checkBox(message("configurations.ruff.foldSingleRuleSelectorsByDefault.label")).apply(block)
 
 
+private fun Row.foldNoqaCodesByDefaultInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.foldNoqaCodesByDefault.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
@@ -339,6 +343,10 @@ private fun RuffPanel.makeComponent() = panel {
             row {
                 foldSingleRuleSelectorsByDefaultInput { bindSelected(state::foldSingleRuleSelectorsByDefault) }
                 overrideCheckbox(state::foldSingleRuleSelectorsByDefault)
+            }
+            row {
+                foldNoqaCodesByDefaultInput { bindSelected(state::foldNoqaCodesByDefault) }
+                overrideCheckbox(state::foldNoqaCodesByDefault)
             }
         }
     }

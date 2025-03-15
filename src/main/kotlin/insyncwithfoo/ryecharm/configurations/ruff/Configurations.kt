@@ -86,9 +86,11 @@ internal class RuffConfigurations : DisplayableState() {
     var suggestExecutableOnProjectOpen by property(true)
     var suggestExecutableOnPackagesChange by property(true)
     
+    var foldSingleRuleSelectorsByDefault by property(true)
+    var foldNoqaCodesByDefault by property(true)
+    
     var autoRestartServers by property(true)
     var snoozeFormattingTaskError by property(false)
-    var foldSingleRuleSelectorsByDefault by property(true)
 }
 
 

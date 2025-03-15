@@ -9,7 +9,6 @@ import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
-import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.endOffset
 import com.jetbrains.python.packaging.common.PythonPackage
 import insyncwithfoo.ryecharm.TOMLPath
@@ -24,6 +23,7 @@ import insyncwithfoo.ryecharm.module
 import insyncwithfoo.ryecharm.pep508Normalize
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.stringContent
+import insyncwithfoo.ryecharm.traverse
 import insyncwithfoo.ryecharm.uv.commands.uv
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.Settings
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.dependencyVersionInlayHintsSettings
@@ -42,9 +42,6 @@ internal typealias DependencyList = List<PythonPackage>
 
 // https://peps.python.org/pep-0508/#names
 private val dependencySpecifierLookAlike = """(?i)^\s*(?<name>[A-Z0-9](?:[A-Z0-9._-]*[A-Z0-9])?).*""".toRegex()
-
-
-private const val CONTINUE_PROCESSING = true
 
 
 private fun DependencyList.toMap(): DependencyMap =
@@ -77,11 +74,10 @@ internal class DependencyVersionInlayHintsCollector(private val dependencies: De
         val dependencies = this.dependencies ?: getInstalledDependencies(file) ?: return
         val settings = dependencyVersionInlayHintsSettings
         
-        PsiTreeUtil.processElements(file, TomlLiteral::class.java) { element ->
+        file.traverse<TomlLiteral> { element ->
             if (shouldShowHint(element, virtualFile, settings)) {
                 sink.addVersionHint(element, dependencies)
             }
-            CONTINUE_PROCESSING
         }
     }
     

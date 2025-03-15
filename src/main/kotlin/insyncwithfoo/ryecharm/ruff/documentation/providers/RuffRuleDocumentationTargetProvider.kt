@@ -12,9 +12,6 @@ import org.toml.lang.TomlLanguage
 import org.toml.lang.psi.TomlLiteral
 
 
-private typealias TOMLStringLiteral = TomlLiteral
-
-
 /**
  * Provide documentation for rules specified in
  * the following selector arrays:

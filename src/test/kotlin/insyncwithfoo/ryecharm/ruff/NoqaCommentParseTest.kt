@@ -10,6 +10,10 @@ import org.junit.runners.Parameterized.Parameters
 private fun noCodes() = emptyList<String>()
 
 
+private val NoqaComment.codesAsStrings: List<String>
+    get() = codesAndRanges.map { (content, _) -> content }
+
+
 @RunWith(Parameterized::class)
 internal class NoqaCommentParseTest(
     @Suppress("unused")

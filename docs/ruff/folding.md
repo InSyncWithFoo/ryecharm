@@ -19,6 +19,9 @@ can help with readability.
 === "`ruff.toml`"
     ![](../assets/ruff-folding-demo-ruff-toml-rule-selectors.png)
 
+=== "`# noqa` comments"
+    ![](../assets/ruff-folding-demo-noqa-comments-rule-selectors.png)
+
 
 ## Known problems
 

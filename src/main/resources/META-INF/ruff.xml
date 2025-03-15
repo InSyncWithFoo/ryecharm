@@ -74,6 +74,13 @@
 			language="TOML"
 			implementationClass="insyncwithfoo.ryecharm.ruff.folding.RuffRuleSelectorFoldingBuilder"
 		/>
+		
+		<lang.foldingBuilder
+			id="insyncwithfoo.ryecharm.ruff.folding.NoqaCodeFoldingBuilder"
+			order="first, after insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataFoldingBuilder"
+			language="Python"
+			implementationClass="insyncwithfoo.ryecharm.ruff.folding.NoqaCodeFoldingBuilder"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">

@@ -105,8 +105,8 @@ internal class NoqaComment private constructor(
     val end by original::end
     val range by original::range
     
-    val codesAsStrings: List<String>
-        get() = codes.mapTo(mutableListOf()) { it.content }
+    val codesAndRanges: List<Pair<String, IntRange>>
+        get() = codes.map { it.content to it.range }
     
     val separator: String
         get() = lastSeparator ?: ", "

@@ -1,7 +1,28 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.psi.PsiComment
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.util.PsiTreeUtil
+
+
+/**
+ * A constant to be used as the return value of
+ * [PsiTreeUtil.processElements]'s callback.
+ */
+private const val CONTINUE_PROCESSING = true
+
+
+/**
+ * Traverse the PSI tree whose root is [this]
+ * and invoke [callback] on each element of type [T].
+ */
+internal inline fun <reified T : PsiElement> PsiElement.traverse(noinline callback: (T) -> Unit) {
+    PsiTreeUtil.processElements(this, T::class.java) { element ->
+        callback(element)
+        CONTINUE_PROCESSING
+    }
+}
 
 
 internal fun PsiFile.findCommentAt(offset: Int) =

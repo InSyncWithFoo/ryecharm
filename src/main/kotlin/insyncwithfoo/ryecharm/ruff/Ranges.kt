@@ -118,3 +118,15 @@ internal fun Document.getOffsetRange(lspRange: Range): TextRange {
     
     return getOffsetRange(OneBasedRange(start, end))
 }
+
+
+internal operator fun TextRange.plus(offset: Int) =
+    TextRange(startOffset + offset, endOffset + offset)
+
+
+internal operator fun TextRange.minus(offset: Int) =
+    TextRange(startOffset - offset, endOffset - offset)
+
+
+internal fun IntRange.asTextRange() =
+    TextRange(first, last + 1)
