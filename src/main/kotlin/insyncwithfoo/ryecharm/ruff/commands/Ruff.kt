@@ -136,11 +136,19 @@ internal class Ruff private constructor(
         return OrganizeImportsCommand().build(arguments, text)
     }
     
-    fun showSettings(select: List<RuleSelector>? = null, isolated: Boolean = true): Command {
+    fun showSettings(
+        select: List<RuleSelector>? = null,
+        isolated: Boolean = true,
+        preview: Boolean = true
+    ): Command {
         val arguments = CommandArguments("--show-settings")
         
         if (isolated) {
             arguments += "--isolated"
+        }
+        
+        if (preview) {
+            arguments += "--preview"
         }
         
         if (select != null) {
