@@ -3,10 +3,11 @@ package insyncwithfoo.ryecharm
 import com.intellij.openapi.util.IconLoader
 
 
-private interface IconHolder {
-    fun loadIcon(path: String) =
-        IconLoader.getIcon(path, this::class.java)
-}
+private interface IconHolder
+
+
+private inline fun <reified H : IconHolder> H.loadIcon(path: String) =
+    IconLoader.getIcon(path, H::class.java)
 
 
 @Suppress("unused")

@@ -15,6 +15,10 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruffExecutable
 
 
+/**
+ * The ID of the LSP4IJ server,
+ * as registered in `lsp4ij.xml`.
+ */
 internal const val SERVER_ID = "${RyeCharm.ID}.ruff"
 
 

@@ -8,8 +8,8 @@ from typing import ClassVar, cast
 class Changelog:
 	_pattern: ClassVar[re.Pattern[str]] = re.compile(
 		r'''(?mix)
-		^\#\#\x20\[([^[\]]+)].*\n
-		((?s:.)+?)
+		^\#\#\x20\[(?P<section_header>[^\[\]]+)].*\n
+		(?P<section_body>(?s:.)+?)
 		(?=\n\#\#\x20|\n\x20\x20\[Unreleased])
 		'''
 	)
@@ -17,8 +17,7 @@ class Changelog:
 	_text: str
 	
 	def __init__(self, path: Path, /) -> None:
-		with open(path) as file:
-			self._text = file.read()
+		self._text = path.read_text(encoding = 'utf-8')
 	
 	def __getitem__(self, heading: str) -> str | None:
 		return self.sections.get(heading)
@@ -27,10 +26,13 @@ class Changelog:
 	def sections(self) -> dict[str, str]:
 		matches = self._pattern.finditer(self._text)
 		
-		return {match[1]: match[2].strip() for match in matches}
+		return {
+			match['section_header']: match['section_body'].strip()
+			for match in matches
+		}
 	
 	def get_section_or_unreleased(self, version: str) -> str:
-		return cast(str, self[version] or self['Unreleased'])
+		return cast('str', self[version] or self['Unreleased'])
 
 
 class Changelogs:

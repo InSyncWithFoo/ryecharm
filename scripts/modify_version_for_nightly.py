@@ -1,5 +1,5 @@
 import re
-import subprocess
+import subprocess  # noqa: S404
 from pathlib import Path
 from typing import cast
 
@@ -15,7 +15,7 @@ def _get_head_commit_hash() -> str:
 def _get_nightly_version(content: str) -> str:
 	head_commit_hash = _get_head_commit_hash()
 	
-	version_line = cast(re.Match[str], _version.search(content))
+	version_line = cast('re.Match[str]', _version.search(content))
 	current_version = version_line['version']
 	
 	return f'{current_version}-nightly.{head_commit_hash}'
@@ -31,12 +31,10 @@ def _modify_content(content: str) -> tuple[str, str]:
 def main() -> None:
 	gradle_properties = Path('gradle.properties')
 	
-	with open(gradle_properties) as file:
-		content = file.read()
+	content = gradle_properties.read_text()
+	nightly_version, new_content = _modify_content(content)
 	
-	with open(gradle_properties, 'w') as file:
-		nightly_version, new_content = _modify_content(content)
-		file.write(new_content)
+	gradle_properties.write_text(new_content)
 	
 	print(nightly_version)
 

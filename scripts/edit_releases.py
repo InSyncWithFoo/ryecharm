@@ -1,4 +1,4 @@
-import subprocess
+import subprocess  # noqa: S404
 import sys
 
 from changelog import Changelogs
@@ -9,7 +9,7 @@ def main(latest: str) -> None:
 	sections = changelogs.user.sections
 	
 	for version in sections:
-		if version in ('Unreleased', latest):
+		if version in {'Unreleased', latest}:
 			continue
 		
 		tag = f'v{version}'

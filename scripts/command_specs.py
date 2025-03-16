@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import json
 import re
-import subprocess
+import subprocess  # noqa: S404
 from pathlib import Path
 from typing import Literal, Self
 
@@ -126,7 +126,7 @@ def _dump_data(version: str, tree: _Command, filename: str) -> None:
 	
 	path = json_resources_directory / f'{filename}.json'
 	
-	with open(path.absolute(), 'w') as file:
+	with path.absolute().open(mode = 'w', encoding = 'utf-8') as file:
 		data = {
 			'version': version,
 			'tree': tree.model_dump()
