@@ -38,4 +38,5 @@ internal object UVIcons : IconHolder {
 internal object OtherIcons : IconHolder {
     val PYTHON_GRAY_16 by lazy { loadIcon("icons/python-16-gray.svg") }
     val PYTHON_WHITE_16 by lazy { loadIcon("icons/python-16-white.svg") }
+    val SHOW_LOGS_13 by lazy { loadIcon("icons/other-showLogs-13.svg") }
 }

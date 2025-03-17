@@ -13,5 +13,29 @@
 			bundle="messages.ryecharm"
 			key="notifications.group.unimportant.displayName"
 		/>
+		
+		<toolWindow
+			id="insyncwithfoo.ryecharm.common.logging.RyeCharmLoggingToolWindowFactory"
+			
+			icon="/icons/other-showLogs-13.svg"
+			anchor="bottom"
+			secondary="true"
+			canCloseContents="false"
+			doNotActivateOnStart="true"
+			
+			factoryClass="insyncwithfoo.ryecharm.common.logging.RyeCharmLoggingToolWindowFactory"
+		/>
 	</extensions>
+	
+	<actions>
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.ryecharm.common.logging.ActivateRyeCharmLoggingToolWindowAction"
+			class="insyncwithfoo.ryecharm.common.logging.ActivateRyeCharmLoggingToolWindowAction"
+			text="RyeCharm logs"
+			icon="/icons/other-showLogs-13.svg"
+		>
+			<add-to-group group-id="ActivateToolWindowActions"/>
+		</action>
+	</actions>
 </idea-plugin>

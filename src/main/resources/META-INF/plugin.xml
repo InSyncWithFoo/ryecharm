@@ -28,7 +28,7 @@
 	<depends optional="true" config-file="lsp4ij.xml">com.redhat.devtools.lsp4ij</depends>
 	<depends optional="true" config-file="ultimate.xml">com.intellij.modules.ultimate</depends>
 	
-	<!-- <resource-bundle>messages.ryecharm</resource-bundle> -->
+	<resource-bundle>messages.ryecharm</resource-bundle>
 	
 	<!-- Extension points defined by the plugin.
 		 Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->

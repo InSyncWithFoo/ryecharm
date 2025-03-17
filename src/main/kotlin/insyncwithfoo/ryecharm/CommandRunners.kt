@@ -10,14 +10,14 @@ private typealias UICallback = suspend CoroutineScope.(ProcessOutput) -> Unit
 
 
 internal suspend fun Project.runInBackground(command: Command) =
-    runInBackground(command.runningMessage) {
-        command.run()
+    runInBackground(command.runningMessage) _lambda@{
+        command.run(this@runInBackground)
     }
 
 
 internal suspend fun Project.runInForeground(command: Command) =
-    runInForeground(command.runningMessage) {
-        command.run()
+    runInForeground(command.runningMessage) _lambda@{
+        command.run(this@runInForeground)
     }
 
 

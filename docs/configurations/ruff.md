@@ -278,7 +278,7 @@ Default: `true`
 #### On packages change
 
 Whether a potential executable should be suggested when
-a package is installed via the <i>Python Packages</i> toolwindow.
+a package is installed via the <i>Python Packages</i> tool window.
 
 Default: `true`
 

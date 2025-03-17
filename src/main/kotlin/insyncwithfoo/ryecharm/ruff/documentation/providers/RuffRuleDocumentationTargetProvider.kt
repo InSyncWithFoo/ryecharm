@@ -9,7 +9,6 @@ import insyncwithfoo.ryecharm.ruff.documentation.targets.RuffRuleDocumentationTa
 import insyncwithfoo.ryecharm.ruff.extractRuleSelector
 import insyncwithfoo.ryecharm.wrappingTomlLiteral
 import org.toml.lang.TomlLanguage
-import org.toml.lang.psi.TomlLiteral
 
 
 /**

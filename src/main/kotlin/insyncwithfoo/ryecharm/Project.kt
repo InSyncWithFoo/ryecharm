@@ -15,6 +15,7 @@ import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.profile.codeInspection.ProjectInspectionProfileManager
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.testFramework.LightVirtualFile
+import com.intellij.util.messages.MessageBusConnection
 import com.jetbrains.python.sdk.PythonSdkUtil
 import com.jetbrains.python.sdk.pythonSdk
 import java.nio.file.Path
@@ -94,6 +95,10 @@ internal val Project.interpreterDirectory: Path?
  */
 internal val Project.isNormal: Boolean
     get() = !this.isDefault && !this.isDisposed
+
+
+internal val Project.messageBusConnection: MessageBusConnection
+    get() = messageBus.connect()
 
 
 internal val Project.fileEditorManager: FileEditorManager
