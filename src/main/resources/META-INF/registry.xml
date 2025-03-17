@@ -1,12 +1,5 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
-		<registryKey
-			id="insyncwithfoo.ryecharm.logging.commands"
-			key="insyncwithfoo.ryecharm.logging.commands"
-			defaultValue="false"
-			description="RyeCharm: Log all commands and their outputs"
-		/>
-		
 		<!--suppress PluginXmlCapitalization -->
 		<registryKey
 			id="insyncwithfoo.ryecharm.redknot.panels"

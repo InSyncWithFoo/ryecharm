@@ -3,29 +3,19 @@ package insyncwithfoo.ryecharm
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
-import com.intellij.openapi.diagnostic.Logger
-import com.intellij.openapi.diagnostic.logger
+import com.intellij.openapi.project.Project
 import com.intellij.util.io.toByteArray
+import insyncwithfoo.ryecharm.common.logging.redKnotLogger
+import insyncwithfoo.ryecharm.common.logging.ruffLogger
+import insyncwithfoo.ryecharm.common.logging.ryeLogger
+import insyncwithfoo.ryecharm.common.logging.uvLogger
+import insyncwithfoo.ryecharm.redknot.commands.RedKnotCommand
+import insyncwithfoo.ryecharm.ruff.commands.RuffCommand
+import insyncwithfoo.ryecharm.rye.commands.RyeCommand
+import insyncwithfoo.ryecharm.uv.commands.UVCommand
 import java.nio.CharBuffer
 import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
-
-
-private const val MAX_MESSAGE_LENGTH = 1000
-
-
-private fun Logger.logCommandInfo(message: String) {
-    if (!RyeCharmRegistry.logging.commands) {
-        return
-    }
-    
-    val trimmed = when (message.length > MAX_MESSAGE_LENGTH) {
-        true -> message.slice(0..<MAX_MESSAGE_LENGTH) + "..."
-        else -> message
-    }
-    
-    info(trimmed)
-}
 
 
 internal abstract class CommandFactory {
@@ -106,16 +96,24 @@ internal abstract class Command {
     
     override fun toString() = commandLine.commandLineString
     
-    fun run(): ProcessOutput {
-        LOGGER.logCommandInfo("Running: ($workingDirectory) $this")
+    fun run(project: Project): ProcessOutput {
+        val consoleHolder = when (this) {
+            is RuffCommand -> project.ruffLogger
+            is UVCommand -> project.uvLogger
+            is RyeCommand -> project.ryeLogger
+            is RedKnotCommand -> project.redKnotLogger
+            else -> null
+        }
+        
+        consoleHolder?.debug("Running: ($workingDirectory) $this")
         
         return processHandler.runProcess(NO_TIME_LIMIT).also {
-            LOGGER.logCommandInfo("Output: ${ProcessOutputSurrogate(it)}")
+            consoleHolder?.debug("Output: ${ProcessOutputSurrogate(it)}")
+            consoleHolder?.debug("")
         }
     }
     
     companion object {
-        protected val LOGGER = logger<Command>()
         private const val NO_TIME_LIMIT = -1
     }
     

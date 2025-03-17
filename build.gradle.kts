@@ -154,7 +154,6 @@ tasks {
         systemProperty("idea.is.internal", "true")
         systemProperty("projectView.hide.dot.idea", "false")
         systemProperty("terminal.new.ui", "true")
-        systemProperty("insyncwithfoo.ryecharm.logging.commands", "true")
     }
     
     wrapper {

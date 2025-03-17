@@ -4,6 +4,7 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
+import insyncwithfoo.ryecharm.common.logging.redKnotLogger
 import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
@@ -18,7 +19,14 @@ internal class RedKnotServerDescriptor(project: Project, private val executable:
     private val configurations = project.redKnotConfigurations
     
     init {
-        LOGGER.info(configurations.toString())
+        val logger = project.redKnotLogger
+        
+        logger?.info("Starting Red Knot's language server (native client).")
+        logger?.info("")
+        logger?.info("Executable: $executable")
+        logger?.info("Working directory: ${project.path}")
+        logger?.info("Configurations: $configurations")
+        logger?.info("")
     }
     
     override fun isSupportedFile(file: VirtualFile) =
@@ -36,7 +44,6 @@ internal class RedKnotServerDescriptor(project: Project, private val executable:
     }
     
     companion object {
-        private val LOGGER by ::LOG
         private val PRESENTABLE_NAME = message("languageServers.redknot.presentableName")
     }
     

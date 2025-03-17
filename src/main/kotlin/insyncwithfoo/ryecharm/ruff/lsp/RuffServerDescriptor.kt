@@ -4,6 +4,7 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
+import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
@@ -28,7 +29,14 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
     override val lspFormattingSupport = FormattingSupport(project).takeIf { configurations.formatting }
     
     init {
-        LOGGER.info(configurations.toString())
+        val logger = project.ruffLogger
+        
+        logger?.info("Starting Ruff's language server (native client).")
+        logger?.info("")
+        logger?.info("Executable: $executable")
+        logger?.info("Working directory: ${project.path}")
+        logger?.info("Configurations: $configurations")
+        logger?.info("")
     }
     
     /**
@@ -39,7 +47,13 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
         file.isSupportedByRuff(project)
     
     override fun createInitializationOptions() =
-        project.createInitializationOptionsObject()
+        project.createInitializationOptionsObject().also {
+            val logger = project.ruffLogger
+            
+            logger?.info("Sending initializationOptions:")
+            logger?.info("$it")
+            logger?.info("")
+        }
     
     override fun createCommandLine() = GeneralCommandLine().apply {
         withWorkingDirectory(project.path)
@@ -50,7 +64,6 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
     }
     
     companion object {
-        private val LOGGER by ::LOG
         private val PRESENTABLE_NAME = message("languageServers.ruff.presentableName")
     }
     
