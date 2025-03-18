@@ -17,9 +17,15 @@
 		/>
 		
 		<enterHandlerDelegate
-			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBlockEnterHandler"
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataEnterHandler"
 			order="first"
-			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBlockEnterHandler"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataEnterHandler"
+		/>
+		
+		<backspaceHandlerDelegate
+			id="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBackspaceHandler"
+			order="first"
+			implementation="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataBackspaceHandler"
 		/>
 		
 		<defaultLiveTemplates

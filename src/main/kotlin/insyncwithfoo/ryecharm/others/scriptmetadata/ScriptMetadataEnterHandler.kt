@@ -12,10 +12,7 @@ import com.jetbrains.python.psi.PyFile
 
 private val possiblyEmptyScriptBlock = """(?mx)
     ^\#\x20///\x20script
-    (?<content>
-        \n\#(?:\x20.*)?
-        (?:\n\#(?:\x20.*)?)*
-    )?
+    (?>\n\#(?:\x20.*)?)*
     \n
     \#\x20///$
 """.toRegex()
@@ -42,7 +39,7 @@ private val possiblyEmptyScriptBlock = """(?mx)
  * # ///
  * ```
  */
-internal class ScriptMetadataBlockEnterHandler : EnterHandlerDelegate {
+internal class ScriptMetadataEnterHandler : EnterHandlerDelegate {
     
     override fun preprocessEnter(
         file: PsiFile,

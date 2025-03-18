@@ -9,8 +9,8 @@ import com.jetbrains.python.psi.PyFile
 internal val scriptBlock = """(?mx)
     ^\#\x20///\x20script\n
     (?<content>
-        \#(?:\x20.*)?
-        (?:\n\#(?:\x20.*)?)*
+        \#(?:\x20.*)?+
+        (?>\n\#(?:\x20.*)?)*
     )
     \n
     \#\x20///$
