@@ -30,6 +30,20 @@ private val RULE_NAME = Key.create<RuleName>("${RyeCharm.ID}.ruff.folding.ruleNa
 /**
  * Fold a single-rule selector (e.g., `RUF001`)
  * into that rule's name.
+ * 
+ * Expanded:
+ * 
+ * ```toml
+ * [tool.ruff.lint]
+ * select = ["Q000"]
+ * ```
+ * 
+ * Folded:
+ * 
+ * ```toml
+ * [tool.ruff.lint]
+ * select = ["bad-quotes-inline-string"]
+ * ```
  */
 internal class RuffRuleSelectorFoldingBuilder : CustomFoldingBuilder(), DumbAware {
     
@@ -54,7 +68,6 @@ internal class RuffRuleSelectorFoldingBuilder : CustomFoldingBuilder(), DumbAwar
         when {
             root !is TomlFile -> return
             !virtualFile.mayContainRuffOptions -> return
-            quick -> return
         }
         
         val codeToNameMap = root.project.getCodeToNameMapOrTriggerRetrieving() ?: return

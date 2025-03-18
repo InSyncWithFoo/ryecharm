@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm.ruff.folding
 import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.CustomFoldingBuilder
 import com.intellij.lang.folding.FoldingDescriptor
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.util.Key
@@ -24,6 +25,21 @@ import insyncwithfoo.ryecharm.traverse
 private val RULE_CODES_TO_NAMES = Key.create<Map<RuleCode, RuleName>>("${RyeCharm.ID}.ruff.folding.ruleCodesToNames")
 
 
+/**
+ * Fold rule codes in `# noqa` comments into that rule's name.
+ *
+ * Expanded:
+ *
+ * ```python
+ * # noqa: Q000
+ * ```
+ *
+ * Folded:
+ *
+ * ```python
+ * # noqa: bad-quotes-inline-string
+ * ```
+ */
 internal class NoqaCodeFoldingBuilder : CustomFoldingBuilder(), DumbAware {
     
     override fun isRegionCollapsedByDefault(node: ASTNode) =
@@ -46,9 +62,8 @@ internal class NoqaCodeFoldingBuilder : CustomFoldingBuilder(), DumbAware {
         document: Document,
         quick: Boolean
     ) {
-        when {
-            root !is PyFile -> return
-            quick -> return
+        if (root !is PyFile) {
+            return
         }
         
         val codeToNameMap = root.project.getCodeToNameMapOrTriggerRetrieving() ?: return

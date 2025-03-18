@@ -1,0 +1,10 @@
+[tool.ruff.lint]<fold text='{...}' expand='true'>
+select = <fold text='[...]' expand='true'>[
+	"ALL",
+	"<fold text='bad-quotes-inline-string' expand='false'>Q000</fold>",
+	"TCH001",
+	"ANN0",
+	"UP",
+	"E",
+	"T"
+]</fold></fold>

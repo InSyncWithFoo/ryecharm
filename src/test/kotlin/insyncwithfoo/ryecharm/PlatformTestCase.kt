@@ -30,7 +30,7 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
     protected val projectPath: Path?
         get() = project.path
     
-    protected fun fileBasedTest(filePath: String, test: () -> Unit) {
+    protected inline fun fileBasedTest(filePath: String, test: () -> Unit) {
         fixture.configureByFile(filePath)
         test()
     }

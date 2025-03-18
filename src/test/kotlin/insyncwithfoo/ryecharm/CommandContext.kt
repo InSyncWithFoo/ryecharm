@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm
 
+import com.intellij.openapi.project.Project
 import java.nio.file.Path
 
 
@@ -27,9 +28,11 @@ internal fun command(
 }
 
 
-internal class CommandContext(private val workingDirectory: Path) {
+internal class CommandContext(private val project: Project) {
+    
+    private val workingDirectory by lazy { project.path }
     
     fun run(vararg fragments: String, stdin: String? = null) =
-        command(fragments.toList(), workingDirectory, stdin).run()
+        command(fragments.toList(), workingDirectory, stdin).run(project)
     
 }
