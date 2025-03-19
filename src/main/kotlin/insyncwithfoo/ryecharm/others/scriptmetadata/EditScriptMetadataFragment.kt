@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.event.EditorFactoryEvent
 import com.intellij.openapi.editor.event.EditorFactoryListener
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
+import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiComment
@@ -82,14 +83,13 @@ private fun Editor.addReleaseListener(project: Project, listener: (Document) -> 
 }
 
 
-// TODO: Make this DumbAware?
 /**
  * Allow editing a PEP 723 block injected fragment
  * in a new editor similar to a normal TOML file.
  * 
  * @see com.intellij.codeInsight.intention.impl.QuickEditAction
  */
-internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction {
+internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction, DumbAware {
     
     override fun startInWriteAction() = false
     
