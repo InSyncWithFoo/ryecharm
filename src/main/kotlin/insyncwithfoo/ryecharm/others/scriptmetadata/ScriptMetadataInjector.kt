@@ -63,7 +63,7 @@ internal class ScriptMetadataInjector : MultiHostInjector, InjectedFormattingOpt
             previousLineBreak?.prevSibling?.isStartBlockLine != true -> return
         }
         
-        val scriptBlockComments = containingFile!!.findScriptBlock()
+        val scriptBlockComments = containingFile!!.findScriptBlockBodyElements()
         
         if (comment !in scriptBlockComments) {
             return

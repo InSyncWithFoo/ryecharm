@@ -1,0 +1,4 @@
+<caret>
+# /// script
+# foo = ["bar"]
+# ///

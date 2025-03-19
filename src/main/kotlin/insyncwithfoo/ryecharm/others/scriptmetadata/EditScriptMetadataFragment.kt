@@ -2,6 +2,7 @@ package insyncwithfoo.ryecharm.others.scriptmetadata
 
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.codeInsight.intention.LowPriorityAction
+import com.intellij.codeInsight.intention.preview.IntentionPreviewInfo
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.editor.Document
@@ -25,7 +26,9 @@ import insyncwithfoo.ryecharm.fileEditorManager
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.writeUnderAction
 import kotlinx.coroutines.CoroutineScope
+import org.jetbrains.annotations.VisibleForTesting
 import org.toml.lang.psi.TomlFile
+import kotlin.math.max
 
 
 private typealias InjectedAndHost = Pair<TomlFile, PyFile>
@@ -64,7 +67,7 @@ private val PsiElement.isAtLineStart: Boolean
 
 private val PyFile.injectedPEP723Fragment: TomlFile?
     get() {
-        val blockStart = findScriptBlock().firstOrNull()
+        val blockStart = findScriptBlockBodyElements().firstOrNull()
         
         return blockStart?.injectedFiles?.singleOrNull() as? TomlFile
     }
@@ -84,6 +87,70 @@ private fun Editor.addReleaseListener(project: Project, listener: (Document) -> 
 
 
 /**
+ * Calculate the offset the new editor should put its cursor at.
+ * 
+ * * If assumptions are incorrect (which should never happen), return -1.
+ * * If the cursor is placed within the start line, return 0.
+ * * If the cursor is placed within the end line,
+ *   return the length of the temporary file (i.e., the max offset),
+ *   which would put the new cursor on the automatically added empty line
+ *   at the end of the file.
+ * * Otherwise:
+ *     * The new row is calculated by subtracting
+ *       the start line's index plus 1 from the body line index.
+ *     * The new column is calculated by saturatedly substracting
+ *       2 from the original column.
+ *     * Return the offset that would correspond to
+ *       the pinpoint located by these two indices.
+ * 
+ * ```python
+ * # /// script        # Start line
+ * # foo = ["bar"]     # Body line
+ * # ///               # End line
+ * ```
+ */
+@VisibleForTesting
+internal fun PyFile.calculateCursorOffsetInFragment(editor: Editor): Int {
+    val offset = editor.caretModel.offset
+    val document = viewProvider.document ?: return -1
+    val block = scriptBlock.find(document.charsSequence) ?: return -1
+    val blockRange = block.range
+    
+    if (offset < blockRange.first || offset > blockRange.last + 1) {
+        return -1
+    }
+    
+    val blockLines = block.value.split("\n")
+    val blockBodyLines = blockLines.subList(1, blockLines.size - 1)
+    
+    val line = document.getLineNumber(offset)
+    val blockStartLine = document.getLineNumber(blockRange.first)
+    val lineInFragment = line - blockStartLine - 1
+    
+    if (lineInFragment < 0) {
+        return 0
+    }
+    
+    val lineStart = document.getLineStartOffset(line)
+    val column = offset - lineStart
+    val columnInFragment = max(0, column - "# ".length)
+    
+    var offsetInFragment = when (lineInFragment < blockBodyLines.size) {
+        true -> columnInFragment
+        else -> 0
+    }
+    
+    for (blockLine in blockBodyLines.slice(0..<lineInFragment)) {
+        val blockLineLengthInFragment = max(0, blockLine.length - "# ".length)
+        
+        offsetInFragment += blockLineLengthInFragment + "\n".length
+    }
+    
+    return offsetInFragment
+}
+
+
+/**
  * Allow editing a PEP 723 block injected fragment
  * in a new editor similar to a normal TOML file.
  * 
@@ -96,6 +163,9 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction, 
     override fun getFamilyName() = message("intentions.main.editScriptMetadataFragment.familyName")
     
     override fun getText() = familyName
+    
+    override fun generatePreview(project: Project, editor: Editor, file: PsiFile) =
+        IntentionPreviewInfo.EMPTY!!
     
     override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?) = when {
         editor == null || file == null -> false
@@ -132,11 +202,7 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction, 
         val (injectedFile, hostFile) = file.injectedAndHost ?: return
         
         val hostFileName = hostFile.viewProvider.virtualFile.name
-        val offsetInFragment = when (file) {
-            is TomlFile -> editor.caretModel.offset
-            is PyFile -> 0
-            else -> return
-        }
+        val offsetInFragment = hostFile.calculateCursorOffsetInFragment(editor)
         
         val fragmentEditor = project.openNewEditor(injectedFile, hostFileName, offsetInFragment) ?: return
         

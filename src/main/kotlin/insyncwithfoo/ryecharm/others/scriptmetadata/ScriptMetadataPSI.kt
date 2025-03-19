@@ -44,7 +44,7 @@ private val PyFile.topLevelComments: Sequence<PsiComment>
  *
  * If such a block is not found, return an empty sequence.
  */
-internal fun PyFile.findScriptBlock(): Sequence<PsiComment> {
+internal fun PyFile.findScriptBlockBodyElements(): Sequence<PsiComment> {
     val document = viewProvider.document ?: return emptySequence()
     val match = scriptBlock.find(document.charsSequence) ?: return emptySequence()
     
