@@ -118,7 +118,7 @@ private fun NotificationGroup.unknownError(
 
 
 /**
- * Emit a diagnostic saying that an unknown error has happened.
+ * Emit a notification saying that an unknown error has happened.
  * 
  * Typically used when the process is neither cancelled nor timed out,
  * but the exit code is not 0.

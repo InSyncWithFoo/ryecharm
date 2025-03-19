@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.ui.VerticalFlowLayout
 import com.intellij.ui.ScrollPaneFactory
+import com.intellij.ui.TableSpeedSearch
 import com.intellij.ui.scale.JBUIScale.scale
 import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
@@ -106,7 +107,6 @@ private class LintersDialog(private val linters: List<Linter>, project: Project)
         widthAndHeight = scale(750) to scale(650)
     }
     
-    
     override fun createActions() = arrayOf(okAction)
     
     override fun createCenterPanel(): JComponent {
@@ -119,6 +119,8 @@ private class LintersDialog(private val linters: List<Linter>, project: Project)
         
         val table = TableView(ListTableModel(columns, rows, selectedColumn))
         val controlsPanel = JPanel(VerticalFlowLayout())
+        
+        TableSpeedSearch.installOn(table)
         
         return JPanel(BorderLayout()).apply {
             add(controlsPanel, BorderLayout.NORTH)
