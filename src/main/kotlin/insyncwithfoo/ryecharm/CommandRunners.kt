@@ -9,13 +9,13 @@ private typealias CommandRunner = suspend CoroutineScope.(Command) -> ProcessOut
 private typealias UICallback = suspend CoroutineScope.(ProcessOutput) -> Unit
 
 
-internal suspend fun Project.runInBackground(command: Command) =
+internal suspend inline fun Project.runInBackground(command: Command) =
     runInBackground(command.runningMessage) _lambda@{
         command.run(this@runInBackground)
     }
 
 
-internal suspend fun Project.runInForeground(command: Command) =
+internal suspend inline fun Project.runInForeground(command: Command) =
     runInForeground(command.runningMessage) _lambda@{
         command.run(this@runInForeground)
     }
@@ -36,9 +36,9 @@ private suspend inline fun runIOCommandThenUICallback(
 }
 
 
-internal suspend fun Project.runInBackground(command: Command, callback: UICallback) =
+internal suspend inline fun Project.runInBackground(command: Command, noinline callback: UICallback) =
     runIOCommandThenUICallback(command, { runInBackground(it) }, callback)
 
 
-internal suspend fun Project.runInForeground(command: Command, callback: UICallback) =
+internal suspend inline fun Project.runInForeground(command: Command, noinline callback: UICallback) =
     runIOCommandThenUICallback(command, { runInForeground(it) }, callback)

@@ -18,7 +18,7 @@ private fun TaskCancellation(cancellable: Boolean) = when (cancellable) {
 }
 
 
-private val Project.modalTaskOwner: ModalTaskOwner
+private inline val Project.modalTaskOwner: ModalTaskOwner
     get() = ModalTaskOwner.project(this)
 
 
@@ -26,54 +26,54 @@ private fun ModalTaskOwner(project: Project?) =
     project?.modalTaskOwner ?: ModalTaskOwner.guess()
 
 
-private suspend fun <T> withModalProgress(
+private suspend inline fun <T> withModalProgress(
     project: Project?,
     title: String,
     cancellable: Boolean,
-    action: suspend CoroutineScope.() -> T
+    noinline action: suspend CoroutineScope.() -> T
 ) =
     withModalProgress(ModalTaskOwner(project), title, TaskCancellation(cancellable), action)
 
 
-internal suspend fun <T> runInForeground(
+internal suspend inline fun <T> runInForeground(
     title: String,
     cancellable: Boolean,
-    action: suspend CoroutineScope.() -> T
+    noinline action: suspend CoroutineScope.() -> T
 ) =
     withModalProgress(ModalTaskOwner.guess(), title, TaskCancellation(cancellable), action)
 
 
-internal suspend fun <T> Project.runInForeground(
+internal suspend inline fun <T> Project.runInForeground(
     title: String,
     cancellable: Boolean = true,
-    action: suspend CoroutineScope.() -> T
+    noinline action: suspend CoroutineScope.() -> T
 ) =
     withModalProgress(this, title, cancellable, action)
 
 
-internal suspend fun <T> Project.runInBackground(
+internal suspend inline fun <T> Project.runInBackground(
     title: String,
     cancellable: Boolean = true,
-    action: suspend CoroutineScope.() -> T
+    noinline action: suspend CoroutineScope.() -> T
 ) =
     withBackgroundProgress(this, title, cancellable, action)
 
 
 @Suppress("UnstableApiUsage")
-internal suspend fun <T> Project.runWriteCommandAction(title: String, action: () -> T) =
+internal suspend inline fun <T> Project.runWriteCommandAction(title: String, noinline action: () -> T) =
     writeCommandAction(this, title, action)
 
 
 /**
  * Run [action] with [Dispatchers.IO] as context.
  */
-internal suspend fun <T> runUnderIOThread(action: suspend CoroutineScope.() -> T) =
+internal suspend inline fun <T> runUnderIOThread(noinline action: suspend CoroutineScope.() -> T) =
     withContext(Dispatchers.IO, action)
 
 
 /**
  * Run [action] with [Dispatchers.EDT] as context.
  */
-internal suspend fun runUnderUIThread(action: suspend CoroutineScope.() -> Unit) {
+internal suspend inline fun runUnderUIThread(noinline action: suspend CoroutineScope.() -> Unit) {
     withContext(Dispatchers.EDT, action)
 }
