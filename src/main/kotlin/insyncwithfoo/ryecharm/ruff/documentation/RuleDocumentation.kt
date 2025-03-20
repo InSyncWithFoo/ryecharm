@@ -1,9 +1,7 @@
 package insyncwithfoo.ryecharm.ruff.documentation
 
-import com.intellij.openapi.application.readAction
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.DocumentationURI
-import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.Markdown
 import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.isSuccessful
@@ -17,7 +15,6 @@ import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.ruleCode
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runUnderIOThread
-import insyncwithfoo.ryecharm.toHTML
 
 
 /**
@@ -42,7 +39,7 @@ private const val ALL: RuleSelector = "ALL"
 /**
  * A fork of [insyncwithfoo.ryecharm.ruff.ruleCode].
  */
-private val ruleSelector = """(?<linter>[A-Z]+)(?<number>[0-9]*)""".toRegex()
+internal val ruleSelector = """(?<linter>[A-Z]+)(?<number>[0-9]*)""".toRegex()
 
 
 private val enabledRulesArray = """(?x)
@@ -81,7 +78,7 @@ internal val String.isRuleSelector: Boolean
     get() = ruleSelector.matchEntire(this) != null
 
 
-private val RuleSelectorOrName.isPylintCodePrefix: Boolean
+internal val RuleSelectorOrName.isPylintCodePrefix: Boolean
     get() = this in listOf("PLC", "PLE", "PLR", "PLW")
 
 
@@ -157,7 +154,7 @@ internal suspend fun Project.getRuleNameToCodeMap(): Map<RuleName, RuleCode>? {
 }
 
 
-private suspend fun Project.getRuleDocumentationByFullCode(code: RuleCode): Markdown? {
+internal suspend fun Project.getRuleDocumentationByFullCode(code: RuleCode): Markdown? {
     val ruff = this.ruff ?: return null
     val command = ruff.rule(code)
     
@@ -181,7 +178,7 @@ private suspend fun Project.getRuleDocumentationByFullCode(code: RuleCode): Mark
 }
 
 
-private suspend fun Project.getRuleDocumentationByRuleName(name: RuleName) =
+internal suspend fun Project.getRuleDocumentationByRuleName(name: RuleName) =
     getRuleNameToCodeMap()?.get(name)?.let {
         getRuleDocumentationByFullCode(it)
     }
@@ -208,7 +205,7 @@ private suspend fun Project.getEnabledRules(selector: RuleSelector): Map<RuleNam
 }
 
 
-private suspend fun Project.getRuleListBySelector(selector: RuleSelector): Markdown? {
+internal suspend fun Project.getRuleListBySelector(selector: RuleSelector): Markdown? {
     if (selector == ALL) {
         return message("documentation.popup.ruleList.all")
     }
@@ -229,27 +226,5 @@ private suspend fun Project.getRuleListBySelector(selector: RuleSelector): Markd
     return when (ruleList.isEmpty()) {
         true -> message("documentation.popup.ruleList.empty", selector)
         else -> message("documentation.popup.ruleList", selector, enabledRules.size, ruleList)
-    }
-}
-
-
-internal suspend fun Project.getRuleDocumentationOrList(selectorOrName: RuleSelectorOrName): HTML? {
-    val match = ruleSelector.matchEntire(selectorOrName)
-    
-    val markdownDocumentation = when (match == null) {
-        true -> getRuleDocumentationByRuleName(selectorOrName)
-        
-        else -> {
-            val (linter, number) = match.destructured
-            
-            when (linter.isPylintCodePrefix && number.length == 4 || number.length == 3) {
-                true -> getRuleDocumentationByFullCode(selectorOrName)
-                else -> getRuleListBySelector(selectorOrName)
-            }
-        }
-    }
-    
-    return markdownDocumentation?.let {
-        readAction { it.toHTML() }
     }
 }
