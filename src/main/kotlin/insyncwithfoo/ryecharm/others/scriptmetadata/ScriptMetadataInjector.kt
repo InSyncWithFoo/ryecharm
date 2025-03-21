@@ -4,6 +4,7 @@ import com.intellij.formatting.InjectedFormattingOptionsProvider
 import com.intellij.lang.Language
 import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.lang.injection.MultiHostRegistrar
+import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiElement
@@ -33,7 +34,7 @@ private fun MultiHostRegistrar.addPlace(comment: PsiComment, range: TextRange) {
  * Inject TOML fragments for PEP 723
  * inline script metadata blocks.
  */
-internal class ScriptMetadataInjector : MultiHostInjector, InjectedFormattingOptionsProvider {
+internal class ScriptMetadataInjector : MultiHostInjector, InjectedFormattingOptionsProvider, DumbAware {
     
     override fun elementsToInjectIn() = listOf(PsiComment::class.java)
     
