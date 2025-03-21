@@ -51,6 +51,12 @@ internal class EditScriptMetadataFragmentTest : PlatformTestCase() {
     @Test
     fun `test isAvailable - after block`() = availabilityTest("after_block.py", false)
     
+    @Test(expected = AssertionError::class)
+    fun `test isAvailable - embedded - 1`() = availabilityTest("embedded_1.py", false)
+    
+    @Test(expected = AssertionError::class)
+    fun `test isAvailable - embedded - 2`() = availabilityTest("embedded_2.py", true)
+    
     @Test
     fun `test offset - block start - 1`() = offsetTest("block_start_1.py", 0)
     

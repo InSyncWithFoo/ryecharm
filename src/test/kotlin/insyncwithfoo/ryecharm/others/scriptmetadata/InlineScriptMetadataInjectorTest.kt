@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.others.scriptmetadata
 
+import com.intellij.psi.PsiComment
 import insyncwithfoo.ryecharm.LanguageInjectionTestCase
 import org.junit.Test
 import org.toml.lang.psi.TomlFile
@@ -104,6 +105,19 @@ internal class InlineScriptMetadataInjectorTest : LanguageInjectionTestCase() {
     @Test
     fun `test stub file`() = fileBasedTest("stub_file.pyi") {
         assertFileDoesNotHaveInjections()
+    }
+    
+    @Test
+    fun `test embedded_1`() = fileBasedTest("embedded_1.py") {
+        assertFileDoesNotHaveInjections()
+    }
+    
+    @Test(expected = AssertionError::class)
+    fun `test embedded 2`() = fileBasedTest("embedded_2.py") {
+        val fragment = fragments.singleOrNull()
+            ?: throw AssertionError()
+        
+        assertTrue(fragment is PsiComment)
     }
     
 }
