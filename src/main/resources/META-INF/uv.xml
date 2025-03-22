@@ -50,6 +50,11 @@
 			level="WARNING"
 			implementationClass="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
 		/>
+		
+		<configurationType
+			id="insyncwithfoo.ryecharm.uv.run.UVRunConfigurationType"
+			implementation="insyncwithfoo.ryecharm.uv.run.UVRunConfigurationType"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">

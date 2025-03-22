@@ -46,22 +46,37 @@ internal interface ProjectOverrideState {
 
 
 /**
- * Marker for state classes to allow them to use [copy].
+ * Marker for state classes to allow them to use [copy] and [copyTo].
  * 
  * @see DisplayableState
  */
 internal interface Copyable
 
 
+/**
+ * Create a deep clone of [this].
+ * 
+ * @see XmlSerializerUtil.createCopy
+ */
 internal fun <C : Copyable> C.copy(): C {
     return XmlSerializerUtil.createCopy(this)
 }
 
 
 /**
+ * Copy property values from [this] to [other] in-place.
+ * 
+ * @see XmlSerializerUtil.copyBean
+ */
+internal fun <C : Copyable> C.copyTo(other: C) {
+    XmlSerializerUtil.copyBean(this, other)
+}
+
+
+/**
  * The base class from which concrete state classes derive.
  * 
- * This provides copyability via [Copyable]/[copy] and
+ * This provides copyability via [Copyable] and
  * a [toString] function similar to that of data classes.
  */
 internal abstract class DisplayableState : BaseState(), Copyable {
