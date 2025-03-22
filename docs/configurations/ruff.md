@@ -161,6 +161,16 @@ the current one should be suggested.
 Default: `true`
 
 
+## Offer fixes even when rule is considered unfixable
+
+Whether a quick fix specific to the current violation should be suggested
+even if the rule in question is configured to be unfixable.
+
+This is equivalent to running `ruff check --fixable ALL`.
+
+Default: `false`
+
+
 ### Formatting
 
 Whether [Ruff's formatter][13] should be used

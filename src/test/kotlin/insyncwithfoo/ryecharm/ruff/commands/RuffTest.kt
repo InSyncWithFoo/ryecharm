@@ -20,8 +20,9 @@ internal class RuffTest : CommandFactoryTest() {
     fun `test check`() {
         val text = randomText()
         val path = randomPath().orRandomlyNull()
+        val allFixable = boolean
         
-        val command = ruff.check(text, path)
+        val command = ruff.check(text, path, allFixable)
         val arguments = command.arguments
         
         assertEquals("check", command.subcommand)
@@ -37,6 +38,10 @@ internal class RuffTest : CommandFactoryTest() {
         
         if (path != null) {
             assertTrue(arguments include listOf("--stdin-filename", path.toString()))
+        }
+        
+        if (allFixable) {
+            assertTrue(arguments include listOf("--fixable", "ALL"))
         }
     }
     

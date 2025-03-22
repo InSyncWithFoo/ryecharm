@@ -116,7 +116,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
     override fun doAnnotate(collectedInfo: InitialInfo?): AnnotationResult? {
         val (project, configurations, ruff, text, path) = collectedInfo ?: return null
         
-        val command = ruff.check(text, path)
+        val command = ruff.check(text, path, allFixable = configurations.considerAllFixable)
         val output = runBlockingCancellable {
             project.runInBackground(command)
         }

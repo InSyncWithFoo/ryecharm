@@ -94,6 +94,10 @@ private fun Row.fixSimilarViolationsInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.fixSimilarViolations.label")).apply(block)
 
 
+private fun Row.considerAllFixableInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.considerAllFixable.label")).apply(block)
+
+
 private fun Row.formattingInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.formatting.label")).apply(block)
 
@@ -253,6 +257,13 @@ private fun RuffPanel.makeComponent() = panel {
             row {
                 fixSimilarViolationsInput { bindSelected(state::fixSimilarViolations) }
                 overrideCheckbox(state::fixSimilarViolations)
+            }
+            
+            separator()
+            
+            row {
+                considerAllFixableInput { bindSelected(state::considerAllFixable) }
+                overrideCheckbox(state::considerAllFixable)
             }
         }
         

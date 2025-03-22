@@ -28,13 +28,17 @@ internal class Ruff private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun check(text: String, stdinFilename: Path?): Command {
+    fun check(text: String, stdinFilename: Path?, allFixable: Boolean): Command {
         val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet", "-")
         
         arguments["--output-format"] = "json"
         
         if (stdinFilename != null) {
             arguments["--stdin-filename"] = stdinFilename.toString()
+        }
+        
+        if (allFixable) {
+            arguments["--fixable"] = "ALL"
         }
         
         return CheckCommand().build(arguments, text)
