@@ -6,6 +6,8 @@ import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyFile
 
 
+// Upstream issue: https://github.com/astral-sh/uv/issues/12303
+// TODO: Switch to PSI-based algorithm
 internal val scriptBlock = """(?mx)
     ^\#\x20///\x20script\n
     (?<content>

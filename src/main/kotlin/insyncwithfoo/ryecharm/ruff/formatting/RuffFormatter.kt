@@ -11,8 +11,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
-import com.intellij.sh.formatter.ShExternalFormatter
-import com.jetbrains.python.black.BlackFormattingService
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.addOpenPluginIssueTrackerAction
 import insyncwithfoo.ryecharm.addSeeOutputActions
@@ -139,8 +137,8 @@ private class RuffFormattingTask(private val request: AsyncFormattingRequest, co
 /**
  * Format a document on reformat (`Ctrl` + `Alt` + `L`).
  * 
- * @see ShExternalFormatter
- * @see BlackFormattingService
+ * @see com.intellij.sh.ShExternalFormatter
+ * @see com.jetbrains.python.black.BlackFormattingService
  */
 internal class RuffFormatter : AsyncDocumentFormattingService() {
     

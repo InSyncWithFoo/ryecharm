@@ -36,9 +36,9 @@ private suspend inline fun runIOCommandThenUICallback(
 }
 
 
-internal suspend inline fun Project.runInBackground(command: Command, noinline callback: UICallback) =
+internal suspend inline fun Project.runInBackground(command: Command, crossinline callback: UICallback) =
     runIOCommandThenUICallback(command, { runInBackground(it) }, callback)
 
 
-internal suspend inline fun Project.runInForeground(command: Command, noinline callback: UICallback) =
+internal suspend inline fun Project.runInForeground(command: Command, crossinline callback: UICallback) =
     runIOCommandThenUICallback(command, { runInForeground(it) }, callback)

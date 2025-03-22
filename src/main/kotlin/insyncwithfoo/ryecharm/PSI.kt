@@ -17,7 +17,7 @@ private const val CONTINUE_PROCESSING = true
  * Traverse the PSI tree whose root is [this]
  * and invoke [callback] on each element of type [T].
  */
-internal inline fun <reified T : PsiElement> PsiElement.traverse(noinline callback: (T) -> Unit) {
+internal inline fun <reified T : PsiElement> PsiElement.traverse(crossinline callback: (T) -> Unit) {
     PsiTreeUtil.processElements(this, T::class.java) { element ->
         callback(element)
         CONTINUE_PROCESSING

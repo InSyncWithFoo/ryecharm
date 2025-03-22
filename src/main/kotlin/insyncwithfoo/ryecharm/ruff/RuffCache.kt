@@ -70,7 +70,7 @@ private class ParseCache : Disposable {
 
 
 @Service(Service.Level.PROJECT)
-internal class RuffCache(private val project: Project) {
+internal class RuffCache(private val project: Project) : Disposable {
     
     private val parseCache: ParseCache
         get() = project.service<ParseCache>()
@@ -105,6 +105,10 @@ internal class RuffCache(private val project: Project) {
     fun clear() {
         allProperties.forEach { storage[it] = null }
         parseCache.clear()
+    }
+    
+    override fun dispose() {
+        clear()
     }
     
     companion object {

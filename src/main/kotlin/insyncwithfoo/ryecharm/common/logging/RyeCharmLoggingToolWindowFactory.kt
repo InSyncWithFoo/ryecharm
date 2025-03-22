@@ -7,6 +7,7 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.project.ProjectManagerListener
+import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.openapi.wm.ToolWindowManager
@@ -79,7 +80,7 @@ internal class RyeCharmLoggingToolWindowFactory : ToolWindowFactory, DumbAware {
         }
         
         project.onClose {
-            it.pluginLogger.dispose()
+            Disposer.dispose(it.pluginLogger)
         }
         
         project.onToolWindowHide { manager ->

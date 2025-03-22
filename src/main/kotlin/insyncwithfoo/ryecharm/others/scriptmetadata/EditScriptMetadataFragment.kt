@@ -12,6 +12,7 @@ import com.intellij.openapi.editor.event.EditorFactoryListener
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiElement
@@ -73,13 +74,16 @@ private val PyFile.injectedPEP723Fragment: TomlFile?
     }
 
 
-private fun Editor.addReleaseListener(project: Project, listener: (Document) -> Unit) {
-    val parentDisposable = RootDisposable.getInstance(project)
+private fun Editor.addReleaseListener(listener: (Document) -> Unit) {
+    val parentDisposable = Disposer.newDisposable()
+    
+    Disposer.register(RootDisposable.getInstance(), parentDisposable)
     
     editorFactory.addEditorFactoryListener(object : EditorFactoryListener {
         override fun editorReleased(event: EditorFactoryEvent) {
             if (event.editor === this@addReleaseListener) {
                 listener(event.editor.document)
+                Disposer.dispose(parentDisposable)
             }
         }
     }, parentDisposable)
@@ -206,7 +210,7 @@ internal class EditScriptMetadataFragment : IntentionAction, LowPriorityAction, 
         
         val fragmentEditor = project.openNewEditor(injectedFile, hostFileName, offsetInFragment) ?: return
         
-        fragmentEditor.addReleaseListener(project) { document ->
+        fragmentEditor.addReleaseListener { document ->
             val newBlock = document.charsSequence.removeSuffix("\n").asPEP723Block()
             val oldContent = hostFile.viewProvider.document?.charsSequence ?: return@addReleaseListener
             val newContent = oldContent.replace(scriptBlock, newBlock)
