@@ -1,2 +1,2 @@
 [dependency-groups]
-foo = [{ include-group = <warning descr="Invalid dependency group name: b@r">"b@r"</warning> }]
+foo = [{ include-group = <warning descr="Invalid dependency group name: `b@r`">"b@r"</warning> }]

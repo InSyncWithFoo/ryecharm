@@ -4,6 +4,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
+import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import java.nio.file.Path
 import kotlin.reflect.KClass
 
@@ -29,6 +30,12 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
     
     protected val projectPath: Path?
         get() = project.path
+    
+    override fun setUp() {
+        super.setUp()
+        
+        (fixture as? CodeInsightTestFixtureImpl)?.canChangeDocumentDuringHighlighting(true)
+    }
     
     protected inline fun fileBasedTest(filePath: String, test: () -> Unit) {
         fixture.configureByFile(filePath)

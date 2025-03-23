@@ -5,18 +5,7 @@ import com.jetbrains.python.psi.PyFile
 import insyncwithfoo.ryecharm.PlatformTestCase
 import insyncwithfoo.ryecharm.getEventualDelegate
 import insyncwithfoo.ryecharm.message
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
-
-
-private fun sleep(duration: Duration) {
-    runBlocking {
-        delay(duration)
-    }
-}
 
 
 internal class EditScriptMetadataFragmentTest : PlatformTestCase() {
@@ -94,8 +83,6 @@ internal class EditScriptMetadataFragmentTest : PlatformTestCase() {
     fun `test offset - block body - 2`() = offsetTest("block_body_2.py", 32)
     
     private fun availabilityTest(filePath: String, expected: Boolean) = fileBasedTest("availability/$filePath") {
-        sleep(10.seconds)
-        
         assertEquals(expected, intention.isAvailable(project, editor, file))
         
         if (expected) {

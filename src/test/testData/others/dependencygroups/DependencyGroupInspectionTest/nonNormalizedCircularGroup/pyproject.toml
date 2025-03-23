@@ -1,2 +1,2 @@
 [dependency-groups]
-foo_bar = ["ruff", { include-group = <error descr="Dependency group references itself: foo.bar (normalized: foo-bar)">"foo.bar"</error> }]
+foo_bar = ["ruff", { include-group = <error descr="Dependency group references itself: `foo.bar` (normalized: `foo-bar`)">"foo.bar"</error> }]
