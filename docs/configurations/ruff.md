@@ -153,6 +153,14 @@ language server setting.
 Default: `true`
 
 
+## Fix similar violations
+
+Whether quick fixes to fix violations of the same rule as
+the current one should be suggested.
+
+Default: `true`
+
+
 ### Formatting
 
 Whether [Ruff's formatter][13] should be used

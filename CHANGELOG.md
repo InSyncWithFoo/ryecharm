@@ -14,6 +14,69 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-10] - 2025-03-22
+
+See [the documentation][0.1.0-a10-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.11.2][0.1.0-a10-2]
+* uv: [0.6.9][0.1.0-a10-3]
+* Rye: [0.44.0][0.1.0-a10-4]
+
+
+### Added
+
+* RyeCharm now also displays documentation popups for
+  rule selectors defined within script metadata blocks
+  when such blocks are opened in a new editor tab using the related intention.
+  It should be noted that Ruff [does not support][0.1.0-a10-a-1]
+  reading configurations from script metadata blocks yet.
+* Single-rule selectors in TOML files and `# noqa` comments
+  can now be "[folded][0.1.0-a10-a-2]" into that rule's name.
+  Such foldings are displayed in their folded forms by default;
+  this can be toggled using two settings in the <i>Ruff</i> panel.
+* Commands run by RyeCharm are now logged by a new "RyeCharm logs" tool window,
+  which is hidden by default but can be made available
+  via the <i>More tool windows</i> menu.
+* If Backspace is pressed when an empty comment within a script metadata block
+  is edited, RyeCharm will now remove that line and move the cursor
+  back to the preceding line automatically.
+* uv is now available as a [run configuration][0.1.0-a10-a-3].
+
+
+### Changed
+
+* Previously, prefix selectors that only select preview rules
+  (e.g., `CPY0`) would not have documentation popups displayed on hover.
+  This is due to RyeCharm not passing `--preview` when querying data,
+  and getting no list in return. It now does.
+  A new shortcoming of this approach is that resolved rule lists
+  might contain rules that are not actually enabled.
+* The linter table is now [speed-searchable][0.1.0-a10-c-1].
+* <i>Edit script metadata fragment</i> now uses a better logic to determine
+  the offset the cursor of the new editor should be placed at.
+  The result is expected to be more intuitive for users.
+
+
+### Fixed
+
+* The <i>Edit script metadata fragment</i> intention and TOML injection for
+  script metadata blocks are now available during indexing.
+* Redirected codes now have their documentation popups correctly displayed,
+  similar to that of a prefix.
+
+
+  [0.1.0-a10-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a10-2]: https://github.com/astral-sh/ruff/releases/tag/0.11.2
+  [0.1.0-a10-3]: https://github.com/astral-sh/uv/releases/tag/0.6.9
+  [0.1.0-a10-4]: https://github.com/astral-sh/rye/releases/tag/0.11.2
+  [0.1.0-a10-a-1]: https://github.com/astral-sh/ruff/issues/10457
+  [0.1.0-a10-a-2]: https://www.jetbrains.com/help/pycharm/working-with-source-code.html#code_folding
+  [0.1.0-a10-a-3]: https://www.jetbrains.com/help/pycharm/working-with-source-code.html#code_folding
+  [0.1.0-a10-c-1]: https://www.jetbrains.com/help/pycharm/speed-search-in-the-tool-windows.html
+
+
 ## [0.1.0-alpha-9] - 2025-03-09
 
 See [the documentation][0.1.0-a9-1] for more information.
@@ -499,7 +562,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..HEAD
+  [0.1.0-alpha-10]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..v0.1.0-alpha-10
   [0.1.0-alpha-9]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..v0.1.0-alpha-9
   [0.1.0-alpha-8]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..v0.1.0-alpha-8
   [0.1.0-alpha-7]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..v0.1.0-alpha-7

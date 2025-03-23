@@ -14,6 +14,16 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-10] - 2025-03-22
+
+### Dependencies
+
+* [Kotlin JVM plugin][_0.1.0-a10-d1]: 2.1.10 &rarr; 2.1.20
+
+
+  [_0.1.0-a10-d1]: https://github.com/JetBrains/kotlin
+
+
 ## [0.1.0-alpha-9] - 2025-03-09
 
 ### Dependencies
@@ -214,7 +224,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..HEAD
+  [0.1.0-alpha-10]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..v0.1.0-alpha-10
   [0.1.0-alpha-9]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..v0.1.0-alpha-9
   [0.1.0-alpha-8]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..v0.1.0-alpha-8
   [0.1.0-alpha-7]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-6..v0.1.0-alpha-7

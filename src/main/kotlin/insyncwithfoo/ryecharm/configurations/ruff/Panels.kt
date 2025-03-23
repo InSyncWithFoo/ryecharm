@@ -150,20 +150,20 @@ private fun Row.suggestExecutableOnPackagesChangeInput(block: Cell<JBCheckBox>.(
     checkBox(message("configurations.ruff.suggestExecutableOnPackagesChange.label")).apply(block)
 
 
-private fun Row.autoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.autoRestartServers.label")).apply(block)
-
-
-private fun Row.snoozeFormattingTaskErrorInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.snoozeFormattingTaskError.label")).apply(block)
-
-
 private fun Row.foldSingleRuleSelectorsByDefaultInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.foldSingleRuleSelectorsByDefault.label")).apply(block)
 
 
 private fun Row.foldNoqaCodesByDefaultInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.foldNoqaCodesByDefault.label")).apply(block)
+
+
+private fun Row.autoRestartServersInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.autoRestartServers.label")).apply(block)
+
+
+private fun Row.snoozeFormattingTaskErrorInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.snoozeFormattingTaskError.label")).apply(block)
 
 
 @Suppress("DialogTitleCapitalization")

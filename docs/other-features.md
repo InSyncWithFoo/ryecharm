@@ -168,6 +168,23 @@ Errors will be reported for a dependency group if:
 * It has the same [normalized name][12] as another group.
 
 
+## Command logs
+
+Tool commands run by RyeCharm and their outputs are logged
+by the <i>RyeCharm logs</i> tool window.
+This might be helpful for debugging purposes.
+
+<figure markdown="1">
+  <figcaption>Button:</figcaption>
+  ![](./assets/features-logging-tool-window-demo-action.png)
+</figure>
+
+<figure markdown="1">
+  <figcaption>Console:</figcaption>
+  ![](./assets/features-logging-tool-window-demo-console.png)
+</figure>
+
+
   [1]: https://www.jetbrains.com/help/pycharm/project-tool-window.html
   [2]: https://www.jetbrains.com/help/pycharm/settings-editor-tabs.html#Settings_Editor_Tabs.topic
   [3]: https://www.jetbrains.com/help/pycharm/part-4-using-the-navigation-bar.html
