@@ -14,7 +14,7 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
-## [0.1.0-alpha-10] - 2025-03-22
+## [0.1.0-alpha-10] - 2025-03-23
 
 ### Dependencies
 

@@ -14,7 +14,7 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
-## [0.1.0-alpha-10] - 2025-03-22
+## [0.1.0-alpha-10] - 2025-03-23
 
 See [the documentation][0.1.0-a10-1] for more information.
 
@@ -73,7 +73,7 @@ Latest tool versions at the time of release:
   [0.1.0-a10-4]: https://github.com/astral-sh/rye/releases/tag/0.11.2
   [0.1.0-a10-a-1]: https://github.com/astral-sh/ruff/issues/10457
   [0.1.0-a10-a-2]: https://www.jetbrains.com/help/pycharm/working-with-source-code.html#code_folding
-  [0.1.0-a10-a-3]: https://www.jetbrains.com/help/pycharm/working-with-source-code.html#code_folding
+  [0.1.0-a10-a-3]: https://www.jetbrains.com/help/pycharm/run-debug-configuration.html
   [0.1.0-a10-c-1]: https://www.jetbrains.com/help/pycharm/speed-search-in-the-tool-windows.html
 
 
