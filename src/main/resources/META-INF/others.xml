@@ -72,6 +72,7 @@
 			
 			enabledByDefault="true"
 			level="WARNING"
+			
 			implementationClass="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
 		/>
 		

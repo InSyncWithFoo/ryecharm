@@ -12,7 +12,7 @@ private val lenientParser = Json { ignoreUnknownKeys = true }
 /**
  * Parse the given string as JSON, ignoring unknown keys and returning `null` on failure.
  */
-internal inline fun <reified T> String.parseAsJSONLeniently() =
+internal inline fun <reified T : Any> String.parseAsJSONLeniently() =
     try {
         lenientParser.decodeFromString<T>(this)
     } catch (_: SerializationException) {
@@ -23,7 +23,7 @@ internal inline fun <reified T> String.parseAsJSONLeniently() =
 /**
  * Parse the given string as JSON, returning `null` on failure.
  */
-internal inline fun <reified T> String.parseAsJSON() =
+internal inline fun <reified T : Any> String.parseAsJSON() =
     try {
         Json.decodeFromString<T>(this)
     } catch (_: SerializationException) {
@@ -36,7 +36,7 @@ internal inline fun <reified T> String.parseAsJSON() =
  * using the builder built with [builderAction],
  * returning `null` on failure.
  */
-internal inline fun <reified T> String.parseAsJSON(noinline builderAction: JsonBuilder.() -> Unit): T? {
+internal inline fun <reified T : Any> String.parseAsJSON(noinline builderAction: JsonBuilder.() -> Unit): T? {
     val json = Json(builderAction = builderAction)
     
     return try {

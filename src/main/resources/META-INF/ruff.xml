@@ -24,6 +24,7 @@
 			
 			enabledByDefault="true"
 			level="WARNING"
+			
 			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
 		/>
 		

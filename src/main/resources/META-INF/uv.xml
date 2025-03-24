@@ -48,6 +48,7 @@
 			
 			enabledByDefault="true"
 			level="WARNING"
+			
 			implementationClass="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
 		/>
 		
