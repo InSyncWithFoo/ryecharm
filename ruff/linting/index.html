@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#command-line-mode" class="md-skip">
+        <a href="#in-editor" class="md-skip">
           Skip to content
         </a>
       
@@ -433,6 +433,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#in-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      In-editor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="In-editor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#command-line-mode" class="md-nav__link">
     <span class="md-ellipsis">
       Command line mode
@@ -440,11 +450,25 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#lsp-modes" class="md-nav__link">
     <span class="md-ellipsis">
       LSP modes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch inspection
     </span>
   </a>
   
@@ -1066,6 +1090,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#in-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      In-editor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="In-editor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#command-line-mode" class="md-nav__link">
     <span class="md-ellipsis">
       Command line mode
@@ -1073,11 +1107,25 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#lsp-modes" class="md-nav__link">
     <span class="md-ellipsis">
       LSP modes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch inspection
     </span>
   </a>
   
@@ -1117,16 +1165,26 @@
 
   <h1>Linting</h1>
 
+<h2 id="in-editor">In-editor<a class="headerlink" href="#in-editor" title="Permanent link">#</a></h2>
 <p>There are two types of linting diagnostics:
 Lint errors (each of which corresponds to <a href="https://docs.astral.sh/ruff/rules/">a rule</a>) and syntax errors.
 The latter is <a href="../../configurations/ruff/#report-syntax-errors">not reported by default</a>,
 as it is expected that the same errors are already reported by the IDE.</p>
-<h2 id="command-line-mode"><i>Command line</i> mode<a class="headerlink" href="#command-line-mode" title="Permanent link">#</a></h2>
+<h3 id="command-line-mode"><i>Command line</i> mode<a class="headerlink" href="#command-line-mode" title="Permanent link">#</a></h3>
 <p>In <i>Command line</i> mode, the executable is invoked after every keystroke.</p>
 <p>This is equivalent to running <code>ruff check --no-fix</code> with the file as input.</p>
-<h2 id="lsp-modes">LSP modes<a class="headerlink" href="#lsp-modes" title="Permanent link">#</a></h2>
+<h3 id="lsp-modes">LSP modes<a class="headerlink" href="#lsp-modes" title="Permanent link">#</a></h3>
 <p>In LSP modes, diagnostics are sent to the client via
 <a href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_publishDiagnostics"><code>textDocument/publishDiagnostics</code></a> notifications.</p>
+<h2 id="batch-inspection">Batch inspection<a class="headerlink" href="#batch-inspection" title="Permanent link">#</a></h2>
+<p>RyeCharm also supports running Ruff using <i><a href="https://www.jetbrains.com/help/pycharm/running-inspections.html#run-all-inspections">Inspect Code...</a></i>,
+also known as <i>batch inspection mode</i>.</p>
+<p>This is equivalent to running <code>ruff check</code> at the project directory.</p>
+<p><img alt="" src="../../assets/ruff-linting-demo-global-inspection.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If there are unsaved changes, the returned diagnostics may be out-of-date.</p>
+</div>
 
 
 
