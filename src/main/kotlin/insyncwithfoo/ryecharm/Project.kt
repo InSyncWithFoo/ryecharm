@@ -124,10 +124,10 @@ internal fun Project.findExecutableInVenv(nameWithoutExtension: String) =
  * Attempt to open the given [virtualFile]
  * and switch focus to the new editor.
  */
-internal fun Project.openFile(virtualFile: VirtualFile?) {
+internal fun Project.openFile(virtualFile: VirtualFile) {
     val focusEditor = true
     
-    fileEditorManager.openFile(virtualFile!!, focusEditor)
+    fileEditorManager.openFile(virtualFile, focusEditor)
 }
 
 

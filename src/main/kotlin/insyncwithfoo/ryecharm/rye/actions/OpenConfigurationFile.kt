@@ -70,7 +70,7 @@ internal class OpenConfigurationFile : AnAction(), DumbAware {
     
     private fun Project.tryOpeningFile(path: Path, virtualFile: VirtualFile?) {
         try {
-            openFile(virtualFile)
+            openFile(virtualFile!!)
         } catch (_: Throwable) {
             cannotOpenFile(path)
         }

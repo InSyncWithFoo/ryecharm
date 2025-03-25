@@ -16,7 +16,6 @@ import insyncwithfoo.ryecharm.mayContainRuffOptions
 import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.documentation.RuleName
 import insyncwithfoo.ryecharm.ruff.extractRuleSelector
-import insyncwithfoo.ryecharm.ruff.plus
 import insyncwithfoo.ryecharm.traverse
 import org.toml.lang.psi.TomlFile
 import org.toml.lang.psi.TomlLiteral
@@ -85,7 +84,7 @@ internal class RuffRuleSelectorFoldingBuilder : CustomFoldingBuilder(), DumbAwar
     ): FoldingDescriptor? {
         val kind = kind as? TomlLiteralKind.String ?: return null
         val valueRelativeRange = kind.offsets.value ?: return null
-        val valueAbsoluteRange = valueRelativeRange + startOffset
+        val valueAbsoluteRange = valueRelativeRange.shiftRight(startOffset)
         
         val code = this.extractRuleSelector(file) ?: return null
         val name = codeToNameMap[code] ?: return null

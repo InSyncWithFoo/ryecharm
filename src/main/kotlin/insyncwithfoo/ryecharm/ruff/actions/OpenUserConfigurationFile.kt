@@ -37,6 +37,11 @@ internal class OpenUserConfigurationFile : AnAction(), DumbAware {
             LocalFileSystem.getInstance().findFileByNioFile(path)
         }
         
+        if (virtualFile == null) {
+            fileNotFound(path)
+            return@launch
+        }
+        
         runUnderUIThread {
             openFile(virtualFile)
         }

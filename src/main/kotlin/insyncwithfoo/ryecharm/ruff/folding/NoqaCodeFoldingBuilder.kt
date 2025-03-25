@@ -17,7 +17,6 @@ import insyncwithfoo.ryecharm.ruff.NoqaComment
 import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.asTextRange
 import insyncwithfoo.ryecharm.ruff.documentation.RuleName
-import insyncwithfoo.ryecharm.ruff.minus
 import insyncwithfoo.ryecharm.traverse
 
 
@@ -48,7 +47,7 @@ internal class NoqaCodeFoldingBuilder : CustomFoldingBuilder(), DumbAware {
         val element = node.psi as? PsiComment ?: throw CannotFold()
         val codesToNames = element.getUserData(RULE_CODES_TO_NAMES) ?: throw CannotFold()
         
-        val relativeRange = range - element.startOffset
+        val relativeRange = range.shiftLeft(element.startOffset)
         val code = relativeRange.substring(node.text)
         val name = codesToNames[code] ?: throw CannotFold()
         
