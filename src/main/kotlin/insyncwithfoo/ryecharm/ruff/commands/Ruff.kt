@@ -44,6 +44,14 @@ internal class Ruff private constructor(
         return CheckCommand().build(arguments, text)
     }
     
+    fun checkProject(): Command {
+        val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet")
+        
+        arguments["--output-format"] = "json"
+        
+        return CheckCommand().build(arguments)
+    }
+    
     fun format(text: String, stdinFilename: Path?, range: OneBasedRange? = null, quiet: Boolean = true): Command {
         val arguments = CommandArguments("-")
         

@@ -20,12 +20,29 @@
 			groupName="RyeCharm"
 			
 			bundle="messages.ryecharm"
-			key="inspections.ruff.displayName"
+			key="inspections.ruff.local.displayName"
 			
 			enabledByDefault="true"
 			level="WARNING"
 			
 			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
+		/>
+		
+		<globalInspection
+			id="insyncwithfoo.ryecharm.ruff.linting.RuffGlobalInspection"
+			shortName="insyncwithfoo.ryecharm.ruff.linting.RuffGlobalInspection"
+			
+			language=""
+			groupName="RyeCharm"
+			
+			bundle="messages.ryecharm"
+			key="inspections.ruff.global.displayName"
+			
+			enabledByDefault="true"
+			level="WARNING"
+			cleanupTool="false"
+			
+			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffGlobalInspection"
 		/>
 		
 		<formattingService

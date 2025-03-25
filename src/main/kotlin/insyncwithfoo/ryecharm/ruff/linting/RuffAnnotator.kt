@@ -8,12 +8,10 @@ import com.intellij.lang.annotation.AnnotationBuilder
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
 import com.intellij.lang.annotation.HighlightSeverity
-import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
@@ -23,13 +21,10 @@ import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.processTimeout
-import insyncwithfoo.ryecharm.ruff.OneBasedRange
-import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
-import insyncwithfoo.ryecharm.ruff.toZeroBased
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unknownError
 import java.nio.file.Path
@@ -37,34 +32,6 @@ import java.nio.file.Path
 
 private val Project.inspectionManager: InspectionManager
     get() = InspectionManager.getInstance(this)
-
-
-/**
- * @see insyncwithfoo.ryecharm.ruff.isForSyntaxError
- */
-private val Diagnostic.isForSyntaxError: Boolean
-    get() = code == null
-
-
-private val Diagnostic.isUnsuppressable: Boolean
-    get() = code in listOf(
-        "PGH004"  // blanket-noqa
-    )
-
-
-/**
- * @see insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
- */
-private val Diagnostic.isForFile: Boolean
-    get() = oneBasedRange == OneBasedRange.FILE_LEVEL
-
-
-private fun Document.rangeIsAfterEndOfLine(range: TextRange): Boolean {
-    val rangeIsAtEOF = range.endOffset == textLength
-    val rangeIsAtLineBreak = charsSequence.getOrNull(range.startOffset) == '\n'
-    
-    return range.isEmpty && (rangeIsAtEOF || rangeIsAtLineBreak)
-}
 
 
 internal data class InitialInfo(
@@ -154,10 +121,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             
             val tooltip = configurations.getFormattedTooltip(diagnostic.message, diagnostic.code)
             val range = document.getOffsetRange(diagnostic.oneBasedRange)
-            val noqaOffset = when (diagnostic.noqaRow) {
-                null -> range.startOffset
-                else -> document.getLineStartOffset(diagnostic.noqaRow.toZeroBased())
-            }
+            val noqaOffset = diagnostic.getNoqaOffset(document)
             
             builder.needsUpdateOnTyping()
             builder.tooltip(tooltip)
@@ -187,30 +151,6 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             builder.create()
         }
     }
-    
-    private fun Diagnostic.makeFixViolationFix(configurations: RuffConfigurations) =
-        when {
-            !configurations.quickFixes || !configurations.fixViolation -> null
-            fix == null || code == null -> null
-            else -> RuffFixViolation(code, fix)
-        }
-    
-    private fun Diagnostic.makeFixSimilarViolationsFixes(configurations: RuffConfigurations) =
-        when {
-            !configurations.quickFixes || !configurations.fixSimilarViolations -> null
-            fix == null || code == null -> null
-            else -> Pair(
-                RuffFixSimilarViolations(code, unsafe = false),
-                RuffFixSimilarViolations(code, unsafe = true)
-            )
-        }
-    
-    private fun Diagnostic.makeDisableRuleCommentFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) =
-        when {
-            !configurations.quickFixes || !configurations.disableRuleComment -> null
-            code == null || this.isUnsuppressable -> null
-            else -> RuffDisableRuleComment(code, offset)
-        }
     
     private fun AnnotationBuilder.registerQuickFix(file: PsiFile, message: String, fix: LocalQuickFix) {
         val problemDescriptor = file.createProblemDescriptor(message, fix)

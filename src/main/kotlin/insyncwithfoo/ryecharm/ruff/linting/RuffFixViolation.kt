@@ -9,7 +9,12 @@ import insyncwithfoo.ryecharm.TopPriorityAction
 import insyncwithfoo.ryecharm.edit
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.replaceContentWith
+import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
+
+
+private val ExpandedEdit.contentWithNormalizedLineEndings: String
+    get() = content.replace("\r\n", "\n")
 
 
 /**
@@ -42,7 +47,7 @@ private fun Document.getInterleavedRanges(ranges: Iterable<TextRange>): List<Tex
 
 
 @Suppress("ActionIsNotPreviewFriendly")
-internal class RuffFixViolation(private val code: String, private val fix: Fix) : LocalQuickFix, TopPriorityAction {
+internal class RuffFixViolation(private val code: RuleCode, private val fix: Fix) : LocalQuickFix, TopPriorityAction {
     
     override fun getFamilyName(): String {
         val (message, applicability) = Pair(fix.message, fix.applicability)
@@ -72,7 +77,7 @@ internal class RuffFixViolation(private val code: String, private val fix: Fix) 
         for (range in interleavedRanges) {
             when (val edit = rangesToEdits[range]) {
                 null -> newText.append(range.subSequence(charsSequence))
-                else -> newText.append(edit.content)
+                else -> newText.append(edit.contentWithNormalizedLineEndings)
             }
         }
         
