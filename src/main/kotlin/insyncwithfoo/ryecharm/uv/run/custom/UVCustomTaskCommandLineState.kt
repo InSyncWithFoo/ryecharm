@@ -1,31 +1,19 @@
 package insyncwithfoo.ryecharm.uv.run.custom
 
-import com.intellij.execution.configurations.CommandLineState
 import com.intellij.execution.configurations.GeneralCommandLine
-import com.intellij.execution.process.ColoredProcessHandler
 import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.process.ProcessHandlerFactory
-import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.util.execution.ParametersListUtil
-import insyncwithfoo.ryecharm.configurations.uvExecutable
 import insyncwithfoo.ryecharm.toPathIfItExists
+import insyncwithfoo.ryecharm.uv.run.UVCommandLineState
 
 
-private val processHandlerFactory: ProcessHandlerFactory
-    get() = ProcessHandlerFactory.getInstance()
-
-
-internal class UVCustomTaskCommandState(
+internal class UVCustomTaskCommandLineState(
     private val settings: UVCustomTaskSettings,
     environment: ExecutionEnvironment
-) : CommandLineState(environment) {
-    
-    private val project by environment::project
+) : UVCommandLineState(environment) {
     
     override fun startProcess(): ProcessHandler {
-        val executable = project.uvExecutable?.toString() ?: "uv"
-        
         val commandLine = GeneralCommandLine(executable).apply {
             withParameters(parseArguments())
             
@@ -33,10 +21,7 @@ internal class UVCustomTaskCommandState(
             withEnvironment(settings.environmentVariables)
         }
         
-        return processHandlerFactory.createColoredProcessHandler(commandLine).also {
-            (it as? ColoredProcessHandler)?.setShouldKillProcessSoftly(true)
-            ProcessTerminatedListener.attach(it)
-        }
+        return commandLine.toProcessHandler()
     }
     
     private fun parseArguments(): List<String> {

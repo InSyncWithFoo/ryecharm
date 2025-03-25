@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm
 
+import com.intellij.execution.process.ProcessHandlerFactory
 import com.intellij.openapi.application.Application
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.EditorFactory
@@ -23,6 +24,5 @@ internal val editorFactory: EditorFactory
     get() = EditorFactory.getInstance()
 
 
-internal fun invokeLater(action: () -> Unit) {
-    application.invokeLater(action)
-}
+internal val processHandlerFactory: ProcessHandlerFactory
+    get() = ProcessHandlerFactory.getInstance()
