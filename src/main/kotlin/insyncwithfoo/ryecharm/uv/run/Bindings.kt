@@ -1,14 +1,12 @@
 package insyncwithfoo.ryecharm.uv.run
 
-import com.intellij.execution.configuration.EnvironmentVariablesTextFieldWithBrowseButton
 import com.intellij.ui.RawCommandLineEditor
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.toMutableProperty
 import kotlin.reflect.KMutableProperty0
 
 
-private typealias EnvironmentVariablesEditor = EnvironmentVariablesTextFieldWithBrowseButton
-private typealias EnvironmentVariables = MutableMap<String, String>
+internal typealias EnvironmentVariables = MutableMap<String, String>
 
 
 internal fun <C : RawCommandLineEditor> Cell<C>.bindText(property: KMutableProperty0<String?>): Cell<C> {

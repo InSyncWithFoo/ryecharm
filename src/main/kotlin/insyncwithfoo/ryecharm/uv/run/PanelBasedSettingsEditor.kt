@@ -14,7 +14,7 @@ import insyncwithfoo.ryecharm.configurations.copyTo
  * 
  * @param settings A new state instance for this panel alone.
  */
-internal abstract class PanelBasedSettingsEditor<S : CopyableRunConfigurationSettings, C : UVRunConfiguration<S>>(
+internal abstract class PanelBasedSettingsEditor<S : UVRunConfigurationSettings, C : UVRunConfiguration<S>>(
     val settings: S,
     val project: Project
 ) : SettingsEditor<C>() {

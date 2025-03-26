@@ -13,6 +13,7 @@ internal object UVRunIDs {
     
     const val MAIN_TYPE = "${RyeCharm.ID}.uv"
     
-    const val CUSTOM_FACTORY = "${MAIN_TYPE}.custom"
+    const val CUSTOM_TASK_FACTORY = "${MAIN_TYPE}.custom"
+    const val PROJECT_SCRIPT_FACTORY = "${MAIN_TYPE}.projectscript"
     
 }

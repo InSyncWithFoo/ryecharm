@@ -6,6 +6,7 @@ import com.intellij.execution.process.ColoredProcessHandler
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.util.execution.ParametersListUtil
 import insyncwithfoo.ryecharm.configurations.uvExecutable
 import insyncwithfoo.ryecharm.processHandlerFactory
 
@@ -22,5 +23,11 @@ internal abstract class UVCommandLineState(environment: ExecutionEnvironment) : 
             (it as? ColoredProcessHandler)?.setShouldKillProcessSoftly(true)
             ProcessTerminatedListener.attach(it)
         }
+    
+    protected fun parseArguments(arguments: String): List<String> {
+        val (keepQuotes, supportSingleQuotes, keepEmptyParameters) = Triple(false, true, true)
+        
+        return ParametersListUtil.parse(arguments, keepQuotes, supportSingleQuotes, keepEmptyParameters)
+    }
     
 }

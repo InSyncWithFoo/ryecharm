@@ -12,7 +12,7 @@ import insyncwithfoo.ryecharm.UVIcons
  * A factory is instantiated via [UVRunConfigurationType.getConfigurationFactories].
  * It is responsible for creating new run configurations.
  */
-internal abstract class UVRunConfigurationFactory<S : CopyableRunConfigurationSettings, C : UVRunConfiguration<S>>(
+internal abstract class UVRunConfigurationFactory<S : UVRunConfigurationSettings, C : UVRunConfiguration<S>>(
     type: UVRunConfigurationType
 ) : ConfigurationFactory(type) {
     

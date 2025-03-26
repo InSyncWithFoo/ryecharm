@@ -7,6 +7,14 @@ import com.intellij.execution.configurations.RuntimeConfigurationError
 import com.intellij.execution.configurations.RuntimeConfigurationException
 import com.intellij.execution.configurations.RuntimeConfigurationWarning
 import com.intellij.openapi.project.Project
+import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.toPathOrNull
+import kotlin.io.path.isDirectory
+
+
+internal typealias ValidationWeakWarning = RuntimeConfigurationWarning
+internal typealias ValidationWarning = RuntimeConfigurationException
+internal typealias ValidationError = RuntimeConfigurationError
 
 
 /**
@@ -17,7 +25,7 @@ import com.intellij.openapi.project.Project
  * to the corresponding [RunProfileState] and [PanelBasedSettingsEditor],
  * but in doing so they must make copies.
  */
-internal abstract class UVRunConfiguration<S : CopyableRunConfigurationSettings>(
+internal abstract class UVRunConfiguration<S : UVRunConfigurationSettings>(
     name: String,
     project: Project,
     factory: UVRunConfigurationFactory<S, out UVRunConfiguration<S>>
@@ -35,29 +43,21 @@ internal abstract class UVRunConfiguration<S : CopyableRunConfigurationSettings>
     val settings: S
         get() = options as S
     
-    final override fun checkConfiguration() {
-        when (val result = validateConfiguration()) {
-            ValidationResult.OK -> {}
-            is ValidationResult.WeakWarning -> throw RuntimeConfigurationWarning(result.message)
-            is ValidationResult.Warning -> throw RuntimeConfigurationException(result.message)
-            is ValidationResult.Error -> throw RuntimeConfigurationError(result.message)
+    abstract override fun checkConfiguration()
+    
+    protected fun checkWorkingDirectoryAndEnvironmentVariables() {
+        val workingDirectory = settings.workingDirectory ?: return
+        
+        val asPath = workingDirectory.toPathOrNull()
+            ?: throw ValidationError(message("runConfigurations.errors.invalidWorkingDirectoryPath"))
+        
+        if (!asPath.toFile().exists()) {
+            throw ValidationError(message("runConfigurations.errors.workingDirectoryDoesNotExist"))
         }
-    }
-    
-    /**
-     * @see ValidationResult
-     */
-    protected abstract fun validateConfiguration(): ValidationResult
-    
-    /**
-     * @see checkConfiguration
-     * @see RunConfigurationBase.checkConfiguration
-     */
-    protected sealed class ValidationResult {
-        data object OK : ValidationResult()
-        class WeakWarning(val message: String) : ValidationResult()
-        class Warning(val message: String) : ValidationResult()
-        class Error(val message: String) : ValidationResult()
+        
+        if (!asPath.isDirectory()) {
+            throw ValidationError(message("runConfigurations.errors.workingDirectoryIsNotDirectory"))
+        }
     }
     
 }

@@ -1,10 +1,8 @@
 package insyncwithfoo.ryecharm.uv.run.custom
 
-import insyncwithfoo.ryecharm.uv.run.CopyableRunConfigurationSettings
+import insyncwithfoo.ryecharm.uv.run.UVRunConfigurationSettings
 
 
-internal class UVCustomTaskSettings : CopyableRunConfigurationSettings() {
+internal class UVCustomTaskSettings : UVRunConfigurationSettings() {
     var arguments by string()
-    var workingDirectory by string()
-    var environmentVariables by map<String, String>()
 }

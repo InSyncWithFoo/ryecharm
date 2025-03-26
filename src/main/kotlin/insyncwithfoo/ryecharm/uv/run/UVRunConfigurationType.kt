@@ -5,6 +5,7 @@ import com.intellij.openapi.project.DumbAware
 import insyncwithfoo.ryecharm.UVIcons
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.uv.run.custom.UVCustomTaskFactory
+import insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptFactory
 
 
 // Upstream issue: https://youtrack.jetbrains.com/issue/PY-79031
@@ -53,6 +54,6 @@ internal class UVRunConfigurationType : ConfigurationType, DumbAware {
      * in the run configuration dialog.
      */
     override fun getConfigurationFactories() =
-        arrayOf(UVCustomTaskFactory(this))
+        arrayOf(UVCustomTaskFactory(this), UVProjectScriptFactory(this))
     
 }
