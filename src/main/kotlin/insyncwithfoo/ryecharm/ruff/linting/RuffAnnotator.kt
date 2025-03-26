@@ -75,33 +75,16 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         
         val ruff = project.ruff ?: return null
         val path = file.virtualFile.toNioPathOrNull() ?: return null
+        val document = file.viewProvider.document
         
-        return InitialInfo(project, configurations, ruff, file.text, path)
+        return InitialInfo(project, configurations, ruff, document.text, path)
     }
     
-    @Suppress("UnstableApiUsage")
     override fun doAnnotate(collectedInfo: InitialInfo?): AnnotationResult? {
         val (project, configurations, ruff, text, path) = collectedInfo ?: return null
         
         val command = ruff.check(text, path, allFixable = configurations.considerAllFixable)
-        val output = runBlockingCancellable {
-            project.runInBackground(command)
-        }
-        val results = output.stdout.parseAsJSON<List<Diagnostic>>()
-        
-        if (output.isCancelled) {
-            return null
-        }
-        
-        if (output.isTimeout) {
-            project.processTimeout(command)
-            return null
-        }
-        
-        if (!output.isSuccessful || results == null) {
-            project.unknownError(command, output)
-            return null
-        }
+        val results = project.runCheckCommand(command) ?: return null
         
         return AnnotationResult(configurations, results)
     }

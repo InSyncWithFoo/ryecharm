@@ -82,7 +82,7 @@ internal class RuffRuleSelectorFoldingBuilder : CustomFoldingBuilder(), DumbAwar
         file: VirtualFile,
         codeToNameMap: Map<RuleCode, RuleName>
     ): FoldingDescriptor? {
-        val kind = kind as? TomlLiteralKind.String ?: return null
+        val kind = this.kind as? TomlLiteralKind.String ?: return null
         val valueRelativeRange = kind.offsets.value ?: return null
         val valueAbsoluteRange = valueRelativeRange.shiftRight(startOffset)
         

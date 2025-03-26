@@ -49,7 +49,6 @@ internal class RuffGlobalInspection : GlobalSimpleInspectionTool() {
     // TODO: Fix on clean up
     override fun cleanup(project: Project) {}
     
-    @Suppress("UnstableApiUsage")
     override fun inspectionStarted(
         manager: InspectionManager,
         globalContext: GlobalInspectionContext,
@@ -59,24 +58,7 @@ internal class RuffGlobalInspection : GlobalSimpleInspectionTool() {
         val ruff = project.ruff ?: return
         
         val command = ruff.checkProject()
-        val output = runBlockingCancellable {
-            project.runInBackground(command)
-        }
-        val results = output.stdout.parseAsJSON<List<Diagnostic>>()
-        
-        if (output.isCancelled) {
-            return
-        }
-        
-        if (output.isTimeout) {
-            project.processTimeout(command)
-            return
-        }
-        
-        if (!output.isSuccessful || results == null) {
-            project.unknownError(command, output)
-            return
-        }
+        val results = project.runCheckCommand(command) ?: return
         
         globalContext.putUserData(RESULTS, results.groupBy { it.filename })
     }

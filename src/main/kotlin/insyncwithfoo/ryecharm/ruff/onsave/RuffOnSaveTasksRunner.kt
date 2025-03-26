@@ -80,7 +80,7 @@ internal class RuffOnSaveTasksRunner : ActionOnSave() {
     
     private suspend fun Project.fixAndFormat(originalText: String, path: Path?): String? {
         val configurations = ruffConfigurations
-        val ruff = ruff!!
+        val ruff = this.ruff!!
         
         var newText = originalText
         
