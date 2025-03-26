@@ -6,6 +6,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
@@ -46,7 +47,7 @@ internal abstract class FixAll(private val unsafe: Boolean) : AnAction(), DumbAw
         val document = editor.document
         val file = project.psiDocumentManager.getPsiFile(document)
             ?: return project.noDocumentFound()
-        val path = file.virtualFile.toNioPath()
+        val path = file.virtualFile?.toNioPathOrNull()
         
         val command = ruff.fixAll(document.text, path, unsafeFixes = unsafe)
         

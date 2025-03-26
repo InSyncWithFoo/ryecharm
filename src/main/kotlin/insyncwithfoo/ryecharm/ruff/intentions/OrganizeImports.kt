@@ -4,6 +4,7 @@ import com.intellij.codeInsight.intention.LowPriorityAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.ExternalIntentionAction
@@ -40,7 +41,7 @@ internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction, Dum
     
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
         val document = file!!.viewProvider.document ?: return
-        val path = file.virtualFile.toNioPath()
+        val path = file.virtualFile.toNioPathOrNull()
         val ruff = project.ruff
         
         if (ruff == null) {

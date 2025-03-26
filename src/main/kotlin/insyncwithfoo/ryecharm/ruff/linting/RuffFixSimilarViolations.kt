@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm.ruff.linting
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CoroutineService
@@ -38,7 +39,7 @@ internal class RuffFixSimilarViolations(private val code: RuleCode, private val 
         val file = descriptor.psiElement.containingFile ?: return
         val document = file.viewProvider.document
         
-        val path = file.virtualFile?.toNioPath()
+        val path = file.virtualFile?.toNioPathOrNull()
         val ruff = project.ruff
         
         if (ruff == null) {
