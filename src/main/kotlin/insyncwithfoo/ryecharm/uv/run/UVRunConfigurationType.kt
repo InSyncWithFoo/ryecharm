@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.uv.run
 
 import com.intellij.execution.configurations.ConfigurationType
+import com.intellij.execution.configurations.runConfigurationType
 import com.intellij.openapi.project.DumbAware
 import insyncwithfoo.ryecharm.UVIcons
 import insyncwithfoo.ryecharm.message
@@ -57,3 +58,7 @@ internal class UVRunConfigurationType : ConfigurationType, DumbAware {
         arrayOf(UVCustomTaskFactory(this), UVProjectScriptFactory(this))
     
 }
+
+
+internal val uvRunConfigurationFactories: Array<UVRunConfigurationFactory<*, *>>
+    get() = runConfigurationType<UVRunConfigurationType>().configurationFactories

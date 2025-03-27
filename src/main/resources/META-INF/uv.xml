@@ -56,6 +56,11 @@
 			id="insyncwithfoo.ryecharm.uv.run.UVRunConfigurationType"
 			implementation="insyncwithfoo.ryecharm.uv.run.UVRunConfigurationType"
 		/>
+		
+		<runConfigurationProducer
+			id="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptProducer"
+			implementation="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptProducer"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
