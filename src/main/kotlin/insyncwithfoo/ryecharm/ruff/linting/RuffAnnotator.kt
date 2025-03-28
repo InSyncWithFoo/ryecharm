@@ -9,7 +9,6 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.toNioPathOrNull
@@ -17,16 +16,11 @@ import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.isSupportedByRuff
-import insyncwithfoo.ryecharm.parseAsJSON
-import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
-import insyncwithfoo.ryecharm.runInBackground
-import insyncwithfoo.ryecharm.unknownError
 import java.nio.file.Path
 
 

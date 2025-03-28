@@ -9,7 +9,6 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.codeInspection.ex.ProblemDescriptorImpl
-import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.TextRange
@@ -19,14 +18,9 @@ import com.intellij.psi.util.startOffset
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.isSuccessful
-import insyncwithfoo.ryecharm.parseAsJSON
-import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
-import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.stringifyToJSON
-import insyncwithfoo.ryecharm.unknownError
 
 
 private typealias FilePath = String
@@ -56,8 +50,9 @@ internal class RuffGlobalInspection : GlobalSimpleInspectionTool() {
     ) {
         val project = globalContext.project
         val ruff = project.ruff ?: return
+        val configurations = project.ruffConfigurations
         
-        val command = ruff.checkProject()
+        val command = ruff.checkProject(allFixable = configurations.considerAllFixable)
         val results = project.runCheckCommand(command) ?: return
         
         globalContext.putUserData(RESULTS, results.groupBy { it.filename })

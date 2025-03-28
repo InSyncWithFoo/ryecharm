@@ -46,6 +46,27 @@ internal class RuffTest : CommandFactoryTest() {
     }
     
     @Test
+    fun `test checkProject`() {
+        val allFixable = boolean
+        
+        val command = ruff.checkProject(allFixable)
+        val arguments = command.arguments
+        
+        assertEquals("check", command.subcommand)
+        assertEquals(projectPath, command.workingDirectory)
+        
+        assertContains(arguments, "--no-fix")
+        assertContains(arguments, "--exit-zero")
+        assertContains(arguments, "--quiet")
+        
+        assertTrue(arguments include listOf("--output-format", "json"))
+        
+        if (allFixable) {
+            assertTrue(arguments include listOf("--fixable", "ALL"))
+        }
+    }
+    
+    @Test
     fun `test format`() {
         val randomInteger = { (0..10000).random() }
         val randomPinpoint = { randomInteger() to randomInteger() }

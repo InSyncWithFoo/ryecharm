@@ -44,10 +44,14 @@ internal class Ruff private constructor(
         return CheckCommand().build(arguments, text)
     }
     
-    fun checkProject(): Command {
+    fun checkProject(allFixable: Boolean): Command {
         val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet")
         
         arguments["--output-format"] = "json"
+        
+        if (allFixable) {
+            arguments["--fixable"] = "ALL"
+        }
         
         return CheckCommand().build(arguments)
     }
