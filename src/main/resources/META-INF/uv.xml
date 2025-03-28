@@ -61,6 +61,12 @@
 			id="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptProducer"
 			implementation="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptProducer"
 		/>
+		
+		<runLineMarkerContributor
+			id="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptGutterRunButtonsProvider"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptGutterRunButtonsProvider"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">

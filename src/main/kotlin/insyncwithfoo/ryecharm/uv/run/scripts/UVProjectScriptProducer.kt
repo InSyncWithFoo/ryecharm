@@ -5,14 +5,9 @@ import com.intellij.execution.actions.LazyRunConfigurationProducer
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
-import insyncwithfoo.ryecharm.absoluteName
-import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.uv.run.uvRunConfigurationFactories
 import insyncwithfoo.ryecharm.wrappingTomlKey
-import org.toml.lang.psi.TomlFile
-import org.toml.lang.psi.TomlKey
-import org.toml.lang.psi.ext.name
 
 
 /**
@@ -47,17 +42,5 @@ internal class UVProjectScriptProducer : LazyRunConfigurationProducer<UVProjectS
         
         return true
     }
-    
-    private val TomlKey.projectScriptName: String?
-        get() {
-            val file = containingFile as? TomlFile ?: return null
-            
-            when {
-                file.virtualFile?.isPyprojectToml != true -> return null
-                !(absoluteName isChildOf "project.scripts") -> return null
-            }
-            
-            return name
-        }
     
 }
