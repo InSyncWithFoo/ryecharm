@@ -58,14 +58,14 @@
 		/>
 		
 		<runConfigurationProducer
-			id="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptProducer"
-			implementation="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptProducer"
+			id="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptProducer"
+			implementation="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptProducer"
 		/>
 		
 		<runLineMarkerContributor
-			id="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptGutterRunButtonsProvider"
+			id="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptGutterRunButtonsProvider"
 			language="TOML"
-			implementationClass="insyncwithfoo.ryecharm.uv.run.scripts.UVProjectScriptGutterRunButtonsProvider"
+			implementationClass="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptGutterRunButtonsProvider"
 		/>
 	</extensions>
 	

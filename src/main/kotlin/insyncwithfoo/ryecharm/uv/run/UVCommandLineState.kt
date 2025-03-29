@@ -9,16 +9,32 @@ import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.util.execution.ParametersListUtil
 import insyncwithfoo.ryecharm.configurations.uvExecutable
 import insyncwithfoo.ryecharm.processHandlerFactory
+import insyncwithfoo.ryecharm.toPathIfItExists
 
 
-internal abstract class UVCommandLineState(environment: ExecutionEnvironment) : CommandLineState(environment) {
+internal abstract class UVCommandLineState<S : UVRunConfigurationSettings>(
+    protected val settings: S,
+    environment: ExecutionEnvironment
+) : CommandLineState(environment) {
     
     protected val project by environment::project
     
     protected val executable: String
         get() = project.uvExecutable?.toString() ?: "uv"
     
-    protected fun GeneralCommandLine.toProcessHandler(): ProcessHandler =
+    protected val commandLine: GeneralCommandLine
+        get() = GeneralCommandLine(executable)
+    
+    protected fun GeneralCommandLine.buildProcessHandler(block: GeneralCommandLine.() -> Unit) = this.run {
+        withWorkingDirectory(settings.workingDirectory?.toPathIfItExists())
+        withEnvironment(settings.environmentVariables)
+        
+        block()
+        
+        toProcessHandler()
+    }
+    
+    private fun GeneralCommandLine.toProcessHandler(): ProcessHandler =
         processHandlerFactory.createColoredProcessHandler(this).also {
             (it as? ColoredProcessHandler)?.setShouldKillProcessSoftly(true)
             ProcessTerminatedListener.attach(it)

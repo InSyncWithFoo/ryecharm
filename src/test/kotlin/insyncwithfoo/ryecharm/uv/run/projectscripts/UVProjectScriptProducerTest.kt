@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.run.scripts
+package insyncwithfoo.ryecharm.uv.run.projectscripts
 
 import insyncwithfoo.ryecharm.PlatformTestCase
 import org.junit.Test

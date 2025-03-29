@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.run.scripts
+package insyncwithfoo.ryecharm.uv.run.projectscripts
 
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.message

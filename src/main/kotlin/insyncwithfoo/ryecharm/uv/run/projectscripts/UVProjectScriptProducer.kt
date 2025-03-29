@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.run.scripts
+package insyncwithfoo.ryecharm.uv.run.projectscripts
 
 import com.intellij.execution.actions.ConfigurationContext
 import com.intellij.execution.actions.LazyRunConfigurationProducer
@@ -24,7 +24,7 @@ internal class UVProjectScriptProducer : LazyRunConfigurationProducer<UVProjectS
         val key = location.psiElement.wrappingTomlKey ?: return false
         val scriptName = key.projectScriptName ?: return false
         
-        return configuration.settings.script == scriptName
+        return configuration.settings.scriptName == scriptName
     } 
     
     override fun setupConfigurationFromContext(
@@ -37,7 +37,7 @@ internal class UVProjectScriptProducer : LazyRunConfigurationProducer<UVProjectS
         
         configuration.apply {
             name = message("runConfigurations.instance.projectScript.nameTemplate", scriptName)
-            settings.script = scriptName
+            settings.scriptName = scriptName
         }
         
         return true

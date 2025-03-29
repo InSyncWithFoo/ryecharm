@@ -1,26 +1,15 @@
 package insyncwithfoo.ryecharm.uv.run.custom
 
-import com.intellij.execution.configurations.GeneralCommandLine
-import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
-import insyncwithfoo.ryecharm.toPathIfItExists
 import insyncwithfoo.ryecharm.uv.run.UVCommandLineState
 
 
-internal class UVCustomTaskCommandLineState(
-    private val settings: UVCustomTaskSettings,
-    environment: ExecutionEnvironment
-) : UVCommandLineState(environment) {
+internal class UVCustomTaskCommandLineState(settings: UVCustomTaskSettings, environment: ExecutionEnvironment) :
+    UVCommandLineState<UVCustomTaskSettings>(settings, environment) {
     
-    override fun startProcess(): ProcessHandler {
-        val commandLine = GeneralCommandLine(executable).apply {
+    override fun startProcess() =
+        commandLine.buildProcessHandler {
             withParameters(parseArguments(settings.arguments.orEmpty()))
-            
-            withWorkingDirectory(settings.workingDirectory?.toPathIfItExists())
-            withEnvironment(settings.environmentVariables)
         }
-        
-        return commandLine.toProcessHandler()
-    }
     
 }

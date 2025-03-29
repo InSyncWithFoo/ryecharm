@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.run.scripts
+package insyncwithfoo.ryecharm.uv.run.projectscripts
 
 import com.intellij.execution.lineMarker.ExecutorAction
 import com.intellij.execution.lineMarker.RunLineMarkerContributor

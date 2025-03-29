@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.run.scripts
+package insyncwithfoo.ryecharm.uv.run.projectscripts
 
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBTextField
@@ -22,14 +22,14 @@ internal class UVProjectScriptSettingsEditor(settings: UVProjectScriptSettings, 
 }
 
 
-private fun Row.scriptInput(block: Cell<JBTextField>.() -> Unit) =
+private fun Row.scriptNameInput(block: Cell<JBTextField>.() -> Unit) =
     textField().makeFlexible().apply(block)
 
 
 private fun UVProjectScriptSettingsEditor.makeComponent() = panel {
     
-    row(message("runConfigurations.settings.script.label")) {
-        scriptInput { bindText(settings::script) }
+    row(message("runConfigurations.settings.scriptName.label")) {
+        scriptNameInput { bindText(settings::scriptName) }
     }
     
     separator()

@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.uv.run.scripts
+package insyncwithfoo.ryecharm.uv.run.projectscripts
 
 import com.intellij.execution.Executor
 import com.intellij.execution.runners.ExecutionEnvironment
@@ -19,7 +19,7 @@ internal class UVProjectScript(name: String, project: Project, factory: UVProjec
         UVProjectScriptSettingsEditor(settings.copy(), project)
     
     override fun checkConfiguration() {
-        if (settings.script.isNullOrBlank()) {
+        if (settings.scriptName.isNullOrBlank()) {
             throw ValidationError(message("runConfigurations.errors.noScript"))
         }
         
