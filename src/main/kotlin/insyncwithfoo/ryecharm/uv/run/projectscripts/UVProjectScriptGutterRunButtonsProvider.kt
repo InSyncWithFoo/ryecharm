@@ -11,7 +11,10 @@ import org.toml.lang.psi.TomlKeySegment
 
 /**
  * Show a line marker for each subkey
- * under the `project.scripts` table.
+ * under the following tables:
+ * 
+ * * `project.scripts`
+ * * `project.gui-scripts`
  *
  * Such markers can be clicked on to run
  * the corresponding script using `uv run`.
