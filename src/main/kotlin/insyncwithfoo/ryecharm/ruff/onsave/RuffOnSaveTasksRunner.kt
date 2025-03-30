@@ -10,10 +10,12 @@ import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CoroutineService
+import insyncwithfoo.ryecharm.canBeFormattedByRuff
+import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.completedAbnormally
+import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.fileDocumentManager
-import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.paste
@@ -23,6 +25,13 @@ import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runWriteCommandAction
 import kotlinx.coroutines.CoroutineScope
 import java.nio.file.Path
+
+
+private fun PsiFile.isApplicableForSpecifiedTasks(configurations: RuffConfigurations): Boolean =
+    when {
+        configurations.formatOnSave -> canBeFormattedByRuff
+        else -> canBeLintedByRuff
+    }
 
 
 // TODO: Use com.intellij.openapi.roots.ProjectFileIndex.isInProject
@@ -56,7 +65,7 @@ internal class RuffOnSaveTasksRunner : ActionOnSave() {
             val file = psiDocumentManager.getPsiFile(document)
             val virtualFile = file?.virtualFile
             
-            if (file == null || !file.isSupportedByRuff) {
+            if (file == null || !file.isApplicableForSpecifiedTasks(configurations)) {
                 return@forEach
             }
             

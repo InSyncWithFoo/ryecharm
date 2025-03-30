@@ -5,10 +5,10 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerSupportProvider
 import com.intellij.platform.lsp.api.LspServerSupportProvider.LspServerStarter
+import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruffExecutable
-import insyncwithfoo.ryecharm.isSupportedByRuff
 
 
 @Suppress("UnstableApiUsage")
@@ -21,7 +21,7 @@ internal class RuffServerSupportProvider : LspServerSupportProvider {
         val configurations = project.ruffConfigurations
         val runningModeIsLSP = configurations.runningMode == RunningMode.LSP
         
-        if (runningModeIsLSP && file.isSupportedByRuff(project)) {
+        if (runningModeIsLSP && file.canBeLintedByRuff(project)) {
             val executable = project.ruffExecutable ?: return
             serverStarter.ensureServerStarted(RuffServerDescriptor(project, executable))
         }

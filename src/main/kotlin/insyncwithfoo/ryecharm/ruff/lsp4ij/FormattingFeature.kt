@@ -2,8 +2,8 @@ package insyncwithfoo.ryecharm.ruff.lsp4ij
 
 import com.intellij.psi.PsiFile
 import com.redhat.devtools.lsp4ij.client.features.LSPFormattingFeature
+import insyncwithfoo.ryecharm.canBeFormattedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.isSupportedByRuff
 
 
 /**
@@ -20,6 +20,6 @@ internal class FormattingFeature : LSPFormattingFeature() {
         configurations.formatting
     
     override fun isSupported(file: PsiFile) =
-        configurations.formatOnReformat && file.isSupportedByRuff
+        configurations.formatOnReformat && file.canBeFormattedByRuff
     
 }

@@ -7,9 +7,9 @@ import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CoroutineService
+import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
-import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
@@ -29,7 +29,7 @@ import kotlinx.coroutines.CoroutineScope
 internal class RuffImportOptimizer : ImportOptimizer {
     
     override fun supports(file: PsiFile): Boolean {
-        if (!file.isSupportedByRuff) {
+        if (!file.canBeLintedByRuff) {
             return false
         }
         

@@ -10,7 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.getServers
-import insyncwithfoo.ryecharm.isSupportedByRuff
+import insyncwithfoo.ryecharm.isSupportedByRedKnot
 import insyncwithfoo.ryecharm.lspServerManager
 import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
@@ -49,7 +49,7 @@ internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, An
         val project = file.project
         val virtualFile = file.virtualFile ?: return null
         
-        if (!file.isSupportedByRuff || !virtualFile.isInLocalFileSystem) {
+        if (!file.isSupportedByRedKnot || !virtualFile.isInLocalFileSystem) {
             return null
         }
         

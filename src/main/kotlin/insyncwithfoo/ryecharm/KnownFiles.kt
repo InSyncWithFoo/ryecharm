@@ -55,6 +55,10 @@ internal val VirtualFile.isPyTyped: Boolean
     get() = name == "py.typed"
 
 
+internal val VirtualFile.isPythonFile: Boolean
+    get() = extension == "py" || extension == "pyi" || extension == "pyw"
+
+
 // TODO: Use `putUserData()`/`getUserData()` instead?
 /**
  * @see insyncwithfoo.ryecharm.others.scriptmetadata.EditScriptMetadataFragment.asNewVirtualFile
@@ -83,6 +87,29 @@ internal val VirtualFile.isPyprojectTomlLike: Boolean
     get() = isPyprojectToml || isScriptMetadataTemporaryFile
 
 
+internal fun VirtualFile.isSupportedByRedKnot(project: Project? = null): Boolean {
+    return isPythonFile
+}
+
+
+// TODO: .ipynb / Allow configuring what files
+/**
+ * Whether the given file is targeted by at least one Ruff lint rule
+ * *and* RyeCharm has replicated its support in some manner.
+ */
+internal fun VirtualFile.canBeLintedByRuff(project: Project? = null): Boolean {
+    return isPythonFile || isPyprojectToml
+}
+
+
+/**
+ * Whether the given file can be formatted by Ruff's formatter.
+ */
+internal fun VirtualFile.canBeFormattedByRuff(project: Project? = null): Boolean {
+    return isPythonFile
+}
+
+
 // https://github.com/InSyncWithFoo/ryecharm/issues/5
 /**
  * Whether the given file's extension is `.rst`.
@@ -99,19 +126,26 @@ private val PsiFile.isJupyter: Boolean
     get() = virtualFile?.extension == "ipynb"
 
 
-// TODO: .ipynb / Allow configuring what files
-/**
- * Whether the given file is supported by Ruff
- * *and* RyeCharm has replicated its support in some manner.
- */
-internal fun VirtualFile.isSupportedByRuff(project: Project? = null): Boolean {
-    return extension == "py" || extension == "pyi" || extension == "pyw"
-}
-
-
-/**
- * Shorthand for [VirtualFile.isSupportedByRuff].
- */
-internal val PsiFile.isSupportedByRuff: Boolean
+private val PsiFile.isNormalPyFile: Boolean
     get() = this is PyFile && !this.isReST && !this.isJupyter
-        || virtualFile?.isSupportedByRuff(project) == true
+
+
+/**
+ * Shorthand for [VirtualFile.isSupportedByRedKnot].
+ */
+internal val PsiFile.isSupportedByRedKnot: Boolean
+    get() = isNormalPyFile || virtualFile?.isSupportedByRedKnot(project) == true
+
+
+/**
+ * Shorthand for [VirtualFile.canBeLintedByRuff].
+ */
+internal val PsiFile.canBeLintedByRuff: Boolean
+    get() = isNormalPyFile || virtualFile?.canBeLintedByRuff(project) == true
+
+
+/**
+ * Shorthand for [VirtualFile.canBeFormattedByRuff].
+ */
+internal val PsiFile.canBeFormattedByRuff: Boolean
+    get() = isNormalPyFile || virtualFile?.canBeFormattedByRuff(project) == true

@@ -13,10 +13,10 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
+import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
@@ -52,7 +52,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         RuffInspection.SHORT_NAME
     
     override fun collectInformation(file: PsiFile, editor: Editor, hasErrors: Boolean): InitialInfo? {
-        if (!file.isSupportedByRuff) {
+        if (!file.canBeLintedByRuff) {
             return null
         }
         

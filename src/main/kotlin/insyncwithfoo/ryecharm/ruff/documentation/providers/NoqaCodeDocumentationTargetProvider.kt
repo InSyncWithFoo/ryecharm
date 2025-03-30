@@ -4,10 +4,10 @@ import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.DocumentationTargetProvider
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiFile
+import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.findCommentAtOrNearby
-import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.ruff.NoqaComment
 import insyncwithfoo.ryecharm.ruff.documentation.targets.NoqaCodeDocumentationTarget
 
@@ -36,7 +36,7 @@ internal class NoqaCodeDocumentationTargetProvider : DocumentationTargetProvider
             !configurations.documentationPopups -> return null
             !configurations.documentationPopupsForNoqaComments -> return null
             configurations.runningMode != RunningMode.COMMAND_LINE -> return null
-            !file.isSupportedByRuff -> return null
+            !file.canBeLintedByRuff -> return null
         }
         
         val psiComment = file.findCommentAtOrNearby(offset)

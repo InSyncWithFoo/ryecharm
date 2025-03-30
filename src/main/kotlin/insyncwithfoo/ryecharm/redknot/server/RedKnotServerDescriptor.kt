@@ -6,7 +6,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import insyncwithfoo.ryecharm.common.logging.redKnotLogger
 import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
-import insyncwithfoo.ryecharm.isSupportedByRuff
+import insyncwithfoo.ryecharm.isSupportedByRedKnot
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import org.eclipse.lsp4j.ClientCapabilities
@@ -45,7 +45,7 @@ internal class RedKnotServerDescriptor(project: Project, private val executable:
         }
     
     override fun isSupportedFile(file: VirtualFile) =
-        file.isSupportedByRuff(project)
+        file.isSupportedByRedKnot(project)
     
     override fun createInitializationOptions() =
         Object()

@@ -8,7 +8,7 @@ import com.intellij.platform.lsp.api.LspServerSupportProvider.LspServerStarter
 import insyncwithfoo.ryecharm.RyeCharmRegistry
 import insyncwithfoo.ryecharm.configurations.redKnotExecutable
 import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
-import insyncwithfoo.ryecharm.isSupportedByRuff
+import insyncwithfoo.ryecharm.isSupportedByRedKnot
 
 
 @Suppress("UnstableApiUsage")
@@ -20,7 +20,7 @@ internal class RedKnotServerSupportProvider : LspServerSupportProvider {
     override fun fileOpened(project: Project, file: VirtualFile, serverStarter: LspServerStarter) {
         val configurations = project.redKnotConfigurations
         
-        if (configurations.enable && RyeCharmRegistry.redknot.panels && file.isSupportedByRuff(project)) {
+        if (configurations.enable && RyeCharmRegistry.redknot.panels && file.isSupportedByRedKnot(project)) {
             val executable = project.redKnotExecutable ?: return
             serverStarter.ensureServerStarted(RedKnotServerDescriptor(project, executable))
         }

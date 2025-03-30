@@ -8,10 +8,10 @@ import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.ExternalIntentionAction
+import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
-import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
@@ -35,7 +35,7 @@ internal class OrganizeImports : ExternalIntentionAction, LowPriorityAction, Dum
         return when {
             configurations.runningMode != RunningMode.COMMAND_LINE -> false
             !configurations.quickFixes || !configurations.organizeImports -> false
-            else -> editor != null && file?.isSupportedByRuff == true
+            else -> editor != null && file?.canBeLintedByRuff == true
         }
     }
     

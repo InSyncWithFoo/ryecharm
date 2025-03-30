@@ -14,12 +14,12 @@ import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.addOpenPluginIssueTrackerAction
 import insyncwithfoo.ryecharm.addSeeOutputActions
+import insyncwithfoo.ryecharm.canBeFormattedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.importantNotificationGroup
 import insyncwithfoo.ryecharm.information
-import insyncwithfoo.ryecharm.isSupportedByRuff
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
@@ -161,7 +161,7 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
     override fun getFeatures() = setOf(Feature.FORMAT_FRAGMENTS)
     
     override fun canFormat(file: PsiFile): Boolean {
-        if (!file.isSupportedByRuff) {
+        if (!file.canBeFormattedByRuff) {
             return false
         }
         

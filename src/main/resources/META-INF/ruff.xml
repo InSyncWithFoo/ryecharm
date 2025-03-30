@@ -7,7 +7,7 @@
 		
 		<externalAnnotator
 			id="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
-			language="Python"
+			language=""
 			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
 		/>
 		
@@ -16,7 +16,7 @@
 			suppressId="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
 			shortName="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
 			
-			language="Python"
+			language=""
 			groupName="RyeCharm"
 			
 			bundle="messages.ryecharm"
