@@ -12,6 +12,11 @@ internal val Project.lspServerManager: LspServerManager
 
 
 @Suppress("UnstableApiUsage")
+internal inline fun <reified P : LspServerSupportProvider> LspServerManager.getServers() =
+    getServersForProvider(P::class.java)
+
+
+@Suppress("UnstableApiUsage")
 internal inline fun <reified T : LspServerSupportProvider> Project.restartNativeServers() {
     if (lspIsAvailable && this.isNormal) {
         lspServerManager.stopAndRestartIfNeeded(T::class.java)

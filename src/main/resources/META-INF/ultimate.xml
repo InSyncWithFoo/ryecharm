@@ -11,5 +11,11 @@
 			id="insyncwithfoo.ryecharm.redknot.server.RedKnotServerSupportProvider"
 			implementation="insyncwithfoo.ryecharm.redknot.server.RedKnotServerSupportProvider"
 		/>
+		
+		<externalAnnotator
+			id="insyncwithfoo.ryecharm.redknot.server.TextDocumentDiagnosticsPuller"
+			language="Python"
+			implementationClass="insyncwithfoo.ryecharm.redknot.server.TextDocumentDiagnosticsPuller"
+		/>
 	</extensions>
 </idea-plugin>
