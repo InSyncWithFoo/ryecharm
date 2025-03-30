@@ -137,7 +137,7 @@ private class RuffFormattingTask(private val request: AsyncFormattingRequest, co
 /**
  * Format a document on reformat (`Ctrl` + `Alt` + `L`).
  * 
- * @see com.intellij.sh.ShExternalFormatter
+ * @see com.intellij.sh.formatter.ShExternalFormatter
  * @see com.jetbrains.python.black.BlackFormattingService
  */
 internal class RuffFormatter : AsyncDocumentFormattingService() {

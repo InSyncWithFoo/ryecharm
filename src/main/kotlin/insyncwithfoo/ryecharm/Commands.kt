@@ -18,6 +18,12 @@ import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
 
 
+/**
+ * Provide ergonomic means to construct [Command]s.
+ * 
+ * Each and every public method of a factory
+ * must infallibly return a [Command].
+ */
 internal abstract class CommandFactory {
     
     abstract val executable: Path
@@ -53,8 +59,19 @@ private fun CharArray.toByteArrayAndClear(): ByteArray {
 }
 
 
+/**
+ * Represent a generic command that can be run
+ * and displayed in a user-friendly manner.
+ * 
+ * @see Command.run
+ * @see Command.runningMessage
+ * @see Command.shortenedForm
+ */
 internal abstract class Command {
     
+    /**
+     * @see shortenedForm
+     */
     abstract val subcommand: String?
     
     lateinit var executable: Path
@@ -64,6 +81,10 @@ internal abstract class Command {
     
     var workingDirectory: Path? = null
     
+    /**
+     * A message to be displayed in the progress bar
+     * while the command is running.
+     */
     open val runningMessage: String
         get() = message("progresses.command.default")
     
@@ -96,6 +117,12 @@ internal abstract class Command {
     
     override fun toString() = commandLine.commandLineString
     
+    /**
+     * Run the command using [CapturingProcessHandler.runProcess].
+     * 
+     * Also log its arguments and output
+     * when the corresponding logger console is available.
+     */
     fun run(project: Project): ProcessOutput {
         val consoleHolder = when (this) {
             is RuffCommand -> project.ruffLogger

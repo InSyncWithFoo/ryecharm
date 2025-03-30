@@ -8,6 +8,9 @@ are replaced with the tools' logos:
 * uv: `uv.toml`, `uv.lock`
 * Rye: `.rye/config.toml`
 
+Additionally, `py.typed` and `.python-version`'s icons
+are replaced with Python logos.
+
 <figure markdown="1">
   <figcaption><i>Project</i> tool window:</figcaption>
   ![](./assets/features-file-icons-project-tool-window.png)

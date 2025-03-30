@@ -55,6 +55,9 @@ internal val VirtualFile.isPyTyped: Boolean
     get() = name == "py.typed"
 
 
+/**
+ * Whether the given file's extension is `py`, `pyi` or `pyw`.
+ */
 internal val VirtualFile.isPythonFile: Boolean
     get() = extension == "py" || extension == "pyi" || extension == "pyw"
 
@@ -87,6 +90,9 @@ internal val VirtualFile.isPyprojectTomlLike: Boolean
     get() = isPyprojectToml || isScriptMetadataTemporaryFile
 
 
+/**
+ * Whether the given file can be checked by Red Knot.
+ */
 internal fun VirtualFile.isSupportedByRedKnot(project: Project? = null): Boolean {
     return isPythonFile
 }
@@ -126,6 +132,10 @@ private val PsiFile.isJupyter: Boolean
     get() = virtualFile?.extension == "ipynb"
 
 
+/**
+ * Whether the given file is a [PyFile]
+ * that contains only Python code.
+ */
 private val PsiFile.isNormalPyFile: Boolean
     get() = this is PyFile && !this.isReST && !this.isJupyter
 
