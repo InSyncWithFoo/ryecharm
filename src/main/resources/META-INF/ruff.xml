@@ -7,6 +7,7 @@
 		
 		<externalAnnotator
 			id="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
+			order="first"
 			language=""
 			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
 		/>
