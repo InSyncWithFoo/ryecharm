@@ -62,6 +62,35 @@ internal val VirtualFile.isPythonFile: Boolean
     get() = extension == "py" || extension == "pyi" || extension == "pyw"
 
 
+/**
+ * Whether the given file is `pylock.toml`.
+ * 
+ * @see isPylockTomlLike
+ */
+internal val VirtualFile.isPylockToml: Boolean
+    get() = name == "pylock.toml"
+
+
+/**
+ * Whether the given file is a lock file as defined by
+ * [PEP 751](https://peps.python.org/pep-0751/).
+ */
+internal val VirtualFile.isPylockTomlLike: Boolean
+    get() {
+        val fragments = name.split(".")
+        
+        if (fragments.firstOrNull() != "pylock" || fragments.last() != "toml") {
+            return false
+        }
+        
+        return when (fragments.size) {
+            2 -> true
+            3 -> fragments[1].isNotEmpty()
+            else -> false
+        }
+    }
+
+
 // TODO: Use `putUserData()`/`getUserData()` instead?
 /**
  * @see insyncwithfoo.ryecharm.others.scriptmetadata.EditScriptMetadataFragment.asNewVirtualFile

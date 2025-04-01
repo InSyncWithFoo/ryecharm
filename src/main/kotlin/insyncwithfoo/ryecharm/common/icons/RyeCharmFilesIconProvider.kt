@@ -9,6 +9,7 @@ import insyncwithfoo.ryecharm.RuffIcons
 import insyncwithfoo.ryecharm.RyeIcons
 import insyncwithfoo.ryecharm.UVIcons
 import insyncwithfoo.ryecharm.isPyTyped
+import insyncwithfoo.ryecharm.isPylockToml
 import insyncwithfoo.ryecharm.isPythonVersion
 import insyncwithfoo.ryecharm.isRuffToml
 import insyncwithfoo.ryecharm.isRyeConfigToml
@@ -24,6 +25,7 @@ import insyncwithfoo.ryecharm.isUVToml
  * * `ruff.toml`/`.ruff.toml`
  * * `.python-version`
  * * `py.typed`
+ * * `pylock.toml`/`pylock.*.toml`
  * 
  * These icons are used in the *Project* tool window
  * and editor tabs, among others.
@@ -38,6 +40,8 @@ internal class RyeCharmFilesIconProvider : FileIconProvider, DumbAware {
             file.isUVLock -> UVIcons.TINY_16_WHITE
             file.isPythonVersion -> OtherIcons.PYTHON_GRAY_16
             file.isPyTyped -> OtherIcons.PYTHON_WHITE_16
+            file.isPylockToml -> OtherIcons.PYTHON_LOCK_WHITE_16
+            // TODO: Custom lock files
             else -> null
         }
     

@@ -8,7 +8,7 @@ are replaced with the tools' logos:
 * uv: `uv.toml`, `uv.lock`
 * Rye: `.rye/config.toml`
 
-Additionally, `py.typed` and `.python-version`'s icons
+Additionally, `py.typed`, `.python-version` and `pylock.toml`'s icons
 are replaced with Python logos.
 
 <figure markdown="1">
