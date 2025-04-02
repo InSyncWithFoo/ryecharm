@@ -33,10 +33,6 @@ internal fun <C : JComponent> Cell<C>.topLabel(label: String) =
     label(label, position = LabelPosition.TOP)
 
 
-internal fun <C : JComponent> Cell<C>.applyReturningComponent(block: Cell<C>.() -> Unit) =
-    this.apply(block).component
-
-
 internal fun <C : JComponent> Cell<C>.makeFlexible() = apply {
     align(AlignX.FILL)
     resizableColumn()

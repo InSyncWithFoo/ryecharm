@@ -6,7 +6,7 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.message
-import insyncwithfoo.ryecharm.uv.run.uvRunConfigurationFactories
+import insyncwithfoo.ryecharm.uv.run.UVRunConfigurationFactory
 import insyncwithfoo.ryecharm.wrappingTomlKey
 
 
@@ -17,7 +17,7 @@ import insyncwithfoo.ryecharm.wrappingTomlKey
 internal class UVProjectScriptProducer : LazyRunConfigurationProducer<UVProjectScript>(), DumbAware {
     
     override fun getConfigurationFactory() =
-        uvRunConfigurationFactories[1] as UVProjectScriptFactory
+        UVRunConfigurationFactory.instances[1] as UVProjectScriptFactory
     
     override fun isConfigurationFromContext(configuration: UVProjectScript, context: ConfigurationContext): Boolean {
         val location = context.location ?: return false

@@ -2,6 +2,7 @@ package insyncwithfoo.ryecharm.uv.run
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
+import com.intellij.execution.configurations.runConfigurationType
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.UVIcons
 
@@ -44,5 +45,10 @@ internal abstract class UVRunConfigurationFactory<S : UVRunConfigurationSettings
     
     final override fun createTemplateConfiguration(project: Project) =
         createConfiguration(name = "", project)
+    
+    companion object {
+        val instances: Array<UVRunConfigurationFactory<*, *>>
+            get() = runConfigurationType<UVRunConfigurationType>().configurationFactories
+    }
     
 }
