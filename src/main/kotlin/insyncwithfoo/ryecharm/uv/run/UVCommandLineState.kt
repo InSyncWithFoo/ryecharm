@@ -8,8 +8,10 @@ import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.util.execution.ParametersListUtil
 import insyncwithfoo.ryecharm.configurations.uvExecutable
+import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.processHandlerFactory
 import insyncwithfoo.ryecharm.toPathIfItExists
+import java.nio.file.Path
 
 
 internal abstract class UVCommandLineState<S : UVRunConfigurationSettings>(
@@ -26,7 +28,7 @@ internal abstract class UVCommandLineState<S : UVRunConfigurationSettings>(
         get() = GeneralCommandLine(executable)
     
     protected fun GeneralCommandLine.buildProcessHandler(block: GeneralCommandLine.() -> Unit) = this.run {
-        withWorkingDirectory(settings.workingDirectory?.toPathIfItExists())
+        withWorkingDirectory(settings.workingDirectory?.toPathIfItExists() ?: project.path)
         withEnvironment(settings.environmentVariables)
         
         block()
