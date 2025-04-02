@@ -10,8 +10,8 @@ import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.uv.run.PanelBasedSettingsEditor
 import insyncwithfoo.ryecharm.uv.run.argumentsInput
-import insyncwithfoo.ryecharm.uv.run.environmentVariablesInput
-import insyncwithfoo.ryecharm.uv.run.workingDirectoryInput
+import insyncwithfoo.ryecharm.uv.run.commandInfoInputs
+import insyncwithfoo.ryecharm.uv.run.experimentalFeatureDisclaimer
 
 
 internal class UVProjectScriptSettingsEditor(settings: UVProjectScriptSettings, project: Project) :
@@ -28,22 +28,18 @@ private fun Row.scriptNameInput(block: Cell<JBTextField>.() -> Unit) =
 
 private fun UVProjectScriptSettingsEditor.makeComponent() = panel {
     
+    experimentalFeatureDisclaimer()
+    
+    separator()
+    
     row(message("runConfigurations.settings.scriptName.label")) {
         scriptNameInput { bindText(settings::scriptName) }
     }
     
-    separator()
-    
-    row(message("runConfigurations.settings.extraArguments.label")) {
-        argumentsInput(settings::extraArguments)
-    }
-    
-    row(message("runConfigurations.settings.workingDirectory.label")) {
-        workingDirectoryInput(project, settings::workingDirectory)
-    }
-    
-    row(message("runConfigurations.settings.environmentVariables.label")) {
-        environmentVariablesInput(settings::environmentVariables)
+    commandInfoInputs(project, settings) {
+        row(message("runConfigurations.settings.extraArguments.label")) {
+            argumentsInput(settings::extraArguments)
+        }
     }
     
 }

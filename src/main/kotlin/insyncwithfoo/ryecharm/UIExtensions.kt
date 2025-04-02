@@ -7,6 +7,7 @@ import com.intellij.openapi.ui.emptyText
 import com.intellij.ui.SimpleListCellRenderer
 import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.Cell
+import com.intellij.ui.dsl.builder.LabelPosition
 import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.builder.bindText
 import javax.swing.JComponent
@@ -26,6 +27,10 @@ internal fun Row.singleFolderTextField(): Cell<TextFieldWithBrowseButton> {
     
     return textFieldWithBrowseButton(fileChooserDescriptor, project, fileChosen)
 }
+
+
+internal fun <C : JComponent> Cell<C>.topLabel(label: String) =
+    label(label, position = LabelPosition.TOP)
 
 
 internal fun <C : JComponent> Cell<C>.applyReturningComponent(block: Cell<C>.() -> Unit) =

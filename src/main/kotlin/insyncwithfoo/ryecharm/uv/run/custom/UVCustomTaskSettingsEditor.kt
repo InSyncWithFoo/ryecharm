@@ -5,8 +5,7 @@ import com.intellij.ui.dsl.builder.panel
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.uv.run.PanelBasedSettingsEditor
 import insyncwithfoo.ryecharm.uv.run.argumentsInput
-import insyncwithfoo.ryecharm.uv.run.environmentVariablesInput
-import insyncwithfoo.ryecharm.uv.run.workingDirectoryInput
+import insyncwithfoo.ryecharm.uv.run.commandInfoInputs
 
 
 internal class UVCustomTaskSettingsEditor(settings: UVCustomTaskSettings, project: Project) :
@@ -18,17 +17,9 @@ internal class UVCustomTaskSettingsEditor(settings: UVCustomTaskSettings, projec
 
 
 private fun UVCustomTaskSettingsEditor.makeComponent() = panel {
-    
-    row(message("runConfigurations.settings.arguments.label")) {
-        argumentsInput(settings::arguments)
+    commandInfoInputs(project, settings) {
+        row(message("runConfigurations.settings.arguments.label")) {
+            argumentsInput(settings::arguments)
+        }
     }
-    
-    row(message("runConfigurations.settings.workingDirectory.label")) {
-        workingDirectoryInput(project, settings::workingDirectory)
-    }
-    
-    row(message("runConfigurations.settings.environmentVariables.label")) {
-        environmentVariablesInput(settings::environmentVariables)
-    }
-    
 }
