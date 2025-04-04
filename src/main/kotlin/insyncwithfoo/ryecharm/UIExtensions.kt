@@ -80,5 +80,11 @@ internal fun Row.radioButtonFor(item: Labeled) =
     radioButton(item.label, item)
 
 
-internal fun Row.radioButtonFor(item: Labeled, getContextDependentLabel: (String) -> String?) =
-    radioButton(getContextDependentLabel(item.label) ?: item.label, item)
+internal fun Row.radioButtonForPotentiallyUnavailable(item: Labeled, itemIsAvailable: () -> Boolean) = run {
+    val label = when (itemIsAvailable()) {
+        true -> item.label
+        else -> message("configurations.unavailable", item.label)
+    }
+    
+    radioButton(label, item)
+}

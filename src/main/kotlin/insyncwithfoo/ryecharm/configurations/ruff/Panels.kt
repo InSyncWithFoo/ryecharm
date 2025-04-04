@@ -25,6 +25,7 @@ import insyncwithfoo.ryecharm.lspIsAvailable
 import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.radioButtonFor
+import insyncwithfoo.ryecharm.radioButtonForPotentiallyUnavailable
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.detectExecutable
 import insyncwithfoo.ryecharm.singleFileTextField
@@ -196,12 +197,8 @@ private fun RuffPanel.makeComponent() = panel {
     val runningModeInputGroup = runningModeInputGroup {
         row(message("configurations.ruff.runningMode.label")) {
             radioButtonFor(RunningMode.COMMAND_LINE)
-            radioButtonFor(RunningMode.LSP4IJ) { label ->
-                message("configurations.ruff.runningMode.unavailable", label).takeUnless { lsp4ijIsAvailable }
-            }
-            radioButtonFor(RunningMode.LSP) { label ->
-                message("configurations.ruff.runningMode.unavailable", label).takeUnless { lspIsAvailable }
-            }
+            radioButtonForPotentiallyUnavailable(RunningMode.LSP4IJ) { lsp4ijIsAvailable }
+            radioButtonForPotentiallyUnavailable(RunningMode.LSP) { lspIsAvailable }
             
             overrideCheckbox(state::runningMode)
         }

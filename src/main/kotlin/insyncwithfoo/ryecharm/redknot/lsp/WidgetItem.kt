@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.redknot.server
+package insyncwithfoo.ryecharm.redknot.lsp
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile

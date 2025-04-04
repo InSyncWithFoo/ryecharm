@@ -15,5 +15,21 @@
 			languageId="python"
 			documentMatcher="insyncwithfoo.ryecharm.ruff.lsp4ij.RuffServerDocumentMatcher"
 		/>
+		
+		<!--suppress PluginXmlCapitalization -->
+		<server
+			id="insyncwithfoo.ryecharm.redknot"
+			bundle="messages.ryecharm"
+			nameKey="languageServers.redknot.presentableName"
+			descriptionKey="languageServers.redknot.description"
+			factoryClass="insyncwithfoo.ryecharm.redknot.lsp4ij.RedKnotServerFactory"
+		/>
+		
+		<languageMapping
+			serverId="insyncwithfoo.ryecharm.redknot"
+			language="Python"
+			languageId="python"
+			documentMatcher="insyncwithfoo.ryecharm.redknot.lsp4ij.RedKnotServerDocumentMatcher"
+		/>
 	</extensions>
 </idea-plugin>
