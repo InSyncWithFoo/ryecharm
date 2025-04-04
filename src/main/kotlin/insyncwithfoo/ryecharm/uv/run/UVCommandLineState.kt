@@ -11,7 +11,6 @@ import insyncwithfoo.ryecharm.configurations.uvExecutable
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.processHandlerFactory
 import insyncwithfoo.ryecharm.toPathIfItExists
-import java.nio.file.Path
 
 
 internal abstract class UVCommandLineState<S : UVRunConfigurationSettings>(

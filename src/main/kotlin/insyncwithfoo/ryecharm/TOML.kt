@@ -59,7 +59,7 @@ internal val TomlKey.absoluteName: TOMLPath
 internal val PsiElement.wrappingTomlKey: TomlKey?
     get() = this as? TomlKey
         ?: parent as? TomlKey
-        ?: parent.parent as? TomlKey
+        ?: parent?.parent as? TomlKey
 
 
 internal val PsiElement.wrappingTomlLiteral: TomlLiteral?
