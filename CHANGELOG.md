@@ -14,6 +14,54 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-11] - 2025-04-06
+
+See [the documentation][0.1.0-a11-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.11.4][0.1.0-a11-2]
+* uv: [0.6.12][0.1.0-a11-3]
+* Rye: [0.44.0][0.1.0-a11-4]
+
+
+### Added
+
+* RyeCharm can now be configured to offer unsafe fixes
+  in an editor context even if configuration files say otherwise.
+* <i>[Inspect Code...][0.1.0-a11-5]</i> will now also run Ruff.
+* Project scripts and global tools can now be run as uv run configurations.
+  For project scripts, they can be configured automatically
+  using either run line markers shown in `pyproject.toml` or
+  the corresponding actions in the menu when a subkey is right-clicked.
+* PEP 751's `pylock.toml` now has a specialized icon.
+
+
+### Changed
+
+* Ruff's annotator is now prioritized over other annotators
+  (e.g., of other plugins).
+
+
+### Fixed
+
+* "Fix all", "Organize imports" and "Fix all similar violations"
+  intentions now work correctly for injected files.
+* Ruff's annotator will now also run on `pyproject.toml`
+  with regards to the [`RUF200`][0.1.0-a11-7] rule.
+* Previously, due to a logic error, a `NullPointerException` might be thrown
+  in certain circumstances. This has been fixed.
+
+
+  [0.1.0-a11-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a11-2]: https://github.com/astral-sh/ruff/releases/tag/0.11.4
+  [0.1.0-a11-3]: https://github.com/astral-sh/uv/releases/tag/0.6.12
+  [0.1.0-a11-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a11-5]: https://www.jetbrains.com/help/pycharm/running-inspections.html#run-all-inspections
+  [0.1.0-a11-6]: https://peps.python.org/pep-0751/
+  [0.1.0-a11-7]: https://docs.astral.sh/ruff/rules/invalid-pyproject-toml
+
+
 ## [0.1.0-alpha-10] - 2025-03-23
 
 See [the documentation][0.1.0-a10-1] for more information.
@@ -70,7 +118,7 @@ Latest tool versions at the time of release:
   [0.1.0-a10-1]: https://insyncwithfoo.github.io/ryecharm/
   [0.1.0-a10-2]: https://github.com/astral-sh/ruff/releases/tag/0.11.2
   [0.1.0-a10-3]: https://github.com/astral-sh/uv/releases/tag/0.6.9
-  [0.1.0-a10-4]: https://github.com/astral-sh/rye/releases/tag/0.11.2
+  [0.1.0-a10-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
   [0.1.0-a10-a-1]: https://github.com/astral-sh/ruff/issues/10457
   [0.1.0-a10-a-2]: https://www.jetbrains.com/help/pycharm/working-with-source-code.html#code_folding
   [0.1.0-a10-a-3]: https://www.jetbrains.com/help/pycharm/run-debug-configuration.html
@@ -562,7 +610,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..HEAD
+  [0.1.0-alpha-11]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..v0.1.0-alpha-11
   [0.1.0-alpha-10]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..v0.1.0-alpha-10
   [0.1.0-alpha-9]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..v0.1.0-alpha-9
   [0.1.0-alpha-8]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..v0.1.0-alpha-8

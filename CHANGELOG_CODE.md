@@ -14,6 +14,18 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-11] - 2025-04-06
+
+### Dependencies
+
+* [LSP4IJ][_0.1.0-a11-d1]: 0.11.0 &rarr; 0.12.0
+* [@Kotlin/kotlinx.serialization][_0.1.0-a11-d2]: 1.7.3 &rarr; 1.8.0
+
+
+  [_0.1.0-a11-d1]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a11-d2]: https://github.com/Kotlin/kotlinx.serialization
+
+
 ## [0.1.0-alpha-10] - 2025-03-23
 
 ### Dependencies
@@ -224,7 +236,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..HEAD
+  [0.1.0-alpha-11]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..v0.1.0-alpha-11
   [0.1.0-alpha-10]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..v0.1.0-alpha-10
   [0.1.0-alpha-9]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..v0.1.0-alpha-9
   [0.1.0-alpha-8]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-7..v0.1.0-alpha-8
