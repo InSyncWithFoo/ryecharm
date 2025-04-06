@@ -727,6 +727,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#project-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global tool
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1094,6 +1112,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#project-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global tool
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1133,11 +1169,19 @@
 which is available in the feature's standard dialog.</p>
 <p><img alt="" src="../../assets/uv-run-configurations-demo-custom-task-dialog.png" /></p>
 <p>This type has multiple subpanels, also known as "factories",
-by which uv run configurations can be defined.
-For now, only one factory is supported.</p>
+by which uv run configurations can be defined.</p>
 <h2 id="custom-task">Custom task<a class="headerlink" href="#custom-task" title="Permanent link">#</a></h2>
-<p>The "Custom task" factory simply runs an uv command with the given arguments
+<p>Run an uv command with the given arguments
 and environment at the specified working directory.</p>
+<h2 id="project-script">Project script<a class="headerlink" href="#project-script" title="Permanent link">#</a></h2>
+<p>Run a <a href="https://packaging.python.org/en/latest/specifications/pyproject-toml/#entry-points">project script</a> using <code>uv run</code>.</p>
+<p>Run configurations of this kind can be automatically configured
+using run line markers shown in <code>pyproject.toml</code> or
+the corresponding actions in the menu when a subkey
+of either <code>[project.scripts]</code> or <code>[project.gui-scripts]</code> is right-clicked.</p>
+<p><img alt="" src="../../assets/uv-run-configurations-demo-project-script-line-markers.png" /></p>
+<h2 id="global-tool">Global tool<a class="headerlink" href="#global-tool" title="Permanent link">#</a></h2>
+<p>Run a <a href="https://docs.astral.sh/uv/guides/tools/">global tool</a> using <code>uvx</code>/<code>uv tool run</code>.</p>
 
 
 
