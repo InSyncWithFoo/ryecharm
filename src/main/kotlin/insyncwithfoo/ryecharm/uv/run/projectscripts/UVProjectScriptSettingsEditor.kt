@@ -36,6 +36,12 @@ private fun UVProjectScriptSettingsEditor.makeComponent() = panel {
         scriptNameInput { bindText(settings::scriptName) }
     }
     
+    row(message("runConfigurations.settings.scriptArguments.label")) {
+        argumentsInput(settings::scriptArguments)
+    }
+    
+    separator()
+    
     commandInfoInputs(project, settings) {
         row(message("runConfigurations.settings.extraArguments.label")) {
             argumentsInput(settings::extraArguments)

@@ -9,8 +9,11 @@ internal class UVProjectScriptCommandLineState(settings: UVProjectScriptSettings
     
     override fun startProcess() =
         commandLine.buildProcessHandler {
-            withParameters("run", settings.scriptName!!)
+            withParameters("run")
             withParameters(parseArguments(settings.extraArguments.orEmpty()))
+            
+            withParameters(settings.scriptName!!)
+            withParameters(parseArguments(settings.scriptArguments.orEmpty()))
         }
     
 }
