@@ -19,7 +19,7 @@ internal typealias HTML = String
  * Note that, due to a bug in `DocMarkdownToHtmlConverter`,
  * nested code blocks are not rendered correctly.
  * Increasing outer code fence levels does not help.
- */ 
+ */
 internal fun Markdown.toHTML(): HTML =
     DocMarkdownToHtmlConverter.convert(defaultProject, this)
 

@@ -16,5 +16,6 @@ internal object UVRunIDs {
     const val CUSTOM_TASK_FACTORY = "${MAIN_TYPE}.custom"
     const val PROJECT_SCRIPT_FACTORY = "${MAIN_TYPE}.projectscript"
     const val GLOBAL_TOOL_FACTORY = "${MAIN_TYPE}.globaltool"
+    const val STANDALONE_SCRIPT_FACTORY = "${MAIN_TYPE}.standalonescript"
     
 }

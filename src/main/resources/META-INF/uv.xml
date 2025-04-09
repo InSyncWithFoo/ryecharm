@@ -67,6 +67,17 @@
 			language="TOML"
 			implementationClass="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptGutterRunButtonsProvider"
 		/>
+		
+		<runConfigurationProducer
+			id="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptProducer"
+			implementation="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptProducer"
+		/>
+		
+		<runLineMarkerContributor
+			id="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptGutterRunButtonsProvider"
+			language="Python"
+			implementationClass="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptGutterRunButtonsProvider"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">

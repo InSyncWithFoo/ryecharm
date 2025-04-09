@@ -27,7 +27,7 @@ private fun Row.toolNameInput(block: Cell<JBTextField>.() -> Unit) =
     textField().topLabel(message("runConfigurations.settings.toolName.label")).makeFlexible().apply(block)
 
 
-private fun Row.fromPackageInput(block: Cell<JBTextField>.() -> Unit) = 
+private fun Row.fromPackageInput(block: Cell<JBTextField>.() -> Unit) =
     textField().topLabel(message("runConfigurations.settings.fromPackage.label")).makeFlexible().apply(block)
 
 

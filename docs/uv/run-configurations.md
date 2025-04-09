@@ -32,6 +32,18 @@ of either `[project.scripts]` or `[project.gui-scripts]` is right-clicked.
 Run a [global tool][3] using `uvx`/`uv tool run`.
 
 
+## Standalone scripts
+
+Run a [PEP 723][4] script using `uv run --script`.
+
+Run configurations of this kind can be automatically configured
+using run line markers shown next to script metadata blocks or
+the corresponding actions in the menu when such blocks are right-clicked.
+
+![](../assets/uv-run-configurations-demo-standalone-script-line-markers.png)
+
+
   [1]: https://www.jetbrains.com/help/pycharm/run-debug-configuration.html
   [2]: https://packaging.python.org/en/latest/specifications/pyproject-toml/#entry-points
   [3]: https://docs.astral.sh/uv/guides/tools/
+  [4]: https://peps.python.org/pep-0723/

@@ -10,7 +10,7 @@ internal class DevDependenciesInspectionTest : PlatformTestCase() {
     fun `test basic - pyproject`() = doTest("basic/pyproject.toml")
     
     @Test
-    fun `test basic - uv`() = doTest("basic/uv.toml") 
+    fun `test basic - uv`() = doTest("basic/uv.toml")
     
     private fun doTest(subpath: String) = fileBasedTest(subpath) {
         fixture.enableInspections(DevDependenciesInspection())

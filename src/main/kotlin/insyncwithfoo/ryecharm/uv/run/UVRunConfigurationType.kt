@@ -7,6 +7,7 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.uv.run.custom.UVCustomTaskFactory
 import insyncwithfoo.ryecharm.uv.run.globaltools.UVXToolFactory
 import insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptFactory
+import insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptFactory
 
 
 // Upstream issue: https://youtrack.jetbrains.com/issue/PY-79031
@@ -58,7 +59,8 @@ internal class UVRunConfigurationType : ConfigurationType, DumbAware {
         arrayOf(
             UVCustomTaskFactory(this),
             UVProjectScriptFactory(this),
-            UVXToolFactory(this)
+            UVXToolFactory(this),
+            UVStandaloneScriptFactory(this)
         )
     
 }

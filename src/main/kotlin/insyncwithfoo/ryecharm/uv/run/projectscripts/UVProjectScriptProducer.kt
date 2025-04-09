@@ -1,20 +1,23 @@
 package insyncwithfoo.ryecharm.uv.run.projectscripts
 
 import com.intellij.execution.actions.ConfigurationContext
-import com.intellij.execution.actions.LazyRunConfigurationProducer
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.uv.run.UVRunConfigurationFactory
+import insyncwithfoo.ryecharm.uv.run.UVRunConfigurationProducer
 import insyncwithfoo.ryecharm.wrappingTomlKey
+import kotlin.reflect.KClass
 
 
 /**
  * Show a "Run" action that runs the corresponding project script
  * when a subkey of `project.scripts` is right-clicked.
  */
-internal class UVProjectScriptProducer : LazyRunConfigurationProducer<UVProjectScript>(), DumbAware {
+internal class UVProjectScriptProducer : UVRunConfigurationProducer<UVProjectScript>(), DumbAware {
+    override val runConfigurationClass: KClass<UVProjectScript>
+        get() = UVProjectScript::class
     
     override fun getConfigurationFactory() =
         UVRunConfigurationFactory.instances[1] as UVProjectScriptFactory
@@ -25,7 +28,7 @@ internal class UVProjectScriptProducer : LazyRunConfigurationProducer<UVProjectS
         val scriptName = key.projectScriptName ?: return false
         
         return configuration.settings.scriptName == scriptName
-    } 
+    }
     
     override fun setupConfigurationFromContext(
         configuration: UVProjectScript,
