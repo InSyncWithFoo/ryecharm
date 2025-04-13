@@ -100,6 +100,13 @@
 			language="Python"
 			implementationClass="insyncwithfoo.ryecharm.ruff.folding.NoqaCodeFoldingBuilder"
 		/>
+		
+		<codeInsight.linkHandler
+			id="insyncwithfoo.ryecharm.ruff.tooltips.RuleTooltipLinkHandler"
+			order="first"
+			prefix="insyncwithfoo.ryecharm://ruff.rule/"
+			handlerClass="insyncwithfoo.ryecharm.ruff.tooltips.RuleTooltipLinkHandler"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
