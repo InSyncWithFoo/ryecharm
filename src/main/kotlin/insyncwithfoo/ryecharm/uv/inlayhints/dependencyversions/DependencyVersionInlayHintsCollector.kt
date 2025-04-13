@@ -14,6 +14,7 @@ import com.jetbrains.python.packaging.common.PythonPackage
 import insyncwithfoo.ryecharm.TOMLPath
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.completedAbnormally
+import insyncwithfoo.ryecharm.dependencySpecifierLookAlike
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isString
@@ -38,10 +39,6 @@ internal typealias DependencyName = String
 internal typealias DependencyVersion = String
 internal typealias DependencyMap = Map<DependencyName, DependencyVersion>
 internal typealias DependencyList = List<PythonPackage>
-
-
-// https://peps.python.org/pep-0508/#names
-private val dependencySpecifierLookAlike = """(?i)^\s*(?<name>[A-Z0-9](?:[A-Z0-9._-]*[A-Z0-9])?).*""".toRegex()
 
 
 private fun DependencyList.toMap(): DependencyMap =

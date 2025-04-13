@@ -92,10 +92,10 @@ internal class RuffOptionDocumentationTarget(
      * @see render
      */
     override fun computeDocumentation() = DocumentationResult.asyncDocumentation {
-        element.project.getDocumentation(option)?.toDocumentationResult()
+        element.project.getDocumentationForOption()?.toDocumentationResult()
     }
     
-    private suspend fun Project.getDocumentation(option: OptionName): HTML? {
+    private suspend fun Project.getDocumentationForOption(): HTML? {
         val ruff = this.ruff ?: return null
         
         val command = ruff.config(option)

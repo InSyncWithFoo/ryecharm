@@ -15,12 +15,12 @@ import insyncwithfoo.ryecharm.configurations.rye.globalRyeConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
+import insyncwithfoo.ryecharm.findChildIgnoringExtension
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.interpreterDirectory
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.redknot.commands.RedKnot
 import insyncwithfoo.ryecharm.redknot.commands.detectExecutable
-import insyncwithfoo.ryecharm.removeExtension
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.detectExecutable
 import insyncwithfoo.ryecharm.rye.commands.Rye
@@ -31,6 +31,7 @@ import insyncwithfoo.ryecharm.toPathOrNull
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.detectExecutable
 import java.nio.file.Path
+import kotlin.io.path.nameWithoutExtension
 
 
 /**
@@ -41,27 +42,38 @@ internal val Project.ryeExecutable: Path?
 
 
 /**
+ * The Ruff executable associated with this project,
+ * as it is specified in the settings.
+ */
+private val Project.specifiedRuffExecutable: Path?
+    get() {
+        val configurations = ruffConfigurations
+        val executable = configurations.executable?.toPathOrNull() ?: return null
+        
+        if (executable.isAbsolute) {
+            return executable
+        }
+        
+        if (!configurations.crossPlatformExecutableResolution) {
+            return this.path?.resolve(executable)
+        }
+        
+        val resolutionBase = when (val parent = executable.parent) {
+            null -> interpreterDirectory
+            else -> interpreterDirectory?.resolve(parent)
+        }
+        
+        return resolutionBase?.findChildIgnoringExtension(executable.nameWithoutExtension)
+    }
+
+
+/**
  * The Ruff executable associated with this project, if it exists.
  */
 internal val Project.ruffExecutable: Path?
-    get() {
-        val configurations = ruffConfigurations
-        val executable = configurations.executable?.toPathOrNull()
-        
-        if (executable?.isAbsolute == true) {
-            return executable.toNullIfNotExists()
-        }
-        
-        val resolutionBase = when {
-            configurations.crossPlatformExecutableResolution -> interpreterDirectory
-            else -> this.path
-        }
-        val resolved = executable?.removeExtension()?.let { resolutionBase?.resolve(it) }
-        
-        return resolved?.toNullIfNotExists()
-            ?: Ruff.detectExecutable()
-            ?: findExecutableInVenv("ruff")
-    }
+    get() = specifiedRuffExecutable?.toNullIfNotExists()
+        ?: Ruff.detectExecutable()
+        ?: findExecutableInVenv("ruff")
 
 
 /**

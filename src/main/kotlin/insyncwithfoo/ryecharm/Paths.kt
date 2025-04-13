@@ -6,9 +6,10 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
-import kotlin.io.path.div
 import kotlin.io.path.exists
 import kotlin.io.path.getLastModifiedTime
+import kotlin.io.path.isDirectory
+import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.nameWithoutExtension
 
 
@@ -65,15 +66,15 @@ internal fun Path.toNullIfNotExists() =
 
 
 /**
- * Return a new path with the extension removed.
+ * Find a direct child of the current path
+ * whose name without extension is as given.
  * 
- * Example: `foo/bar.qux` &rarr; `foo/bar`.
+ * Return null for non-directories.
  */
-internal fun Path.removeExtension() =
-    when {
-        parent == null -> nameWithoutExtension.toPathOrNull()
-        else -> parent / nameWithoutExtension
-    }
+internal fun Path.findChildIgnoringExtension(childNameWithoutExtension: String) = 
+    this.takeIf { it.isDirectory() }
+        ?.listDirectoryEntries()
+        ?.find { it.nameWithoutExtension == childNameWithoutExtension }
 
 
 /**

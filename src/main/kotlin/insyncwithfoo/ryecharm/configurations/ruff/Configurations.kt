@@ -24,9 +24,9 @@ internal enum class TooltipFormat(private val key: String) : Labeled {
     operator fun rem(messageAndRule: Pair<String, String?>): String {
         val (message, rule) = messageAndRule
         
-        return when {
-            rule != null -> message("configurations.ruff.tooltipFormat.$key.withRule", rule, message)
-            else -> message("configurations.ruff.tooltipFormat.$key.withoutRule", message)
+        return when (rule) {
+            null -> message("configurations.ruff.tooltipFormat.$key.withoutRule", message)
+            else -> message("configurations.ruff.tooltipFormat.$key.withRule", rule, message)
         }
     }
     

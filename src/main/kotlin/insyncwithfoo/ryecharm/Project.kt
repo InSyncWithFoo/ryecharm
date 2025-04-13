@@ -19,8 +19,6 @@ import com.intellij.util.messages.MessageBusConnection
 import com.jetbrains.python.sdk.PythonSdkUtil
 import com.jetbrains.python.sdk.pythonSdk
 import java.nio.file.Path
-import kotlin.io.path.listDirectoryEntries
-import kotlin.io.path.nameWithoutExtension
 
 
 private val projectManager: ProjectManager
@@ -116,8 +114,7 @@ internal val Project.inspectionProfileManager: ProjectInspectionProfileManager
  * @see interpreterDirectory
  */
 internal fun Project.findExecutableInVenv(nameWithoutExtension: String) =
-    interpreterDirectory?.listDirectoryEntries()
-        ?.find { it.nameWithoutExtension == nameWithoutExtension }
+    interpreterDirectory?.findChildIgnoringExtension(nameWithoutExtension)
 
 
 /**

@@ -48,7 +48,7 @@ internal inline fun <reified T : Any> String.parseAsJSON(noinline builderAction:
 
 
 /**
- * Convert the given string to JSON.
+ * Convert the given object to JSON.
  */
 internal inline fun <reified T : Any> T.stringifyToJSON() =
     Json.encodeToString<T>(this)
