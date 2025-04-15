@@ -3,7 +3,6 @@ package insyncwithfoo.ryecharm.others.scriptmetadata
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.codeInsight.intention.LowPriorityAction
 import com.intellij.codeInsight.intention.preview.IntentionPreviewInfo
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
@@ -24,6 +23,9 @@ import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.fileEditorManager
+import insyncwithfoo.ryecharm.host
+import insyncwithfoo.ryecharm.hostFile
+import insyncwithfoo.ryecharm.injectedFiles
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.writeUnderAction
 import kotlinx.coroutines.CoroutineScope
@@ -33,27 +35,6 @@ import kotlin.math.max
 
 
 private typealias InjectedAndHost = Pair<TomlFile, PyFile>
-
-
-private operator fun <A, B> com.intellij.openapi.util.Pair<A, B>.component1() = first
-private operator fun <A, B> com.intellij.openapi.util.Pair<A, B>.component2() = second
-
-
-private val Project.injectedLanguageManager: InjectedLanguageManager
-    get() = InjectedLanguageManager.getInstance(this)
-
-
-private val PsiElement.hostFile: PsiFile
-    get() = project.injectedLanguageManager.getTopLevelFile(this)
-
-
-private val PsiElement.host: PsiElement?
-    get() = project.injectedLanguageManager.getInjectionHost(this)
-
-
-private val PsiElement.injectedFiles: List<PsiElement>
-    get() = project.injectedLanguageManager.getInjectedPsiFiles(this)?.map { (element, _) -> element }
-        ?: emptyList()
 
 
 private val PsiElement.isAtLineStart: Boolean
