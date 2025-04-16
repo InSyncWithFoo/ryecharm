@@ -35,6 +35,30 @@ private fun Row.configurationFileInput(block: Cell<TextFieldWithBrowseButton>.()
     singleFileTextField().makeFlexible().apply(block)
 
 
+private fun Row.showDependencyTreesOnHoverInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.showDependencyTreesOnHover.label")).apply(block)
+
+
+private fun Row.showVersionSpecifiersForDependenciesInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.showVersionSpecifiersForDependencies.label")).apply(block)
+
+
+private fun Row.showLatestVersionsForDependenciesInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.showLatestVersionsForDependencies.label")).apply(block)
+
+
+private fun Row.dedupeDependencyTreesInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.dedupeDependencyTrees.label")).apply(block)
+
+
+private fun Row.dependencyTreeDepthInput(block: Cell<JBIntSpinner>.() -> Unit) =
+    spinner(0..1_000_000).apply(block)
+
+
+private fun Row.showInvertedDependencyTreeFirstInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.showInvertedDependencyTreeFirst.label")).apply(block)
+
+
 private fun Row.retrieveDependenciesInReadActionInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.uv.retrieveDependenciesInReadAction.label")).apply(block)
 
@@ -43,6 +67,7 @@ private fun Row.dependenciesDataMaxAgeInput(block: Cell<JBIntSpinner>.() -> Unit
     spinner(0..1_000_000).apply(block)
 
 
+@Suppress("DialogTitleCapitalization")
 private fun UVPanel.makeComponent() = panel {
     
     row(message("configurations.uv.executable.label")) {
@@ -58,6 +83,38 @@ private fun UVPanel.makeComponent() = panel {
     row(message("configurations.uv.configurationFile.label")) {
         configurationFileInput { bindText(state::configurationFile) }
         overrideCheckbox(state::configurationFile)
+    }
+    
+    group(message("configurations.uv.groups.main")) {
+        row {
+            showDependencyTreesOnHoverInput { bindSelected(state::showDependencyTreesOnHover) }
+            overrideCheckbox(state::showDependencyTreesOnHover)
+        }
+        indent {
+            row {
+                showVersionSpecifiersForDependenciesInput { bindSelected(state::showVersionSpecifiersForDependencies) }
+                overrideCheckbox(state::showVersionSpecifiersForDependencies)
+            }
+            row {
+                showLatestVersionsForDependenciesInput { bindSelected(state::showLatestVersionsForDependencies) }
+                overrideCheckbox(state::showLatestVersionsForDependencies)
+            }
+            row {
+                dedupeDependencyTreesInput { bindSelected(state::dedupeDependencyTrees) }
+                overrideCheckbox(state::dedupeDependencyTrees)
+            }
+            row(message("configurations.uv.dependencyTreeDepth.label")) {
+                dependencyTreeDepthInput { bindIntValue(state::dependencyTreeDepth) }
+                overrideCheckbox(state::dependencyTreeDepth)
+            }
+            
+            separator()
+            
+            row {
+                showInvertedDependencyTreeFirstInput { bindSelected(state::showInvertedDependencyTreeFirst) }
+                overrideCheckbox(state::showInvertedDependencyTreeFirst)
+            }
+        }
     }
     
     advancedSettingsGroup {

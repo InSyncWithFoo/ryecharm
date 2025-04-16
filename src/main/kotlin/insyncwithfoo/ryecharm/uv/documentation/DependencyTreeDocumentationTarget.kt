@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.ElementBasedDocumentationTarget
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.PackageName
+import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.definition
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.message
@@ -36,8 +37,18 @@ internal class DependencyTreeDocumentationTarget(
     
     private suspend fun Project.getDocumentation(): HTML? {
         val uv = this.uv ?: return null
+        val configurations = uvConfigurations
         
-        val command = uv.pipTree(`package`, inverted)
+        // TODO: Use `uv tree` instead?
+        val command = uv.pipTree(
+            `package`,
+            inverted,
+            showVersionSpecifiers = configurations.showVersionSpecifiersForDependencies,
+            showLatestVersions = configurations.showLatestVersionsForDependencies,
+            dedupe = configurations.dedupeDependencyTrees,
+            depth = configurations.dependencyTreeDepth
+        )
+        
         val output = runUnderIOThread {
             runInBackground(command)
         }

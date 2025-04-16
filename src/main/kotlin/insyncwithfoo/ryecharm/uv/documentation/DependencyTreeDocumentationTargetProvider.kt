@@ -5,6 +5,7 @@ import com.intellij.platform.backend.documentation.DocumentationTargetProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.jetbrains.python.requirements.RequirementsFile
+import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.dependencySpecifierLookAlike
 import insyncwithfoo.ryecharm.host
 import insyncwithfoo.ryecharm.hostFile
@@ -24,6 +25,12 @@ import org.toml.lang.psi.TomlFile
 internal class DependencyTreeDocumentationTargetProvider : DocumentationTargetProvider {
     
     override fun documentationTargets(file: PsiFile, offset: Int): List<DocumentationTarget> {
+        val configurations = file.project.uvConfigurations
+        
+        if (!configurations.showDependencyTreesOnHover) {
+            return emptyList()
+        }
+        
         if (file is TomlFile) {
             val element = file.findElementAt(offset) ?: return emptyList()
             
@@ -41,8 +48,10 @@ internal class DependencyTreeDocumentationTargetProvider : DocumentationTargetPr
     }
     
     private fun documentationTargets(element: PsiElement, file: TomlFile): List<DocumentationTarget>? {
+        val configurations = element.project.uvConfigurations
         val virtualFile = file.virtualFile ?: return null
         
+        // TODO: Any kind of requirements?
         if (!virtualFile.isPyprojectToml && !virtualFile.isUVToml) {
             return null
         }
@@ -56,11 +65,15 @@ internal class DependencyTreeDocumentationTargetProvider : DocumentationTargetPr
         val specifier = dependencySpecifierLookAlike.matchEntire(content) ?: return null
         val `package` = specifier.groups["name"]!!.value
         
-        // TODO: Inverted first
-        return listOf(
+        val targets = listOf(
             DependencyTreeDocumentationTarget(literal, `package`, inverted = false),
             DependencyTreeDocumentationTarget(literal, `package`, inverted = true)
         )
+        
+        return when (configurations.showInvertedDependencyTreeFirst) {
+            true -> targets.reversed()
+            else -> targets
+        }
     }
     
 }

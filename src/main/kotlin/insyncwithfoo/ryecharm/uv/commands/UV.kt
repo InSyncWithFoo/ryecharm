@@ -133,12 +133,31 @@ internal class UV private constructor(
         return PipListCommand().build(arguments)
     }
     
-    // TODO: `--show-version-specifiers`, `--depth`, `--prune`, `--no-dedupe`, `--outdated`, `--strict` (?)
-    fun pipTree(`package`: String, inverted: Boolean): Command {
-        val arguments = CommandArguments("--package", `package`)
+    // TODO: `--prune`, `--strict` (?)
+    fun pipTree(
+        `package`: String,
+        inverted: Boolean,
+        showVersionSpecifiers: Boolean,
+        showLatestVersions: Boolean,
+        dedupe: Boolean,
+        depth: Int
+    ): Command {
+        val arguments = CommandArguments("--package" to `package`, "--depth" to depth.toString())
         
         if (inverted) {
             arguments += "--invert"
+        }
+        
+        if (showVersionSpecifiers) {
+            arguments += "--show-version-specifiers"
+        }
+        
+        if (showLatestVersions) {
+            arguments += "--outdated"
+        }
+        
+        if (!dedupe) {
+            arguments += "--no-dedupe"
         }
         
         return PipTreeCommand().build(arguments)
