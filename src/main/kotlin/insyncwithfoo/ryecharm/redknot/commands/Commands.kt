@@ -6,7 +6,7 @@ import insyncwithfoo.ryecharm.message
 
 internal class VersionCommand : Command(), RedKnotCommand {
     
-    override val subcommand = "version"
+    override val subcommands = listOf("version")
     
     override val runningMessage: String
         get() = message("progresses.command.redknot.version")

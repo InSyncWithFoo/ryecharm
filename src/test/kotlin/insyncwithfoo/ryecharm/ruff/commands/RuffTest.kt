@@ -25,7 +25,7 @@ internal class RuffTest : CommandFactoryTest() {
         val command = ruff.check(text, path, allFixable)
         val arguments = command.arguments
         
-        assertEquals("check", command.subcommand)
+        assertEquals(listOf("check"), command.subcommands)
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
@@ -52,7 +52,7 @@ internal class RuffTest : CommandFactoryTest() {
         val command = ruff.checkProject(allFixable)
         val arguments = command.arguments
         
-        assertEquals("check", command.subcommand)
+        assertEquals(listOf("check"), command.subcommands)
         assertEquals(projectPath, command.workingDirectory)
         
         assertContains(arguments, "--no-fix")
@@ -79,7 +79,7 @@ internal class RuffTest : CommandFactoryTest() {
         val command = ruff.format(text, path, range)
         val arguments = command.arguments
         
-        assertEquals("format", command.subcommand)
+        assertEquals(listOf("format"), command.subcommands)
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
@@ -103,7 +103,7 @@ internal class RuffTest : CommandFactoryTest() {
         val path = randomPath()
         val command = ruff.clean(path)
         
-        assertEquals("clean", command.subcommand)
+        assertEquals(listOf("clean"), command.subcommands)
         assertEquals(emptyList<String>(), command.arguments)
         assertEquals(path, command.workingDirectory)
     }
@@ -119,7 +119,7 @@ internal class RuffTest : CommandFactoryTest() {
         }
         val command = ruff.rule(code)
         
-        assertEquals("rule", command.subcommand)
+        assertEquals(listOf("rule"), command.subcommands)
         assertEquals(listOf(code), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }
@@ -129,7 +129,7 @@ internal class RuffTest : CommandFactoryTest() {
         val command = ruff.allRules()
         val arguments = command.arguments
         
-        assertEquals("rule", command.subcommand)
+        assertEquals(listOf("rule"), command.subcommands)
         assertEquals(projectPath, command.workingDirectory)
         
         assertContains(arguments, "--all")
@@ -144,7 +144,7 @@ internal class RuffTest : CommandFactoryTest() {
         }
         val command = ruff.config(option)
         
-        assertEquals("config", command.subcommand)
+        assertEquals(listOf("config"), command.subcommands)
         assertEquals(listOf(option, "--output-format", "json"), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }
@@ -153,7 +153,7 @@ internal class RuffTest : CommandFactoryTest() {
     fun `test allConfig`() {
         val command = ruff.allConfig()
         
-        assertEquals("config", command.subcommand)
+        assertEquals(listOf("config"), command.subcommands)
         assertEquals(listOf("--output-format", "json"), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }
@@ -162,7 +162,7 @@ internal class RuffTest : CommandFactoryTest() {
     fun `test linter`() {
         val command = ruff.linter()
         
-        assertEquals("linter", command.subcommand)
+        assertEquals(listOf("linter"), command.subcommands)
         assertEquals(listOf("--output-format", "json"), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }
@@ -171,7 +171,7 @@ internal class RuffTest : CommandFactoryTest() {
     fun `test version`() {
         val command = ruff.version()
         
-        assertEquals("version", command.subcommand)
+        assertEquals(listOf("version"), command.subcommands)
         assertEquals(emptyList<String>(), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }
@@ -184,7 +184,7 @@ internal class RuffTest : CommandFactoryTest() {
         val command = ruff.optimizeImports(text, path)
         val arguments = command.arguments
         
-        assertEquals("check", command.subcommand)
+        assertEquals(listOf("check"), command.subcommands)
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
@@ -211,7 +211,7 @@ internal class RuffTest : CommandFactoryTest() {
         val command = ruff.fix(text, path, select, unsafeFixes)
         val arguments = command.arguments
         
-        assertEquals("check", command.subcommand)
+        assertEquals(listOf("check"), command.subcommands)
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
@@ -241,7 +241,7 @@ internal class RuffTest : CommandFactoryTest() {
         val command = ruff.fixAll(text, path, unsafeFixes = unsafeFixes)
         val arguments = command.arguments
         
-        assertEquals("check", command.subcommand)
+        assertEquals(listOf("check"), command.subcommands)
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         
@@ -270,7 +270,7 @@ internal class RuffTest : CommandFactoryTest() {
         val command = ruff.organizeImports(text, path)
         val arguments = command.arguments
         
-        assertEquals("check", command.subcommand)
+        assertEquals(listOf("check"), command.subcommands)
         assertEquals(text, command.stdin)
         assertEquals(projectPath, command.workingDirectory)
         

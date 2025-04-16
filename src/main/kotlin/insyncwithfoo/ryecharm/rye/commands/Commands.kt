@@ -6,7 +6,7 @@ import insyncwithfoo.ryecharm.message
 
 internal class ConfigCommand : Command(), RyeCommand {
     
-    override val subcommand = "config"
+    override val subcommands = listOf("config")
     
     override val runningMessage: String
         get() = message("progresses.command.rye.config")
@@ -16,7 +16,7 @@ internal class ConfigCommand : Command(), RyeCommand {
 
 internal class ShowCommand : Command(), RyeCommand {
     
-    override val subcommand = "show"
+    override val subcommands = listOf("show")
     
     override val runningMessage: String
         get() = message("progresses.command.rye.show")
@@ -26,7 +26,7 @@ internal class ShowCommand : Command(), RyeCommand {
 
 internal class VersionCommand : Command(), RyeCommand {
     
-    override val subcommand = "version"
+    override val subcommands = listOf("version")
     
     override val runningMessage: String
         get() = message("progresses.command.rye.version")

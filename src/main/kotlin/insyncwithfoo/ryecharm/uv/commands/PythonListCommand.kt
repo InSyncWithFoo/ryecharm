@@ -12,7 +12,7 @@ internal data class PythonInstallation(val name: String, val path: String? = nul
 
 internal class PythonListCommand : Command(), UVCommand {
     
-    override val subcommand = "python"
+    override val subcommands = listOf("python", "list")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.pythonlist")

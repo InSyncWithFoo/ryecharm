@@ -6,7 +6,7 @@ import insyncwithfoo.ryecharm.message
 
 internal class CheckCommand : Command(), RuffCommand {
     
-    override val subcommand = "check"
+    override val subcommands = listOf("check")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.check")
@@ -16,7 +16,7 @@ internal class CheckCommand : Command(), RuffCommand {
 
 internal class CleanCommand : Command(), RuffCommand {
     
-    override val subcommand = "clean"
+    override val subcommands = listOf("clean")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.clean")
@@ -26,7 +26,7 @@ internal class CleanCommand : Command(), RuffCommand {
 
 internal class ConfigCommand : Command(), RuffCommand {
     
-    override val subcommand = "config"
+    override val subcommands = listOf("config")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.config")
@@ -36,7 +36,7 @@ internal class ConfigCommand : Command(), RuffCommand {
 
 internal class OptimizeImportsCommand : Command(), RuffCommand {
     
-    override val subcommand = "check"
+    override val subcommands = listOf("check")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.optimizeImports")
@@ -46,7 +46,7 @@ internal class OptimizeImportsCommand : Command(), RuffCommand {
 
 internal class FixCommand : Command(), RuffCommand {
     
-    override val subcommand = "check"
+    override val subcommands = listOf("check")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.fix")
@@ -56,7 +56,7 @@ internal class FixCommand : Command(), RuffCommand {
 
 internal class ShowSettingsCommand : Command(), RuffCommand {
     
-    override val subcommand = "check"
+    override val subcommands = listOf("check")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.showSettings")
@@ -66,7 +66,7 @@ internal class ShowSettingsCommand : Command(), RuffCommand {
 
 internal class OrganizeImportsCommand : Command(), RuffCommand {
     
-    override val subcommand = "check"
+    override val subcommands = listOf("check")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.organizeImports")
@@ -76,7 +76,7 @@ internal class OrganizeImportsCommand : Command(), RuffCommand {
 
 internal class LinterCommand : Command(), RuffCommand {
     
-    override val subcommand = "linter"
+    override val subcommands = listOf("linter")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.linter")
@@ -86,7 +86,7 @@ internal class LinterCommand : Command(), RuffCommand {
 
 internal class FormatCommand : Command(), RuffCommand {
     
-    override val subcommand = "format"
+    override val subcommands = listOf("format")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.format")
@@ -96,7 +96,7 @@ internal class FormatCommand : Command(), RuffCommand {
 
 internal class RuleCommand : Command(), RuffCommand {
     
-    override val subcommand = "rule"
+    override val subcommands = listOf("rule")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.rule")
@@ -106,7 +106,7 @@ internal class RuleCommand : Command(), RuffCommand {
 
 internal class VersionCommand : Command(), RuffCommand {
     
-    override val subcommand = "version"
+    override val subcommands = listOf("version")
     
     override val runningMessage: String
         get() = message("progresses.command.ruff.version")

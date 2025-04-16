@@ -10,12 +10,11 @@ internal fun command(
     stdin: String? = null
 ): Command {
     val executable = fragments[0]
-    val subcommand = fragments[1]
-    val arguments = fragments.slice(2..<fragments.size)
+    val arguments = fragments.slice(1..<fragments.size)
     
     return object : Command() {
         
-        override val subcommand = subcommand
+        override val subcommands = emptyList<String>()
         
         init {
             this.executable = executable.toPathOrNull()!!

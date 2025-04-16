@@ -123,9 +123,8 @@ internal class UV private constructor(
     fun version() =
         VersionCommand().build()
     
-    // FIXME: This seems problematic
     fun pipList(python: Path? = null): Command {
-        val arguments = CommandArguments("list", "--format", "json", "--quiet")
+        val arguments = CommandArguments("--format", "json", "--quiet")
         
         if (python != null) {
             arguments["--python"] = python.toString()
@@ -136,7 +135,7 @@ internal class UV private constructor(
     
     // TODO: `--show-version-specifiers`, `--depth`, `--prune`, `--no-dedupe`, `--outdated`, `--strict` (?)
     fun pipTree(`package`: String, inverted: Boolean): Command {
-        val arguments = CommandArguments("tree", "--package", `package`)
+        val arguments = CommandArguments("--package", `package`)
         
         if (inverted) {
             arguments += "--invert"

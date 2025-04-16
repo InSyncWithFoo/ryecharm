@@ -39,7 +39,7 @@ internal class UVTest : CommandFactoryTest() {
         val command = uv.init(name, kind, createReadme, pinPython, baseInterpreter)
         val arguments = command.arguments
         
-        assertEquals("init", command.subcommand)
+        assertEquals(listOf("init"), command.subcommands)
         assertEquals(projectPath, command.workingDirectory)
         
         assertContains(arguments, "--no-workspace")
@@ -84,6 +84,9 @@ internal class UVTest : CommandFactoryTest() {
         
         val arguments = command.arguments
         
+        assertEquals(listOf("pip", "tree"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
         assertTrue(arguments include listOf("--package", `package`))
         
         if (inverted) {
@@ -95,7 +98,7 @@ internal class UVTest : CommandFactoryTest() {
     fun `test version`() {
         val command = uv.version()
         
-        assertEquals("version", command.subcommand)
+        assertEquals(listOf("version"), command.subcommands)
         assertEquals(emptyList<String>(), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }
@@ -105,7 +108,9 @@ internal class UVTest : CommandFactoryTest() {
         val name = randomPEP508Name()
         val command = uv.installGroup(name)
         
-        assertEquals("sync", command.subcommand)
+        assertEquals(listOf("sync"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
         assertTrue(command.arguments include listOf("--group", name))
     }
     
@@ -113,7 +118,9 @@ internal class UVTest : CommandFactoryTest() {
     fun `test install all groups`() {
         val command = uv.installAllGroups()
         
-        assertEquals("sync", command.subcommand)
+        assertEquals(listOf("sync"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
         assertContains(command.arguments, "--all-groups")
     }
     
@@ -122,7 +129,9 @@ internal class UVTest : CommandFactoryTest() {
         val name = randomPEP508Name()
         val command = uv.installExtra(name)
         
-        assertEquals("sync", command.subcommand)
+        assertEquals(listOf("sync"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
         assertTrue(command.arguments include listOf("--extra", name))
     }
     
@@ -130,7 +139,9 @@ internal class UVTest : CommandFactoryTest() {
     fun `test install all extras`() {
         val command = uv.installAllExtras()
         
-        assertEquals("sync", command.subcommand)
+        assertEquals(listOf("sync"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
         assertContains(command.arguments, "--all-extras")
     }
     

@@ -69,11 +69,10 @@ private fun CharArray.toByteArrayAndClear(): ByteArray {
  */
 internal abstract class Command {
     
-    // TODO: Refactor this to `subcommands`
     /**
      * @see shortenedForm
      */
-    abstract val subcommand: String?
+    abstract val subcommands: List<String>
     
     lateinit var executable: Path
     lateinit var arguments: List<String>
@@ -92,7 +91,7 @@ internal abstract class Command {
     private val fragments: List<String>
         get() = listOfNotNull(
             executable.toString(),
-            subcommand,
+            *subcommands.toTypedArray(),
             *arguments.toTypedArray()
         )
     
@@ -110,11 +109,17 @@ internal abstract class Command {
             }
         }
     
+    private val executableName: String
+        get() = executable.nameWithoutExtension
+    
     /**
      * A simple form to be used in notifications and such.
      */
     val shortenedForm: String
-        get() = "${executable.nameWithoutExtension} ${subcommand.orEmpty()}".trimEnd()
+        get() = when (subcommands.isEmpty()) {
+            true -> executableName
+            else -> "$executableName ${subcommands.joinToString(" ")}"
+        }
     
     override fun toString() = commandLine.commandLineString
     

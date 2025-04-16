@@ -6,7 +6,7 @@ import insyncwithfoo.ryecharm.message
 
 internal class InitCommand : Command(), UVCommand {
     
-    override val subcommand = "init"
+    override val subcommands = listOf("init")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.init")
@@ -16,7 +16,7 @@ internal class InitCommand : Command(), UVCommand {
 
 internal class AddCommand : Command(), UVCommand {
     
-    override val subcommand = "add"
+    override val subcommands = listOf("add")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.add")
@@ -26,7 +26,7 @@ internal class AddCommand : Command(), UVCommand {
 
 internal class RemoveCommand : Command(), UVCommand {
     
-    override val subcommand = "remove"
+    override val subcommands = listOf("remove")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.remove")
@@ -36,7 +36,7 @@ internal class RemoveCommand : Command(), UVCommand {
 
 internal class UpgradeCommand : Command(), UVCommand {
     
-    override val subcommand = "add"
+    override val subcommands = listOf("add")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.upgrade")
@@ -46,7 +46,7 @@ internal class UpgradeCommand : Command(), UVCommand {
 
 internal class SyncCommand : Command(), UVCommand {
     
-    override val subcommand = "sync"
+    override val subcommands = listOf("sync")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.sync")
@@ -56,7 +56,7 @@ internal class SyncCommand : Command(), UVCommand {
 
 internal class InstallDependenciesCommand(private val kind: String) : Command(), UVCommand {
     
-    override val subcommand = "sync"
+    override val subcommands = listOf("sync")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.installDependencies", kind)
@@ -66,7 +66,7 @@ internal class InstallDependenciesCommand(private val kind: String) : Command(),
 
 internal class VenvCommand : Command(), UVCommand {
     
-    override val subcommand = "venv"
+    override val subcommands = listOf("venv")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.venv")
@@ -76,9 +76,29 @@ internal class VenvCommand : Command(), UVCommand {
 
 internal class VersionCommand : Command(), UVCommand {
     
-    override val subcommand = "version"
+    override val subcommands = listOf("version")
     
     override val runningMessage: String
         get() = message("progresses.command.uv.version")
+    
+}
+
+
+internal class PipListCommand : Command(), UVCommand {
+    
+    override val subcommands = listOf("pip", "list")
+    
+    override val runningMessage: String
+        get() = message("progresses.command.uv.piplist")
+    
+}
+
+
+internal class PipTreeCommand : Command(), UVCommand {
+    
+    override val subcommands = listOf("pip", "tree")
+    
+    override val runningMessage: String
+        get() = message("progresses.command.uv.piptree")
     
 }
