@@ -2,8 +2,12 @@ package insyncwithfoo.ryecharm.uv.documentation
 
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.documentation.DocumentationTargetProvider
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.jetbrains.python.requirements.RequirementsFile
 import insyncwithfoo.ryecharm.dependencySpecifierLookAlike
+import insyncwithfoo.ryecharm.host
+import insyncwithfoo.ryecharm.hostFile
 import insyncwithfoo.ryecharm.isDependencySpecifierString
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isUVToml
@@ -19,20 +23,29 @@ import org.toml.lang.psi.TomlFile
  */
 internal class DependencyTreeDocumentationTargetProvider : DocumentationTargetProvider {
     
-    override fun documentationTargets(file: PsiFile, offset: Int) =
-        when (file is TomlFile) {  // TODO: Detect injected files
-            true -> documentationTargets(file, offset) ?: emptyList()
-            else -> emptyList()
+    override fun documentationTargets(file: PsiFile, offset: Int): List<DocumentationTarget> {
+        if (file is TomlFile) {
+            val element = file.findElementAt(offset) ?: return emptyList()
+            
+            return documentationTargets(element, file) ?: emptyList()
         }
+        
+        if (file is RequirementsFile) {
+            val host = file.host ?: return emptyList()
+            val hostFile = file.hostFile as? TomlFile ?: return emptyList()
+            
+            return documentationTargets(host, hostFile) ?: emptyList()
+        }
+        
+        return emptyList()
+    }
     
-    private fun documentationTargets(file: TomlFile, offset: Int): List<DocumentationTarget>? {
+    private fun documentationTargets(element: PsiElement, file: TomlFile): List<DocumentationTarget>? {
         val virtualFile = file.virtualFile ?: return null
         
         if (!virtualFile.isPyprojectToml && !virtualFile.isUVToml) {
             return null
         }
-        
-        val element = file.findElementAt(offset) ?: return null
         
         if (!element.isDependencySpecifierString) {
             return null
