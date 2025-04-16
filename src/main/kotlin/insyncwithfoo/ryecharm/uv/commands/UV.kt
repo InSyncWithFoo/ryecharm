@@ -134,6 +134,17 @@ internal class UV private constructor(
         return PipListCommand().build(arguments)
     }
     
+    // TODO: `--show-version-specifiers`, `--depth`, `--prune`, `--no-dedupe`, `--outdated`, `--strict` (?)
+    fun pipTree(`package`: String, inverted: Boolean): Command {
+        val arguments = CommandArguments("tree", "--package", `package`)
+        
+        if (inverted) {
+            arguments += "--invert"
+        }
+        
+        return PipTreeCommand().build(arguments)
+    }
+    
     override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.uvConfigurations
         val configurationFile = configurations?.configurationFile

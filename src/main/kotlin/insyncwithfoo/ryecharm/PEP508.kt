@@ -1,7 +1,8 @@
 package insyncwithfoo.ryecharm
 
 
-private typealias PEP508Name = String
+internal typealias PEP508Name = String
+internal typealias PackageName = PEP508Name
 
 
 // https://peps.python.org/pep-0508/#names

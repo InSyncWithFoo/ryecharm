@@ -77,6 +77,21 @@ internal class UVTest : CommandFactoryTest() {
     }
     
     @Test
+    fun `test pip tree`() {
+        val `package` = randomPEP508Name()
+        val inverted = boolean
+        val command = uv.pipTree(`package`, inverted)
+        
+        val arguments = command.arguments
+        
+        assertTrue(arguments include listOf("--package", `package`))
+        
+        if (inverted) {
+            assertContains(arguments, "--invert")
+        }
+    }
+    
+    @Test
     fun `test version`() {
         val command = uv.version()
         

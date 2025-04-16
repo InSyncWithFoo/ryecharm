@@ -32,12 +32,30 @@ internal fun HTML.toDocumentationResult() =
     DocumentationResult.documentation(this)
 
 
-internal fun Markdown.wrappedInCodeBlock(language: String): Markdown =
-    """
-    |```${language}
-    |$this
-    |```
+private fun String.computeCodeBlockFence(): String {
+    var count = 3
+    
+    while (true) {
+        val fence = "`".repeat(count)
+        
+        if (fence !in this) {
+            return fence
+        }
+        
+        count++
+    }
+}
+
+
+internal fun Markdown.wrappedInCodeBlock(language: String): Markdown {
+    val fence = this.computeCodeBlockFence()
+    
+    return """
+        |${fence}${language}
+        |$this
+        |${fence}
     """.trimMargin()
+}
 
 
 internal fun HTML.removeSurroundingTag(tag: String): HTML =
@@ -105,6 +123,11 @@ internal class Popup : Element("div") {
         child(::Bottom, block)
     }
     
+}
+
+
+internal fun Popup.definition(content: String, language: String) {
+    definition(content.wrappedInCodeBlock(language).toHTML().removeSurroundingTag("pre"))
 }
 
 

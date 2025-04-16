@@ -1,5 +1,7 @@
 package insyncwithfoo.ryecharm
 
+import com.intellij.psi.PsiElement
+import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlKey
 
 
@@ -39,7 +41,7 @@ private val TOMLPath.isKnownUVDependencyArrayKey: Boolean
 
 
 /**
- * Whether the given key is one of the following:
+ * Whether the given key matches one of the following:
  *
  * * `project.dependencies`
  * * `project.optional-dependencies.*`
@@ -64,4 +66,18 @@ internal val TomlKey.isPairedWithDependencySpecifierArray: Boolean
             
             else -> false
         }
+    }
+
+
+/**
+ * @see isPairedWithDependencySpecifierArray
+ */
+internal val PsiElement.isDependencySpecifierString: Boolean
+    get() {
+        val literal = wrappingTomlLiteral ?: return false
+        val string = literal.takeIf { it.isString } ?: return false
+        val array = string.parent as? TomlArray ?: return false
+        val key = array.keyValuePair?.key ?: return false
+        
+        return key.isPairedWithDependencySpecifierArray
     }

@@ -6,19 +6,15 @@ import com.intellij.lang.injection.general.SimpleInjection
 import com.intellij.psi.PsiElement
 import com.jetbrains.python.requirements.RequirementsLanguage
 import insyncwithfoo.ryecharm.configurations.main.mainConfigurations
-import insyncwithfoo.ryecharm.isPairedWithDependencySpecifierArray
-import insyncwithfoo.ryecharm.isString
-import insyncwithfoo.ryecharm.keyValuePair
+import insyncwithfoo.ryecharm.isDependencySpecifierString
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersionInlayHintsProvider
-import org.toml.lang.psi.TomlArray
-import org.toml.lang.psi.TomlLiteral
 
 
 // Upstream issue: https://youtrack.jetbrains.com/issue/PY-71120
 /**
  * Inject *Requirements* fragments for known arrays of PEP 508 specifiers.
  * 
- * @see isPairedWithDependencySpecifierArray
+ * @see isDependencySpecifierString
  * @see DependencyVersionInlayHintsProvider
  */
 internal class RequirementsInjector : LanguageInjectionContributor {
@@ -31,12 +27,7 @@ internal class RequirementsInjector : LanguageInjectionContributor {
             return null
         }
         
-        val literal = context as? TomlLiteral ?: return null
-        val string = literal.takeIf { it.isString } ?: return null
-        val array = string.parent as? TomlArray ?: return null
-        val key = array.keyValuePair?.key ?: return null
-        
-        if (!key.isPairedWithDependencySpecifierArray) {
+        if (!context.isDependencySpecifierString) {
             return null
         }
         

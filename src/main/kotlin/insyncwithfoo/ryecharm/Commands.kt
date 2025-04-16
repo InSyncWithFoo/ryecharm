@@ -69,6 +69,7 @@ private fun CharArray.toByteArrayAndClear(): ByteArray {
  */
 internal abstract class Command {
     
+    // TODO: Refactor this to `subcommands`
     /**
      * @see shortenedForm
      */

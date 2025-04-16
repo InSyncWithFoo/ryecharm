@@ -78,6 +78,11 @@
 			language="Python"
 			implementationClass="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptGutterRunButtonsProvider"
 		/>
+		
+		<platform.backend.documentation.targetProvider
+			id="insyncwithfoo.ryecharm.uv.documentation.DependencyTreeDocumentationTargetProvider"
+			implementation="insyncwithfoo.ryecharm.uv.documentation.DependencyTreeDocumentationTargetProvider"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
