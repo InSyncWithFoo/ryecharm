@@ -86,6 +86,7 @@ nav:
     - Intentions: uv/intentions.md
     - Inspections: uv/inspections.md
     - Run configurations: uv/run-configurations.md
+    - Documentation: uv/documentation.md
   - Rye:
     - Rye integration: rye/index.md
     - Actions: rye/actions.md

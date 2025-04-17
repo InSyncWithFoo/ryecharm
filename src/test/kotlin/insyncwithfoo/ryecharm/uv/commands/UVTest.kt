@@ -79,8 +79,10 @@ internal class UVTest : CommandFactoryTest() {
     @Test
     fun `test pip tree`() {
         val `package` = randomPEP508Name()
-        val inverted = boolean
-        val command = uv.pipTree(`package`, inverted)
+        val (inverted, showVersionSpecifiers, showLatestVersions, dedupe) = listOf(boolean, boolean, boolean, boolean)
+        val depth = (0..10000).random()
+        
+        val command = uv.pipTree(`package`, inverted, showVersionSpecifiers, showLatestVersions, dedupe, depth)
         
         val arguments = command.arguments
         
@@ -88,9 +90,22 @@ internal class UVTest : CommandFactoryTest() {
         assertEquals(projectPath, command.workingDirectory)
         
         assertTrue(arguments include listOf("--package", `package`))
+        assertTrue(arguments include listOf("--depth", depth.toString()))
         
         if (inverted) {
             assertContains(arguments, "--invert")
+        }
+        
+        if (showVersionSpecifiers) {
+            assertContains(arguments, "--show-version-specifiers")
+        }
+        
+        if (showLatestVersions) {
+            assertContains(arguments, "--outdated")
+        }
+        
+        if (!dedupe) {
+            assertContains(arguments, "--no-dedupe")
         }
     }
     
