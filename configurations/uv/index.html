@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/icon-black.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -555,6 +555,8 @@
       
         
       
+        
+      
     
     
     
@@ -679,6 +681,29 @@
   
   <span class="md-ellipsis">
     Run configurations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uv/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
     
   </span>
   
@@ -964,6 +989,81 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#main-functionalities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main functionalities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Main functionalities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-dependency-tree-popups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show dependency tree popups
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Show dependency tree popups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-version-specifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show version specifiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-latest-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show latest versions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hide-duplicated-subtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hide duplicated subtrees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Max depth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-inverted-tree-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show inverted tree first
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1112,6 +1212,81 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#main-functionalities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main functionalities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Main functionalities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-dependency-tree-popups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show dependency tree popups
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Show dependency tree popups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-version-specifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show version specifiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-latest-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show latest versions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hide-duplicated-subtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hide duplicated subtrees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Max depth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-inverted-tree-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show inverted tree first
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1158,6 +1333,56 @@ to find one in the following order:</p>
 <h2 id="configuration-file">Configuration file<a class="headerlink" href="#configuration-file" title="Permanent link">#</a></h2>
 <p>If specified, this file will be passed to uv on every invocation.</p>
 <p>This corresponds to the <code>--config-file</code> command-line option.</p>
+<h2 id="main-functionalities">Main functionalities<a class="headerlink" href="#main-functionalities" title="Permanent link">#</a></h2>
+<h3 id="show-dependency-tree-popups">Show dependency tree popups<a class="headerlink" href="#show-dependency-tree-popups" title="Permanent link">#</a></h3>
+<p>Whether dependency trees should be shown (in the form of documentation popups)
+when a dependency specifier is hovered.</p>
+<p>Default: <code>true</code></p>
+<div class="admonition info">
+<p class="admonition-title">See <i><a href="../../uv/documentation/#dependency-trees">Documentation</a></i> for more information.</p>
+</div>
+<h4 id="show-version-specifiers">Show version specifiers<a class="headerlink" href="#show-version-specifiers" title="Permanent link">#</a></h4>
+<p>Whether version specifiers should be shown
+next to each package node in dependency trees.</p>
+<p>This corresponds to the <code>--show-version-specifiers</code> command-line option.</p>
+<p>Default: <code>true</code></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="show-version-specifiers-enabled" name="__tabbed_1" type="radio" /><input id="show-version-specifiers-disabled" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="show-version-specifiers-enabled">Enabled</label><label for="show-version-specifiers-disabled">Disabled</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/uv-documentation-demo-dependency-trees-dependencies.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/configurations-uv-show-version-specifiers-for-dependencies-demo-disabled.png" /></p>
+</div>
+</div>
+</div>
+<h4 id="show-latest-versions">Show latest versions<a class="headerlink" href="#show-latest-versions" title="Permanent link">#</a></h4>
+<p>Whether the latest version should be shown next to each package node
+in dependency trees if the installed version is not latest.</p>
+<p>This corresponds to the <code>--outdated</code> command-line option.</p>
+<p>Default: <code>false</code></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="show-latest-versions-enabled" name="__tabbed_2" type="radio" /><input id="show-latest-versions-disabled" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="show-latest-versions-enabled">Enabled</label><label for="show-latest-versions-disabled">Disabled</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/configurations-uv-show-latest-versions-for-dependencies-demo-enabled.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="" src="../../assets/uv-documentation-demo-dependency-trees-dependencies.png" /></p>
+</div>
+</div>
+</div>
+<h4 id="hide-duplicated-subtrees">Hide duplicated subtrees<a class="headerlink" href="#hide-duplicated-subtrees" title="Permanent link">#</a></h4>
+<p>Whether dependency subtrees that have already been shown should be shown again.</p>
+<p>This corresponds to the <code>--no-dedupe</code> command-line option.</p>
+<p>Default: <code>true</code></p>
+<h4 id="max-depth">Max depth<a class="headerlink" href="#max-depth" title="Permanent link">#</a></h4>
+<p>The maximum depth of the dependency trees.</p>
+<p>This corresponds to the <code>--depth</code> command-line option.</p>
+<p>Default: 255</p>
+<h4 id="show-inverted-tree-first">Show inverted tree first<a class="headerlink" href="#show-inverted-tree-first" title="Permanent link">#</a></h4>
+<p>Whether the tree that displays the current package's dependants
+should be shown first.</p>
+<p>Default: <code>false</code></p>
 
 
 
