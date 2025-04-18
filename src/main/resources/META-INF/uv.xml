@@ -41,9 +41,9 @@
 			shortName="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
 			
 			language="TOML"
-			groupName="RyeCharm"
 			
 			bundle="messages.ryecharm"
+			groupKey="inspections.group.name"
 			key="inspections.uvDevDependencies.displayName"
 			
 			enabledByDefault="true"

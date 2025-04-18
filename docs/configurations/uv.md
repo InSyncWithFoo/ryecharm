@@ -64,7 +64,7 @@ Default: `false`
 
 #### Hide duplicated subtrees
 
-Whether dependency subtrees that have already been shown should be shown again.
+Whether dependency subtrees that have already been shown should be hidden.
 
 This corresponds to the `--no-dedupe` command-line option.
 

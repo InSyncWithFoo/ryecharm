@@ -65,9 +65,9 @@
 			shortName="insyncwithfoo.ryecharm.others.dependencygroups.DependencyGroupInspection"
 			
 			language="TOML"
-			groupName="RyeCharm"
 			
 			bundle="messages.ryecharm"
+			groupKey="inspections.group.name"
 			key="inspections.dependencyGroupNames.displayName"
 			
 			enabledByDefault="true"

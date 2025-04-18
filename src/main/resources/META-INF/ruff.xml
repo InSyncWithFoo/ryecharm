@@ -18,9 +18,9 @@
 			shortName="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
 			
 			language=""
-			groupName="RyeCharm"
 			
 			bundle="messages.ryecharm"
+			groupKey="inspections.group.name"
 			key="inspections.ruff.local.displayName"
 			
 			enabledByDefault="true"
@@ -34,9 +34,9 @@
 			shortName="insyncwithfoo.ryecharm.ruff.linting.RuffGlobalInspection"
 			
 			language=""
-			groupName="RyeCharm"
 			
 			bundle="messages.ryecharm"
+			groupKey="inspections.group.name"
 			key="inspections.ruff.global.displayName"
 			
 			enabledByDefault="true"
