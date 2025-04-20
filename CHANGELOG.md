@@ -14,6 +14,71 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-12] - 2025-04-20
+
+See [the documentation][0.1.0-a12-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.11.6][0.1.0-a12-2]
+* uv: [0.6.14][0.1.0-a12-3]
+* Rye: [0.44.0][0.1.0-a12-4]
+
+
+### Added
+
+* Standalone scripts ([PEP 723][0.1.0-a12-a-1] scripts)
+  can now be run as uv run configurations.
+* Rule codes in rule violation tooltips are now hyperlinked.
+  Clicking on this link would show the description of that rule.
+  Note that the link is only available when "Render tooltips" is enabled
+  and the tooltip format includes the code.
+* Dependency trees are now shown for specifiers in arrays
+  paired with the following TOML keys:
+
+  * `project.dependencies`
+  * `project.optional-dependencies.*`
+  * `build-system.requires`
+  * `dependency-groups.*`
+  * \[`tool`] `uv.constraint-dependencies`
+  * \[`tool`] `uv.dev-dependencies`
+  * \[`tool`] `uv.override-dependencies`
+  * \[`tool`] `uv.upgrade-package`
+  * \[`tool`] `uv.pip.upgrade-package`
+
+  The command line options to be used can be configured
+  using relevant settings in the <i>uv</i> panel.
+
+
+### Changed
+
+* RyeCharm will now log a user-visible error
+  if Ruff outputs path-less diagnostics during global inspection.
+  This behaviour is expected to be exceedingly rare, if not non-existent.
+
+
+### Fixed
+
+* Previously, [`W191`][0.1.0-a12-f-1] violations might not be
+  displayed correctly. This has been fixed.
+
+
+### Removed
+
+* The inspection named "Ruff inspection" has been removed.
+  Previously, if this inspection were disabled,
+  no diagnostics would be shown in <i>Command line</i> mode.
+  The recommended alternative is to disable the "Linting" setting.
+
+
+  [0.1.0-a12-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a12-2]: https://github.com/astral-sh/ruff/releases/tag/0.11.6
+  [0.1.0-a12-3]: https://github.com/astral-sh/uv/releases/tag/0.6.14
+  [0.1.0-a12-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a12-a-1]: https://peps.python.org/pep-0723/
+  [0.1.0-a12-f-1]: https://docs.astral.sh/ruff/rules/too-many-newlines-at-end-of-file/
+
+
 ## [0.1.0-alpha-11] - 2025-04-06
 
 See [the documentation][0.1.0-a11-1] for more information.
@@ -29,12 +94,12 @@ Latest tool versions at the time of release:
 
 * RyeCharm can now be configured to offer unsafe fixes
   in an editor context even if configuration files say otherwise.
-* <i>[Inspect Code...][0.1.0-a11-5]</i> will now also run Ruff.
+* <i>[Inspect Code...][0.1.0-a11-a-1]</i> will now also run Ruff.
 * Project scripts and global tools can now be run as uv run configurations.
   For project scripts, they can be configured automatically
   using either run line markers shown in `pyproject.toml` or
   the corresponding actions in the menu when a subkey is right-clicked.
-* PEP 751's `pylock.toml` now has a specialized icon.
+* [PEP 751][0.1.0-a11-a-2]'s `pylock.toml` now has a specialized icon.
 
 
 ### Changed
@@ -48,7 +113,7 @@ Latest tool versions at the time of release:
 * "Fix all", "Organize imports" and "Fix all similar violations"
   intentions now work correctly for injected files.
 * Ruff's annotator will now also run on `pyproject.toml`
-  with regards to the [`RUF200`][0.1.0-a11-7] rule.
+  with regards to the [`RUF200`][0.1.0-a11-f-1] rule.
 * Previously, due to a logic error, a `NullPointerException` might be thrown
   in certain circumstances. This has been fixed.
 
@@ -57,9 +122,9 @@ Latest tool versions at the time of release:
   [0.1.0-a11-2]: https://github.com/astral-sh/ruff/releases/tag/0.11.4
   [0.1.0-a11-3]: https://github.com/astral-sh/uv/releases/tag/0.6.12
   [0.1.0-a11-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
-  [0.1.0-a11-5]: https://www.jetbrains.com/help/pycharm/running-inspections.html#run-all-inspections
-  [0.1.0-a11-6]: https://peps.python.org/pep-0751/
-  [0.1.0-a11-7]: https://docs.astral.sh/ruff/rules/invalid-pyproject-toml
+  [0.1.0-a11-a-1]: https://www.jetbrains.com/help/pycharm/running-inspections.html#run-all-inspections
+  [0.1.0-a11-a-2]: https://peps.python.org/pep-0751/
+  [0.1.0-a11-f-1]: https://docs.astral.sh/ruff/rules/invalid-pyproject-toml
 
 
 ## [0.1.0-alpha-10] - 2025-03-23
@@ -610,7 +675,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-12..HEAD
+  [0.1.0-alpha-12]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..v0.1.0-alpha-12
   [0.1.0-alpha-11]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..v0.1.0-alpha-11
   [0.1.0-alpha-10]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..v0.1.0-alpha-10
   [0.1.0-alpha-9]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..v0.1.0-alpha-9

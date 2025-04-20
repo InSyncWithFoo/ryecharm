@@ -14,6 +14,18 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-12] - 2025-04-20
+
+### Dependencies
+
+* [Material for MkDocs][_0.1.0-a12-d1]: 9.6.6 &rarr; 9.6.11
+* [Foojay Toolchains][_0.1.0-a12-d2]: 0.8.0 &rarr; 0.9.0
+
+
+  [_0.1.0-a12-d1]: https://github.com/squidfunk/mkdocs-material
+  [_0.1.0-a12-d2]: https://github.com/gradle/foojay-toolchains
+
+
 ## [0.1.0-alpha-11] - 2025-04-06
 
 ### Dependencies
@@ -236,7 +248,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-12..HEAD
+  [0.1.0-alpha-12]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..v0.1.0-alpha-12
   [0.1.0-alpha-11]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..v0.1.0-alpha-11
   [0.1.0-alpha-10]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..v0.1.0-alpha-10
   [0.1.0-alpha-9]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-8..v0.1.0-alpha-9
