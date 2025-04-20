@@ -67,5 +67,5 @@ internal fun Document.rangeIsAfterEndOfLine(range: TextRange): Boolean {
     val rangeIsAtEOF = range.endOffset == textLength
     val rangeIsAtLineBreak = charsSequence.getOrNull(range.startOffset) == '\n'
     
-    return range.isEmpty && (rangeIsAtEOF || rangeIsAtLineBreak)
+    return rangeIsAtEOF || rangeIsAtLineBreak
 }
