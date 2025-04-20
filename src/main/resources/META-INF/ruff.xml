@@ -12,23 +12,6 @@
 			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
 		/>
 		
-		<localInspection
-			id="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
-			suppressId="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
-			shortName="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
-			
-			language=""
-			
-			bundle="messages.ryecharm"
-			groupKey="inspections.group.name"
-			key="inspections.ruff.local.displayName"
-			
-			enabledByDefault="true"
-			level="WARNING"
-			
-			implementationClass="insyncwithfoo.ryecharm.ruff.linting.RuffInspection"
-		/>
-		
 		<globalInspection
 			id="insyncwithfoo.ryecharm.ruff.linting.RuffGlobalInspection"
 			shortName="insyncwithfoo.ryecharm.ruff.linting.RuffGlobalInspection"

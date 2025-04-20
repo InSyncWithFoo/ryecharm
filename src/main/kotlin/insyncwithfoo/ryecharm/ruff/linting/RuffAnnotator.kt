@@ -48,9 +48,6 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
     private val highlightSeverity = HighlightSeverity.WARNING
     private val problemHighlightType = ProblemHighlightType.WARNING
     
-    override fun getPairedBatchInspectionShortName() =
-        RuffInspection.SHORT_NAME
-    
     override fun collectInformation(file: PsiFile, editor: Editor, hasErrors: Boolean): InitialInfo? {
         if (!file.canBeLintedByRuff) {
             return null

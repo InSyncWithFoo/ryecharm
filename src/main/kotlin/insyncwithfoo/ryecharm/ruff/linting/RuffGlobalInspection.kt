@@ -36,7 +36,7 @@ internal class RuffGlobalInspection : GlobalSimpleInspectionTool() {
     
     override fun isReadActionNeeded() = false
     
-    override fun getSharedLocalInspectionTool() = RuffInspection()
+    override fun getSharedLocalInspectionTool() = null
     
     override fun worksInBatchModeOnly() = true
     

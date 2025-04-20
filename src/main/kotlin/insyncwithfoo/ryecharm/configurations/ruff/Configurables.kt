@@ -7,7 +7,6 @@ import insyncwithfoo.ryecharm.configurations.copy
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.openProjects
 import insyncwithfoo.ryecharm.restartNativeServers
-import insyncwithfoo.ryecharm.ruff.linting.ruffInspectionisEnabled
 import insyncwithfoo.ryecharm.ruff.lsp.RuffServerSupportProvider
 import insyncwithfoo.ryecharm.ruff.lsp4ij.SERVER_ID
 import insyncwithfoo.ryecharm.toggleLSP4IJServers
@@ -34,9 +33,6 @@ internal class RuffConfigurable : PanelBasedConfigurable<RuffConfigurations>() {
         syncStateWithService(state, service.state)
         
         openProjects.forEach { project ->
-            // FIXME: Is toggling for all projects the correct thing to do?
-            project.ruffInspectionisEnabled = state.runningMode == RunningMode.COMMAND_LINE
-            
             project.toggleServers()
         }
     }
@@ -58,8 +54,6 @@ internal class RuffProjectConfigurable(override val project: Project) :
     override fun afterApply() {
         syncStateWithService(state, service.state)
         syncStateWithService(overrideState, overrideService.state)
-        
-        project.ruffInspectionisEnabled = state.runningMode == RunningMode.COMMAND_LINE
         
         project.toggleServers()
     }
