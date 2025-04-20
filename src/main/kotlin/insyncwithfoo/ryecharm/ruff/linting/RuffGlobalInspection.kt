@@ -9,6 +9,7 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.codeInspection.ex.ProblemDescriptorImpl
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.TextRange
@@ -153,10 +154,15 @@ internal class RuffGlobalInspection : GlobalSimpleInspectionTool() {
         val results = globalContext.getUserData(RESULTS) ?: return
         val diagnosticsWithNoPaths = results[null] ?: return
         
-        val logger = manager.project.ruffLogger
+        manager.project.ruffLogger?.let {
+            it.debug("Diagnostics with no path returned during global inspection:")
+            it.debug(diagnosticsWithNoPaths.stringifyToJSON())
+        }
         
-        logger?.debug("Diagnostics with no path returned during global inspection:")
-        logger?.debug(diagnosticsWithNoPaths.stringifyToJSON())
+        thisLogger().error(
+            "Ruff output some diagnostics with no paths. " +
+            "Open the \"RyeCharm logs\" tool window and redo the inspection to see what they are."
+        )
     }
     
 }
