@@ -103,10 +103,6 @@ internal val Project.fileEditorManager: FileEditorManager
     get() = FileEditorManager.getInstance(this)
 
 
-internal val Project.inspectionProfileManager: ProjectInspectionProfileManager
-    get() = ProjectInspectionProfileManager.getInstance(this)
-
-
 /**
  * Return the first file in the project's environment
  * whose name without extension matches the given name.

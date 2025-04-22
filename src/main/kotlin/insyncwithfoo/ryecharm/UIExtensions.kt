@@ -13,16 +13,18 @@ import com.intellij.ui.dsl.builder.bindText
 import javax.swing.JComponent
 
 
+@Suppress("UnstableApiUsage")
 internal fun Row.singleFileTextField(): Cell<TextFieldWithBrowseButton> {
-    val fileChooserDescriptor = FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor()
+    val fileChooserDescriptor = FileChooserDescriptorFactory.singleFile()
     val (project, fileChosen) = Pair(null, null)
     
     return textFieldWithBrowseButton(fileChooserDescriptor, project, fileChosen)
 }
 
 
+@Suppress("UnstableApiUsage")
 internal fun Row.singleFolderTextField(): Cell<TextFieldWithBrowseButton> {
-    val fileChooserDescriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+    val fileChooserDescriptor = FileChooserDescriptorFactory.singleDir()
     val (project, fileChosen) = Pair(null, null)
     
     return textFieldWithBrowseButton(fileChooserDescriptor, project, fileChosen)
