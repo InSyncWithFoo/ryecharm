@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.PackageName
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.definition
+import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.popup
@@ -46,7 +47,8 @@ internal class DependencyTreeDocumentationTarget(
             showVersionSpecifiers = configurations.showVersionSpecifiersForDependencies,
             showLatestVersions = configurations.showLatestVersionsForDependencies,
             dedupe = configurations.dedupeDependencyTrees,
-            depth = configurations.dependencyTreeDepth
+            depth = configurations.dependencyTreeDepth,
+            interpreter = interpreterPath
         )
         
         val output = runUnderIOThread {

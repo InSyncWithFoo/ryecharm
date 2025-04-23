@@ -81,8 +81,17 @@ internal class UVTest : CommandFactoryTest() {
         val `package` = randomPEP508Name()
         val (inverted, showVersionSpecifiers, showLatestVersions, dedupe) = listOf(boolean, boolean, boolean, boolean)
         val depth = (0..10000).random()
+        val interpreter = randomPath().orRandomlyNull()
         
-        val command = uv.pipTree(`package`, inverted, showVersionSpecifiers, showLatestVersions, dedupe, depth)
+        val command = uv.pipTree(
+            `package`,
+            inverted,
+            showVersionSpecifiers,
+            showLatestVersions,
+            dedupe,
+            depth,
+            interpreter
+        )
         
         val arguments = command.arguments
         
@@ -106,6 +115,12 @@ internal class UVTest : CommandFactoryTest() {
         
         if (!dedupe) {
             assertContains(arguments, "--no-dedupe")
+        }
+        
+        if (interpreter != null) {
+            assertTrue(arguments include listOf("--python", interpreter.toString()))
+        } else {
+            assertTrue("--python" !in arguments)
         }
     }
     

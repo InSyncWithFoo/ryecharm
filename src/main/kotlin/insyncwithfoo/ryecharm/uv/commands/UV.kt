@@ -140,7 +140,8 @@ internal class UV private constructor(
         showVersionSpecifiers: Boolean,
         showLatestVersions: Boolean,
         dedupe: Boolean,
-        depth: Int
+        depth: Int,
+        interpreter: Path?
     ): Command {
         val arguments = CommandArguments("--package" to `package`, "--depth" to depth.toString())
         
@@ -158,6 +159,10 @@ internal class UV private constructor(
         
         if (!dedupe) {
             arguments += "--no-dedupe"
+        }
+        
+        if (interpreter != null) {
+            arguments["--python"] = interpreter.toString()
         }
         
         return PipTreeCommand().build(arguments)
