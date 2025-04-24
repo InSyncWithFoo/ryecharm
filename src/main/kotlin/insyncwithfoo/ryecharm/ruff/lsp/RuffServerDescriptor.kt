@@ -13,7 +13,6 @@ import insyncwithfoo.ryecharm.ruff.createInitializationOptionsObject
 import java.nio.file.Path
 
 
-@Suppress("UnstableApiUsage")
 internal class RuffServerDescriptor(project: Project, private val executable: Path) :
     ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME) {
     

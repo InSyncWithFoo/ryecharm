@@ -8,7 +8,6 @@ import insyncwithfoo.ryecharm.configurations.redknot.RedKnotConfigurable
 import insyncwithfoo.ryecharm.message
 
 
-@Suppress("UnstableApiUsage")
 internal class WidgetItem(lspServer: LspServer, currentFile: VirtualFile?) :
     LspServerWidgetItem(lspServer, currentFile, AllIcons.Json.Object, RedKnotConfigurable::class.java) {
     

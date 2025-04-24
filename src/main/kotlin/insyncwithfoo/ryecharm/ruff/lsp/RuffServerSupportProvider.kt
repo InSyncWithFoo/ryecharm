@@ -11,7 +11,6 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruffExecutable
 
 
-@Suppress("UnstableApiUsage")
 internal class RuffServerSupportProvider : LspServerSupportProvider {
     
     override fun createLspServerWidgetItem(lspServer: LspServer, currentFile: VirtualFile?) =

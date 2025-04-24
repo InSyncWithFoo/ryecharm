@@ -60,7 +60,6 @@ internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, An
         return InitialInfo(project, virtualFile)
     }
     
-    @Suppress("UnstableApiUsage")
     override fun doAnnotate(collectedInfo: InitialInfo?): AnnotationResult? {
         val (project, file) = collectedInfo ?: return null
         

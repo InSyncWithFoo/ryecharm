@@ -14,7 +14,6 @@ import org.eclipse.lsp4j.DiagnosticCapabilities
 import java.nio.file.Path
 
 
-@Suppress("UnstableApiUsage")
 internal class RedKnotServerDescriptor(project: Project, private val executable: Path) :
     ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME) {
     

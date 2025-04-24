@@ -12,7 +12,6 @@ import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRedKnot
 
 
-@Suppress("UnstableApiUsage")
 internal class RedKnotServerSupportProvider : LspServerSupportProvider {
     
     override fun createLspServerWidgetItem(lspServer: LspServer, currentFile: VirtualFile?) =

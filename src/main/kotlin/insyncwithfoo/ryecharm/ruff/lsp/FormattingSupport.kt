@@ -7,7 +7,6 @@ import insyncwithfoo.ryecharm.canBeFormattedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 
 
-@Suppress("UnstableApiUsage")
 internal class FormattingSupport(private val project: Project) : LspFormattingSupport() {
     
     private val configurations = project.ruffConfigurations

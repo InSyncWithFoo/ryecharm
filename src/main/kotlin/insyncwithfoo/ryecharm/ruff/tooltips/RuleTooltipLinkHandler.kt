@@ -2,11 +2,11 @@ package insyncwithfoo.ryecharm.ruff.tooltips
 
 import com.intellij.codeInsight.highlighting.TooltipLinkHandler
 import com.intellij.openapi.editor.Editor
+import insyncwithfoo.ryecharm.DocumentationURI
+import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.documentation.getRuleDocumentationByFullCode
 import insyncwithfoo.ryecharm.ruff.documentation.isRuleSelector
 import insyncwithfoo.ryecharm.toHTML
-import insyncwithfoo.ryecharm.DocumentationURI
-import insyncwithfoo.ryecharm.message
 import kotlinx.coroutines.runBlocking
 
 

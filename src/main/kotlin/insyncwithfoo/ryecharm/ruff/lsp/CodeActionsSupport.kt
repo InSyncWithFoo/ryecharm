@@ -17,7 +17,6 @@ import org.eclipse.lsp4j.CodeAction
  * It is not possible to show applicability in quick fix messages,
  * as applicability is not sent via the LSP.
  */
-@Suppress("UnstableApiUsage")
 internal class CodeActionsSupport(project: Project) : LspCodeActionsSupport() {
     
     private val configurations = project.ruffConfigurations

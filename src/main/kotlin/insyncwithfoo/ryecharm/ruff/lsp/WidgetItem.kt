@@ -8,7 +8,6 @@ import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurable
 import insyncwithfoo.ryecharm.message
 
 
-@Suppress("UnstableApiUsage")
 internal class WidgetItem(lspServer: LspServer, currentFile: VirtualFile?) :
     LspServerWidgetItem(lspServer, currentFile, RuffIcons.TINY_16_WHITE, RuffConfigurable::class.java) {
     

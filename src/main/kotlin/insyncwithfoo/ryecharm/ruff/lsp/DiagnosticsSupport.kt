@@ -18,7 +18,6 @@ import org.eclipse.lsp4j.Diagnostic
 /**
  * @see insyncwithfoo.ryecharm.ruff.lsp4ij.DiagnosticFeature
  */
-@Suppress("UnstableApiUsage")
 internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
     
     private val configurations = project.ruffConfigurations
