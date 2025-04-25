@@ -162,7 +162,7 @@ jobs:
           version: latest
       -
         name: Set up uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v6
       -
         name: Set up Ruff
         run: |
@@ -214,7 +214,7 @@ jobs:
           sed -i -E "s/qodana-jvm/qodana-jvm-community/g" qodana.yaml
       -
         name: Run Qodana
-        uses: JetBrains/qodana-action@v2024.3
+        uses: JetBrains/qodana-action@v2025.1
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
