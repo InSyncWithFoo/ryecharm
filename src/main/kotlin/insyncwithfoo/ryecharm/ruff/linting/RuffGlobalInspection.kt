@@ -19,8 +19,10 @@ import com.intellij.psi.util.startOffset
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
+import insyncwithfoo.ryecharm.saveAllDocumentsAsIs
 import insyncwithfoo.ryecharm.stringifyToJSON
 
 
@@ -49,6 +51,8 @@ internal class RuffGlobalInspection : GlobalSimpleInspectionTool() {
         globalContext: GlobalInspectionContext,
         problemDescriptionsProcessor: ProblemDescriptionsProcessor
     ) {
+        fileDocumentManager.saveAllDocumentsAsIs()
+        
         val project = globalContext.project
         val ruff = project.ruff ?: return
         val configurations = project.ruffConfigurations
