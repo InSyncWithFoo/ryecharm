@@ -33,7 +33,7 @@ internal class ShowVersion : AnAction(), DumbAware {
     }
     
     private fun Project.runCommandAndShowOutput(uv: UV) = launch<ActionCoroutine> {
-        val command = uv.version()
+        val command = uv.selfVersion()
         
         runInBackground(command) { output ->
             notifyIfProcessIsUnsuccessfulOr(command, output) {

@@ -109,7 +109,7 @@
 			id="insyncwithfoo.ryecharm.uv.actions.ShowVersion"
 			class="insyncwithfoo.ryecharm.uv.actions.ShowVersion"
 			text="uv: Show version"
-			description="Show the output of `uv version`"
+			description="Show the output of `uv self version`"
 			icon="AllIcons.General.ShowInfos"
 		/>
 		

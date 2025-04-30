@@ -120,8 +120,8 @@ internal class UV private constructor(
         return VenvCommand().build(arguments)
     }
     
-    fun version() =
-        VersionCommand().build()
+    fun selfVersion() =
+        SelfVersionCommand().build()
     
     fun pipList(python: Path? = null): Command {
         val arguments = CommandArguments("--format", "json", "--quiet")

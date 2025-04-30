@@ -126,9 +126,9 @@ internal class UVTest : CommandFactoryTest() {
     
     @Test
     fun `test version`() {
-        val command = uv.version()
+        val command = uv.selfVersion()
         
-        assertEquals(listOf("version"), command.subcommands)
+        assertEquals(listOf("self", "version"), command.subcommands)
         assertEquals(emptyList<String>(), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }

@@ -74,12 +74,12 @@ internal class VenvCommand : Command(), UVCommand {
 }
 
 
-internal class VersionCommand : Command(), UVCommand {
+internal class SelfVersionCommand : Command(), UVCommand {
     
-    override val subcommands = listOf("version")
+    override val subcommands = listOf("self", "version")
     
     override val runningMessage: String
-        get() = message("progresses.command.uv.version")
+        get() = message("progresses.command.uv.selfVersion")
     
 }
 

@@ -11,6 +11,6 @@ the global uv executable.
 
 Display a message showing the version of the current uv executable.
 
-This is equivalent to running `uv version`.
+This is equivalent to running `uv self version`.
 
 ![](../assets/uv-actions-show-version-demo.png)
