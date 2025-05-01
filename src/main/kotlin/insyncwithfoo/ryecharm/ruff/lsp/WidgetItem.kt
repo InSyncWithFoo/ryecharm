@@ -9,7 +9,8 @@ import insyncwithfoo.ryecharm.message
 
 
 internal class WidgetItem(lspServer: LspServer, currentFile: VirtualFile?) :
-    LspServerWidgetItem(lspServer, currentFile, RuffIcons.TINY_16_WHITE, RuffConfigurable::class.java) {
+    LspServerWidgetItem(lspServer, currentFile, RuffIcons.TINY_16_WHITE, RuffConfigurable::class.java)
+{
     
     private val nameWithVersion: String
         get() = lspServer.initializeResult?.serverInfo?.version

@@ -8,7 +8,8 @@ import insyncwithfoo.ryecharm.uv.run.UVRunIDs
 
 
 internal class UVCustomTaskFactory(type: UVRunConfigurationType) :
-    UVRunConfigurationFactory<UVCustomTaskSettings, UVCustomTask>(type) {
+    UVRunConfigurationFactory<UVCustomTaskSettings, UVCustomTask>(type)
+{
     
     override fun getId() = UVRunIDs.CUSTOM_TASK_FACTORY
     

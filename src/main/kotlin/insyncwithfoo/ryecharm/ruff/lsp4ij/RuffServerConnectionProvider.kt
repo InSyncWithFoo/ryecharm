@@ -7,7 +7,8 @@ import insyncwithfoo.ryecharm.path
 
 
 internal class RuffServerConnectionProvider(commands: List<String>, workingDirectory: String?) :
-    ProcessStreamConnectionProvider(commands, workingDirectory) {
+    ProcessStreamConnectionProvider(commands, workingDirectory)
+{
     
     companion object {
         fun create(project: Project): RuffServerConnectionProvider {

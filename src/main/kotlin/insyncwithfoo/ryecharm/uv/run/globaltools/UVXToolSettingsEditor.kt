@@ -16,7 +16,8 @@ import insyncwithfoo.ryecharm.uv.run.experimentalFeatureDisclaimer
 
 
 internal class UVXToolSettingsEditor(settings: UVXToolSettings, project: Project) :
-    PanelBasedSettingsEditor<UVXToolSettings, UVXTool>(settings, project) {
+    PanelBasedSettingsEditor<UVXToolSettings, UVXTool>(settings, project)
+{
     
     override val panel by lazy { makeComponent() }
     

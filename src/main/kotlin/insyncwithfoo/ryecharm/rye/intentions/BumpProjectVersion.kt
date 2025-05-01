@@ -25,7 +25,8 @@ import insyncwithfoo.ryecharm.unknownError
 
 
 internal abstract class BumpProjectVersion(val bumpType: VersionBumpType) :
-    ExternalIntentionAction, WriteIntentionAction, DumbAware {
+    ExternalIntentionAction, WriteIntentionAction, DumbAware
+{
     
     override fun getFamilyName() =
         "${message("intentions.rye.bumpProjectVersion.familyName")}: $bumpType"

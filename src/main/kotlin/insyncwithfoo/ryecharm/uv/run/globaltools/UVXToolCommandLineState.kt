@@ -5,7 +5,8 @@ import insyncwithfoo.ryecharm.uv.run.UVCommandLineState
 
 
 internal class UVXToolCommandLineState(settings: UVXToolSettings, environment: ExecutionEnvironment) :
-    UVCommandLineState<UVXToolSettings>(settings, environment) {
+    UVCommandLineState<UVXToolSettings>(settings, environment)
+{
     
     override fun startProcess() =
         commandLine.buildProcessHandler {

@@ -5,7 +5,8 @@ import insyncwithfoo.ryecharm.uv.run.UVCommandLineState
 
 
 internal class UVProjectScriptCommandLineState(settings: UVProjectScriptSettings, environment: ExecutionEnvironment) :
-    UVCommandLineState<UVProjectScriptSettings>(settings, environment) {
+    UVCommandLineState<UVProjectScriptSettings>(settings, environment)
+{
     
     override fun startProcess() =
         commandLine.buildProcessHandler {

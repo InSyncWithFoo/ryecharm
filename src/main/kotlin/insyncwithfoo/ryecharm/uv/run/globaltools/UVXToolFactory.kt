@@ -8,7 +8,8 @@ import insyncwithfoo.ryecharm.uv.run.UVRunIDs
 
 
 internal class UVXToolFactory(type: UVRunConfigurationType) :
-    UVRunConfigurationFactory<UVXToolSettings, UVXTool>(type) {
+    UVRunConfigurationFactory<UVXToolSettings, UVXTool>(type)
+{
     
     override fun getId() = UVRunIDs.GLOBAL_TOOL_FACTORY
     

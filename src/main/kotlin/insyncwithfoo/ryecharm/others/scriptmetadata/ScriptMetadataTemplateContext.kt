@@ -17,7 +17,8 @@ import insyncwithfoo.ryecharm.message
  * * The file has yet to have a script metadata block.
  */
 internal class ScriptMetadataTemplateContext :
-    TemplateContextType(message("templates.scriptMetadata.presentableName")) {
+    TemplateContextType(message("templates.scriptMetadata.presentableName"))
+{
     
     override fun createHighlighter() =
         PyHighlighter(LanguageLevel.getLatest())

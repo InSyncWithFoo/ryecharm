@@ -24,7 +24,8 @@ internal class RyeConfigurable : PanelBasedConfigurable<RyeConfigurations>() {
 
 
 internal class RyeProjectConfigurable(override val project: Project) :
-    PanelBasedConfigurable<RyeConfigurations>(), ProjectBasedConfigurable {
+    PanelBasedConfigurable<RyeConfigurations>(), ProjectBasedConfigurable
+{
     
     private val service = RyeLocalService.getInstance(project)
     private val overrideService = RyeOverrideService.getInstance(project)

@@ -15,7 +15,8 @@ import java.nio.file.Path
 
 
 internal class RedKnotServerDescriptor(project: Project, private val executable: Path) :
-    ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME) {
+    ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME)
+{
     
     private val configurations = project.redKnotConfigurations
     

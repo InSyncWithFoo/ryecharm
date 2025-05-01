@@ -7,7 +7,8 @@ import insyncwithfoo.ryecharm.message
 
 
 internal class ActivateRyeCharmLoggingToolWindowAction :
-    ActivateToolWindowAction(RyeCharmLoggingToolWindowFactory.ID) {
+    ActivateToolWindowAction(RyeCharmLoggingToolWindowFactory.ID)
+{
     
     init {
         @Suppress("DialogTitleCapitalization")

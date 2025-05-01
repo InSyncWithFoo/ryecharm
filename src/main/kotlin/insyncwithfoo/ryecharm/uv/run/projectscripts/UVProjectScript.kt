@@ -10,7 +10,8 @@ import insyncwithfoo.ryecharm.uv.run.ValidationError
 
 
 internal class UVProjectScript(name: String, project: Project, factory: UVProjectScriptFactory) :
-    UVRunConfiguration<UVProjectScriptSettings>(name, project, factory) {
+    UVRunConfiguration<UVProjectScriptSettings>(name, project, factory)
+{
     
     override fun getState(executor: Executor, environment: ExecutionEnvironment) =
         UVProjectScriptCommandLineState(settings.copy(), environment)

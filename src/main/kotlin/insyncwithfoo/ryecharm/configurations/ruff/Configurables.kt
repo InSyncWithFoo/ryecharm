@@ -41,7 +41,8 @@ internal class RuffConfigurable : PanelBasedConfigurable<RuffConfigurations>() {
 
 
 internal class RuffProjectConfigurable(override val project: Project) :
-    PanelBasedConfigurable<RuffConfigurations>(), ProjectBasedConfigurable {
+    PanelBasedConfigurable<RuffConfigurations>(), ProjectBasedConfigurable
+{
     
     private val service = RuffLocalService.getInstance(project)
     private val overrideService = RuffOverrideService.getInstance(project)

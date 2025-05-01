@@ -9,7 +9,8 @@ import insyncwithfoo.ryecharm.uv.run.commandInfoInputs
 
 
 internal class UVCustomTaskSettingsEditor(settings: UVCustomTaskSettings, project: Project) :
-    PanelBasedSettingsEditor<UVCustomTaskSettings, UVCustomTask>(settings, project) {
+    PanelBasedSettingsEditor<UVCustomTaskSettings, UVCustomTask>(settings, project)
+{
     
     override val panel by lazy { makeComponent() }
     

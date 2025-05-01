@@ -16,7 +16,8 @@ import insyncwithfoo.ryecharm.uv.run.experimentalFeatureDisclaimer
 
 
 internal class UVStandaloneScriptSettingsEditor(settings: UVStandaloneScriptSettings, project: Project) :
-    PanelBasedSettingsEditor<UVStandaloneScriptSettings, UVStandaloneScript>(settings, project) {
+    PanelBasedSettingsEditor<UVStandaloneScriptSettings, UVStandaloneScript>(settings, project)
+{
     
     override val panel by lazy { makeComponent() }
     

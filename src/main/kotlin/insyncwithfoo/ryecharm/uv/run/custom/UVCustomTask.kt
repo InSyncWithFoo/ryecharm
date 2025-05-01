@@ -10,7 +10,8 @@ import insyncwithfoo.ryecharm.uv.run.ValidationWarning
 
 
 internal class UVCustomTask(name: String, project: Project, factory: UVCustomTaskFactory) :
-    UVRunConfiguration<UVCustomTaskSettings>(name, project, factory) {
+    UVRunConfiguration<UVCustomTaskSettings>(name, project, factory)
+{
     
     override fun getState(executor: Executor, environment: ExecutionEnvironment) =
         UVCustomTaskCommandLineState(settings.copy(), environment)

@@ -24,7 +24,8 @@ internal class MainConfigurable : PanelBasedConfigurable<MainConfigurations>() {
 
 
 internal class MainProjectConfigurable(override val project: Project) :
-    PanelBasedConfigurable<MainConfigurations>(), ProjectBasedConfigurable {
+    PanelBasedConfigurable<MainConfigurations>(), ProjectBasedConfigurable
+{
     
     private val service = MainLocalService.getInstance(project)
     private val overrideService = MainOverrideService.getInstance(project)

@@ -105,7 +105,8 @@ private fun OSProcessHandler.addProcessTerminatedListener(action: CapturingProce
 
 
 private class RuffFormattingTask(private val request: AsyncFormattingRequest, command: Command) :
-    RuffFormatter.FormattingTask() {
+    RuffFormatter.FormattingTask()
+{
     
     private val handler = command.processHandler
     

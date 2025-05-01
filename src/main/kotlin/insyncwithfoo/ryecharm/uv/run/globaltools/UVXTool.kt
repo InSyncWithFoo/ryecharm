@@ -10,7 +10,8 @@ import insyncwithfoo.ryecharm.uv.run.ValidationError
 
 
 internal class UVXTool(name: String, project: Project, factory: UVXToolFactory) :
-    UVRunConfiguration<UVXToolSettings>(name, project, factory) {
+    UVRunConfiguration<UVXToolSettings>(name, project, factory)
+{
     
     override fun getState(executor: Executor, environment: ExecutionEnvironment) =
         UVXToolCommandLineState(settings.copy(), environment)

@@ -37,7 +37,8 @@ private fun Document.appendToLine(line: Int, value: String) {
  * Otherwise, comma-space (`, `) is used.
  */
 internal class RuffDisableRuleComment(private val code: RuleCode, private val offset: ZeroBasedIndex) :
-    LocalQuickFix, HighPriorityAction {
+    LocalQuickFix, HighPriorityAction
+{
     
     override fun getFamilyName() = message("intentions.ruff.disableRuleComment.familyName")
     

@@ -8,7 +8,8 @@ import insyncwithfoo.ryecharm.uv.run.UVRunIDs
 
 
 internal class UVStandaloneScriptFactory(type: UVRunConfigurationType) :
-    UVRunConfigurationFactory<UVStandaloneScriptSettings, UVStandaloneScript>(type) {
+    UVRunConfigurationFactory<UVStandaloneScriptSettings, UVStandaloneScript>(type)
+{
     
     override fun getId() = UVRunIDs.STANDALONE_SCRIPT_FACTORY
     

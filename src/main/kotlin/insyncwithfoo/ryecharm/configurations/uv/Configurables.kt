@@ -24,7 +24,8 @@ internal class UVConfigurable : PanelBasedConfigurable<UVConfigurations>() {
 
 
 internal class UVProjectConfigurable(override val project: Project) :
-    PanelBasedConfigurable<UVConfigurations>(), ProjectBasedConfigurable {
+    PanelBasedConfigurable<UVConfigurations>(), ProjectBasedConfigurable
+{
     
     private val service = UVLocalService.getInstance(project)
     private val overrideService = UVOverrideService.getInstance(project)

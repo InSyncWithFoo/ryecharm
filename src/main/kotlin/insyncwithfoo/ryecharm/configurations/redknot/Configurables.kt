@@ -24,7 +24,8 @@ internal class RedKnotConfigurable : PanelBasedConfigurable<RedKnotConfiguration
 
 
 internal class RedKnotProjectConfigurable(override val project: Project) :
-    PanelBasedConfigurable<RedKnotConfigurations>(), ProjectBasedConfigurable {
+    PanelBasedConfigurable<RedKnotConfigurations>(), ProjectBasedConfigurable
+{
     
     private val service = RedKnotLocalService.getInstance(project)
     private val overrideService = RedKnotOverrideService.getInstance(project)

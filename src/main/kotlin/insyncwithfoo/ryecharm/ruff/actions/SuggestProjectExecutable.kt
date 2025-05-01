@@ -115,7 +115,8 @@ private fun Project.findAndSuggestExecutableOr(callback: () -> Unit) {
  */
 @Suppress("UnstableApiUsage")
 internal class SuggestProjectExecutable(private val project: Project? = null) :
-    AnAction(), PythonPackageManagementListener, ProjectActivity, DumbAware {
+    AnAction(), PythonPackageManagementListener, ProjectActivity, DumbAware
+{
     
     private val doNothing = {}
     
