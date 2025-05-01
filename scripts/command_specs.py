@@ -64,9 +64,9 @@ class _Command(BaseModel):
 
 def _get_version(executable: _Executable) -> str:
 	match executable:
-		case 'ruff' | 'uv':
+		case 'ruff':
 			argument = 'version'
-		case 'uvx' | 'rye':
+		case 'uv' | 'uvx' | 'rye':
 			argument = '--version'
 		case _:
 			raise ValueError
