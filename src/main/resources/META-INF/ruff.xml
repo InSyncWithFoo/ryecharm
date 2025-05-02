@@ -96,114 +96,87 @@
 		<intentionAction>
 			<language/>
 			<className>insyncwithfoo.ryecharm.others.scriptmetadata.EditScriptMetadataFragment</className>
-			<category>RyeCharm</category>
+			<categoryKey>intentions.group</categoryKey>
 			<skipBeforeAfter>true</skipBeforeAfter>
 		</intentionAction>
 		
 		<intentionAction>
 			<language/>
 			<className>insyncwithfoo.ryecharm.ruff.intentions.FixAllSafe</className>
-			<category>RyeCharm</category>
+			<categoryKey>intentions.group</categoryKey>
 		</intentionAction>
 		
 		<intentionAction>
 			<language/>
 			<className>insyncwithfoo.ryecharm.ruff.intentions.FixAllUnsafe</className>
-			<category>RyeCharm</category>
+			<categoryKey>intentions.group</categoryKey>
 		</intentionAction>
 		
 		<intentionAction>
 			<language/>
 			<className>insyncwithfoo.ryecharm.ruff.intentions.OrganizeImports</className>
-			<category>RyeCharm</category>
+			<categoryKey>intentions.group</categoryKey>
 		</intentionAction>
 		
 		<intentionAction>
 			<language/>
 			<className>insyncwithfoo.ryecharm.ruff.intentions.ReenableRule</className>
-			<category>RyeCharm</category>
+			<categoryKey>intentions.group</categoryKey>
 		</intentionAction>
 	</extensions>
 	
 	<actions>
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.ShowExecutable"
 			class="insyncwithfoo.ryecharm.ruff.actions.ShowExecutable"
-			text="Ruff: Show executable"
-			description="Show the Ruff executable that would be used for related operations"
 			icon="AllIcons.General.ShowInfos"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.ShowVersion"
 			class="insyncwithfoo.ryecharm.ruff.actions.ShowVersion"
-			text="Ruff: Show version"
-			description="Show the output of `ruff version`"
 			icon="AllIcons.General.ShowInfos"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.CleanCache"
 			class="insyncwithfoo.ryecharm.ruff.actions.CleanCache"
-			text="Ruff: Clean project cache"
-			description="Clean all caches for this project"
 			icon="AllIcons.Actions.ClearCash"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.ShowLinters"
 			class="insyncwithfoo.ryecharm.ruff.actions.ShowLinters"
-			text="Ruff: Show upstream linters"
-			description="Show a table of all upstream linters that Ruff supports"
 			icon="AllIcons.General.ShowInfos"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.ClearPluginCache"
 			class="insyncwithfoo.ryecharm.ruff.actions.ClearPluginCache"
-			text="Ruff: Clear plugin cache"
-			description="Clear all internal cache stored by the plugin"
 			icon="AllIcons.Actions.ClearCash"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable.Action"
 			class="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
-			text="Ruff: Suggest project executable"
-			description="Find a Ruff executable in the virtual environment and suggest setting that as the project executable"
 			icon="AllIcons.Actions.Search"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.OpenUserConfigurationFile"
 			class="insyncwithfoo.ryecharm.ruff.actions.OpenUserConfigurationFile"
-			text="Ruff: Open user configuration file"
-			description="Open the configuration file that would be used by Ruff when the project has no such file"
 			icon="AllIcons.Actions.Edit"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.FixAllSafe"
 			class="insyncwithfoo.ryecharm.ruff.actions.FixAllSafe"
-			text="Ruff: Fix all safely fixable violations"
-			description="Fix all safely fixable violations found in the current editor"
 			icon="AllIcons.Actions.Edit"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.ruff.actions.FixAllUnsafe"
 			class="insyncwithfoo.ryecharm.ruff.actions.FixAllUnsafe"
-			text="Ruff: Fix all fixable violations, unsafe included"
-			description="Fix all violations found in the current editor, unsafe included"
 			icon="AllIcons.Actions.Edit"
 		/>
 	</actions>

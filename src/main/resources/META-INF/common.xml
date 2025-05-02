@@ -32,7 +32,6 @@
 		<action
 			id="insyncwithfoo.ryecharm.common.logging.ActivateRyeCharmLoggingToolWindowAction"
 			class="insyncwithfoo.ryecharm.common.logging.ActivateRyeCharmLoggingToolWindowAction"
-			text="RyeCharm logs"
 			icon="/icons/other-showLogs-13.svg"
 		>
 			<add-to-group group-id="ActivateToolWindowActions"/>

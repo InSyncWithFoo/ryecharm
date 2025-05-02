@@ -89,36 +89,27 @@
 		<intentionAction>
 			<language/>
 			<className>insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject</className>
-			<category>RyeCharm</category>
+			<categoryKey>intentions.group</categoryKey>
 			<skipBeforeAfter>true</skipBeforeAfter>
 		</intentionAction>
 	</extensions>
 	
 	<actions>
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.uv.actions.ShowExecutable"
 			class="insyncwithfoo.ryecharm.uv.actions.ShowExecutable"
-			text="uv: Show executable"
-			description="Show the uv executable that would be used for related operations"
 			icon="AllIcons.General.ShowInfos"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.uv.actions.ShowVersion"
 			class="insyncwithfoo.ryecharm.uv.actions.ShowVersion"
-			text="uv: Show version"
-			description="Show the output of `uv self version`"
 			icon="AllIcons.General.ShowInfos"
 		/>
 		
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
 			class="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
-			text="uv: Synchronize project"
-			description="Run `uv sync`"
 			icon="AllIcons.Actions.Refresh"
 		/>
 	</actions>
