@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.redknot.commands
+package insyncwithfoo.ryecharm.ty.commands
 
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.message

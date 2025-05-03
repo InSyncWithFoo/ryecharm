@@ -19,8 +19,8 @@ import insyncwithfoo.ryecharm.findChildIgnoringExtension
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.interpreterDirectory
 import insyncwithfoo.ryecharm.path
-import insyncwithfoo.ryecharm.redknot.commands.RedKnot
-import insyncwithfoo.ryecharm.redknot.commands.detectExecutable
+import insyncwithfoo.ryecharm.ty.commands.RedKnot
+import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.detectExecutable
 import insyncwithfoo.ryecharm.rye.commands.Rye

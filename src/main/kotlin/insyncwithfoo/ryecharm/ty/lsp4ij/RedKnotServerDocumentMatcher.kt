@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.redknot.lsp4ij
+package insyncwithfoo.ryecharm.ty.lsp4ij
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile

@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.redknot.lsp
+package insyncwithfoo.ryecharm.ty.lsp
 
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project

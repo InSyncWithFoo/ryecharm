@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.redknot.lsp
+package insyncwithfoo.ryecharm.ty.lsp
 
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator

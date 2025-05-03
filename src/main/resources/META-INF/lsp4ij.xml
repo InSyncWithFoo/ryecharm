@@ -18,18 +18,18 @@
 		
 		<!--suppress PluginXmlCapitalization -->
 		<server
-			id="insyncwithfoo.ryecharm.redknot"
+			id="insyncwithfoo.ryecharm.ty"
 			bundle="messages.ryecharm"
 			nameKey="languageServers.redknot.presentableName"
 			descriptionKey="languageServers.redknot.description"
-			factoryClass="insyncwithfoo.ryecharm.redknot.lsp4ij.RedKnotServerFactory"
+			factoryClass="insyncwithfoo.ryecharm.ty.lsp4ij.RedKnotServerFactory"
 		/>
 		
 		<languageMapping
-			serverId="insyncwithfoo.ryecharm.redknot"
+			serverId="insyncwithfoo.ryecharm.ty"
 			language="Python"
 			languageId="python"
-			documentMatcher="insyncwithfoo.ryecharm.redknot.lsp4ij.RedKnotServerDocumentMatcher"
+			documentMatcher="insyncwithfoo.ryecharm.ty.lsp4ij.RedKnotServerDocumentMatcher"
 		/>
 	</extensions>
 </idea-plugin>

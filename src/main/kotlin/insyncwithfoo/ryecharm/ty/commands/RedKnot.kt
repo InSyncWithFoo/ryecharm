@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.redknot.commands
+package insyncwithfoo.ryecharm.ty.commands
 
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.CommandArguments
