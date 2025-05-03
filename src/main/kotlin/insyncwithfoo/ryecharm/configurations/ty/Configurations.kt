@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.configurations.redknot
+package insyncwithfoo.ryecharm.configurations.ty
 
 import insyncwithfoo.ryecharm.Labeled
 import insyncwithfoo.ryecharm.configurations.Copyable

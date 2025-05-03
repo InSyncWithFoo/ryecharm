@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.configurations.redknot
+package insyncwithfoo.ryecharm.configurations.ty
 
 import com.intellij.openapi.components.RoamingType
 import com.intellij.openapi.components.Service
@@ -10,7 +10,7 @@ import insyncwithfoo.ryecharm.configurations.ConfigurationService
 import insyncwithfoo.ryecharm.configurations.getMergedState
 
 
-@State(name = "insyncwithfoo.ryecharm.configurations.redknot.Global", storages = [Storage("ryecharm.xml")])
+@State(name = "insyncwithfoo.ryecharm.configurations.ty.Global", storages = [Storage("ryecharm.xml")])
 @Service(Service.Level.APP)
 internal class RedKnotGlobalService : ConfigurationService<RedKnotConfigurations>(RedKnotConfigurations()) {
     
@@ -21,7 +21,7 @@ internal class RedKnotGlobalService : ConfigurationService<RedKnotConfigurations
 }
 
 
-@State(name = "insyncwithfoo.ryecharm.configurations.redknot.Local", storages = [Storage("ryecharm.xml")])
+@State(name = "insyncwithfoo.ryecharm.configurations.ty.Local", storages = [Storage("ryecharm.xml")])
 @Service(Service.Level.PROJECT)
 internal class RedKnotLocalService : ConfigurationService<RedKnotConfigurations>(RedKnotConfigurations()) {
     
@@ -33,7 +33,7 @@ internal class RedKnotLocalService : ConfigurationService<RedKnotConfigurations>
 
 
 @State(
-    name = "insyncwithfoo.ryecharm.configurations.redknot.Override",
+    name = "insyncwithfoo.ryecharm.configurations.ty.Override",
     storages = [Storage("ryecharm-overrides.xml", roamingType = RoamingType.DISABLED)]
 )
 @Service(Service.Level.PROJECT)

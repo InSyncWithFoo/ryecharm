@@ -4,7 +4,7 @@ import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.lsWidget.LspServerWidgetItem
-import insyncwithfoo.ryecharm.configurations.redknot.RedKnotConfigurable
+import insyncwithfoo.ryecharm.configurations.ty.RedKnotConfigurable
 import insyncwithfoo.ryecharm.message
 
 

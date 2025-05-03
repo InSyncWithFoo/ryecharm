@@ -1,11 +1,11 @@
 package insyncwithfoo.ryecharm.configurations
 
 import com.intellij.openapi.project.Project
-import insyncwithfoo.ryecharm.configurations.redknot.RedKnotConfigurations
-import insyncwithfoo.ryecharm.configurations.redknot.RedKnotLocalService
-import insyncwithfoo.ryecharm.configurations.redknot.RedKnotOverrideService
-import insyncwithfoo.ryecharm.configurations.redknot.globalRedKnotConfigurations
-import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.RedKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.RedKnotLocalService
+import insyncwithfoo.ryecharm.configurations.ty.RedKnotOverrideService
+import insyncwithfoo.ryecharm.configurations.ty.globalRedKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffLocalService
 import insyncwithfoo.ryecharm.configurations.ruff.RuffOverrideService

@@ -10,15 +10,15 @@ import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRedKnotConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRedKnotOverrides
 import insyncwithfoo.ryecharm.configurations.redKnotExecutable
-import insyncwithfoo.ryecharm.configurations.redknot.RunningMode
-import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.RunningMode
+import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
 
 
 /**
  * The ID of the LSP4IJ server,
  * as registered in `lsp4ij.xml`.
  */
-internal const val SERVER_ID = "${RyeCharm.ID}.redknot"
+internal const val SERVER_ID = "${RyeCharm.ID}.ty"
 
 
 internal class RedKnotServerFactory : LanguageServerFactory, LanguageServerEnablementSupport {

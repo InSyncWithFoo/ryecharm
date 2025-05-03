@@ -5,7 +5,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import insyncwithfoo.ryecharm.common.logging.redKnotLogger
-import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRedKnot
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path

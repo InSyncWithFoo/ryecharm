@@ -67,19 +67,19 @@
 		/>
 		
 		<applicationConfigurable
-			id="insyncwithfoo.ryecharm.configurations.redknot.Global"
+			id="insyncwithfoo.ryecharm.configurations.ty.Global"
 			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
 			bundle="messages.ryecharm"
 			key="configurations.redknot.displayName"
-			instance="insyncwithfoo.ryecharm.configurations.redknot.RedKnotConfigurable"
+			instance="insyncwithfoo.ryecharm.configurations.ty.RedKnotConfigurable"
 		/>
 		
 		<projectConfigurable
-			id="insyncwithfoo.ryecharm.configurations.redknot.Local"
-			parentId="insyncwithfoo.ryecharm.configurations.redknot.Global"
+			id="insyncwithfoo.ryecharm.configurations.ty.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.ty.Global"
 			bundle="messages.ryecharm"
 			key="configurations.project.displayName"
-			instance="insyncwithfoo.ryecharm.configurations.redknot.RedKnotProjectConfigurable"
+			instance="insyncwithfoo.ryecharm.configurations.ty.RedKnotProjectConfigurable"
 		/>
 	</extensions>
 </idea-plugin>

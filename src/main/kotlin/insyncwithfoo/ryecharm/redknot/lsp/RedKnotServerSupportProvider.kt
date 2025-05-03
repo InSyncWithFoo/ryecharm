@@ -6,8 +6,8 @@ import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerSupportProvider
 import com.intellij.platform.lsp.api.LspServerSupportProvider.LspServerStarter
 import insyncwithfoo.ryecharm.configurations.redKnotExecutable
-import insyncwithfoo.ryecharm.configurations.redknot.RunningMode
-import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.RunningMode
+import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRedKnot
 
 

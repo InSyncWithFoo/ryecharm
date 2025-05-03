@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.configurations.redknot
+package insyncwithfoo.ryecharm.configurations.ty
 
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
