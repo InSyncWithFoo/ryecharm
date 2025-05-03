@@ -5,10 +5,10 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerSupportProvider
 import com.intellij.platform.lsp.api.LspServerSupportProvider.LspServerStarter
-import insyncwithfoo.ryecharm.configurations.redKnotExecutable
+import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.configurations.ty.RunningMode
-import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
-import insyncwithfoo.ryecharm.isSupportedByRedKnot
+import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
+import insyncwithfoo.ryecharm.isSupportedByTy
 
 
 internal class TyServerSupportProvider : LspServerSupportProvider {
@@ -17,11 +17,11 @@ internal class TyServerSupportProvider : LspServerSupportProvider {
         WidgetItem(lspServer, currentFile)
     
     override fun fileOpened(project: Project, file: VirtualFile, serverStarter: LspServerStarter) {
-        val configurations = project.redKnotConfigurations
+        val configurations = project.tyConfigurations
         val runningModeIsLSP = configurations.runningMode == RunningMode.LSP
         
-        if (runningModeIsLSP && file.isSupportedByRedKnot(project)) {
-            val executable = project.redKnotExecutable ?: return
+        if (runningModeIsLSP && file.isSupportedByTy(project)) {
+            val executable = project.tyExecutable ?: return
             serverStarter.ensureServerStarted(TyServerDescriptor(project, executable))
         }
     }

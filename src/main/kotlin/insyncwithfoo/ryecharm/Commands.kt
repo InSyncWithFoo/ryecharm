@@ -5,7 +5,7 @@ import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.project.Project
 import com.intellij.util.io.toByteArray
-import insyncwithfoo.ryecharm.common.logging.redKnotLogger
+import insyncwithfoo.ryecharm.common.logging.tyLogger
 import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.common.logging.ryeLogger
 import insyncwithfoo.ryecharm.common.logging.uvLogger
@@ -134,7 +134,7 @@ internal abstract class Command {
             is RuffCommand -> project.ruffLogger
             is UVCommand -> project.uvLogger
             is RyeCommand -> project.ryeLogger
-            is TyCommand -> project.redKnotLogger
+            is TyCommand -> project.tyLogger
             else -> null
         }
         

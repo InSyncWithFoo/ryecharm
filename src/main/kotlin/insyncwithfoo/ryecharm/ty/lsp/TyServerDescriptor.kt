@@ -4,9 +4,9 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
-import insyncwithfoo.ryecharm.common.logging.redKnotLogger
-import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
-import insyncwithfoo.ryecharm.isSupportedByRedKnot
+import insyncwithfoo.ryecharm.common.logging.tyLogger
+import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
+import insyncwithfoo.ryecharm.isSupportedByTy
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import org.eclipse.lsp4j.ClientCapabilities
@@ -18,10 +18,10 @@ internal class TyServerDescriptor(project: Project, private val executable: Path
     ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME)
 {
     
-    private val configurations = project.redKnotConfigurations
+    private val configurations = project.tyConfigurations
     
     init {
-        val logger = project.redKnotLogger
+        val logger = project.tyLogger
         
         logger?.info("Starting Red Knot's language server (native client).")
         logger?.info("")
@@ -45,7 +45,7 @@ internal class TyServerDescriptor(project: Project, private val executable: Path
         }
     
     override fun isSupportedFile(file: VirtualFile) =
-        file.isSupportedByRedKnot(project)
+        file.isSupportedByTy(project)
     
     override fun createInitializationOptions() =
         Object()

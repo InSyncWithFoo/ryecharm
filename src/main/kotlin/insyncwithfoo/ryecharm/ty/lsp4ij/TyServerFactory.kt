@@ -7,11 +7,11 @@ import com.redhat.devtools.lsp4ij.client.LanguageClientImpl
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.configurations.add
-import insyncwithfoo.ryecharm.configurations.changeRedKnotConfigurations
-import insyncwithfoo.ryecharm.configurations.changeRedKnotOverrides
-import insyncwithfoo.ryecharm.configurations.redKnotExecutable
+import insyncwithfoo.ryecharm.configurations.changeTyConfigurations
+import insyncwithfoo.ryecharm.configurations.changeTyOverrides
+import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.configurations.ty.RunningMode
-import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 
 
 /**
@@ -24,21 +24,21 @@ internal const val SERVER_ID = "${RyeCharm.ID}.ty"
 internal class TyServerFactory : LanguageServerFactory, LanguageServerEnablementSupport {
     
     override fun isEnabled(project: Project): Boolean {
-        val configurations = project.redKnotConfigurations
+        val configurations = project.tyConfigurations
         val runningModeIsLSP4IJ = configurations.runningMode == RunningMode.LSP4IJ
-        val executable = project.redKnotExecutable
+        val executable = project.tyExecutable
         
         return runningModeIsLSP4IJ && executable != null
     }
     
     override fun setEnabled(enabled: Boolean, project: Project) {
-        project.changeRedKnotConfigurations {
+        project.changeTyConfigurations {
             runningMode = when {
                 enabled -> RunningMode.LSP4IJ
                 else -> RunningMode.DISABLED
             }
             
-            project.changeRedKnotOverrides { add(::runningMode.name) }
+            project.changeTyOverrides { add(::runningMode.name) }
         }
     }
     

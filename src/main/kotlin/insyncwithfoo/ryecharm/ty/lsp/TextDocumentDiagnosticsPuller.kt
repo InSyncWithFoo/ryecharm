@@ -10,7 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.getServers
-import insyncwithfoo.ryecharm.isSupportedByRedKnot
+import insyncwithfoo.ryecharm.isSupportedByTy
 import insyncwithfoo.ryecharm.lspServerManager
 import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
@@ -42,18 +42,18 @@ internal data class AnnotationResult(
  */
 internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, AnnotationResult>(), DumbAware {
     
-    private val Project.redKnotServer: LspServer?
+    private val Project.tyServer: LspServer?
         get() = lspServerManager.getServers<TyServerSupportProvider>().firstOrNull()
     
     override fun collectInformation(file: PsiFile, editor: Editor, hasErrors: Boolean): InitialInfo? {
         val project = file.project
         val virtualFile = file.virtualFile ?: return null
         
-        if (!file.isSupportedByRedKnot || !virtualFile.isInLocalFileSystem) {
+        if (!file.isSupportedByTy || !virtualFile.isInLocalFileSystem) {
             return null
         }
         
-        if (project.redKnotServer == null) {
+        if (project.tyServer == null) {
             return null
         }
         
@@ -63,7 +63,7 @@ internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, An
     override fun doAnnotate(collectedInfo: InitialInfo?): AnnotationResult? {
         val (project, file) = collectedInfo ?: return null
         
-        val server = project.redKnotServer ?: return null
+        val server = project.tyServer ?: return null
         
         val response = server.sendRequestSync {
             val uri = server.descriptor.getFileUri(file)

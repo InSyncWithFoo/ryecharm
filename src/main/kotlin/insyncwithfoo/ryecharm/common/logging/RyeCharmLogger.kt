@@ -37,7 +37,7 @@ internal enum class ConsoleHolderKind(val tabName: String) {
     RUFF(message("toolWindows.ruff.tabName")),
     UV(message("toolWindows.uv.tabName")),
     RYE(message("toolWindows.rye.tabName")),
-    RED_KNOT(message("toolWindows.ty.tabName"));
+    TY(message("toolWindows.ty.tabName"));
 }
 
 
@@ -79,5 +79,5 @@ internal val Project.ryeLogger: ConsoleHolder?
     get() = pluginLogger.getHolder(ConsoleHolderKind.RYE)
 
 
-internal val Project.redKnotLogger: ConsoleHolder?
-    get() = pluginLogger.getHolder(ConsoleHolderKind.RED_KNOT)
+internal val Project.tyLogger: ConsoleHolder?
+    get() = pluginLogger.getHolder(ConsoleHolderKind.TY)

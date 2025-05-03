@@ -46,9 +46,9 @@ internal class TyOverrideService : ConfigurationService<TyOverrides>(TyOverrides
 }
 
 
-internal val globalRedKnotConfigurations: TyConfigurations
+internal val globalTyConfigurations: TyConfigurations
     get() = TyGlobalService.getInstance().state
 
 
-internal val Project.redKnotConfigurations: TyConfigurations
+internal val Project.tyConfigurations: TyConfigurations
     get() = getMergedState<TyGlobalService, TyLocalService, TyOverrideService, _>()

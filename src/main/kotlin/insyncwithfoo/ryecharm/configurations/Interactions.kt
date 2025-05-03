@@ -4,8 +4,8 @@ import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.configurations.ty.TyConfigurations
 import insyncwithfoo.ryecharm.configurations.ty.TyLocalService
 import insyncwithfoo.ryecharm.configurations.ty.TyOverrideService
-import insyncwithfoo.ryecharm.configurations.ty.globalRedKnotConfigurations
-import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.globalTyConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffLocalService
 import insyncwithfoo.ryecharm.configurations.ruff.RuffOverrideService
@@ -86,8 +86,8 @@ internal val Project.uvExecutable: Path?
 /**
  * The Red Knot executable associated with this project, if it exists.
  */
-internal val Project.redKnotExecutable: Path?
-    get() = redKnotConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
+internal val Project.tyExecutable: Path?
+    get() = tyConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
 
 
 /**
@@ -118,8 +118,8 @@ internal val globalUVExecutable: Path?
  * The Red Knot executable defined in the project panel,
  * or one detected in PATH.
  */
-internal val globalRedKnotExecutable: Path?
-    get() = globalRedKnotConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
+internal val globalTyExecutable: Path?
+    get() = globalTyConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
 
 
 /**
@@ -135,11 +135,11 @@ internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
 }
 
 
-internal fun Project.changeRedKnotConfigurations(action: TyConfigurations.() -> Unit) {
+internal fun Project.changeTyConfigurations(action: TyConfigurations.() -> Unit) {
     TyLocalService.getInstance(this).state.apply(action)
 }
 
 
-internal fun Project.changeRedKnotOverrides(action: Overrides.() -> Unit) {
+internal fun Project.changeTyOverrides(action: Overrides.() -> Unit) {
     TyOverrideService.getInstance(this).state.names.apply(action)
 }

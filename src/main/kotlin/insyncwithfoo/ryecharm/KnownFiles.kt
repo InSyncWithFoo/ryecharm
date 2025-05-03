@@ -122,7 +122,7 @@ internal val VirtualFile.isPyprojectTomlLike: Boolean
 /**
  * Whether the given file can be checked by Red Knot.
  */
-internal fun VirtualFile.isSupportedByRedKnot(project: Project? = null): Boolean {
+internal fun VirtualFile.isSupportedByTy(project: Project? = null): Boolean {
     return isPythonFile
 }
 
@@ -170,10 +170,10 @@ private val PsiFile.isNormalPyFile: Boolean
 
 
 /**
- * Shorthand for [VirtualFile.isSupportedByRedKnot].
+ * Shorthand for [VirtualFile.isSupportedByTy].
  */
-internal val PsiFile.isSupportedByRedKnot: Boolean
-    get() = isNormalPyFile || virtualFile?.isSupportedByRedKnot(project) == true
+internal val PsiFile.isSupportedByTy: Boolean
+    get() = isNormalPyFile || virtualFile?.isSupportedByTy(project) == true
 
 
 /**
