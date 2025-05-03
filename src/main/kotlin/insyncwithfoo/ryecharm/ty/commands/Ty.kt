@@ -32,7 +32,7 @@ internal class Ty private constructor(
 
 
 internal fun Ty.Companion.detectExecutable() =
-    findExecutableInPath("red_knot")
+    findExecutableInPath("ty")
 
 
 internal val Project.ty: Ty?

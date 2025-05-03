@@ -13,7 +13,7 @@ internal class TyServerClient(project: Project) : LanguageClientImpl(project) {
     init {
         val logger = project.tyLogger
         
-        logger?.info("Starting Red Knot's language server (LSP4IJ).")
+        logger?.info("Starting Ty's language server (LSP4IJ).")
         logger?.info("")
         logger?.info("Executable: ${project.tyExecutable}")
         logger?.info("Working directory: ${project.path}")

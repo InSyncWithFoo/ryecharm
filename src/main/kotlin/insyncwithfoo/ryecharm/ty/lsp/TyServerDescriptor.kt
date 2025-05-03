@@ -23,7 +23,7 @@ internal class TyServerDescriptor(project: Project, private val executable: Path
     init {
         val logger = project.tyLogger
         
-        logger?.info("Starting Red Knot's language server (native client).")
+        logger?.info("Starting Ty's language server (native client).")
         logger?.info("")
         logger?.info("Executable: $executable")
         logger?.info("Working directory: ${project.path}")

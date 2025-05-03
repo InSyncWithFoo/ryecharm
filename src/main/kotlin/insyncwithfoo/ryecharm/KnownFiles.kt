@@ -120,7 +120,7 @@ internal val VirtualFile.isPyprojectTomlLike: Boolean
 
 
 /**
- * Whether the given file can be checked by Red Knot.
+ * Whether the given file can be checked by Ty.
  */
 internal fun VirtualFile.isSupportedByTy(project: Project? = null): Boolean {
     return isPythonFile

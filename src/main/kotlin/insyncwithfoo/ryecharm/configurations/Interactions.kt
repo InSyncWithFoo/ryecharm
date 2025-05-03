@@ -84,7 +84,7 @@ internal val Project.uvExecutable: Path?
 
 
 /**
- * The Red Knot executable associated with this project, if it exists.
+ * The Ty executable associated with this project, if it exists.
  */
 internal val Project.tyExecutable: Path?
     get() = tyConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
@@ -115,7 +115,7 @@ internal val globalUVExecutable: Path?
 
 
 /**
- * The Red Knot executable defined in the project panel,
+ * The Ty executable defined in the project panel,
  * or one detected in PATH.
  */
 internal val globalTyExecutable: Path?

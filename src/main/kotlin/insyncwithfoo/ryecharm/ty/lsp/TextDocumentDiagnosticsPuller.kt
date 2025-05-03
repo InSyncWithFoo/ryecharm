@@ -38,7 +38,7 @@ internal data class AnnotationResult(
 // * https://github.com/astral-sh/ruff/issues/16743
 /**
  * A semi-functional implementation of `textDocument/diagnostics`
- * for Red Knot, as it does not support `/pushDiagnostics`.
+ * for Ty, as it does not support `/pushDiagnostics`.
  */
 internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, AnnotationResult>(), DumbAware {
     
