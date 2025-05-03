@@ -7,7 +7,6 @@ import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Panel
 import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.builder.panel
-import insyncwithfoo.ryecharm.RyeCharmRegistry
 import insyncwithfoo.ryecharm.bindSelected
 import insyncwithfoo.ryecharm.bindText
 import insyncwithfoo.ryecharm.configurations.AdaptivePanel
@@ -64,18 +63,7 @@ private fun RedKnotPanel.makeComponent() = panel {
 }
 
 
-private fun makePlaceholderPanel() = panel {
-    row {
-        text(message("configurations.redknot.emptyPanel"), maxLineLength = 80)
-    }
-}
-
-
 internal fun PanelBasedConfigurable<RedKnotConfigurations>.createPanel(state: RedKnotConfigurations): DialogPanel {
     val (project, overrides) = projectAndOverrides
-    
-    return when (RyeCharmRegistry.redknot.panels) {
-        true -> RedKnotPanel(state, overrides, project).makeComponent()
-        else -> makePlaceholderPanel()
-    }
+    return RedKnotPanel(state, overrides, project).makeComponent()
 }

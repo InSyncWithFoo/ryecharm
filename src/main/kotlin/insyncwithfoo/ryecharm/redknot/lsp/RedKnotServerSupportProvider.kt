@@ -5,7 +5,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerSupportProvider
 import com.intellij.platform.lsp.api.LspServerSupportProvider.LspServerStarter
-import insyncwithfoo.ryecharm.RyeCharmRegistry
 import insyncwithfoo.ryecharm.configurations.redKnotExecutable
 import insyncwithfoo.ryecharm.configurations.redknot.RunningMode
 import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
@@ -21,7 +20,7 @@ internal class RedKnotServerSupportProvider : LspServerSupportProvider {
         val configurations = project.redKnotConfigurations
         val runningModeIsLSP = configurations.runningMode == RunningMode.LSP
         
-        if (runningModeIsLSP && RyeCharmRegistry.redknot.panels && file.isSupportedByRedKnot(project)) {
+        if (runningModeIsLSP && file.isSupportedByRedKnot(project)) {
             val executable = project.redKnotExecutable ?: return
             serverStarter.ensureServerStarted(RedKnotServerDescriptor(project, executable))
         }
