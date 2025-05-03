@@ -9,9 +9,9 @@ import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeTyConfigurations
 import insyncwithfoo.ryecharm.configurations.changeTyOverrides
-import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.configurations.ty.RunningMode
 import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
+import insyncwithfoo.ryecharm.configurations.tyExecutable
 
 
 /**

@@ -20,9 +20,9 @@ import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.radioButtonFor
 import insyncwithfoo.ryecharm.radioButtonForPotentiallyUnavailable
+import insyncwithfoo.ryecharm.singleFileTextField
 import insyncwithfoo.ryecharm.ty.commands.Ty
 import insyncwithfoo.ryecharm.ty.commands.detectExecutable
-import insyncwithfoo.ryecharm.singleFileTextField
 
 
 private class TyPanel(state: TyConfigurations, overrides: Overrides?, project: Project?) :

@@ -5,9 +5,9 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerSupportProvider
 import com.intellij.platform.lsp.api.LspServerSupportProvider.LspServerStarter
-import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.configurations.ty.RunningMode
 import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
+import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.isSupportedByTy
 
 

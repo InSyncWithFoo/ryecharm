@@ -3,8 +3,8 @@ package insyncwithfoo.ryecharm.ty.lsp4ij
 import com.intellij.openapi.project.Project
 import com.redhat.devtools.lsp4ij.client.LanguageClientImpl
 import insyncwithfoo.ryecharm.common.logging.tyLogger
-import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
+import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.path
 
 

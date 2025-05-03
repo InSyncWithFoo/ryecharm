@@ -1,11 +1,6 @@
 package insyncwithfoo.ryecharm.configurations
 
 import com.intellij.openapi.project.Project
-import insyncwithfoo.ryecharm.configurations.ty.TyConfigurations
-import insyncwithfoo.ryecharm.configurations.ty.TyLocalService
-import insyncwithfoo.ryecharm.configurations.ty.TyOverrideService
-import insyncwithfoo.ryecharm.configurations.ty.globalTyConfigurations
-import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffLocalService
 import insyncwithfoo.ryecharm.configurations.ruff.RuffOverrideService
@@ -13,14 +8,17 @@ import insyncwithfoo.ryecharm.configurations.ruff.globalRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.globalRyeConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.TyConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.TyLocalService
+import insyncwithfoo.ryecharm.configurations.ty.TyOverrideService
+import insyncwithfoo.ryecharm.configurations.ty.globalTyConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.findChildIgnoringExtension
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.interpreterDirectory
 import insyncwithfoo.ryecharm.path
-import insyncwithfoo.ryecharm.ty.commands.Ty
-import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.detectExecutable
 import insyncwithfoo.ryecharm.rye.commands.Rye
@@ -28,6 +26,8 @@ import insyncwithfoo.ryecharm.rye.commands.detectExecutable
 import insyncwithfoo.ryecharm.toNullIfNotExists
 import insyncwithfoo.ryecharm.toPathIfItExists
 import insyncwithfoo.ryecharm.toPathOrNull
+import insyncwithfoo.ryecharm.ty.commands.Ty
+import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.detectExecutable
 import java.nio.file.Path
