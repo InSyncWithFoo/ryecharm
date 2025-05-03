@@ -37,7 +37,7 @@ internal enum class ConsoleHolderKind(val tabName: String) {
     RUFF(message("toolWindows.ruff.tabName")),
     UV(message("toolWindows.uv.tabName")),
     RYE(message("toolWindows.rye.tabName")),
-    RED_KNOT(message("toolWindows.redknot.tabName"));
+    RED_KNOT(message("toolWindows.ty.tabName"));
 }
 
 

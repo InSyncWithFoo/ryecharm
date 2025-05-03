@@ -9,6 +9,6 @@ internal class VersionCommand : Command(), RedKnotCommand {
     override val subcommands = listOf("version")
     
     override val runningMessage: String
-        get() = message("progresses.command.redknot.version")
+        get() = message("progresses.command.ty.version")
     
 }

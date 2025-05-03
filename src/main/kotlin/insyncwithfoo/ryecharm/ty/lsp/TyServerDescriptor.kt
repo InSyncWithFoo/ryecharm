@@ -59,7 +59,7 @@ internal class TyServerDescriptor(project: Project, private val executable: Path
     }
     
     companion object {
-        private val PRESENTABLE_NAME = message("languageServers.redknot.presentableName")
+        private val PRESENTABLE_NAME = message("languageServers.ty.presentableName")
     }
     
 }

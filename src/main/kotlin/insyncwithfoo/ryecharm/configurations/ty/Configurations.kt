@@ -9,9 +9,9 @@ import insyncwithfoo.ryecharm.message
 
 
 internal enum class RunningMode(override val label: String) : Labeled {
-    DISABLED(message("configurations.redknot.runningMode.disabled")),
-    LSP4IJ(message("configurations.redknot.runningMode.lsp4ij")),
-    LSP(message("configurations.redknot.runningMode.lsp"));
+    DISABLED(message("configurations.ty.runningMode.disabled")),
+    LSP4IJ(message("configurations.ty.runningMode.lsp4ij")),
+    LSP(message("configurations.ty.runningMode.lsp"));
 }
 
 

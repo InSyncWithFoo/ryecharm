@@ -20,8 +20,8 @@
 		<server
 			id="insyncwithfoo.ryecharm.ty"
 			bundle="messages.ryecharm"
-			nameKey="languageServers.redknot.presentableName"
-			descriptionKey="languageServers.redknot.description"
+			nameKey="languageServers.ty.presentableName"
+			descriptionKey="languageServers.ty.description"
 			factoryClass="insyncwithfoo.ryecharm.ty.lsp4ij.TyServerFactory"
 		/>
 		

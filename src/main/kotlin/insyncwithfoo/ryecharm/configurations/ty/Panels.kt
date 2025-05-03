@@ -39,18 +39,18 @@ private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
 
 private fun RedKnotPanel.makeComponent() = panel {
     
-    row(message("configurations.redknot.executable.label")) {
+    row(message("configurations.ty.executable.label")) {
         executableInput {
             val detectedExecutable = Ty.detectExecutable()?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
-            emptyText = detectedExecutable ?: message("configurations.redknot.executable.placeholder")
+            emptyText = detectedExecutable ?: message("configurations.ty.executable.placeholder")
         }
         overrideCheckbox(state::executable)
     }
     
     val runningModeInputGroup = runningModeInputGroup {
-        row(message("configurations.redknot.runningMode.label")) {
+        row(message("configurations.ty.runningMode.label")) {
             radioButtonFor(RunningMode.DISABLED)
             radioButtonForPotentiallyUnavailable(RunningMode.LSP4IJ) { lsp4ijIsAvailable }
             radioButtonForPotentiallyUnavailable(RunningMode.LSP) { lspIsAvailable }

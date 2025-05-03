@@ -14,7 +14,7 @@ internal class WidgetItem(lspServer: LspServer, currentFile: VirtualFile?) :
     
     private val nameWithVersion: String
         get() = lspServer.initializeResult?.serverInfo?.version
-            ?.let { message("languageServers.redknot.nameWithVersion", it) }
+            ?.let { message("languageServers.ty.nameWithVersion", it) }
             ?: lspServer.descriptor.presentableName
     
     override val serverLabel: String
