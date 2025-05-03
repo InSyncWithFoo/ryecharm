@@ -4,12 +4,12 @@ import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.lsWidget.LspServerWidgetItem
-import insyncwithfoo.ryecharm.configurations.ty.RedKnotConfigurable
+import insyncwithfoo.ryecharm.configurations.ty.TyConfigurable
 import insyncwithfoo.ryecharm.message
 
 
 internal class WidgetItem(lspServer: LspServer, currentFile: VirtualFile?) :
-    LspServerWidgetItem(lspServer, currentFile, AllIcons.Json.Object, RedKnotConfigurable::class.java)
+    LspServerWidgetItem(lspServer, currentFile, AllIcons.Json.Object, TyConfigurable::class.java)
 {
     
     private val nameWithVersion: String

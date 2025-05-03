@@ -10,7 +10,7 @@ import insyncwithfoo.ryecharm.path
 import java.nio.file.Path
 
 
-internal interface RedKnotCommand
+internal interface TyCommand
 
 
 internal class Ty private constructor(

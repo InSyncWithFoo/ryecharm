@@ -1,9 +1,9 @@
 package insyncwithfoo.ryecharm.configurations
 
 import com.intellij.openapi.project.Project
-import insyncwithfoo.ryecharm.configurations.ty.RedKnotConfigurations
-import insyncwithfoo.ryecharm.configurations.ty.RedKnotLocalService
-import insyncwithfoo.ryecharm.configurations.ty.RedKnotOverrideService
+import insyncwithfoo.ryecharm.configurations.ty.TyConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.TyLocalService
+import insyncwithfoo.ryecharm.configurations.ty.TyOverrideService
 import insyncwithfoo.ryecharm.configurations.ty.globalRedKnotConfigurations
 import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
@@ -135,11 +135,11 @@ internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
 }
 
 
-internal fun Project.changeRedKnotConfigurations(action: RedKnotConfigurations.() -> Unit) {
-    RedKnotLocalService.getInstance(this).state.apply(action)
+internal fun Project.changeRedKnotConfigurations(action: TyConfigurations.() -> Unit) {
+    TyLocalService.getInstance(this).state.apply(action)
 }
 
 
 internal fun Project.changeRedKnotOverrides(action: Overrides.() -> Unit) {
-    RedKnotOverrideService.getInstance(this).state.names.apply(action)
+    TyOverrideService.getInstance(this).state.names.apply(action)
 }

@@ -4,7 +4,7 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.message
 
 
-internal class VersionCommand : Command(), RedKnotCommand {
+internal class VersionCommand : Command(), TyCommand {
     
     override val subcommands = listOf("version")
     

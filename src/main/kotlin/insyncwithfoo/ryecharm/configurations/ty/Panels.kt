@@ -25,8 +25,8 @@ import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 import insyncwithfoo.ryecharm.singleFileTextField
 
 
-private class RedKnotPanel(state: RedKnotConfigurations, overrides: Overrides?, project: Project?) :
-    AdaptivePanel<RedKnotConfigurations>(state, overrides, project)
+private class TyPanel(state: TyConfigurations, overrides: Overrides?, project: Project?) :
+    AdaptivePanel<TyConfigurations>(state, overrides, project)
 
 
 private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
@@ -37,7 +37,7 @@ private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
     buttonsGroup(init = block)
 
 
-private fun RedKnotPanel.makeComponent() = panel {
+private fun TyPanel.makeComponent() = panel {
     
     row(message("configurations.ty.executable.label")) {
         executableInput {
@@ -63,7 +63,7 @@ private fun RedKnotPanel.makeComponent() = panel {
 }
 
 
-internal fun PanelBasedConfigurable<RedKnotConfigurations>.createPanel(state: RedKnotConfigurations): DialogPanel {
+internal fun PanelBasedConfigurable<TyConfigurations>.createPanel(state: TyConfigurations): DialogPanel {
     val (project, overrides) = projectAndOverrides
-    return RedKnotPanel(state, overrides, project).makeComponent()
+    return TyPanel(state, overrides, project).makeComponent()
 }

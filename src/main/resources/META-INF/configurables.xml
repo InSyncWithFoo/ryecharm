@@ -71,7 +71,7 @@
 			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
 			bundle="messages.ryecharm"
 			key="configurations.ty.displayName"
-			instance="insyncwithfoo.ryecharm.configurations.ty.RedKnotConfigurable"
+			instance="insyncwithfoo.ryecharm.configurations.ty.TyConfigurable"
 		/>
 		
 		<projectConfigurable
@@ -79,7 +79,7 @@
 			parentId="insyncwithfoo.ryecharm.configurations.ty.Global"
 			bundle="messages.ryecharm"
 			key="configurations.project.displayName"
-			instance="insyncwithfoo.ryecharm.configurations.ty.RedKnotProjectConfigurable"
+			instance="insyncwithfoo.ryecharm.configurations.ty.TyProjectConfigurable"
 		/>
 	</extensions>
 </idea-plugin>

@@ -15,12 +15,12 @@ internal enum class RunningMode(override val label: String) : Labeled {
 }
 
 
-internal class RedKnotConfigurations : DisplayableState(), Copyable {
+internal class TyConfigurations : DisplayableState(), Copyable {
     var executable by string(null)
     var runningMode by enum(RunningMode.DISABLED)
 }
 
 
-internal class RedKnotOverrides : DisplayableState(), ProjectOverrideState {
+internal class TyOverrides : DisplayableState(), ProjectOverrideState {
     override var names by map<SettingName, Boolean>()
 }

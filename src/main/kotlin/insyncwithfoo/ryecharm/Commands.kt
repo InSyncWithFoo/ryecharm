@@ -9,7 +9,7 @@ import insyncwithfoo.ryecharm.common.logging.redKnotLogger
 import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.common.logging.ryeLogger
 import insyncwithfoo.ryecharm.common.logging.uvLogger
-import insyncwithfoo.ryecharm.ty.commands.RedKnotCommand
+import insyncwithfoo.ryecharm.ty.commands.TyCommand
 import insyncwithfoo.ryecharm.ruff.commands.RuffCommand
 import insyncwithfoo.ryecharm.rye.commands.RyeCommand
 import insyncwithfoo.ryecharm.uv.commands.UVCommand
@@ -134,7 +134,7 @@ internal abstract class Command {
             is RuffCommand -> project.ruffLogger
             is UVCommand -> project.uvLogger
             is RyeCommand -> project.ryeLogger
-            is RedKnotCommand -> project.redKnotLogger
+            is TyCommand -> project.redKnotLogger
             else -> null
         }
         

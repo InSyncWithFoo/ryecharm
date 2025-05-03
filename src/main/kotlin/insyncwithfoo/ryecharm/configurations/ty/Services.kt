@@ -12,10 +12,10 @@ import insyncwithfoo.ryecharm.configurations.getMergedState
 
 @State(name = "insyncwithfoo.ryecharm.configurations.ty.Global", storages = [Storage("ryecharm.xml")])
 @Service(Service.Level.APP)
-internal class RedKnotGlobalService : ConfigurationService<RedKnotConfigurations>(RedKnotConfigurations()) {
+internal class TyGlobalService : ConfigurationService<TyConfigurations>(TyConfigurations()) {
     
     companion object {
-        fun getInstance() = service<RedKnotGlobalService>()
+        fun getInstance() = service<TyGlobalService>()
     }
     
 }
@@ -23,10 +23,10 @@ internal class RedKnotGlobalService : ConfigurationService<RedKnotConfigurations
 
 @State(name = "insyncwithfoo.ryecharm.configurations.ty.Local", storages = [Storage("ryecharm.xml")])
 @Service(Service.Level.PROJECT)
-internal class RedKnotLocalService : ConfigurationService<RedKnotConfigurations>(RedKnotConfigurations()) {
+internal class TyLocalService : ConfigurationService<TyConfigurations>(TyConfigurations()) {
     
     companion object {
-        fun getInstance(project: Project) = project.service<RedKnotLocalService>()
+        fun getInstance(project: Project) = project.service<TyLocalService>()
     }
     
 }
@@ -37,18 +37,18 @@ internal class RedKnotLocalService : ConfigurationService<RedKnotConfigurations>
     storages = [Storage("ryecharm-overrides.xml", roamingType = RoamingType.DISABLED)]
 )
 @Service(Service.Level.PROJECT)
-internal class RedKnotOverrideService : ConfigurationService<RedKnotOverrides>(RedKnotOverrides()) {
+internal class TyOverrideService : ConfigurationService<TyOverrides>(TyOverrides()) {
     
     companion object {
-        fun getInstance(project: Project) = project.service<RedKnotOverrideService>()
+        fun getInstance(project: Project) = project.service<TyOverrideService>()
     }
     
 }
 
 
-internal val globalRedKnotConfigurations: RedKnotConfigurations
-    get() = RedKnotGlobalService.getInstance().state
+internal val globalRedKnotConfigurations: TyConfigurations
+    get() = TyGlobalService.getInstance().state
 
 
-internal val Project.redKnotConfigurations: RedKnotConfigurations
-    get() = getMergedState<RedKnotGlobalService, RedKnotLocalService, RedKnotOverrideService, _>()
+internal val Project.redKnotConfigurations: TyConfigurations
+    get() = getMergedState<TyGlobalService, TyLocalService, TyOverrideService, _>()

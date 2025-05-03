@@ -7,9 +7,9 @@ import insyncwithfoo.ryecharm.configurations.copy
 import insyncwithfoo.ryecharm.message
 
 
-internal class RedKnotConfigurable : PanelBasedConfigurable<RedKnotConfigurations>() {
+internal class TyConfigurable : PanelBasedConfigurable<TyConfigurations>() {
     
-    private val service = RedKnotGlobalService.getInstance()
+    private val service = TyGlobalService.getInstance()
     
     override val state = service.state.copy()
     override val panel by lazy { createPanel(state) }
@@ -23,12 +23,12 @@ internal class RedKnotConfigurable : PanelBasedConfigurable<RedKnotConfiguration
 }
 
 
-internal class RedKnotProjectConfigurable(override val project: Project) :
-    PanelBasedConfigurable<RedKnotConfigurations>(), ProjectBasedConfigurable
+internal class TyProjectConfigurable(override val project: Project) :
+    PanelBasedConfigurable<TyConfigurations>(), ProjectBasedConfigurable
 {
     
-    private val service = RedKnotLocalService.getInstance(project)
-    private val overrideService = RedKnotOverrideService.getInstance(project)
+    private val service = TyLocalService.getInstance(project)
+    private val overrideService = TyOverrideService.getInstance(project)
     private val overrideState = overrideService.state.copy()
     
     override val state = service.state.copy()
