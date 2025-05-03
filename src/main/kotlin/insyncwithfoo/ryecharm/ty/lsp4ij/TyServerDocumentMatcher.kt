@@ -6,7 +6,7 @@ import com.redhat.devtools.lsp4ij.AbstractDocumentMatcher
 import insyncwithfoo.ryecharm.isSupportedByRedKnot
 
 
-internal class RedKnotServerDocumentMatcher : AbstractDocumentMatcher() {
+internal class TyServerDocumentMatcher : AbstractDocumentMatcher() {
     
     override fun match(file: VirtualFile, project: Project): Boolean {
         return file.isSupportedByRedKnot(project)

@@ -19,7 +19,7 @@ import insyncwithfoo.ryecharm.findChildIgnoringExtension
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.interpreterDirectory
 import insyncwithfoo.ryecharm.path
-import insyncwithfoo.ryecharm.ty.commands.RedKnot
+import insyncwithfoo.ryecharm.ty.commands.Ty
 import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.detectExecutable
@@ -87,7 +87,7 @@ internal val Project.uvExecutable: Path?
  * The Red Knot executable associated with this project, if it exists.
  */
 internal val Project.redKnotExecutable: Path?
-    get() = redKnotConfigurations.executable?.toPathIfItExists() ?: RedKnot.detectExecutable()
+    get() = redKnotConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
 
 
 /**
@@ -119,7 +119,7 @@ internal val globalUVExecutable: Path?
  * or one detected in PATH.
  */
 internal val globalRedKnotExecutable: Path?
-    get() = globalRedKnotConfigurations.executable?.toPathIfItExists() ?: RedKnot.detectExecutable()
+    get() = globalRedKnotConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
 
 
 /**

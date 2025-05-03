@@ -11,7 +11,7 @@ import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
 import insyncwithfoo.ryecharm.isSupportedByRedKnot
 
 
-internal class RedKnotServerSupportProvider : LspServerSupportProvider {
+internal class TyServerSupportProvider : LspServerSupportProvider {
     
     override fun createLspServerWidgetItem(lspServer: LspServer, currentFile: VirtualFile?) =
         WidgetItem(lspServer, currentFile)
@@ -22,7 +22,7 @@ internal class RedKnotServerSupportProvider : LspServerSupportProvider {
         
         if (runningModeIsLSP && file.isSupportedByRedKnot(project)) {
             val executable = project.redKnotExecutable ?: return
-            serverStarter.ensureServerStarted(RedKnotServerDescriptor(project, executable))
+            serverStarter.ensureServerStarted(TyServerDescriptor(project, executable))
         }
     }
     

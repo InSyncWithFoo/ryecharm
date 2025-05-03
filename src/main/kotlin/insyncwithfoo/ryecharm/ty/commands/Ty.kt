@@ -13,7 +13,7 @@ import java.nio.file.Path
 internal interface RedKnotCommand
 
 
-internal class RedKnot private constructor(
+internal class Ty private constructor(
     override val executable: Path,
     private val project: Project?,
     override val workingDirectory: Path?
@@ -23,17 +23,17 @@ internal class RedKnot private constructor(
     
     companion object {
         fun create(project: Project) = when {
-            project.isDefault -> globalRedKnotExecutable?.let { RedKnot(it, project = null, workingDirectory = null) }
-            else -> project.redKnotExecutable?.let { RedKnot(it, project, project.path) }
+            project.isDefault -> globalRedKnotExecutable?.let { Ty(it, project = null, workingDirectory = null) }
+            else -> project.redKnotExecutable?.let { Ty(it, project, project.path) }
         }
     }
     
 }
 
 
-internal fun RedKnot.Companion.detectExecutable() =
+internal fun Ty.Companion.detectExecutable() =
     findExecutableInPath("red_knot")
 
 
-internal val Project.redKnot: RedKnot?
-    get() = RedKnot.create(this)
+internal val Project.redKnot: Ty?
+    get() = Ty.create(this)

@@ -8,7 +8,7 @@ import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
 import insyncwithfoo.ryecharm.path
 
 
-internal class RedKnotServerClient(project: Project) : LanguageClientImpl(project) {
+internal class TyServerClient(project: Project) : LanguageClientImpl(project) {
     
     init {
         val logger = project.redKnotLogger

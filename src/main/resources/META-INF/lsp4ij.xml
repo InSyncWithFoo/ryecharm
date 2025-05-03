@@ -22,14 +22,14 @@
 			bundle="messages.ryecharm"
 			nameKey="languageServers.redknot.presentableName"
 			descriptionKey="languageServers.redknot.description"
-			factoryClass="insyncwithfoo.ryecharm.ty.lsp4ij.RedKnotServerFactory"
+			factoryClass="insyncwithfoo.ryecharm.ty.lsp4ij.TyServerFactory"
 		/>
 		
 		<languageMapping
 			serverId="insyncwithfoo.ryecharm.ty"
 			language="Python"
 			languageId="python"
-			documentMatcher="insyncwithfoo.ryecharm.ty.lsp4ij.RedKnotServerDocumentMatcher"
+			documentMatcher="insyncwithfoo.ryecharm.ty.lsp4ij.TyServerDocumentMatcher"
 		/>
 	</extensions>
 </idea-plugin>

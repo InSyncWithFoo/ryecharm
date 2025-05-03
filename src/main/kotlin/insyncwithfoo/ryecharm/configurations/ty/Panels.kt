@@ -20,7 +20,7 @@ import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.radioButtonFor
 import insyncwithfoo.ryecharm.radioButtonForPotentiallyUnavailable
-import insyncwithfoo.ryecharm.ty.commands.RedKnot
+import insyncwithfoo.ryecharm.ty.commands.Ty
 import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 import insyncwithfoo.ryecharm.singleFileTextField
 
@@ -41,7 +41,7 @@ private fun RedKnotPanel.makeComponent() = panel {
     
     row(message("configurations.redknot.executable.label")) {
         executableInput {
-            val detectedExecutable = RedKnot.detectExecutable()?.toString()
+            val detectedExecutable = Ty.detectExecutable()?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
             emptyText = detectedExecutable ?: message("configurations.redknot.executable.placeholder")

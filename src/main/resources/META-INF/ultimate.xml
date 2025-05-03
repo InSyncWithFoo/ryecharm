@@ -8,8 +8,8 @@
 		
 		<!--suppress PluginXmlValidity -->
 		<platform.lsp.serverSupportProvider
-			id="insyncwithfoo.ryecharm.ty.lsp.RedKnotServerSupportProvider"
-			implementation="insyncwithfoo.ryecharm.ty.lsp.RedKnotServerSupportProvider"
+			id="insyncwithfoo.ryecharm.ty.lsp.TyServerSupportProvider"
+			implementation="insyncwithfoo.ryecharm.ty.lsp.TyServerSupportProvider"
 		/>
 		
 		<externalAnnotator

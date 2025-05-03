@@ -21,7 +21,7 @@ import insyncwithfoo.ryecharm.configurations.ty.redKnotConfigurations
 internal const val SERVER_ID = "${RyeCharm.ID}.ty"
 
 
-internal class RedKnotServerFactory : LanguageServerFactory, LanguageServerEnablementSupport {
+internal class TyServerFactory : LanguageServerFactory, LanguageServerEnablementSupport {
     
     override fun isEnabled(project: Project): Boolean {
         val configurations = project.redKnotConfigurations
@@ -43,11 +43,11 @@ internal class RedKnotServerFactory : LanguageServerFactory, LanguageServerEnabl
     }
     
     override fun createConnectionProvider(project: Project): StreamConnectionProvider {
-        return RedKnotServerConnectionProvider.create(project)
+        return TyServerConnectionProvider.create(project)
     }
     
     override fun createLanguageClient(project: Project): LanguageClientImpl {
-        return RedKnotServerClient(project)
+        return TyServerClient(project)
     }
     
 }

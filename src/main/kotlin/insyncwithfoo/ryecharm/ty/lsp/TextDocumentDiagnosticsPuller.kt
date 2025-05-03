@@ -43,7 +43,7 @@ internal data class AnnotationResult(
 internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, AnnotationResult>(), DumbAware {
     
     private val Project.redKnotServer: LspServer?
-        get() = lspServerManager.getServers<RedKnotServerSupportProvider>().firstOrNull()
+        get() = lspServerManager.getServers<TyServerSupportProvider>().firstOrNull()
     
     override fun collectInformation(file: PsiFile, editor: Editor, hasErrors: Boolean): InitialInfo? {
         val project = file.project

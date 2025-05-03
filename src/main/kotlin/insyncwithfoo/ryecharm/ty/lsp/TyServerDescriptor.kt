@@ -14,7 +14,7 @@ import org.eclipse.lsp4j.DiagnosticCapabilities
 import java.nio.file.Path
 
 
-internal class RedKnotServerDescriptor(project: Project, private val executable: Path) :
+internal class TyServerDescriptor(project: Project, private val executable: Path) :
     ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME)
 {
     
