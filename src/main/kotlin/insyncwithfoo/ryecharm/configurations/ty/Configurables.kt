@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.configurations.redknot
+package insyncwithfoo.ryecharm.configurations.ty
 
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
@@ -7,14 +7,14 @@ import insyncwithfoo.ryecharm.configurations.copy
 import insyncwithfoo.ryecharm.message
 
 
-internal class RedKnotConfigurable : PanelBasedConfigurable<RedKnotConfigurations>() {
+internal class TYConfigurable : PanelBasedConfigurable<TYConfigurations>() {
     
-    private val service = RedKnotGlobalService.getInstance()
+    private val service = TYGlobalService.getInstance()
     
     override val state = service.state.copy()
     override val panel by lazy { createPanel(state) }
     
-    override fun getDisplayName() = message("configurations.redknot.displayName")
+    override fun getDisplayName() = message("configurations.ty.displayName")
     
     override fun afterApply() {
         syncStateWithService(state, service.state)
@@ -23,12 +23,12 @@ internal class RedKnotConfigurable : PanelBasedConfigurable<RedKnotConfiguration
 }
 
 
-internal class RedKnotProjectConfigurable(override val project: Project) :
-    PanelBasedConfigurable<RedKnotConfigurations>(), ProjectBasedConfigurable
+internal class TYProjectConfigurable(override val project: Project) :
+    PanelBasedConfigurable<TYConfigurations>(), ProjectBasedConfigurable
 {
     
-    private val service = RedKnotLocalService.getInstance(project)
-    private val overrideService = RedKnotOverrideService.getInstance(project)
+    private val service = TYLocalService.getInstance(project)
+    private val overrideService = TYOverrideService.getInstance(project)
     private val overrideState = overrideService.state.copy()
     
     override val state = service.state.copy()

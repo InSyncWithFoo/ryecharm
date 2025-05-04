@@ -66,20 +66,21 @@
 			instance="insyncwithfoo.ryecharm.configurations.uv.UVProjectConfigurable"
 		/>
 		
+		<!--suppress PluginXmlCapitalization -->
 		<applicationConfigurable
-			id="insyncwithfoo.ryecharm.configurations.redknot.Global"
+			id="insyncwithfoo.ryecharm.configurations.ty.Global"
 			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
 			bundle="messages.ryecharm"
-			key="configurations.redknot.displayName"
-			instance="insyncwithfoo.ryecharm.configurations.redknot.RedKnotConfigurable"
+			key="configurations.ty.displayName"
+			instance="insyncwithfoo.ryecharm.configurations.ty.TYConfigurable"
 		/>
 		
 		<projectConfigurable
-			id="insyncwithfoo.ryecharm.configurations.redknot.Local"
-			parentId="insyncwithfoo.ryecharm.configurations.redknot.Global"
+			id="insyncwithfoo.ryecharm.configurations.ty.Local"
+			parentId="insyncwithfoo.ryecharm.configurations.ty.Global"
 			bundle="messages.ryecharm"
 			key="configurations.project.displayName"
-			instance="insyncwithfoo.ryecharm.configurations.redknot.RedKnotProjectConfigurable"
+			instance="insyncwithfoo.ryecharm.configurations.ty.TYProjectConfigurable"
 		/>
 	</extensions>
 </idea-plugin>

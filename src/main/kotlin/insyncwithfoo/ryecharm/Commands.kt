@@ -5,13 +5,13 @@ import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.project.Project
 import com.intellij.util.io.toByteArray
-import insyncwithfoo.ryecharm.common.logging.redKnotLogger
 import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.common.logging.ryeLogger
+import insyncwithfoo.ryecharm.common.logging.tyLogger
 import insyncwithfoo.ryecharm.common.logging.uvLogger
-import insyncwithfoo.ryecharm.redknot.commands.RedKnotCommand
 import insyncwithfoo.ryecharm.ruff.commands.RuffCommand
 import insyncwithfoo.ryecharm.rye.commands.RyeCommand
+import insyncwithfoo.ryecharm.ty.commands.TYCommand
 import insyncwithfoo.ryecharm.uv.commands.UVCommand
 import java.nio.CharBuffer
 import java.nio.file.Path
@@ -134,7 +134,7 @@ internal abstract class Command {
             is RuffCommand -> project.ruffLogger
             is UVCommand -> project.uvLogger
             is RyeCommand -> project.ryeLogger
-            is RedKnotCommand -> project.redKnotLogger
+            is TYCommand -> project.tyLogger
             else -> null
         }
         

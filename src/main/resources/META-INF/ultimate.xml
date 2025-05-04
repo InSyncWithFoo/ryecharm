@@ -8,14 +8,14 @@
 		
 		<!--suppress PluginXmlValidity -->
 		<platform.lsp.serverSupportProvider
-			id="insyncwithfoo.ryecharm.redknot.lsp.RedKnotServerSupportProvider"
-			implementation="insyncwithfoo.ryecharm.redknot.lsp.RedKnotServerSupportProvider"
+			id="insyncwithfoo.ryecharm.ty.lsp.TYServerSupportProvider"
+			implementation="insyncwithfoo.ryecharm.ty.lsp.TYServerSupportProvider"
 		/>
 		
 		<externalAnnotator
-			id="insyncwithfoo.ryecharm.redknot.lsp.TextDocumentDiagnosticsPuller"
+			id="insyncwithfoo.ryecharm.ty.lsp.TextDocumentDiagnosticsPuller"
 			language="Python"
-			implementationClass="insyncwithfoo.ryecharm.redknot.lsp.TextDocumentDiagnosticsPuller"
+			implementationClass="insyncwithfoo.ryecharm.ty.lsp.TextDocumentDiagnosticsPuller"
 		/>
 	</extensions>
 </idea-plugin>

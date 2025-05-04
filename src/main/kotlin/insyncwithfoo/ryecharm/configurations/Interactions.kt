@@ -1,11 +1,6 @@
 package insyncwithfoo.ryecharm.configurations
 
 import com.intellij.openapi.project.Project
-import insyncwithfoo.ryecharm.configurations.redknot.RedKnotConfigurations
-import insyncwithfoo.ryecharm.configurations.redknot.RedKnotLocalService
-import insyncwithfoo.ryecharm.configurations.redknot.RedKnotOverrideService
-import insyncwithfoo.ryecharm.configurations.redknot.globalRedKnotConfigurations
-import insyncwithfoo.ryecharm.configurations.redknot.redKnotConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RuffLocalService
 import insyncwithfoo.ryecharm.configurations.ruff.RuffOverrideService
@@ -13,14 +8,17 @@ import insyncwithfoo.ryecharm.configurations.ruff.globalRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.globalRyeConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.TYConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.TYLocalService
+import insyncwithfoo.ryecharm.configurations.ty.TYOverrideService
+import insyncwithfoo.ryecharm.configurations.ty.globalTYConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.findChildIgnoringExtension
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.interpreterDirectory
 import insyncwithfoo.ryecharm.path
-import insyncwithfoo.ryecharm.redknot.commands.RedKnot
-import insyncwithfoo.ryecharm.redknot.commands.detectExecutable
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
 import insyncwithfoo.ryecharm.ruff.commands.detectExecutable
 import insyncwithfoo.ryecharm.rye.commands.Rye
@@ -28,6 +26,8 @@ import insyncwithfoo.ryecharm.rye.commands.detectExecutable
 import insyncwithfoo.ryecharm.toNullIfNotExists
 import insyncwithfoo.ryecharm.toPathIfItExists
 import insyncwithfoo.ryecharm.toPathOrNull
+import insyncwithfoo.ryecharm.ty.commands.TY
+import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.detectExecutable
 import java.nio.file.Path
@@ -84,10 +84,10 @@ internal val Project.uvExecutable: Path?
 
 
 /**
- * The Red Knot executable associated with this project, if it exists.
+ * The ty executable associated with this project, if it exists.
  */
-internal val Project.redKnotExecutable: Path?
-    get() = redKnotConfigurations.executable?.toPathIfItExists() ?: RedKnot.detectExecutable()
+internal val Project.tyExecutable: Path?
+    get() = tyConfigurations.executable?.toPathIfItExists() ?: TY.detectExecutable()
 
 
 /**
@@ -115,11 +115,11 @@ internal val globalUVExecutable: Path?
 
 
 /**
- * The Red Knot executable defined in the project panel,
+ * The ty executable defined in the project panel,
  * or one detected in PATH.
  */
-internal val globalRedKnotExecutable: Path?
-    get() = globalRedKnotConfigurations.executable?.toPathIfItExists() ?: RedKnot.detectExecutable()
+internal val globalTYExecutable: Path?
+    get() = globalTYConfigurations.executable?.toPathIfItExists() ?: TY.detectExecutable()
 
 
 /**
@@ -135,11 +135,11 @@ internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
 }
 
 
-internal fun Project.changeRedKnotConfigurations(action: RedKnotConfigurations.() -> Unit) {
-    RedKnotLocalService.getInstance(this).state.apply(action)
+internal fun Project.changeTYConfigurations(action: TYConfigurations.() -> Unit) {
+    TYLocalService.getInstance(this).state.apply(action)
 }
 
 
-internal fun Project.changeRedKnotOverrides(action: Overrides.() -> Unit) {
-    RedKnotOverrideService.getInstance(this).state.names.apply(action)
+internal fun Project.changeTYOverrides(action: Overrides.() -> Unit) {
+    TYOverrideService.getInstance(this).state.names.apply(action)
 }

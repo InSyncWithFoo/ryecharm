@@ -1,4 +1,4 @@
-package insyncwithfoo.ryecharm.redknot.lsp
+package insyncwithfoo.ryecharm.ty.lsp
 
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
@@ -10,7 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.getServers
-import insyncwithfoo.ryecharm.isSupportedByRedKnot
+import insyncwithfoo.ryecharm.isSupportedByTY
 import insyncwithfoo.ryecharm.lspServerManager
 import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
@@ -38,22 +38,22 @@ internal data class AnnotationResult(
 // * https://github.com/astral-sh/ruff/issues/16743
 /**
  * A semi-functional implementation of `textDocument/diagnostics`
- * for Red Knot, as it does not support `/pushDiagnostics`.
+ * for ty, as it does not support `/pushDiagnostics`.
  */
 internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, AnnotationResult>(), DumbAware {
     
-    private val Project.redKnotServer: LspServer?
-        get() = lspServerManager.getServers<RedKnotServerSupportProvider>().firstOrNull()
+    private val Project.tyServer: LspServer?
+        get() = lspServerManager.getServers<TYServerSupportProvider>().firstOrNull()
     
     override fun collectInformation(file: PsiFile, editor: Editor, hasErrors: Boolean): InitialInfo? {
         val project = file.project
         val virtualFile = file.virtualFile ?: return null
         
-        if (!file.isSupportedByRedKnot || !virtualFile.isInLocalFileSystem) {
+        if (!file.isSupportedByTY || !virtualFile.isInLocalFileSystem) {
             return null
         }
         
-        if (project.redKnotServer == null) {
+        if (project.tyServer == null) {
             return null
         }
         
@@ -63,7 +63,7 @@ internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, An
     override fun doAnnotate(collectedInfo: InitialInfo?): AnnotationResult? {
         val (project, file) = collectedInfo ?: return null
         
-        val server = project.redKnotServer ?: return null
+        val server = project.tyServer ?: return null
         
         val response = server.sendRequestSync {
             val uri = server.descriptor.getFileUri(file)

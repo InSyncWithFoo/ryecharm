@@ -1,14 +1,14 @@
-package insyncwithfoo.ryecharm.redknot.commands
+package insyncwithfoo.ryecharm.ty.commands
 
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.message
 
 
-internal class VersionCommand : Command(), RedKnotCommand {
+internal class VersionCommand : Command(), TYCommand {
     
     override val subcommands = listOf("version")
     
     override val runningMessage: String
-        get() = message("progresses.command.redknot.version")
+        get() = message("progresses.command.ty.version")
     
 }

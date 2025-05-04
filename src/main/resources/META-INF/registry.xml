@@ -1,11 +1,4 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
-		<!--suppress PluginXmlCapitalization -->
-		<registryKey
-			id="insyncwithfoo.ryecharm.redknot.panels"
-			key="insyncwithfoo.ryecharm.redknot.panels"
-			defaultValue="false"
-			description="RyeCharm: Show Red Knot panels in settings"
-		/>
 	</extensions>
 </idea-plugin>
