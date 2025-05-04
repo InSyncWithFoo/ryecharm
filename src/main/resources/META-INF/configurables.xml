@@ -66,12 +66,13 @@
 			instance="insyncwithfoo.ryecharm.configurations.uv.UVProjectConfigurable"
 		/>
 		
+		<!--suppress PluginXmlCapitalization -->
 		<applicationConfigurable
 			id="insyncwithfoo.ryecharm.configurations.ty.Global"
 			parentId="insyncwithfoo.ryecharm.configurations.main.Global"
 			bundle="messages.ryecharm"
 			key="configurations.ty.displayName"
-			instance="insyncwithfoo.ryecharm.configurations.ty.TyConfigurable"
+			instance="insyncwithfoo.ryecharm.configurations.ty.TYConfigurable"
 		/>
 		
 		<projectConfigurable
@@ -79,7 +80,7 @@
 			parentId="insyncwithfoo.ryecharm.configurations.ty.Global"
 			bundle="messages.ryecharm"
 			key="configurations.project.displayName"
-			instance="insyncwithfoo.ryecharm.configurations.ty.TyProjectConfigurable"
+			instance="insyncwithfoo.ryecharm.configurations.ty.TYProjectConfigurable"
 		/>
 	</extensions>
 </idea-plugin>

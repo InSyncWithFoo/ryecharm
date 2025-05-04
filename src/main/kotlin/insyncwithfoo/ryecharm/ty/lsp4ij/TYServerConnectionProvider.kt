@@ -6,18 +6,18 @@ import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.path
 
 
-internal class TyServerConnectionProvider(commands: List<String>, workingDirectory: String?) :
+internal class TYServerConnectionProvider(commands: List<String>, workingDirectory: String?) :
     ProcessStreamConnectionProvider(commands, workingDirectory)
 {
     
     companion object {
-        fun create(project: Project): TyServerConnectionProvider {
+        fun create(project: Project): TYServerConnectionProvider {
             val executable = project.tyExecutable!!
             
             val fragments: List<String> = listOf(executable.toString(), "server")
             val workingDirectory = project.path?.toString()
             
-            return TyServerConnectionProvider(fragments, workingDirectory)
+            return TYServerConnectionProvider(fragments, workingDirectory)
         }
     }
     

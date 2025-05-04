@@ -11,7 +11,7 @@ import insyncwithfoo.ryecharm.common.logging.tyLogger
 import insyncwithfoo.ryecharm.common.logging.uvLogger
 import insyncwithfoo.ryecharm.ruff.commands.RuffCommand
 import insyncwithfoo.ryecharm.rye.commands.RyeCommand
-import insyncwithfoo.ryecharm.ty.commands.TyCommand
+import insyncwithfoo.ryecharm.ty.commands.TYCommand
 import insyncwithfoo.ryecharm.uv.commands.UVCommand
 import java.nio.CharBuffer
 import java.nio.file.Path
@@ -134,7 +134,7 @@ internal abstract class Command {
             is RuffCommand -> project.ruffLogger
             is UVCommand -> project.uvLogger
             is RyeCommand -> project.ryeLogger
-            is TyCommand -> project.tyLogger
+            is TYCommand -> project.tyLogger
             else -> null
         }
         

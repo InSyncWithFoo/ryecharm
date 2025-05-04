@@ -21,12 +21,12 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.radioButtonFor
 import insyncwithfoo.ryecharm.radioButtonForPotentiallyUnavailable
 import insyncwithfoo.ryecharm.singleFileTextField
-import insyncwithfoo.ryecharm.ty.commands.Ty
+import insyncwithfoo.ryecharm.ty.commands.TY
 import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 
 
-private class TyPanel(state: TyConfigurations, overrides: Overrides?, project: Project?) :
-    AdaptivePanel<TyConfigurations>(state, overrides, project)
+private class TYPanel(state: TYConfigurations, overrides: Overrides?, project: Project?) :
+    AdaptivePanel<TYConfigurations>(state, overrides, project)
 
 
 private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
@@ -37,11 +37,11 @@ private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
     buttonsGroup(init = block)
 
 
-private fun TyPanel.makeComponent() = panel {
+private fun TYPanel.makeComponent() = panel {
     
     row(message("configurations.ty.executable.label")) {
         executableInput {
-            val detectedExecutable = Ty.detectExecutable()?.toString()
+            val detectedExecutable = TY.detectExecutable()?.toString()
             
             bindText(state::executable) { detectedExecutable.orEmpty() }
             emptyText = detectedExecutable ?: message("configurations.ty.executable.placeholder")
@@ -63,7 +63,7 @@ private fun TyPanel.makeComponent() = panel {
 }
 
 
-internal fun PanelBasedConfigurable<TyConfigurations>.createPanel(state: TyConfigurations): DialogPanel {
+internal fun PanelBasedConfigurable<TYConfigurations>.createPanel(state: TYConfigurations): DialogPanel {
     val (project, overrides) = projectAndOverrides
-    return TyPanel(state, overrides, project).makeComponent()
+    return TYPanel(state, overrides, project).makeComponent()
 }

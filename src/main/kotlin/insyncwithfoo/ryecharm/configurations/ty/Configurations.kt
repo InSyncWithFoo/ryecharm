@@ -15,12 +15,12 @@ internal enum class RunningMode(override val label: String) : Labeled {
 }
 
 
-internal class TyConfigurations : DisplayableState(), Copyable {
+internal class TYConfigurations : DisplayableState(), Copyable {
     var executable by string(null)
     var runningMode by enum(RunningMode.DISABLED)
 }
 
 
-internal class TyOverrides : DisplayableState(), ProjectOverrideState {
+internal class TYOverrides : DisplayableState(), ProjectOverrideState {
     override var names by map<SettingName, Boolean>()
 }

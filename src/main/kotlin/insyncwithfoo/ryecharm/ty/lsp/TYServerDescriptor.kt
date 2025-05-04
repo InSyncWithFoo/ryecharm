@@ -6,7 +6,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
 import insyncwithfoo.ryecharm.common.logging.tyLogger
 import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
-import insyncwithfoo.ryecharm.isSupportedByTy
+import insyncwithfoo.ryecharm.isSupportedByTY
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import org.eclipse.lsp4j.ClientCapabilities
@@ -14,7 +14,7 @@ import org.eclipse.lsp4j.DiagnosticCapabilities
 import java.nio.file.Path
 
 
-internal class TyServerDescriptor(project: Project, private val executable: Path) :
+internal class TYServerDescriptor(project: Project, private val executable: Path) :
     ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME)
 {
     
@@ -23,7 +23,7 @@ internal class TyServerDescriptor(project: Project, private val executable: Path
     init {
         val logger = project.tyLogger
         
-        logger?.info("Starting Ty's language server (native client).")
+        logger?.info("Starting ty's language server (native client).")
         logger?.info("")
         logger?.info("Executable: $executable")
         logger?.info("Working directory: ${project.path}")
@@ -45,7 +45,7 @@ internal class TyServerDescriptor(project: Project, private val executable: Path
         }
     
     override fun isSupportedFile(file: VirtualFile) =
-        file.isSupportedByTy(project)
+        file.isSupportedByTY(project)
     
     override fun createInitializationOptions() =
         Object()

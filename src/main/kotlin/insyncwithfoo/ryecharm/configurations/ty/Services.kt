@@ -12,10 +12,10 @@ import insyncwithfoo.ryecharm.configurations.getMergedState
 
 @State(name = "insyncwithfoo.ryecharm.configurations.ty.Global", storages = [Storage("ryecharm.xml")])
 @Service(Service.Level.APP)
-internal class TyGlobalService : ConfigurationService<TyConfigurations>(TyConfigurations()) {
+internal class TYGlobalService : ConfigurationService<TYConfigurations>(TYConfigurations()) {
     
     companion object {
-        fun getInstance() = service<TyGlobalService>()
+        fun getInstance() = service<TYGlobalService>()
     }
     
 }
@@ -23,10 +23,10 @@ internal class TyGlobalService : ConfigurationService<TyConfigurations>(TyConfig
 
 @State(name = "insyncwithfoo.ryecharm.configurations.ty.Local", storages = [Storage("ryecharm.xml")])
 @Service(Service.Level.PROJECT)
-internal class TyLocalService : ConfigurationService<TyConfigurations>(TyConfigurations()) {
+internal class TYLocalService : ConfigurationService<TYConfigurations>(TYConfigurations()) {
     
     companion object {
-        fun getInstance(project: Project) = project.service<TyLocalService>()
+        fun getInstance(project: Project) = project.service<TYLocalService>()
     }
     
 }
@@ -37,18 +37,18 @@ internal class TyLocalService : ConfigurationService<TyConfigurations>(TyConfigu
     storages = [Storage("ryecharm-overrides.xml", roamingType = RoamingType.DISABLED)]
 )
 @Service(Service.Level.PROJECT)
-internal class TyOverrideService : ConfigurationService<TyOverrides>(TyOverrides()) {
+internal class TYOverrideService : ConfigurationService<TYOverrides>(TYOverrides()) {
     
     companion object {
-        fun getInstance(project: Project) = project.service<TyOverrideService>()
+        fun getInstance(project: Project) = project.service<TYOverrideService>()
     }
     
 }
 
 
-internal val globalTyConfigurations: TyConfigurations
-    get() = TyGlobalService.getInstance().state
+internal val globalTYConfigurations: TYConfigurations
+    get() = TYGlobalService.getInstance().state
 
 
-internal val Project.tyConfigurations: TyConfigurations
-    get() = getMergedState<TyGlobalService, TyLocalService, TyOverrideService, _>()
+internal val Project.tyConfigurations: TYConfigurations
+    get() = getMergedState<TYGlobalService, TYLocalService, TYOverrideService, _>()

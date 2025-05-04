@@ -7,9 +7,9 @@ import insyncwithfoo.ryecharm.configurations.copy
 import insyncwithfoo.ryecharm.message
 
 
-internal class TyConfigurable : PanelBasedConfigurable<TyConfigurations>() {
+internal class TYConfigurable : PanelBasedConfigurable<TYConfigurations>() {
     
-    private val service = TyGlobalService.getInstance()
+    private val service = TYGlobalService.getInstance()
     
     override val state = service.state.copy()
     override val panel by lazy { createPanel(state) }
@@ -23,12 +23,12 @@ internal class TyConfigurable : PanelBasedConfigurable<TyConfigurations>() {
 }
 
 
-internal class TyProjectConfigurable(override val project: Project) :
-    PanelBasedConfigurable<TyConfigurations>(), ProjectBasedConfigurable
+internal class TYProjectConfigurable(override val project: Project) :
+    PanelBasedConfigurable<TYConfigurations>(), ProjectBasedConfigurable
 {
     
-    private val service = TyLocalService.getInstance(project)
-    private val overrideService = TyOverrideService.getInstance(project)
+    private val service = TYLocalService.getInstance(project)
+    private val overrideService = TYOverrideService.getInstance(project)
     private val overrideState = overrideService.state.copy()
     
     override val state = service.state.copy()

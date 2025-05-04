@@ -120,9 +120,9 @@ internal val VirtualFile.isPyprojectTomlLike: Boolean
 
 
 /**
- * Whether the given file can be checked by Ty.
+ * Whether the given file can be checked by ty.
  */
-internal fun VirtualFile.isSupportedByTy(project: Project? = null): Boolean {
+internal fun VirtualFile.isSupportedByTY(project: Project? = null): Boolean {
     return isPythonFile
 }
 
@@ -170,10 +170,10 @@ private val PsiFile.isNormalPyFile: Boolean
 
 
 /**
- * Shorthand for [VirtualFile.isSupportedByTy].
+ * Shorthand for [VirtualFile.isSupportedByTY].
  */
-internal val PsiFile.isSupportedByTy: Boolean
-    get() = isNormalPyFile || virtualFile?.isSupportedByTy(project) == true
+internal val PsiFile.isSupportedByTY: Boolean
+    get() = isNormalPyFile || virtualFile?.isSupportedByTY(project) == true
 
 
 /**

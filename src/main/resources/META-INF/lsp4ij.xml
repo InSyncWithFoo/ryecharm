@@ -22,14 +22,14 @@
 			bundle="messages.ryecharm"
 			nameKey="languageServers.ty.presentableName"
 			descriptionKey="languageServers.ty.description"
-			factoryClass="insyncwithfoo.ryecharm.ty.lsp4ij.TyServerFactory"
+			factoryClass="insyncwithfoo.ryecharm.ty.lsp4ij.TYServerFactory"
 		/>
 		
 		<languageMapping
 			serverId="insyncwithfoo.ryecharm.ty"
 			language="Python"
 			languageId="python"
-			documentMatcher="insyncwithfoo.ryecharm.ty.lsp4ij.TyServerDocumentMatcher"
+			documentMatcher="insyncwithfoo.ryecharm.ty.lsp4ij.TYServerDocumentMatcher"
 		/>
 	</extensions>
 </idea-plugin>

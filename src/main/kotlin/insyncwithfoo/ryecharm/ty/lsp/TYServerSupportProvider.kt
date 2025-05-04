@@ -8,10 +8,10 @@ import com.intellij.platform.lsp.api.LspServerSupportProvider.LspServerStarter
 import insyncwithfoo.ryecharm.configurations.ty.RunningMode
 import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.tyExecutable
-import insyncwithfoo.ryecharm.isSupportedByTy
+import insyncwithfoo.ryecharm.isSupportedByTY
 
 
-internal class TyServerSupportProvider : LspServerSupportProvider {
+internal class TYServerSupportProvider : LspServerSupportProvider {
     
     override fun createLspServerWidgetItem(lspServer: LspServer, currentFile: VirtualFile?) =
         WidgetItem(lspServer, currentFile)
@@ -20,9 +20,9 @@ internal class TyServerSupportProvider : LspServerSupportProvider {
         val configurations = project.tyConfigurations
         val runningModeIsLSP = configurations.runningMode == RunningMode.LSP
         
-        if (runningModeIsLSP && file.isSupportedByTy(project)) {
+        if (runningModeIsLSP && file.isSupportedByTY(project)) {
             val executable = project.tyExecutable ?: return
-            serverStarter.ensureServerStarted(TyServerDescriptor(project, executable))
+            serverStarter.ensureServerStarted(TYServerDescriptor(project, executable))
         }
     }
     

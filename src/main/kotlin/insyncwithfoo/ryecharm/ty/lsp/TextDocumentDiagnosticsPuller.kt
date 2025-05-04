@@ -10,7 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.getServers
-import insyncwithfoo.ryecharm.isSupportedByTy
+import insyncwithfoo.ryecharm.isSupportedByTY
 import insyncwithfoo.ryecharm.lspServerManager
 import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
@@ -38,18 +38,18 @@ internal data class AnnotationResult(
 // * https://github.com/astral-sh/ruff/issues/16743
 /**
  * A semi-functional implementation of `textDocument/diagnostics`
- * for Ty, as it does not support `/pushDiagnostics`.
+ * for ty, as it does not support `/pushDiagnostics`.
  */
 internal class TextDocumentDiagnosticsPuller : ExternalAnnotator<InitialInfo, AnnotationResult>(), DumbAware {
     
     private val Project.tyServer: LspServer?
-        get() = lspServerManager.getServers<TyServerSupportProvider>().firstOrNull()
+        get() = lspServerManager.getServers<TYServerSupportProvider>().firstOrNull()
     
     override fun collectInformation(file: PsiFile, editor: Editor, hasErrors: Boolean): InitialInfo? {
         val project = file.project
         val virtualFile = file.virtualFile ?: return null
         
-        if (!file.isSupportedByTy || !virtualFile.isInLocalFileSystem) {
+        if (!file.isSupportedByTY || !virtualFile.isInLocalFileSystem) {
             return null
         }
         

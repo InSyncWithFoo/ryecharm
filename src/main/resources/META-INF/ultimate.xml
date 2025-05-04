@@ -8,8 +8,8 @@
 		
 		<!--suppress PluginXmlValidity -->
 		<platform.lsp.serverSupportProvider
-			id="insyncwithfoo.ryecharm.ty.lsp.TyServerSupportProvider"
-			implementation="insyncwithfoo.ryecharm.ty.lsp.TyServerSupportProvider"
+			id="insyncwithfoo.ryecharm.ty.lsp.TYServerSupportProvider"
+			implementation="insyncwithfoo.ryecharm.ty.lsp.TYServerSupportProvider"
 		/>
 		
 		<externalAnnotator

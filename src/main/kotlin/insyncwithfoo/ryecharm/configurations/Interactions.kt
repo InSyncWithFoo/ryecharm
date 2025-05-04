@@ -8,10 +8,10 @@ import insyncwithfoo.ryecharm.configurations.ruff.globalRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.globalRyeConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
-import insyncwithfoo.ryecharm.configurations.ty.TyConfigurations
-import insyncwithfoo.ryecharm.configurations.ty.TyLocalService
-import insyncwithfoo.ryecharm.configurations.ty.TyOverrideService
-import insyncwithfoo.ryecharm.configurations.ty.globalTyConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.TYConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.TYLocalService
+import insyncwithfoo.ryecharm.configurations.ty.TYOverrideService
+import insyncwithfoo.ryecharm.configurations.ty.globalTYConfigurations
 import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
@@ -26,7 +26,7 @@ import insyncwithfoo.ryecharm.rye.commands.detectExecutable
 import insyncwithfoo.ryecharm.toNullIfNotExists
 import insyncwithfoo.ryecharm.toPathIfItExists
 import insyncwithfoo.ryecharm.toPathOrNull
-import insyncwithfoo.ryecharm.ty.commands.Ty
+import insyncwithfoo.ryecharm.ty.commands.TY
 import insyncwithfoo.ryecharm.ty.commands.detectExecutable
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.detectExecutable
@@ -84,10 +84,10 @@ internal val Project.uvExecutable: Path?
 
 
 /**
- * The Ty executable associated with this project, if it exists.
+ * The ty executable associated with this project, if it exists.
  */
 internal val Project.tyExecutable: Path?
-    get() = tyConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
+    get() = tyConfigurations.executable?.toPathIfItExists() ?: TY.detectExecutable()
 
 
 /**
@@ -115,11 +115,11 @@ internal val globalUVExecutable: Path?
 
 
 /**
- * The Ty executable defined in the project panel,
+ * The ty executable defined in the project panel,
  * or one detected in PATH.
  */
-internal val globalTyExecutable: Path?
-    get() = globalTyConfigurations.executable?.toPathIfItExists() ?: Ty.detectExecutable()
+internal val globalTYExecutable: Path?
+    get() = globalTYConfigurations.executable?.toPathIfItExists() ?: TY.detectExecutable()
 
 
 /**
@@ -135,11 +135,11 @@ internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
 }
 
 
-internal fun Project.changeTyConfigurations(action: TyConfigurations.() -> Unit) {
-    TyLocalService.getInstance(this).state.apply(action)
+internal fun Project.changeTYConfigurations(action: TYConfigurations.() -> Unit) {
+    TYLocalService.getInstance(this).state.apply(action)
 }
 
 
-internal fun Project.changeTyOverrides(action: Overrides.() -> Unit) {
-    TyOverrideService.getInstance(this).state.names.apply(action)
+internal fun Project.changeTYOverrides(action: Overrides.() -> Unit) {
+    TYOverrideService.getInstance(this).state.names.apply(action)
 }
