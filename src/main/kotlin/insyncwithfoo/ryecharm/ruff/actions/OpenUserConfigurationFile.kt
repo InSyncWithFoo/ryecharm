@@ -5,11 +5,11 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.SystemInfo
-import com.intellij.openapi.vfs.LocalFileSystem
 import insyncwithfoo.ryecharm.addCopyPathAction
 import insyncwithfoo.ryecharm.error
 import insyncwithfoo.ryecharm.importantNotificationGroup
 import insyncwithfoo.ryecharm.launch
+import insyncwithfoo.ryecharm.localFileSystem
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.openFile
@@ -34,7 +34,7 @@ internal class OpenUserConfigurationFile : AnAction(), DumbAware {
     
     private fun Project.findAndOpenFile(path: Path) = launch<ActionCoroutine> {
         val virtualFile = runInBackground(message("progresses.command.rye.config")) {
-            LocalFileSystem.getInstance().findFileByNioFile(path)
+            localFileSystem.findFileByNioFile(path)
         }
         
         if (virtualFile == null) {

@@ -5,6 +5,7 @@ import com.intellij.openapi.application.Application
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFileManager
 
 
@@ -26,3 +27,7 @@ internal val editorFactory: EditorFactory
 
 internal val processHandlerFactory: ProcessHandlerFactory
     get() = ProcessHandlerFactory.getInstance()
+
+
+internal val localFileSystem: LocalFileSystem
+    get() = LocalFileSystem.getInstance()

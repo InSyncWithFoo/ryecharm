@@ -8,7 +8,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.options.ShowSettingsUtil
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.util.ui.EmptyClipboardOwner
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import java.awt.Toolkit
@@ -75,9 +74,7 @@ private class OpenFileAction(text: String, private val path: String) : Notificat
     
     override fun actionPerformed(event: AnActionEvent, notification: Notification) {
         val project = event.project ?: return cannotOpenFile()
-        
-        val fileSystem = LocalFileSystem.getInstance()
-        val virtualFile = fileSystem.findFileByPath(path) ?: return cannotOpenFile(project)
+        val virtualFile = localFileSystem.findFileByPath(path) ?: return cannotOpenFile(project)
         
         project.fileEditorManager.openFileEditor(OpenFileDescriptor(project, virtualFile), true)
     }

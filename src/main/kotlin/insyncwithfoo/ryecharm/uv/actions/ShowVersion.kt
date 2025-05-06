@@ -1,45 +1,29 @@
 package insyncwithfoo.ryecharm.uv.actions
 
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
+import insyncwithfoo.ryecharm.Command
+import insyncwithfoo.ryecharm.ShowCommandOutputAction
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
-import insyncwithfoo.ryecharm.defaultProject
-import insyncwithfoo.ryecharm.launch
-import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
-import insyncwithfoo.ryecharm.runInBackground
-import insyncwithfoo.ryecharm.showMessage
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.uv
 
 
-internal class ShowVersion : AnAction(), DumbAware {
+internal class ShowVersion : ShowCommandOutputAction() {
     
-    override fun actionPerformed(event: AnActionEvent) {
-        val project = event.project ?: defaultProject
+    override fun createCommand(event: AnActionEvent, project: Project): Command? {
         val uv = project.uv
         
-        if (uv == null) {
-            project.couldNotConstructCommandFactory<UV>(
-                """
-                |Was trying to retrieve uv version.
-                """.trimMargin()
-            )
-            return
+        if (uv != null) {
+            return uv.selfVersion()
         }
         
-        project.runCommandAndShowOutput(uv)
-    }
-    
-    private fun Project.runCommandAndShowOutput(uv: UV) = launch<ActionCoroutine> {
-        val command = uv.selfVersion()
-        
-        runInBackground(command) { output ->
-            notifyIfProcessIsUnsuccessfulOr(command, output) {
-                showMessage(output.stdout)
-            }
-        }
+        project.couldNotConstructCommandFactory<UV>(
+            """
+            |Was trying to retrieve uv version.
+            """.trimMargin()
+        )
+        return null
     }
     
 }

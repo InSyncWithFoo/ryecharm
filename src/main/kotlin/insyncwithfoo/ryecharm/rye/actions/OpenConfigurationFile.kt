@@ -4,12 +4,12 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import insyncwithfoo.ryecharm.cannotOpenFile
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.launch
+import insyncwithfoo.ryecharm.localFileSystem
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.openFile
@@ -60,7 +60,7 @@ internal class OpenConfigurationFile : AnAction(), DumbAware {
         }
         
         val virtualFile = runInBackground(message("progresses.command.rye.config")) {
-            LocalFileSystem.getInstance().findFileByNioFile(path)
+            localFileSystem.findFileByNioFile(path)
         }
         
         runUnderUIThread {
