@@ -1,0 +1,15 @@
+<idea-plugin>
+	<actions>
+		<action
+			id="insyncwithfoo.ryecharm.ty.actions.ShowExecutable"
+			class="insyncwithfoo.ryecharm.ty.actions.ShowExecutable"
+			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<action
+			id="insyncwithfoo.ryecharm.ty.actions.ShowVersion"
+			class="insyncwithfoo.ryecharm.ty.actions.ShowVersion"
+			icon="AllIcons.General.ShowInfos"
+		/>
+	</actions>
+</idea-plugin>

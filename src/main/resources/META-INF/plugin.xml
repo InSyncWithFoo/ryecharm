@@ -38,5 +38,6 @@
 	<xi:include href="ruff.xml"/>
 	<xi:include href="uv.xml"/>
 	<xi:include href="rye.xml"/>
+	<xi:include href="ty.xml"/>
 	<xi:include href="others.xml"/>
 </idea-plugin>

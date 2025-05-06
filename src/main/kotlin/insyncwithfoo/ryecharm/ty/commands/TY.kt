@@ -19,6 +19,9 @@ internal class TY private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
+    fun version() =
+        VersionCommand().build()
+    
     override fun CommandArguments.withGlobalOptions() = this
     
     companion object {
