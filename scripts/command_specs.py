@@ -16,7 +16,7 @@ import json
 import re
 import subprocess  # noqa: S404
 from pathlib import Path
-from typing import Literal, Self
+from typing import Literal, Self, assert_never, get_args
 
 import nccsp
 from more_itertools import partition
@@ -24,7 +24,7 @@ from nccsp import parse_commands
 from pydantic import BaseModel, Field
 
 
-type _Executable = Literal['ruff', 'uv', 'uvx', 'rye']
+type _Executable = Literal['ruff', 'uv', 'uvx', 'rye', 'ty']
 
 _rye_version_details = re.compile(
 	r'''(?mx)
@@ -64,14 +64,16 @@ class _Command(BaseModel):
 
 def _get_version(executable: _Executable) -> str:
 	match executable:
-		case 'ruff':
-			argument = 'version'
-		case 'uv' | 'uvx' | 'rye':
-			argument = '--version'
+		case 'ruff' | 'ty':
+			arguments = ['version']
+		case 'uvx' | 'rye':
+			arguments = ['--version']
+		case 'uv':
+			arguments = ['self', 'version']
 		case _:
-			raise ValueError
+			assert_never(executable)
 	
-	output = subprocess.check_output([executable, argument]).decode('utf-8').strip()
+	output = subprocess.check_output([executable, *arguments]).decode('utf-8').strip()
 	
 	if executable == 'rye':
 		version_details = _rye_version_details.search(output)
@@ -86,14 +88,14 @@ def _get_version(executable: _Executable) -> str:
 
 def _get_data(executable: _Executable) -> list[nccsp.Command]:
 	match executable:
-		case 'ruff' | 'uv':
+		case 'ruff' | 'uv' | 'ty':
 			arguments = ['generate-shell-completion']
 		case 'uvx':
 			arguments = ['--generate-shell-completion']
 		case 'rye':
 			arguments = ['self', 'completion', '--shell']
 		case _:
-			raise ValueError
+			assert_never(executable)
 	
 	output_stream = subprocess.check_output([executable, *arguments, 'nushell'])
 	output = output_stream.decode('utf-8')
@@ -143,10 +145,8 @@ def _get_and_dump_data(executable: _Executable) -> None:
 
 
 def main() -> None:
-	_get_and_dump_data('ruff')
-	_get_and_dump_data('uv')
-	_get_and_dump_data('uvx')
-	_get_and_dump_data('rye')
+	for executable in get_args(_Executable.__value__):
+		_get_and_dump_data(executable)
 
 
 if __name__ == '__main__':

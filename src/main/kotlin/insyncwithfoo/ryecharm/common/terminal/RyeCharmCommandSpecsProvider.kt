@@ -17,7 +17,7 @@ private fun ShellCommandSpec.toInfo() =
 
 
 /**
- * Provide command specs for `ruff`, `uv`, `uvx` and `rye`
+ * Provide command specs for `ruff`, `uv`, `uvx`, `rye` and `ty`
  * in the new terminal.
  * 
  * The information is read from bundled JSON files
@@ -31,7 +31,7 @@ private fun ShellCommandSpec.toInfo() =
 internal class RyeCharmCommandSpecsProvider : ShellCommandSpecsProvider {
     
     override fun getCommandSpecs(): List<ShellCommandSpecInfo> {
-        val filenames = listOf("ruff.json", "uv.json", "uvx.json", "rye.json")
+        val filenames = listOf("ruff.json", "uv.json", "uvx.json", "rye.json", "ty.json")
         
         return filenames.mapNotNull { filename ->
             classLoader.loadCommandSpecFrom("commandspecs/$filename")?.toInfo()
