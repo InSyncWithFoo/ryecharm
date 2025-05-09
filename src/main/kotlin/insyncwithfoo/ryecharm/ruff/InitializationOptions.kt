@@ -1,15 +1,9 @@
 package insyncwithfoo.ryecharm.ruff
 
 import com.intellij.openapi.project.Project
+import insyncwithfoo.ryecharm.Builder
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-
-
-internal interface Builder
-
-
-internal operator fun <B : Builder> B.invoke(block: B.() -> Unit) {
-    this.apply(block)
-}
+import insyncwithfoo.ryecharm.invoke
 
 
 internal data class DisableRuleComment(

@@ -9,6 +9,7 @@ import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.isSupportedByTY
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
+import insyncwithfoo.ryecharm.ty.createInitializationOptionsObject
 import org.eclipse.lsp4j.ClientCapabilities
 import org.eclipse.lsp4j.DiagnosticCapabilities
 import java.nio.file.Path
@@ -48,7 +49,13 @@ internal class TYServerDescriptor(project: Project, private val executable: Path
         file.isSupportedByTY(project)
     
     override fun createInitializationOptions() =
-        Object()
+        project.createInitializationOptionsObject().also {
+            val logger = project.tyLogger
+            
+            logger?.info("Sending initializationOptions:")
+            logger?.info("$it")
+            logger?.info("")
+        }
     
     override fun createCommandLine() = GeneralCommandLine().apply {
         withWorkingDirectory(project.path)

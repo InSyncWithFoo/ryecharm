@@ -6,6 +6,7 @@ import insyncwithfoo.ryecharm.common.logging.tyLogger
 import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.path
+import insyncwithfoo.ryecharm.ty.createInitializationOptionsObject
 
 
 internal class TYServerClient(project: Project) : LanguageClientImpl(project) {
@@ -22,6 +23,12 @@ internal class TYServerClient(project: Project) : LanguageClientImpl(project) {
     }
     
     override fun createSettings() =
-        Object()
+        project.createInitializationOptionsObject().also {
+            val logger = project.tyLogger
+            
+            logger?.info("Sending initializationOptions:")
+            logger?.info("$it")
+            logger?.info("")
+        }
     
 }
