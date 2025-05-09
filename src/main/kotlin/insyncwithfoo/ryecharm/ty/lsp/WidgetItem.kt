@@ -1,15 +1,15 @@
 package insyncwithfoo.ryecharm.ty.lsp
 
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.lsWidget.LspServerWidgetItem
+import insyncwithfoo.ryecharm.TYIcons
 import insyncwithfoo.ryecharm.configurations.ty.TYConfigurable
 import insyncwithfoo.ryecharm.message
 
 
 internal class WidgetItem(lspServer: LspServer, currentFile: VirtualFile?) :
-    LspServerWidgetItem(lspServer, currentFile, AllIcons.Json.Object, TYConfigurable::class.java)
+    LspServerWidgetItem(lspServer, currentFile, TYIcons.TINY_16_WHITE, TYConfigurable::class.java)
 {
     
     private val nameWithVersion: String

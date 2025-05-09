@@ -35,6 +35,13 @@ internal object UVIcons : IconHolder {
 }
 
 
+@Suppress("unused")
+internal object TYIcons : IconHolder {
+    val TINY_16 by lazy { loadIcon("icons/ty-16.svg") }
+    val TINY_16_WHITE by lazy { loadIcon("icons/ty-16-white.svg") }
+}
+
+
 internal object OtherIcons : IconHolder {
     val PYTHON_GRAY_16 by lazy { loadIcon("icons/python-16-gray.svg") }
     val PYTHON_WHITE_16 by lazy { loadIcon("icons/python-16-white.svg") }
