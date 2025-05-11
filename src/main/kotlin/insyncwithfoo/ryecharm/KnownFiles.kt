@@ -138,6 +138,14 @@ internal fun VirtualFile.canBeLintedByRuff(project: Project? = null): Boolean {
 
 
 /**
+ * Whether the given file can be handled by Ruff's server.
+ Currently it only expects Python files.
+ */
+internal val VirtualFile.isExpectedByRuffServer: Boolean
+    get() = isPythonFile
+
+
+/**
  * Whether the given file can be formatted by Ruff's formatter.
  */
 internal fun VirtualFile.canBeFormattedByRuff(project: Project? = null): Boolean {

@@ -4,9 +4,9 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
-import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.isExpectedByRuffServer
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ruff.createInitializationOptionsObject
@@ -44,7 +44,7 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
      * are ignored by the client.
      */
     override fun isSupportedFile(file: VirtualFile) =
-        file.canBeLintedByRuff(project)
+        file.isExpectedByRuffServer
     
     override fun createInitializationOptions() =
         project.createInitializationOptionsObject().also {
