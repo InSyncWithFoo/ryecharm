@@ -14,6 +14,50 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-13] - 2025-05-18
+
+See [the documentation][0.1.0-a13-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.11.10][0.1.0-a13-2]
+* uv: [0.7.5][0.1.0-a13-3]
+* Rye: [0.44.0][0.1.0-a13-4]
+* ty: [0.0.1-alpha.5][0.1.0-a13-5]
+
+
+### Added
+
+* Lock files for standalone scripts (`*.py.lock`)
+  will now be recognized as TOML files.
+* Provisional ty integration has been added.
+
+
+### Removed
+
+* 2024.3 and lower are no longer supported.
+
+
+### Fixed
+
+* Previously, dependency tree popups might not be displayed correctly
+  if the interpreter cannot be detected by uv.
+  Now, RyeCharm will always pass the project's interpreter explicitly.
+* Ruff's global inspection will now be run after first saving documents
+  to avoid out-of-sync results.
+* `pyproject.toml` files used to be passed to Ruff's server,
+  which only ever expects Python files.
+  This has been fixed.
+
+
+  [0.1.0-a13-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a13-2]: https://github.com/astral-sh/ruff/releases/tag/0.11.10
+  [0.1.0-a13-3]: https://github.com/astral-sh/uv/releases/tag/0.7.5
+  [0.1.0-a13-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a13-5]: https://github.com/astral-sh/ty/releases/tag/0.0.1-alpha.5
+
+
+
 ## [0.1.0-alpha-12] - 2025-04-20
 
 See [the documentation][0.1.0-a12-1] for more information.
@@ -675,7 +719,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-12..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..HEAD
+  [0.1.0-alpha-13]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-12..v0.1.0-alpha-13
   [0.1.0-alpha-12]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..v0.1.0-alpha-12
   [0.1.0-alpha-11]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..v0.1.0-alpha-11
   [0.1.0-alpha-10]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-9..v0.1.0-alpha-10
