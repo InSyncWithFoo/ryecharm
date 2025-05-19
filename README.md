@@ -8,15 +8,15 @@
 > It may or may not work.
 > Use it at your own risk.
 
-[![Build](https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml/badge.svg)][5]
-[![Docs](https://github.com/InSyncWithFoo/ryecharm/actions/workflows/docs.yaml/badge.svg)][6]
-[![Version](https://img.shields.io/jetbrains/plugin/v/25230)][7]
-[![Rating](https://img.shields.io/jetbrains/plugin/r/rating/25230)][8]
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/25230)][9]
+[![Build](https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml/badge.svg)][6]
+[![Docs](https://github.com/InSyncWithFoo/ryecharm/actions/workflows/docs.yaml/badge.svg)][7]
+[![Version](https://img.shields.io/jetbrains/plugin/v/25230)][8]
+[![Rating](https://img.shields.io/jetbrains/plugin/r/rating/25230)][9]
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/25230)][10]
 
 <!-- Plugin description -->
 The all-in-one PyCharm plugin for Astral-backed Python tools:
-[Ruff][1], [uv][2] and [Rye][3].
+[Ruff][1], [uv][2], [ty][3] and [Rye][4].
 
 
 ## Usage
@@ -25,7 +25,7 @@ If you already have Ruff, uv and/or Rye installed,
 you can start using this plugin the moment you install it.
 The executables will be automatically detected.
 
-See [the documentation][4] for more information.
+See [the documentation][5] for more information.
 
 
 ## Logging
@@ -45,17 +45,18 @@ com.intellij.platform.lsp
 
   [1]: https://github.com/astral-sh/ruff
   [2]: https://github.com/astral-sh/uv
-  [3]: https://github.com/astral-sh/rye
-  [4]: https://insyncwithfoo.github.io/ryecharm
+  [3]: https://github.com/astral-sh/ty
+  [4]: https://github.com/astral-sh/rye
+  [5]: https://insyncwithfoo.github.io/ryecharm
 <!-- Plugin description end -->
 
 
 ## Installation
 
-This plugin is [available on the Marketplace][7].
-You can also download the ZIP files manually from [the <i>Releases</i> tab][10],
-[the `build` branch][11] or [the <i>Actions</i> tab][12]
-and follow the instructions described [here][13].
+This plugin is [available on the Marketplace][8].
+You can also download the ZIP files manually from [the <i>Releases</i> tab][11],
+[the `build` branch][12] or [the <i>Actions</i> tab][13]
+and follow the instructions described [here][14].
 
 Currently supported versions:
 2025.1 (build 251.23774.444) and later.
@@ -65,29 +66,30 @@ Currently supported versions:
 
 Parts of this repository were taken or derived from:
 
-* [@alexander-doroshko/intellij-lsp-plugin-example][14]
+* [@alexander-doroshko/intellij-lsp-plugin-example][15]
 * [@astral-sh/ruff][1]
-* [@astral-sh/rye][3]
+* [@astral-sh/rye][4]
+* [@astral-sh/ty][3]
 * [@astral-sh/uv][2]
-* [@JetBrains/intellij-community][15]
-* [@JetBrains/intellij-platform-plugin-template][16]
-* [@koxudaxi/poetry-pycharm-plugin][17]
-* [@koxudaxi/ruff-pycharm-plugin][18]
-* [@lensvol/intellij-blackconnect][19]
+* [@JetBrains/intellij-community][16]
+* [@JetBrains/intellij-platform-plugin-template][17]
+* [@koxudaxi/poetry-pycharm-plugin][18]
+* [@koxudaxi/ruff-pycharm-plugin][19]
+* [@lensvol/intellij-blackconnect][20]
 
 
-  [5]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml
-  [6]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/docs.yaml
-  [7]: https://plugins.jetbrains.com/plugin/25230/versions
-  [8]: https://plugins.jetbrains.com/plugin/25230/reviews
-  [9]: https://plugins.jetbrains.com/plugin/25230
-  [10]: https://github.com/InSyncWithFoo/ryecharm/releases
-  [11]: https://github.com/InSyncWithFoo/ryecharm/tree/build
-  [12]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml
-  [13]: https://www.jetbrains.com/help/pycharm/managing-plugins.html#install_plugin_from_disk
-  [14]: https://github.com/alexander-doroshko/intellij-lsp-plugin-example
-  [15]: https://github.com/JetBrains/intellij-community
-  [16]: https://github.com/JetBrains/intellij-platform-plugin-template
-  [17]: https://github.com/koxudaxi/poetry-pycharm-plugin
-  [18]: https://github.com/koxudaxi/ruff-pycharm-plugin
-  [19]: https://github.com/lensvol/intellij-blackconnect
+  [6]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml
+  [7]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/docs.yaml
+  [8]: https://plugins.jetbrains.com/plugin/25230/versions
+  [9]: https://plugins.jetbrains.com/plugin/25230/reviews
+  [10]: https://plugins.jetbrains.com/plugin/25230
+  [11]: https://github.com/InSyncWithFoo/ryecharm/releases
+  [12]: https://github.com/InSyncWithFoo/ryecharm/tree/build
+  [13]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml
+  [14]: https://www.jetbrains.com/help/pycharm/managing-plugins.html#install_plugin_from_disk
+  [15]: https://github.com/alexander-doroshko/intellij-lsp-plugin-example
+  [16]: https://github.com/JetBrains/intellij-community
+  [17]: https://github.com/JetBrains/intellij-platform-plugin-template
+  [18]: https://github.com/koxudaxi/poetry-pycharm-plugin
+  [19]: https://github.com/koxudaxi/ruff-pycharm-plugin
+  [20]: https://github.com/lensvol/intellij-blackconnect
