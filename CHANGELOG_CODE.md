@@ -23,7 +23,7 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 * [Material for MkDocs][_0.1.0-a13-d3]: 9.6.6 &rarr; 9.6.11
 * [Gradle][_0.1.0-a13-d4]: 8.13 &rarr; 8.14
 * [Kotlin JVM plugin][_0.1.0-a13-d5]: 2.1.20 &rarr; 2.1.21
-* [LSP4IJ][_0.1.0-a11-d1]: 0.12.0 &rarr; 0.13.0
+* [LSP4IJ][_0.1.0-a13-d6]: 0.12.0 &rarr; 0.13.0
 
 
   [_0.1.0-a13-d1]: https://github.com/astral-sh/setup-uv
