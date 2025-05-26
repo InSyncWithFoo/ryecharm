@@ -13,16 +13,6 @@ import java.nio.file.Path
 import kotlin.io.path.div
 
 
-internal typealias ProjectVersion = String
-
-
-internal enum class VersionBumpType {
-    MAJOR, MINOR, PATCH;
-    
-    override fun toString() = name.lowercase()
-}
-
-
 internal interface RyeCommand
 
 
@@ -37,15 +27,6 @@ internal class Rye private constructor(
     
     fun show() =
         ShowCommand().build()
-    
-    fun version() =
-        VersionCommand().build()
-    
-    fun version(bumpType: VersionBumpType) =
-        VersionCommand().build(CommandArguments("--bump" to bumpType.toString()))
-    
-    fun version(newVersion: ProjectVersion) =
-        VersionCommand().build(CommandArguments(newVersion))
     
     override fun CommandArguments.withGlobalOptions() = this
     

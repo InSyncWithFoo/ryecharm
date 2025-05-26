@@ -32,35 +32,4 @@ internal class RyeTest : CommandFactoryTest() {
         assertEquals(projectPath, command.workingDirectory)
     }
     
-    @Test
-    fun `test version - get`() {
-        val command = rye.version()
-        
-        assertEquals(listOf("version"), command.subcommands)
-        assertEquals(emptyList<String>(), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
-    }
-    
-    @Test
-    fun `test version - bump`() {
-        val bumpType = VersionBumpType.entries.random()
-        val command = rye.version(bumpType)
-        
-        assertEquals(listOf("version"), command.subcommands)
-        assertEquals(listOf("--bump", bumpType.toString()), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
-    }
-    
-    @Test
-    fun `test version - set`() {
-        val newVersion = buildString(5..10) {
-            listOf(lowercase, '.', '-').random()
-        }
-        val command = rye.version(newVersion)
-        
-        assertEquals(listOf("version"), command.subcommands)
-        assertEquals(listOf(newVersion), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
-    }
-    
 }

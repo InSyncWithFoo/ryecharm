@@ -1,22 +1,5 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
-		<intentionAction>
-			<language/>
-			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectMajorVersion</className>
-			<categoryKey>intentions.group</categoryKey>
-		</intentionAction>
-		
-		<intentionAction>
-			<language/>
-			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectMinorVersion</className>
-			<categoryKey>intentions.group</categoryKey>
-		</intentionAction>
-		
-		<intentionAction>
-			<language/>
-			<className>insyncwithfoo.ryecharm.rye.intentions.BumpProjectPatchVersion</className>
-			<categoryKey>intentions.group</categoryKey>
-		</intentionAction>
 	</extensions>
 	
 	<actions>
