@@ -10,8 +10,6 @@ import insyncwithfoo.ryecharm.isSupportedByTY
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ty.createInitializationOptionsObject
-import org.eclipse.lsp4j.ClientCapabilities
-import org.eclipse.lsp4j.DiagnosticCapabilities
 import java.nio.file.Path
 
 
@@ -31,19 +29,6 @@ internal class TYServerDescriptor(project: Project, private val executable: Path
         logger?.info("Configurations: $configurations")
         logger?.info("")
     }
-    
-    /**
-     * @see TextDocumentDiagnosticsPuller
-     */
-    override val clientCapabilities: ClientCapabilities
-        get() = super.clientCapabilities.apply {
-            textDocument.apply {
-                diagnostic = DiagnosticCapabilities().apply {
-                    relatedDocumentSupport = false
-                    dynamicRegistration = false
-                }
-            }
-        }
     
     override fun isSupportedFile(file: VirtualFile) =
         file.isSupportedByTY(project)

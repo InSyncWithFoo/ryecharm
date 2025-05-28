@@ -10,10 +10,6 @@ internal val Project.lspServerManager: LspServerManager
     get() = LspServerManager.getInstance(this)
 
 
-internal inline fun <reified P : LspServerSupportProvider> LspServerManager.getServers() =
-    getServersForProvider(P::class.java)
-
-
 internal inline fun <reified T : LspServerSupportProvider> Project.restartNativeServers() {
     if (lspIsAvailable && this.isNormal) {
         lspServerManager.stopAndRestartIfNeeded(T::class.java)
