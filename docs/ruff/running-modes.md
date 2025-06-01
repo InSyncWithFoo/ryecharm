@@ -9,7 +9,7 @@ The default mode is <i>Command line</i>.
 However, it is recommended to use either of the other two modes
 for performance and technical reasons:
 
-* If you are using a paid IDE, prefer the <i>Native LSP client</i> mode,
+* Prefer the <i>Native LSP client</i> mode if available,
   especially if other language server plugins, bundled or third-party,
   are present. This will help avoiding class loading errors (see below).
 * Otherwise, prefer the <i>LSP4IJ</i> mode.
@@ -38,22 +38,22 @@ These two modes make use of Ruff's [language server capabilities][3],
 available via the `server` subcommand.
 
 The differences between them are that of the client libraries.
-To use the native client, you must be using a paid IDE.
+To use the native client, you must be using a paid IDE or the unified PyCharm.
 On the other hand, [LSP4IJ][5] can be installed on any IDE.
 
 
-| Mode                | <i>Native LSP client</i> | <i>LSP4IJ</i>             |
-|---------------------|--------------------------|---------------------------|
-| Client              | [Built-in][4]            | [LSP4IJ][5] (third-party) |
-| Can be used on      | Paid IDEs                | All IDEs                  |
-| Supported features* | [Few][6]                 | [Much wider range][7]     |
-| UI integrations     | Better                   | Good                      |
-| API stability       | Unstable                 | Unstable                  |
+| Mode                | <i>Native LSP client</i>   | <i>LSP4IJ</i>             |
+|---------------------|----------------------------|---------------------------|
+| Client              | [Built-in][4]              | [LSP4IJ][5] (third-party) |
+| Can be used on      | Paid IDEs, unified PyCharm | All IDEs                  |
+| Supported features* | [Few][6]                   | [Much wider range][7]     |
+| UI integration      | Better                     | Good                      |
+| API stability       | Stable                     | Unstable                  |
 
 <small>\* [Ruff's features][8] are supported equally well by both.</small>
 
 !!! warning
-    On a (paid) IDE with both clients available, a `LinkageError`
+    On an IDE with both clients available, a `LinkageError`
     will be thrown if <i>Native LSP client</i> is selected.
     This is [a known limitation][9].
 
