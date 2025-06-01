@@ -9,7 +9,7 @@ The default mode is <i>Command line</i>.
 However, it is recommended to use either of the other two modes
 for performance and technical reasons:
 
-* If available, prefer the <i>Native LSP client</i> mode,
+* Prefer the <i>Native LSP client</i> mode if available,
   especially if other language server plugins, bundled or third-party,
   are present. This will help avoiding class loading errors (see below).
 * Otherwise, prefer the <i>LSP4IJ</i> mode.
