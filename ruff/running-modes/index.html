@@ -1180,7 +1180,7 @@ a few features/settings are only available in one mode but not another.</p>
 However, it is recommended to use either of the other two modes
 for performance and technical reasons:</p>
 <ul>
-<li>If you are using a paid IDE, prefer the <i>Native LSP client</i> mode,
+<li>Prefer the <i>Native LSP client</i> mode if available,
   especially if other language server plugins, bundled or third-party,
   are present. This will help avoiding class loading errors (see below).</li>
 <li>Otherwise, prefer the <i>LSP4IJ</i> mode.</li>
@@ -1200,7 +1200,7 @@ This is done to provide a consistent experience across all modes.</p>
 <p>These two modes make use of Ruff's <a href="https://docs.astral.sh/ruff/editors/#language-server-protocol">language server capabilities</a>,
 available via the <code>server</code> subcommand.</p>
 <p>The differences between them are that of the client libraries.
-To use the native client, you must be using a paid IDE.
+To use the native client, you must be using a paid IDE or the unified PyCharm.
 On the other hand, <a href="https://plugins.jetbrains.com/plugin/23257-lsp4ij">LSP4IJ</a> can be installed on any IDE.</p>
 <table>
 <thead>
@@ -1218,7 +1218,7 @@ On the other hand, <a href="https://plugins.jetbrains.com/plugin/23257-lsp4ij">L
 </tr>
 <tr>
 <td>Can be used on</td>
-<td>Paid IDEs</td>
+<td>Paid IDEs, unified PyCharm</td>
 <td>All IDEs</td>
 </tr>
 <tr>
@@ -1227,13 +1227,13 @@ On the other hand, <a href="https://plugins.jetbrains.com/plugin/23257-lsp4ij">L
 <td><a href="https://github.com/redhat-developer/lsp4ij/blob/main/docs/LSPSupport.md">Much wider range</a></td>
 </tr>
 <tr>
-<td>UI integrations</td>
+<td>UI integration</td>
 <td>Better</td>
 <td>Good</td>
 </tr>
 <tr>
 <td>API stability</td>
-<td>Unstable</td>
+<td>Stable</td>
 <td>Unstable</td>
 </tr>
 </tbody>
@@ -1241,7 +1241,7 @@ On the other hand, <a href="https://plugins.jetbrains.com/plugin/23257-lsp4ij">L
 <p><small>* <a href="https://docs.astral.sh/ruff/editors/features/">Ruff's features</a> are supported equally well by both.</small></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>On a (paid) IDE with both clients available, a <code>LinkageError</code>
+<p>On an IDE with both clients available, a <code>LinkageError</code>
 will be thrown if <i>Native LSP client</i> is selected.
 This is <a href="https://github.com/redhat-developer/lsp4ij/issues/459">a known limitation</a>.</p>
 </div>
