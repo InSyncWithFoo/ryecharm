@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.isSupportedByTY
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ty.createInitializationOptionsObject
+import org.eclipse.lsp4j.ClientCapabilities
 import java.nio.file.Path
 
 
@@ -18,6 +19,13 @@ internal class TYServerDescriptor(project: Project, private val executable: Path
 {
     
     private val configurations = project.tyConfigurations
+    
+    override val clientCapabilities: ClientCapabilities
+        get() = super.clientCapabilities.apply {
+            textDocument.apply {
+                diagnostic = null
+            }
+        }
     
     init {
         val logger = project.tyLogger
