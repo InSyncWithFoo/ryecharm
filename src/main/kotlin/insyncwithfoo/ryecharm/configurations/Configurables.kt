@@ -53,7 +53,7 @@ internal abstract class PanelBasedConfigurable<S : BaseState> : Configurable {
     protected abstract val state: S
     protected abstract val panel: DialogPanel
     
-    override fun createComponent() = panel
+    override fun createComponent() = panel.also { it.apply() }
     
     override fun isModified() = panel.isModified()
     
