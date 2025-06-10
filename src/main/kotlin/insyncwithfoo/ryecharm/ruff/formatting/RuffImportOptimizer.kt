@@ -9,6 +9,7 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.configurations.ruffExecutable
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
@@ -33,7 +34,11 @@ internal class RuffImportOptimizer : ImportOptimizer {
             return false
         }
         
-        return file.project.ruffConfigurations.run { executable != null && formatting && formatOnOptimizeImports }
+        if (file.project.ruffExecutable == null) {
+            return false
+        }
+        
+        return file.project.ruffConfigurations.run { formatting && formatOnOptimizeImports }
     }
     
     override fun processFile(file: PsiFile) =

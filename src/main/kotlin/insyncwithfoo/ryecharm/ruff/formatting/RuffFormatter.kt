@@ -16,6 +16,7 @@ import insyncwithfoo.ryecharm.addOpenPluginIssueTrackerAction
 import insyncwithfoo.ryecharm.addSeeOutputActions
 import insyncwithfoo.ryecharm.canBeFormattedByRuff
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
+import insyncwithfoo.ryecharm.configurations.ruffExecutable
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.editorFactory
 import insyncwithfoo.ryecharm.importantNotificationGroup
@@ -166,7 +167,11 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
             return false
         }
         
-        return file.project.ruffConfigurations.run { executable != null && formatting && formatOnReformat }
+        if (file.project.ruffExecutable == null) {
+            return false
+        }
+        
+        return file.project.ruffConfigurations.run { formatting && formatOnReformat }
     }
     
     /**
