@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.isExpectedByRuffServer
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ruff.createInitializationOptionsObject
+import org.eclipse.lsp4j.ClientCapabilities
 import java.nio.file.Path
 
 
@@ -27,6 +28,13 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
     override val lspDiagnosticsSupport = DiagnosticsSupport(project).takeIf { configurations.linting }
     override val lspCodeActionsSupport = CodeActionsSupport(project).takeIf { configurations.quickFixes }
     override val lspFormattingSupport = FormattingSupport(project).takeIf { configurations.formatting }
+    
+    override val clientCapabilities: ClientCapabilities
+        get() = super.clientCapabilities.apply {
+            textDocument.apply {
+                diagnostic = null
+            }
+        }
     
     init {
         val logger = project.ruffLogger
