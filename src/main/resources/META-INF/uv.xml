@@ -53,33 +53,6 @@
 			implementationClass="insyncwithfoo.ryecharm.uv.inspections.DevDependenciesInspection"
 		/>
 		
-		<configurationType
-			id="insyncwithfoo.ryecharm.uv.run.UVRunConfigurationType"
-			implementation="insyncwithfoo.ryecharm.uv.run.UVRunConfigurationType"
-		/>
-		
-		<runConfigurationProducer
-			id="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptProducer"
-			implementation="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptProducer"
-		/>
-		
-		<runLineMarkerContributor
-			id="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptGutterRunButtonsProvider"
-			language="TOML"
-			implementationClass="insyncwithfoo.ryecharm.uv.run.projectscripts.UVProjectScriptGutterRunButtonsProvider"
-		/>
-		
-		<runConfigurationProducer
-			id="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptProducer"
-			implementation="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptProducer"
-		/>
-		
-		<runLineMarkerContributor
-			id="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptGutterRunButtonsProvider"
-			language="Python"
-			implementationClass="insyncwithfoo.ryecharm.uv.run.standalonescripts.UVStandaloneScriptGutterRunButtonsProvider"
-		/>
-		
 		<platform.backend.documentation.targetProvider
 			id="insyncwithfoo.ryecharm.uv.documentation.DependencyTreeDocumentationTargetProvider"
 			implementation="insyncwithfoo.ryecharm.uv.documentation.DependencyTreeDocumentationTargetProvider"
