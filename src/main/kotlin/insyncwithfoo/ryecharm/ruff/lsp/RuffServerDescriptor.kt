@@ -32,7 +32,7 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
     override val clientCapabilities: ClientCapabilities
         get() = super.clientCapabilities.apply {
             textDocument.apply {
-                diagnostic = null
+                diagnostic = diagnostic.takeIf { configurations.letNativeClientPullDiagnostics }
             }
         }
     

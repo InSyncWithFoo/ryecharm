@@ -4,6 +4,7 @@ import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.customization.LspDiagnosticsSupport
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.ruff.codeAsString
@@ -21,6 +22,9 @@ import org.eclipse.lsp4j.Diagnostic
 internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
     
     private val configurations = project.ruffConfigurations
+    
+    override fun shouldAskServerForDiagnostics(file: VirtualFile) =
+        configurations.letNativeClientPullDiagnostics
     
     override fun getTooltip(diagnostic: Diagnostic): String {
         val rule = diagnostic.codeAsString

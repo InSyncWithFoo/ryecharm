@@ -92,6 +92,7 @@ internal class RuffConfigurations : DisplayableState() {
     
     var autoRestartServers by property(true)
     var snoozeFormattingTaskError by property(false)
+    var letNativeClientPullDiagnostics by property(false)
 }
 
 

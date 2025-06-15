@@ -171,6 +171,13 @@ private fun Row.snoozeFormattingTaskErrorInput(block: Cell<JBCheckBox>.() -> Uni
     checkBox(message("configurations.ruff.snoozeFormattingTaskError.label")).apply(block)
 
 
+private fun Row.letNativeClientPullDiagnosticsInput(block: Cell<JBCheckBox>.() -> Unit) = run {
+    val comment = message("configurations.ruff.letNativeClientPullDiagnostics.comment")
+    
+    checkBox(message("configurations.ruff.letNativeClientPullDiagnostics.label")).comment(comment).apply(block)
+}
+
+
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
@@ -367,6 +374,10 @@ private fun RuffPanel.makeComponent() = panel {
         row {
             snoozeFormattingTaskErrorInput { bindSelected(state::snoozeFormattingTaskError) }
             overrideCheckbox(state::snoozeFormattingTaskError)
+        }
+        row {
+            letNativeClientPullDiagnosticsInput { bindSelected(state::letNativeClientPullDiagnostics) }
+            overrideCheckbox(state::letNativeClientPullDiagnostics)
         }
     }
     
