@@ -22,6 +22,9 @@ import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
 
 
+internal typealias ProjectVersion = String
+
+
 internal enum class ProjectKind(override val label: String) : Labeled {
     APP(message("newProjectPanel.settings.projectKind.app")),
     LIBRARY(message("newProjectPanel.settings.projectKind.library")),
@@ -31,6 +34,13 @@ internal enum class ProjectKind(override val label: String) : Labeled {
 
 internal fun PythonPackageSpecification.toPEP508Format() =
     name + versionSpecs.orEmpty()
+
+
+internal enum class VersionBumpType {
+    MAJOR, MINOR, PATCH;
+    
+    override fun toString() = name.lowercase()
+}
 
 
 internal interface UVCommand
@@ -119,6 +129,20 @@ internal class UV private constructor(
         
         return VenvCommand().build(arguments)
     }
+    
+    fun version() =
+        VersionCommand().build(CommandArguments("--short"))
+    
+    fun version(bumpType: VersionBumpType): Command {
+        val arguments = CommandArguments("--short")
+        
+        arguments["--bump"] = bumpType.toString()
+        
+        return VersionCommand().build(arguments)
+    }
+    
+    fun version(newVersion: ProjectVersion) =
+        VersionCommand().build(CommandArguments("--short", newVersion))
     
     fun selfVersion() =
         SelfVersionCommand().build()

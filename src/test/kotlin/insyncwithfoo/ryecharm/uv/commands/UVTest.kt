@@ -125,7 +125,7 @@ internal class UVTest : CommandFactoryTest() {
     }
     
     @Test
-    fun `test version`() {
+    fun `test self version`() {
         val command = uv.selfVersion()
         
         assertEquals(listOf("self", "version"), command.subcommands)
@@ -173,6 +173,42 @@ internal class UVTest : CommandFactoryTest() {
         assertEquals(projectPath, command.workingDirectory)
         
         assertContains(command.arguments, "--all-extras")
+    }
+    
+    @Test
+    fun `test version - get`() {
+        val command = uv.version()
+        
+        assertEquals(listOf("version"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
+        assertContains(command.arguments, "--short")
+    }
+    
+    @Test
+    fun `test version - bump`() {
+        val bumpType = VersionBumpType.entries.random()
+        val command = uv.version(bumpType)
+        
+        assertEquals(listOf("version"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
+        assertContains(command.arguments, "--short")
+        assertTrue(command.arguments include listOf("--bump", bumpType.toString()))
+    }
+    
+    @Test
+    fun `test version - set`() {
+        val newVersion = buildString(5..10) {
+            listOf(lowercase, '.', '-').random()
+        }
+        val command = uv.version(newVersion)
+        
+        assertEquals(listOf("version"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
+        assertContains(command.arguments, "--short")
+        assertContains(command.arguments, newVersion)
     }
     
 }
