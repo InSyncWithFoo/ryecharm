@@ -66,6 +66,24 @@
 			<categoryKey>intentions.group</categoryKey>
 			<skipBeforeAfter>true</skipBeforeAfter>
 		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.uv.intentions.BumpProjectMajorVersion</className>
+			<categoryKey>intentions.group</categoryKey>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.uv.intentions.BumpProjectMinorVersion</className>
+			<categoryKey>intentions.group</categoryKey>
+		</intentionAction>
+		
+		<intentionAction>
+			<language/>
+			<className>insyncwithfoo.ryecharm.uv.intentions.BumpProjectPatchVersion</className>
+			<categoryKey>intentions.group</categoryKey>
+		</intentionAction>
 	</extensions>
 	
 	<actions>

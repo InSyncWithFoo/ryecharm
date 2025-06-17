@@ -22,13 +22,3 @@ internal class ShowCommand : Command(), RyeCommand {
         get() = message("progresses.command.rye.show")
     
 }
-
-
-internal class VersionCommand : Command(), RyeCommand {
-    
-    override val subcommands = listOf("version")
-    
-    override val runningMessage: String
-        get() = message("progresses.command.rye.version")
-
-}
