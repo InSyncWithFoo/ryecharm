@@ -19,6 +19,7 @@ import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
 import insyncwithfoo.ryecharm.emptyText
+import insyncwithfoo.ryecharm.fallbackValue
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.lsp4ijIsAvailable
 import insyncwithfoo.ryecharm.lspIsAvailable
@@ -186,7 +187,9 @@ private fun RuffPanel.makeComponent() = panel {
             val detectedExecutable = Ruff.detectExecutable()?.toString()
                 ?: project?.findExecutableInVenv("ruff")?.toString()
             
-            bindText(state::executable) { detectedExecutable.orEmpty() }
+            bindText(state::executable)
+            
+            fallbackValue = detectedExecutable
             emptyText = detectedExecutable ?: message("configurations.ruff.executable.placeholder")
         }
         overrideCheckbox(state::executable)

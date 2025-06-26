@@ -14,6 +14,7 @@ import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
 import insyncwithfoo.ryecharm.emptyText
+import insyncwithfoo.ryecharm.fallbackValue
 import insyncwithfoo.ryecharm.lsp4ijIsAvailable
 import insyncwithfoo.ryecharm.lspIsAvailable
 import insyncwithfoo.ryecharm.makeFlexible
@@ -43,7 +44,9 @@ private fun TYPanel.makeComponent() = panel {
         executableInput {
             val detectedExecutable = TY.detectExecutable()?.toString()
             
-            bindText(state::executable) { detectedExecutable.orEmpty() }
+            bindText(state::executable)
+            
+            fallbackValue = detectedExecutable
             emptyText = detectedExecutable ?: message("configurations.ty.executable.placeholder")
         }
         overrideCheckbox(state::executable)

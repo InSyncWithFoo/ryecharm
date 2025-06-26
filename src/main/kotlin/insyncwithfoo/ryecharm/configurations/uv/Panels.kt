@@ -16,6 +16,7 @@ import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
 import insyncwithfoo.ryecharm.emptyText
+import insyncwithfoo.ryecharm.fallbackValue
 import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.singleFileTextField
@@ -74,7 +75,9 @@ private fun UVPanel.makeComponent() = panel {
         executableInput {
             val detectedExecutable = UV.detectExecutable()?.toString()
             
-            bindText(state::executable) { detectedExecutable.orEmpty() }
+            bindText(state::executable)
+            
+            fallbackValue = detectedExecutable
             emptyText = detectedExecutable ?: message("configurations.uv.executable.placeholder")
         }
         overrideCheckbox(state::executable)

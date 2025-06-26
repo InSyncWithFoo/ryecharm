@@ -41,6 +41,14 @@ internal fun <C : JComponent> Cell<C>.makeFlexible() = apply {
 }
 
 
+internal var Cell<TextFieldWithBrowseButton>.fallbackValue: String?
+    @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
+    get() = throw RuntimeException()
+    set(value) {
+        component.text = component.text.ifBlank { value.orEmpty() }
+    }
+
+
 internal var Cell<TextFieldWithBrowseButton>.emptyText: String
     @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
     get() = throw RuntimeException()

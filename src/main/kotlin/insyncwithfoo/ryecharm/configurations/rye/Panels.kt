@@ -12,6 +12,7 @@ import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
 import insyncwithfoo.ryecharm.emptyText
+import insyncwithfoo.ryecharm.fallbackValue
 import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.rye.commands.Rye
@@ -33,7 +34,9 @@ private fun RyePanel.makeComponent() = panel {
         executableInput {
             val detectedExecutable = Rye.detectExecutable()?.toString()
             
-            bindText(state::executable) { detectedExecutable.orEmpty() }
+            bindText(state::executable)
+            
+            fallbackValue = detectedExecutable
             emptyText = detectedExecutable ?: message("configurations.rye.executable.placeholder")
         }
         overrideCheckbox(state::executable)
