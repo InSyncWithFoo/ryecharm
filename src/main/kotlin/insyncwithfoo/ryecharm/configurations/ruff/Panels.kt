@@ -18,8 +18,6 @@ import insyncwithfoo.ryecharm.configurations.AdaptivePanel
 import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
-import insyncwithfoo.ryecharm.emptyText
-import insyncwithfoo.ryecharm.fallbackValue
 import insyncwithfoo.ryecharm.findExecutableInVenv
 import insyncwithfoo.ryecharm.lsp4ijIsAvailable
 import insyncwithfoo.ryecharm.lspIsAvailable
@@ -182,16 +180,11 @@ private fun Row.letNativeClientPullDiagnosticsInput(block: Cell<JBCheckBox>.() -
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
-    row(message("configurations.ruff.executable.label")) {
-        executableInput {
-            val detectedExecutable = Ruff.detectExecutable()?.toString()
-                ?: project?.findExecutableInVenv("ruff")?.toString()
-            
-            bindText(state::executable)
-            
-            fallbackValue = detectedExecutable
-            emptyText = detectedExecutable ?: message("configurations.ruff.executable.placeholder")
-        }
+    row(message("configurations.executable.label")) {
+        val detectedExecutable = Ruff.detectExecutable()?.toString()
+            ?: project?.findExecutableInVenv("ruff")?.toString()
+        
+        executableInputAndDetectButton(detectedExecutable, ::executableInput) { bindText(state::executable) }
         overrideCheckbox(state::executable)
     }
     row("") {

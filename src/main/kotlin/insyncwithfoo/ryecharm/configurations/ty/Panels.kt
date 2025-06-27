@@ -13,8 +13,6 @@ import insyncwithfoo.ryecharm.configurations.AdaptivePanel
 import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
-import insyncwithfoo.ryecharm.emptyText
-import insyncwithfoo.ryecharm.fallbackValue
 import insyncwithfoo.ryecharm.lsp4ijIsAvailable
 import insyncwithfoo.ryecharm.lspIsAvailable
 import insyncwithfoo.ryecharm.makeFlexible
@@ -40,15 +38,10 @@ private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
 
 private fun TYPanel.makeComponent() = panel {
     
-    row(message("configurations.ty.executable.label")) {
-        executableInput {
-            val detectedExecutable = TY.detectExecutable()?.toString()
-            
-            bindText(state::executable)
-            
-            fallbackValue = detectedExecutable
-            emptyText = detectedExecutable ?: message("configurations.ty.executable.placeholder")
-        }
+    row(message("configurations.executable.label")) {
+        val detectedExecutable = TY.detectExecutable()?.toString()
+        
+        executableInputAndDetectButton(detectedExecutable, ::executableInput) { bindText(state::executable) }
         overrideCheckbox(state::executable)
     }
     
