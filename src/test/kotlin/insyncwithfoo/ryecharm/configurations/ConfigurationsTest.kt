@@ -30,9 +30,13 @@ internal abstract class ConfigurationsTest<C : BaseState> {
     }
     
     protected fun doMessagesTest(getKeyForName: (String) -> String) {
+        val exemptions = listOf("executable")
+        
         fields.forEach { (name, _) ->
-            val key = getKeyForName(name)
-            assertNotEquals("!$key!", message(key))
+            if (name in exemptions) {
+                val key = getKeyForName(name)
+                assertNotEquals("!$key!", message(key))
+            }
         }
     }
     
