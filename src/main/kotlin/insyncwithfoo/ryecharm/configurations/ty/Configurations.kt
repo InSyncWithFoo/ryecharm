@@ -18,8 +18,6 @@ internal enum class RunningMode(override val label: String) : Labeled {
 internal class TYConfigurations : DisplayableState(), Copyable {
     var executable by string(null)
     var runningMode by enum(RunningMode.DISABLED)
-    
-    var completion by property(false)
 }
 
 

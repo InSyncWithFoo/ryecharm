@@ -3,11 +3,9 @@ package insyncwithfoo.ryecharm.configurations.ty
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogPanel
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Panel
 import com.intellij.ui.dsl.builder.Row
-import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.panel
 import insyncwithfoo.ryecharm.bindSelected
 import insyncwithfoo.ryecharm.bindText
@@ -39,11 +37,6 @@ private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
     buttonsGroup(init = block)
 
 
-private fun Row.completionInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ty.completion.label")).apply(block)
-
-
-@Suppress("DialogTitleCapitalization")
 private fun TYPanel.makeComponent() = panel {
     
     row(message("configurations.ty.executable.label")) {
@@ -66,13 +59,6 @@ private fun TYPanel.makeComponent() = panel {
         }
     }
     runningModeInputGroup.bindSelected(state::runningMode)
-    
-    group(message("configurations.ty.groups.main")) {
-        row {
-            completionInput { bindSelected(state::completion) }
-            overrideCheckbox(state::completion)
-        }
-    }
     
 }
 
