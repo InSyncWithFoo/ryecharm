@@ -28,7 +28,7 @@ private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Uni
 
 private fun RyePanel.makeComponent() = panel {
     
-    row(message("configurations.executable.label")) {
+    row(message("configurations.rye.executable.label")) {
         val detectedExecutable = Rye.detectExecutable()?.toString()
         
         executableInputAndDetectButton(detectedExecutable, ::executableInput) { bindText(state::executable) }

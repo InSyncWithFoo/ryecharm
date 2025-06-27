@@ -180,7 +180,7 @@ private fun Row.letNativeClientPullDiagnosticsInput(block: Cell<JBCheckBox>.() -
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
-    row(message("configurations.executable.label")) {
+    row(message("configurations.ruff.executable.label")) {
         val detectedExecutable = Ruff.detectExecutable()?.toString()
             ?: project?.findExecutableInVenv("ruff")?.toString()
         

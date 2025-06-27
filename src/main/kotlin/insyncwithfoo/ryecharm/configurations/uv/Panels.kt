@@ -69,7 +69,7 @@ private fun Row.dependenciesDataMaxAgeInput(block: Cell<JBIntSpinner>.() -> Unit
 @Suppress("DialogTitleCapitalization")
 private fun UVPanel.makeComponent() = panel {
     
-    row(message("configurations.executable.label")) {
+    row(message("configurations.uv.executable.label")) {
         val detectedExecutable = UV.detectExecutable()?.toString()
         
         executableInputAndDetectButton(detectedExecutable, ::executableInput) { bindText(state::executable) }

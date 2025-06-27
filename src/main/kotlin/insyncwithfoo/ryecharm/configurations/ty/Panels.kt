@@ -38,7 +38,7 @@ private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
 
 private fun TYPanel.makeComponent() = panel {
     
-    row(message("configurations.executable.label")) {
+    row(message("configurations.ty.executable.label")) {
         val detectedExecutable = TY.detectExecutable()?.toString()
         
         executableInputAndDetectButton(detectedExecutable, ::executableInput) { bindText(state::executable) }
