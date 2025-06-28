@@ -15,7 +15,6 @@ import insyncwithfoo.ryecharm.configurations.AdaptivePanel
 import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import insyncwithfoo.ryecharm.configurations.projectAndOverrides
-import insyncwithfoo.ryecharm.emptyText
 import insyncwithfoo.ryecharm.makeFlexible
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.singleFileTextField
@@ -71,12 +70,9 @@ private fun Row.dependenciesDataMaxAgeInput(block: Cell<JBIntSpinner>.() -> Unit
 private fun UVPanel.makeComponent() = panel {
     
     row(message("configurations.uv.executable.label")) {
-        executableInput {
-            val detectedExecutable = UV.detectExecutable()?.toString()
-            
-            bindText(state::executable) { detectedExecutable.orEmpty() }
-            emptyText = detectedExecutable ?: message("configurations.uv.executable.placeholder")
-        }
+        val detectedExecutable = UV.detectExecutable()?.toString()
+        
+        executableInputAndDetectButton(detectedExecutable, ::executableInput) { bindText(state::executable) }
         overrideCheckbox(state::executable)
     }
     

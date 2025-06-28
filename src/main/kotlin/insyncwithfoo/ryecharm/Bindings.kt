@@ -1,30 +1,15 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.ui.ComboBox
-import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.TextAccessor
 import com.intellij.ui.dsl.builder.ButtonsGroup
 import com.intellij.ui.dsl.builder.Cell
-import com.intellij.ui.dsl.builder.MutableProperty
 import com.intellij.ui.dsl.builder.bindItem
-import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.toMutableProperty
 import com.intellij.ui.dsl.builder.toNonNullableProperty
 import com.intellij.ui.dsl.builder.toNullableProperty
 import javax.swing.JComponent
 import kotlin.reflect.KMutableProperty0
-
-
-private fun <T> KMutableProperty0<T?>.toNonNullableProperty(getDefaultValue: () -> T): MutableProperty<T> {
-    return MutableProperty({ get() ?: getDefaultValue() }, { set(it) })
-}
-
-
-internal fun <C : TextFieldWithBrowseButton> Cell<C>.bindText(
-    property: KMutableProperty0<String?>,
-    getDefaultValue: () -> String
-) =
-    bindText(property.toNonNullableProperty(getDefaultValue))
 
 
 internal fun <C> Cell<C>.bindText(property: KMutableProperty0<String?>) where C : JComponent, C : TextAccessor =

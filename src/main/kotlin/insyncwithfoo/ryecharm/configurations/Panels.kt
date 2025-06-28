@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.configurations
 
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.Cell
@@ -8,6 +9,7 @@ import com.intellij.ui.dsl.builder.Panel
 import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.selected
+import insyncwithfoo.ryecharm.emptyText
 import insyncwithfoo.ryecharm.message
 import kotlin.reflect.KMutableProperty0
 import kotlin.reflect.full.declaredMemberProperties
@@ -99,6 +101,21 @@ internal abstract class AdaptivePanel<S>(val state: S, private val overrides: Ov
     @Suppress("DialogTitleCapitalization")
     fun Panel.advancedSettingsGroup(init: Panel.() -> Unit) {
         collapsibleGroup(message("configurations.groups.advanced"), init = init)
+    }
+    
+    fun Row.executableInputAndDetectButton(
+        detectedExecutable: String?,
+        makeField: (Cell<TextFieldWithBrowseButton>.() -> Unit) -> Cell<TextFieldWithBrowseButton>,
+        block: Cell<TextFieldWithBrowseButton>.() -> Unit
+    ) {
+        val field = makeField {
+            block()
+            emptyText = detectedExecutable ?: message("configurations.executable.placeholder")
+        }
+        
+        button(message("configurations.executable.detect")) {
+            field.component.text = detectedExecutable.orEmpty()
+        }
     }
     
 }
