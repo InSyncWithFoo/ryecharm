@@ -1,13 +1,13 @@
 [versions]
 # libraries
 annotations = "26.0.2"
-kotlinxSerialization = "1.8.1"
+kotlinxSerialization = "1.9.0"
 junit = "4.13.2"
 
 # plugins
 changelog = "2.2.1"
 intelliJPlatform = "2.3.0"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 kover = "0.9.1"
 qodana = "2025.1.1"
 
