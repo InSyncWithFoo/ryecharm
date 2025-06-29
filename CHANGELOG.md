@@ -14,6 +14,53 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-14] - 2025-06-29
+
+See [the documentation][0.1.0-a14-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.12.1][0.1.0-a14-2]
+* uv: [0.7.16][0.1.0-a14-3]
+* Rye: [0.44.0][0.1.0-a14-4]
+* ty: [0.0.1-alpha.12][0.1.0-a14-5]
+
+
+### Changed
+
+* The "Bump project version" intention now uses uv instead of Rye.
+
+
+### Removed
+
+* 2025.1.1.1 and lower are no longer supported.
+* RyeCharm-provided uv run configuration type and factories have been removed.
+  Use native uv run configurations instead.
+* ty's completion setting has been removed.
+  It has never worked, and ty itself no longer recognizes it.
+
+
+### Fixed
+
+* Previously, the native client did not support `textDocument/diagnostic`.
+  2025.1.2 added support for it, but the client does not send such requests
+  by default, resulting in no diagnostics being displayed.
+  This has been fixed.
+* Prior to this version, ty's diagnostics might be out-of-sync.
+  This is no longer an issue.
+* Due to an UI bug, the formatter and import optimizer would not work
+  until Ruff's executable input field is modified.
+  Now, instead of being prefilled, executable fields will have
+  accompanying "Detect" buttons.
+  
+
+  [0.1.0-a14-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a14-2]: https://github.com/astral-sh/ruff/releases/tag/0.12.1
+  [0.1.0-a14-3]: https://github.com/astral-sh/uv/releases/tag/0.7.16
+  [0.1.0-a14-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a14-5]: https://github.com/astral-sh/ty/releases/tag/0.0.1-alpha.12
+
+
 ## [0.1.0-alpha-13] - 2025-05-18
 
 See [the documentation][0.1.0-a13-1] for more information.
@@ -55,7 +102,6 @@ Latest tool versions at the time of release:
   [0.1.0-a13-3]: https://github.com/astral-sh/uv/releases/tag/0.7.5
   [0.1.0-a13-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
   [0.1.0-a13-5]: https://github.com/astral-sh/ty/releases/tag/0.0.1-alpha.5
-
 
 
 ## [0.1.0-alpha-12] - 2025-04-20
@@ -719,7 +765,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..HEAD
+  [0.1.0-alpha-14]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..v0.1.0-alpha-14
   [0.1.0-alpha-13]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-12..v0.1.0-alpha-13
   [0.1.0-alpha-12]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..v0.1.0-alpha-12
   [0.1.0-alpha-11]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..v0.1.0-alpha-11

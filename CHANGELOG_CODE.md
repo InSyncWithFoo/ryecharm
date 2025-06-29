@@ -14,13 +14,33 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-14] - 2025-06-29
+
+### Dependencies
+
+* [Foojay Toolchains][_0.1.0-a14-d1]: 0.10.0 &rarr; 1.0.0
+* [Gradle][_0.1.0-a14-d2]: 8.14 &rarr; 8.14.2
+* [LSP4IJ][_0.1.0-a14-d3]: 0.13.0 &rarr; 0.14.2
+* [Material for MkDocs][_0.1.0-a14-d4]: 9.6.12 &rarr; 9.6.14
+* [@Kotlin/kotlinx.serialization][_0.1.0-a14-d5]: 1.8.1 &rarr; 1.9.0
+* [Kotlin JVM plugin][_0.1.0-a14-d6]: 2.1.21 &rarr; 2.2.0
+
+
+  [_0.1.0-a14-d1]: https://github.com/gradle/foojay-toolchains
+  [_0.1.0-a14-d2]: https://github.com/gradle/gradle
+  [_0.1.0-a14-d3]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a14-d4]: https://github.com/squidfunk/mkdocs-material
+  [_0.1.0-a14-d5]: https://github.com/Kotlin/kotlinx.serialization
+  [_0.1.0-a14-d6]: https://github.com/JetBrains/kotlin
+
+
 ## [0.1.0-alpha-13] - 2025-05-18
 
 ### Dependencies
 
 * [@astral-sh/setup-uv][_0.1.0-a13-d1]: 5 &rarr; 6
 * [Qodana][_0.1.0-a13-d2]: 2024.3.4 &rarr; 2025.1.1
-* [Material for MkDocs][_0.1.0-a13-d3]: 9.6.6 &rarr; 9.6.11
+* [Material for MkDocs][_0.1.0-a13-d3]: 9.6.6 &rarr; 9.6.12
 * [Gradle][_0.1.0-a13-d4]: 8.13 &rarr; 8.14
 * [Kotlin JVM plugin][_0.1.0-a13-d5]: 2.1.20 &rarr; 2.1.21
 * [LSP4IJ][_0.1.0-a13-d6]: 0.12.0 &rarr; 0.13.0
@@ -39,7 +59,7 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 ### Dependencies
 
 * [Material for MkDocs][_0.1.0-a12-d1]: 9.6.6 &rarr; 9.6.11
-* [Foojay Toolchains][_0.1.0-a12-d2]: 0.8.0 &rarr; 0.9.0
+* [Foojay Toolchains][_0.1.0-a12-d2]: 0.9.0 &rarr; 0.10.0
 
 
   [_0.1.0-a12-d1]: https://github.com/squidfunk/mkdocs-material
@@ -51,7 +71,7 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 ### Dependencies
 
 * [LSP4IJ][_0.1.0-a11-d1]: 0.11.0 &rarr; 0.12.0
-* [@Kotlin/kotlinx.serialization][_0.1.0-a11-d2]: 1.7.3 &rarr; 1.8.0
+* [@Kotlin/kotlinx.serialization][_0.1.0-a11-d2]: 1.8.0 &rarr; 1.8.1
 
 
   [_0.1.0-a11-d1]: https://github.com/redhat-developer/lsp4ij
@@ -268,7 +288,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..HEAD
+  [0.1.0-alpha-14]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..v0.1.0-alpha-14
   [0.1.0-alpha-13]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-12..v0.1.0-alpha-13
   [0.1.0-alpha-12]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..v0.1.0-alpha-12
   [0.1.0-alpha-11]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-10..v0.1.0-alpha-11
