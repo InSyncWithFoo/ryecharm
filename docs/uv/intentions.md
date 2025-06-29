@@ -1,3 +1,22 @@
+## Bump project version
+
+The three intentions of this type
+(for major, minor and patch bumping types)
+are available in a `pyproject.toml` file.
+
+This is equivalent to running `uv version --bump ...` at the project's path.
+
+
+=== "Major"
+    ![](../assets/uv-intentions-bump-project-version-demo-major.png)
+
+=== "Minor"
+    ![](../assets/uv-intentions-bump-project-version-demo-minor.png)
+
+=== "Patch"
+    ![](../assets/uv-intentions-bump-project-version-demo-patch.png)
+
+
 ## Synchronize project
 
 This intention is available in a `pyproject.toml` file.

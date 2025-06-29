@@ -87,10 +87,12 @@ nav:
     - Inspections: uv/inspections.md
     - Run configurations: uv/run-configurations.md
     - Documentation: uv/documentation.md
+  - ty:
+      - ty integration: ty/index.md
+      - Actions: ty/actions.md
   - Rye:
     - Rye integration: rye/index.md
     - Actions: rye/actions.md
-    - Intentions: rye/intentions.md
   - Configurations:
     - Configurations overview: configurations/index.md
     - Ruff: configurations/ruff.md

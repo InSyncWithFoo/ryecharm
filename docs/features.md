@@ -32,7 +32,7 @@ Examples: [`uv.lock` should not be edited manually][8].
   [2]: rye/actions.md#open-configuration-file
   [3]: ruff/actions.md#clean-cache
   [4]: https://www.jetbrains.com/help/pycharm/intention-actions.html
-  [5]: rye/intentions.md#bump-project-version
+  [5]: uv/intentions.md#bump-project-version
   [6]: uv/intentions.md#synchronize-project
   [7]: https://www.jetbrains.com/help/pycharm/code-inspection.html
   [8]: uv/inspections.md#editing-uvlock
