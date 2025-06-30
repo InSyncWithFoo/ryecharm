@@ -52,7 +52,7 @@ Latest tool versions at the time of release:
   until Ruff's executable input field is modified.
   Now, instead of being prefilled, executable fields will have
   accompanying "Detect" buttons.
-  
+
 
   [0.1.0-a14-1]: https://insyncwithfoo.github.io/ryecharm/
   [0.1.0-a14-2]: https://github.com/astral-sh/ruff/releases/tag/0.12.1
