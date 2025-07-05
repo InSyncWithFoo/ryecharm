@@ -5,7 +5,6 @@
 	
 	<!-- Public plugin name should be written in Title Case.
 		 Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-	<!--suppress PluginXmlCapitalization -->
 	<name>RyeCharm</name>
 	
 	<!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->

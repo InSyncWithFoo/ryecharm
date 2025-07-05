@@ -28,7 +28,6 @@
 	</extensions>
 	
 	<actions>
-		<!--suppress PluginXmlCapitalization -->
 		<action
 			id="insyncwithfoo.ryecharm.common.logging.ActivateRyeCharmLoggingToolWindowAction"
 			class="insyncwithfoo.ryecharm.common.logging.ActivateRyeCharmLoggingToolWindowAction"
