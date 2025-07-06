@@ -148,10 +148,10 @@ internal class UV private constructor(
         val arguments = CommandArguments()
         
         if (json) {
-            arguments["--output-format"] = "json" 
+            arguments["--output-format"] = "json"
         }
         
-        return SelfVersionCommand().build()
+        return SelfVersionCommand().build(arguments)
     }
     
     fun selfUpdate() =

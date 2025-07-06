@@ -143,7 +143,7 @@ internal class UVTest : CommandFactoryTest() {
     fun `test self update`() {
         val command = uv.selfUpdate()
         
-        assertEquals(listOf("self", "version"), command.subcommands)
+        assertEquals(listOf("self", "update"), command.subcommands)
         assertEquals(emptyList<String>(), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
     }
@@ -156,15 +156,16 @@ internal class UVTest : CommandFactoryTest() {
         val noHeader = boolean
         
         val command = uv.pipCompile(packages, noHeader)
+        val arguments = command.arguments
         
         assertEquals(listOf("pip", "compile"), command.subcommands)
         assertEquals(projectPath, command.workingDirectory)
         assertEquals(packages.joinToString("\n"), command.stdin)
         
+        assertContains(arguments, "-")
+        
         if (noHeader) {
             assertContains(command.arguments, "--no-header")
-        } else {
-            assertEquals(emptyList<String>(), command.arguments)
         }
     }
     
