@@ -144,8 +144,29 @@ internal class UV private constructor(
     fun version(newVersion: ProjectVersion) =
         VersionCommand().build(CommandArguments("--short", newVersion))
     
-    fun selfVersion() =
-        SelfVersionCommand().build()
+    fun selfVersion(json: Boolean = false): Command {
+        val arguments = CommandArguments()
+        
+        if (json) {
+            arguments["--output-format"] = "json" 
+        }
+        
+        return SelfVersionCommand().build()
+    }
+    
+    fun selfUpdate() =
+        SelfUpdateCommand().build()
+    
+    fun pipCompile(packages: List<String>, noHeader: Boolean = true): Command {
+        val arguments = CommandArguments("pip", "compile", "-")
+        val stdin = packages.joinToString("\n")
+        
+        if (noHeader) {
+            arguments += "--no-header"
+        }
+        
+        return PipCompileCommand().build(arguments, stdin)
+    }
     
     fun pipList(python: Path? = null): Command {
         val arguments = CommandArguments("--format", "json", "--quiet")
