@@ -32,7 +32,7 @@ See [the documentation][5] for more information.
 
 If you use Ruff as a language server via LSP mode,
 you are strongly encouraged to enable language server logging.
-This will allow corresponding logs to be recorded in `idea.log`
+This will allow corresponding logs to be recorded in log files
 for further analysis should a problem arises.
 
 Add the following line to the <b>Help</b> |

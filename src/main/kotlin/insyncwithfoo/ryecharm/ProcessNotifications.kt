@@ -58,7 +58,7 @@ internal fun Project.notifyProcessResult(command: Command, output: ProcessOutput
     }
 
 
-internal fun NotificationGroup.genericWarning(content: String) =
+private fun NotificationGroup.genericWarning(content: String) =
     warning(message("notifications.warning.title"), content)
 
 
