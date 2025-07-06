@@ -108,7 +108,7 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
     }
     
     private suspend fun Project.getCurrentVersion(uv: UV): String? {
-        val command = uv.selfVersion()
+        val command = uv.selfVersion(json = true)
         val output = runInBackground(command)
         
         if (output.completedAbnormally) {
