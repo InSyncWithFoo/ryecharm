@@ -19,6 +19,7 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessful
 import insyncwithfoo.ryecharm.notifyProcessResult
 import insyncwithfoo.ryecharm.parseAsJSON
+import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.propertiesComponent
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runThenNotify
@@ -116,7 +117,7 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
             return null
         }
         
-        val versionInfo = output.stdout.parseAsJSON<VersionInfo>()
+        val versionInfo = output.stdout.parseAsJSONLeniently<VersionInfo>()
         
         return versionInfo?.version
     }
