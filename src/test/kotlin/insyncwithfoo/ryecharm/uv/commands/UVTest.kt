@@ -126,11 +126,46 @@ internal class UVTest : CommandFactoryTest() {
     
     @Test
     fun `test self version`() {
-        val command = uv.selfVersion()
+        val json = boolean
+        val command = uv.selfVersion(json = json)
+        
+        assertEquals(listOf("self", "version"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        
+        if (json) {
+            assertTrue(command.arguments include listOf("--output-format", "json"))
+        } else {
+            assertEquals(emptyList<String>(), command.arguments)
+        }
+    }
+    
+    @Test
+    fun `test self update`() {
+        val command = uv.selfUpdate()
         
         assertEquals(listOf("self", "version"), command.subcommands)
         assertEquals(emptyList<String>(), command.arguments)
         assertEquals(projectPath, command.workingDirectory)
+    }
+    
+    @Test
+    fun `test pip compile`() {
+        val packages = buildList((0..10).random()) {
+            add(randomPEP508Name())
+        }
+        val noHeader = boolean
+        
+        val command = uv.pipCompile(packages, noHeader)
+        
+        assertEquals(listOf("pip", "compile"), command.subcommands)
+        assertEquals(projectPath, command.workingDirectory)
+        assertEquals(packages.joinToString("\n"), command.stdin)
+        
+        if (noHeader) {
+            assertContains(command.arguments, "--no-header")
+        } else {
+            assertEquals(emptyList<String>(), command.arguments)
+        }
     }
     
     @Test
