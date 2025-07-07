@@ -28,6 +28,17 @@ internal val VirtualFile.isUVLock: Boolean
 
 
 /**
+ * Whether the given file's name ends with `.py.lock`.
+ * 
+ * A script lock file's name is that of the corresponding script, plus `.lock`.
+ * Therefore, such lock files' names don't always end with `.py.lock`.
+ * However, there is no better detection method.
+ */
+internal val VirtualFile.isScriptLockFile: Boolean
+    get() = name.endsWith(".py.lock")
+
+
+/**
  * Whether the given file is `uv.toml`.
  */
 internal val VirtualFile.isUVToml: Boolean

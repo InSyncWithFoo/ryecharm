@@ -13,6 +13,7 @@ import insyncwithfoo.ryecharm.isPylockToml
 import insyncwithfoo.ryecharm.isPythonVersion
 import insyncwithfoo.ryecharm.isRuffToml
 import insyncwithfoo.ryecharm.isRyeConfigToml
+import insyncwithfoo.ryecharm.isScriptLockFile
 import insyncwithfoo.ryecharm.isUVLock
 import insyncwithfoo.ryecharm.isUVToml
 
@@ -38,10 +39,11 @@ internal class RyeCharmFilesIconProvider : FileIconProvider, DumbAware {
             file.isRuffToml -> RuffIcons.TINY_16
             file.isUVToml -> UVIcons.TINY_16
             file.isUVLock -> UVIcons.TINY_16_WHITE
+            // TODO: Are there better choices?
+            file.isScriptLockFile -> UVIcons.TINY_16_WHITE
             file.isPythonVersion -> OtherIcons.PYTHON_GRAY_16
             file.isPyTyped -> OtherIcons.PYTHON_WHITE_16
             file.isPylockToml -> OtherIcons.PYTHON_LOCK_WHITE_16
-            // TODO: Custom lock files
             else -> null
         }
     

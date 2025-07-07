@@ -26,14 +26,13 @@
 		/>
 		
 		<editorNotificationProvider
-			id="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
-			implementation="insyncwithfoo.ryecharm.uv.inspections.UVLockEditingNotice"
+			id="insyncwithfoo.ryecharm.uv.inspections.LockFileEditingNotice"
+			implementation="insyncwithfoo.ryecharm.uv.inspections.LockFileEditingNotice"
 		/>
 		
 		<fileType
 			name="TOML"
-			patterns="*.py.lock"
-			fileNames="uv.lock"
+			patterns="*.py.lock;uv.lock"
 		/>
 		
 		<localInspection

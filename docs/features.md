@@ -25,7 +25,7 @@ Examples: [Bump project version][5] and [Synchronize project][6].
 Those implemented by RyeCharm are mostly about
 the use of the tools rather than code smells.
 
-Examples: [`uv.lock` should not be edited manually][8].
+Examples: [uv lock files should not be edited manually][8].
 
 
   [1]: https://www.jetbrains.com/help/idea/discover-intellij-idea.html#find-action
@@ -35,4 +35,4 @@ Examples: [`uv.lock` should not be edited manually][8].
   [5]: uv/intentions.md#bump-project-version
   [6]: uv/intentions.md#synchronize-project
   [7]: https://www.jetbrains.com/help/pycharm/code-inspection.html
-  [8]: uv/inspections.md#editing-uvlock
+  [8]: uv/inspections.md#editing-uv-lock-files

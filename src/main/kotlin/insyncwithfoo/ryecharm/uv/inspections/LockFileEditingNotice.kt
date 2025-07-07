@@ -7,21 +7,22 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.EditorNotificationPanel
 import com.intellij.ui.EditorNotificationProvider
 import insyncwithfoo.ryecharm.UVIcons
+import insyncwithfoo.ryecharm.isScriptLockFile
 import insyncwithfoo.ryecharm.isUVLock
 import insyncwithfoo.ryecharm.message
 import java.util.function.Function
 
 
 /**
- * Displays a banner at the top of the editor for `uv.lock`.
+ * Displays a banner at the top of the editor for `uv.lock` and `*.py.lock`.
  * 
  * Technically not an "inspection" and thus can't be suppressed.
  */
-internal class UVLockEditingNotice : EditorNotificationProvider, DumbAware {
+internal class LockFileEditingNotice : EditorNotificationProvider, DumbAware {
     
     @Suppress("DialogTitleCapitalization")
     private fun createNotificationPanel() = EditorNotificationPanel().apply {
-        text(message("inspections.uvLockEdit.message"))
+        text(message("inspections.lockFileEdit.message"))
         icon(UVIcons.TINY_16_WHITE)
     }
     
@@ -30,7 +31,7 @@ internal class UVLockEditingNotice : EditorNotificationProvider, DumbAware {
         file: VirtualFile
     ): Function<FileEditor, EditorNotificationPanel>? =
         when {
-            !file.isUVLock || !file.isWritable -> null
+            !file.isUVLock || !file.isScriptLockFile || !file.isWritable -> null
             else -> Function { createNotificationPanel() }
         }
     

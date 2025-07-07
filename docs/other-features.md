@@ -5,7 +5,7 @@ and various other places, the icons for the following files
 are replaced with the tools' logos:
 
 * Ruff: `ruff.toml`/`.ruff.toml`
-* uv: `uv.toml`, `uv.lock`
+* uv: `uv.toml`, `uv.lock`, `*.py.lock`
 * Rye: `.rye/config.toml`
 
 Additionally, `py.typed`, `.python-version` and `pylock.toml`'s icons
