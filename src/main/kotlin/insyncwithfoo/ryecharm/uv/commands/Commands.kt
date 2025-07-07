@@ -94,6 +94,26 @@ internal class SelfVersionCommand : Command(), UVCommand {
 }
 
 
+internal class SelfUpdateCommand : Command(), UVCommand {
+    
+    override val subcommands = listOf("self", "update")
+    
+    override val runningMessage: String
+        get() = message("progresses.command.uv.selfUpdate")
+    
+}
+
+
+internal class PipCompileCommand : Command(), UVCommand {
+    
+    override val subcommands = listOf("pip", "compile")
+    
+    override val runningMessage: String
+        get() = message("progresses.command.uv.pipcompile")
+    
+}
+
+
 internal class PipListCommand : Command(), UVCommand {
     
     override val subcommands = listOf("pip", "list")

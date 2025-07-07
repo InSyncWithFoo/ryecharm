@@ -56,6 +56,11 @@
 			id="insyncwithfoo.ryecharm.uv.documentation.DependencyTreeDocumentationTargetProvider"
 			implementation="insyncwithfoo.ryecharm.uv.documentation.DependencyTreeDocumentationTargetProvider"
 		/>
+		
+		<postStartupActivity
+			id="insyncwithfoo.ryecharm.uv.actions.Update"
+			implementation="insyncwithfoo.ryecharm.uv.actions.Update"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
@@ -102,6 +107,12 @@
 			id="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
 			class="insyncwithfoo.ryecharm.uv.intentions.SynchronizeProject"
 			icon="AllIcons.Actions.Refresh"
+		/>
+		
+		<action
+			id="insyncwithfoo.ryecharm.uv.actions.Update"
+			class="insyncwithfoo.ryecharm.uv.actions.Update"
+			icon="AllIcons.Ide.Notification.PluginUpdate"
 		/>
 	</actions>
 </idea-plugin>

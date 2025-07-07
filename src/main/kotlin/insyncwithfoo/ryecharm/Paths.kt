@@ -71,7 +71,7 @@ internal fun Path.toNullIfNotExists() =
  * 
  * Return null for non-directories.
  */
-internal fun Path.findChildIgnoringExtension(childNameWithoutExtension: String) = 
+internal fun Path.findChildIgnoringExtension(childNameWithoutExtension: String) =
     this.takeIf { it.isDirectory() }
         ?.listDirectoryEntries()
         ?.find { it.nameWithoutExtension == childNameWithoutExtension }
