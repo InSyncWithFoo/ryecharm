@@ -1,7 +1,7 @@
 [versions]
 # libraries
 annotations = "26.0.2"
-kotlinxSerialization = "1.7.3"  # TODO: Bump back to 1.9.0 on 2025.2+
+kotlinxSerialization = "1.9.0"  # TODO: Bump back to 1.9.0 on 2025.2+
 junit = "4.13.2"
 
 # plugins
