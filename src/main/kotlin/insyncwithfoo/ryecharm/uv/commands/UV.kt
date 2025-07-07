@@ -158,7 +158,7 @@ internal class UV private constructor(
         SelfUpdateCommand().build()
     
     fun pipCompile(packages: List<String>, noHeader: Boolean = true): Command {
-        val arguments = CommandArguments("pip", "compile", "-")
+        val arguments = CommandArguments("-")
         val stdin = packages.joinToString("\n")
         
         if (noHeader) {
