@@ -112,7 +112,7 @@
 		<action
 			id="insyncwithfoo.ryecharm.uv.actions.Update"
 			class="insyncwithfoo.ryecharm.uv.actions.Update"
-			icon="AllIcons.Ide.Notification.PluginUpdate"
+			icon="/icons/other-update-16.svg"
 		/>
 	</actions>
 </idea-plugin>
