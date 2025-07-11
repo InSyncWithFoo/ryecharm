@@ -11,7 +11,7 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 10) {
+        doShapeTest(expectedSize = 11) {
             assertEquals(null, executable)
             assertEquals(null, configurationFile)
             
@@ -21,6 +21,8 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
             assertEquals(true, dedupeDependencyTrees)
             assertEquals(255, dependencyTreeDepth)
             assertEquals(false, showInvertedDependencyTreeFirst)
+            
+            assertEquals(UpdateMethod.NOTIFY, updateMethod)
             
             assertEquals(false, retrieveDependenciesInReadAction)
             assertEquals(5, dependenciesDataMaxAge)
