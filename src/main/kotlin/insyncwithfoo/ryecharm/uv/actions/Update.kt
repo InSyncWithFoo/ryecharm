@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
 import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.RyeCharm
+import insyncwithfoo.ryecharm.RyeCharmRegistry
 import insyncwithfoo.ryecharm.addExpiringAction
 import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.configurations.changeGlobalUVConfigurations
@@ -85,7 +86,7 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
         
         when {
             configurations.updateMethod == UpdateMethod.DISABLED -> return
-            alreadyRecommendedRecently(executable) -> return
+            !RyeCharmRegistry.uv.alwaysRunUpdater && alreadyRecommendedRecently(executable) -> return
         }
         
         project.checkVersionsAndUpdate()
