@@ -16,6 +16,7 @@ import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.UVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.UVGlobalService
 import insyncwithfoo.ryecharm.configurations.uv.UVLocalService
+import insyncwithfoo.ryecharm.configurations.uv.UVOverrideService
 import insyncwithfoo.ryecharm.configurations.uv.globalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.findChildIgnoringExtension
@@ -154,6 +155,15 @@ internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
  */
 internal fun Project.changeUVConfigurations(action: UVConfigurations.() -> Unit) {
     UVLocalService.getInstance(this).state.apply(action)
+}
+
+
+
+/**
+ * Change uv overrides in-place.
+ */
+internal fun Project.changeUVOverrides(action: Overrides.() -> Unit) {
+    UVOverrideService.getInstance(this).state.names.apply(action)
 }
 
 

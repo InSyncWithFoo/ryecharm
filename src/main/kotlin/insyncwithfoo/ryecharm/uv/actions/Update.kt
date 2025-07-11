@@ -11,8 +11,10 @@ import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.RyeCharmRegistry
 import insyncwithfoo.ryecharm.addExpiringAction
 import insyncwithfoo.ryecharm.completedAbnormally
+import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeGlobalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.changeUVConfigurations
+import insyncwithfoo.ryecharm.configurations.changeUVOverrides
 import insyncwithfoo.ryecharm.configurations.uv.UpdateMethod
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.configurations.uvExecutable
@@ -174,7 +176,10 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
                 changeGlobalUVConfigurations { updateMethod = UpdateMethod.DISABLED }
             }
             addExpiringAction(message("notificationActions.disableUpdaterForProject")) {
-                changeUVConfigurations { updateMethod = UpdateMethod.DISABLED }
+                changeUVConfigurations {
+                    updateMethod = UpdateMethod.DISABLED
+                    changeUVOverrides { add(::updateMethod.name) }
+                }
             }
         }
     }
