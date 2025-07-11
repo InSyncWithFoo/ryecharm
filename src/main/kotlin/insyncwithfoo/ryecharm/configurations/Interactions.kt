@@ -130,16 +130,25 @@ internal fun Project.changeRuffConfigurations(action: RuffConfigurations.() -> U
 }
 
 
+/**
+ * Change Ruff overrides in-place.
+ */
 internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
     RuffOverrideService.getInstance(this).state.names.apply(action)
 }
 
 
+/**
+ * Change ty configurations in-place.
+ */
 internal fun Project.changeTYConfigurations(action: TYConfigurations.() -> Unit) {
     TYLocalService.getInstance(this).state.apply(action)
 }
 
 
+/**
+ * Change ty overrides in-place.
+ */
 internal fun Project.changeTYOverrides(action: Overrides.() -> Unit) {
     TYOverrideService.getInstance(this).state.names.apply(action)
 }

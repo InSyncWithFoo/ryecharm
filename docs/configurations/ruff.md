@@ -5,9 +5,9 @@ The Ruff executable to be used for all operations.
 If it is not provided, RyeCharm will attempt
 to find one in the following order:
 
-* The `ruff` executable found under Rye's `self` environment.
 * Any `ruff` executable found in PATH.
 * Any `ruff` executable found in the project's virtual environment.
+* The `ruff` executable found under Rye's `self` environment.
 
 
 ## Cross-platform executable resolution
