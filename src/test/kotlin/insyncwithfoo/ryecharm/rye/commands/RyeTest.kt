@@ -16,20 +16,12 @@ internal class RyeTest : CommandFactoryTest() {
     
     @Test
     fun `test config`() {
-        val command = rye.config()
-        
-        assertEquals(listOf("config"), command.subcommands)
-        assertEquals(listOf("--show-path"), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        commandTest(rye.configDirectory(), listOf("config"), listOf("--show-path")) {}
     }
     
     @Test
     fun `test show`() {
-        val command = rye.show()
-        
-        assertEquals(listOf("show"), command.subcommands)
-        assertEquals(emptyList<String>(), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        commandTest(rye.show(), listOf("show"), emptyList()) {}
     }
     
 }

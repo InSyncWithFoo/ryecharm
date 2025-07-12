@@ -22,8 +22,8 @@ internal class Rye private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun config() =
-        ConfigCommand().build(CommandArguments("--show-path"))
+    fun config(arguments: CommandArguments) =
+        ConfigCommand().build(arguments)
     
     fun show() =
         ShowCommand().build()
