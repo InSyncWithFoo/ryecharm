@@ -10,7 +10,6 @@ import insyncwithfoo.ryecharm.configurations.ruffExecutable
 import insyncwithfoo.ryecharm.findExecutableChild
 import insyncwithfoo.ryecharm.findExecutableInPath
 import insyncwithfoo.ryecharm.path
-import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.documentation.OptionName
 import insyncwithfoo.ryecharm.ruff.documentation.RuleSelector
@@ -28,51 +27,11 @@ internal class Ruff private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun check(text: String, stdinFilename: Path?, allFixable: Boolean): Command {
-        val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet", "-")
-        
-        arguments["--output-format"] = "json"
-        
-        if (stdinFilename != null) {
-            arguments["--stdin-filename"] = stdinFilename.toString()
-        }
-        
-        if (allFixable) {
-            arguments["--fixable"] = "ALL"
-        }
-        
-        return CheckCommand().build(arguments, text)
-    }
+    fun check(arguments: CommandArguments, stdin: String? = null) =
+        CheckCommand().build(arguments, stdin)
     
-    fun checkProject(allFixable: Boolean): Command {
-        val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet")
-        
-        arguments["--output-format"] = "json"
-        
-        if (allFixable) {
-            arguments["--fixable"] = "ALL"
-        }
-        
-        return CheckCommand().build(arguments)
-    }
-    
-    fun format(text: String, stdinFilename: Path?, range: OneBasedRange? = null, quiet: Boolean = true): Command {
-        val arguments = CommandArguments("-")
-        
-        if (stdinFilename != null) {
-            arguments["--stdin-filename"] = stdinFilename.toString()
-        }
-        
-        if (range != null) {
-            arguments["--range"] = range.toString()
-        }
-        
-        if (quiet) {
-            arguments += "--quiet"
-        }
-        
-        return FormatCommand().build(arguments, text)
-    }
+    fun format(arguments: CommandArguments, stdin: String) =
+        FormatCommand().build(arguments, stdin)
     
     fun clean(path: Path) =
         CleanCommand().build().also { it.workingDirectory = path }
