@@ -16,7 +16,7 @@
         <link rel="prev" href="../ruff/">
       
       
-        <link rel="next" href="../rye/">
+        <link rel="next" href="../ty/">
       
       
       <link rel="icon" href="../../assets/icon-black.svg">
@@ -918,6 +918,8 @@
       
         
       
+        
+      
     
     
     
@@ -1126,10 +1128,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ty/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ty
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1349,6 +1383,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1388,9 +1431,8 @@
 <p>If it is not provided, RyeCharm will attempt
 to find one in the following order:</p>
 <ul>
-<li>The <code>uv</code> executable found under Rye's <code>uv</code> subdirectory.</li>
 <li>Any <code>uv</code> executable found in PATH.</li>
-<li>Any <code>uv</code> executable found in the project's virtual environment.</li>
+<li>The <code>uv</code> executable found under Rye's <code>uv</code> subdirectory.</li>
 </ul>
 <h2 id="configuration-file">Configuration file<a class="headerlink" href="#configuration-file" title="Permanent link">#</a></h2>
 <p>If specified, this file will be passed to uv on every invocation.</p>
@@ -1445,6 +1487,17 @@ in dependency trees if the installed version is not latest.</p>
 <p>Whether the tree that displays the current package's dependants
 should be shown first.</p>
 <p>Default: <code>false</code></p>
+<h2 id="updating">Updating<a class="headerlink" href="#updating" title="Permanent link">#</a></h2>
+<p>The method in which RyeCharm should update uv.</p>
+<p>Possible choices:</p>
+<ul>
+<li><i>Do nothing</i>: No checks will be performed.</li>
+<li><i>Notify me</i>: A notification will be shown,
+  with options to either update or disable the updater.</li>
+<li><i>Update automatically</i>: Run <code>uv self update</code>
+  and only notify the result.</li>
+</ul>
+<p>Default: <i>Notify me</i></p>
 
 
 
@@ -1491,13 +1544,13 @@ should be shown first.</p>
         
         
           
-          <a href="../rye/" class="md-footer__link md-footer__link--next" aria-label="Next: Rye">
+          <a href="../ty/" class="md-footer__link md-footer__link--next" aria-label="Next: ty">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Rye
+                ty
               </div>
             </div>
             <div class="md-footer__button md-icon">
