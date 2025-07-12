@@ -9,7 +9,7 @@ import insyncwithfoo.ryecharm.ruff.documentation.RuleSelector
 import java.nio.file.Path
 
 
-internal fun Ruff.checkStdinFile(text: String, path: Path?, allFixable: Boolean): Command {
+internal fun Ruff.check(text: String, path: Path?, considerAllFixable: Boolean): Command {
     val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet", "-")
     
     arguments["--output-format"] = "json"
@@ -18,7 +18,7 @@ internal fun Ruff.checkStdinFile(text: String, path: Path?, allFixable: Boolean)
         arguments["--stdin-filename"] = path.toString()
     }
     
-    if (allFixable) {
+    if (considerAllFixable) {
         arguments["--fixable"] = "ALL"
     }
     
@@ -26,12 +26,12 @@ internal fun Ruff.checkStdinFile(text: String, path: Path?, allFixable: Boolean)
 }
 
 
-internal fun Ruff.checkProject(allFixable: Boolean): Command {
+internal fun Ruff.checkProject(considerAllFixable: Boolean): Command {
     val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet")
     
     arguments["--output-format"] = "json"
     
-    if (allFixable) {
+    if (considerAllFixable) {
         arguments["--fixable"] = "ALL"
     }
     
@@ -39,12 +39,7 @@ internal fun Ruff.checkProject(allFixable: Boolean): Command {
 }
 
 
-internal fun Ruff.formatStdinFile(
-    text: String,
-    path: Path?,
-    range: OneBasedRange? = null,
-    quiet: Boolean = true
-): Command {
+internal fun Ruff.format(text: String, path: Path?, range: OneBasedRange? = null, quiet: Boolean = true): Command {
     val arguments = CommandArguments("-")
     
     if (path != null) {
@@ -80,7 +75,7 @@ internal fun Ruff.allRulesInfo(): Command {
 }
 
 
-internal fun Ruff.configInfo(option: OptionName): Command {
+internal fun Ruff.optionInfo(option: OptionName): Command {
     val arguments = CommandArguments("--output-format" to "json")
     
     if (option.isNotEmpty()) {
@@ -91,7 +86,7 @@ internal fun Ruff.configInfo(option: OptionName): Command {
 }
 
 
-internal fun Ruff.allConfigInfo() =
+internal fun Ruff.allOptionsInfo() =
     config(CommandArguments("--output-format" to "json"))
 
 
@@ -99,7 +94,7 @@ internal fun Ruff.allLintersInfo() =
     linter(CommandArguments("--output-format" to "json"))
 
 
-internal fun Ruff.optimizeImportsInStdinFile(text: String, path: Path?): Command {
+internal fun Ruff.optimizeImports(text: String, path: Path?): Command {
     val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
     
     arguments["--select"] = "I,F401"
@@ -112,14 +107,14 @@ internal fun Ruff.optimizeImportsInStdinFile(text: String, path: Path?): Command
 }
 
 
-internal fun Ruff.fixStdinFile(text: String, path: Path?, select: List<RuleSelector>?, unsafeFixes: Boolean): Command {
+internal fun Ruff.fix(text: String, path: Path?, rules: List<RuleSelector>?, unsafe: Boolean): Command {
     val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
     
-    if (select != null) {
-        arguments["--select"] = select.joinToString(",")
+    if (rules != null) {
+        arguments["--select"] = rules.joinToString(",")
     }
     
-    if (unsafeFixes) {
+    if (unsafe) {
         arguments += "--unsafe-fixes"
     }
     
@@ -131,41 +126,27 @@ internal fun Ruff.fixStdinFile(text: String, path: Path?, select: List<RuleSelec
 }
 
 
-internal fun Ruff.fixAllInStdinFile(text: String, path: Path?, unsafeFixes: Boolean) =
-    fixStdinFile(text, path, select = null, unsafeFixes)
+internal fun Ruff.fixAll(text: String, path: Path?, unsafe: Boolean) =
+    fix(text, path, rules = null, unsafe)
 
 
-internal fun Ruff.organizeImports(text: String, stdinFilename: Path?): Command {
+internal fun Ruff.organizeImports(text: String, path: Path?): Command {
     val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
     
     arguments["--select"] = "I"
     
-    if (stdinFilename != null) {
-        arguments["--stdin-filename"] = stdinFilename.toString()
+    if (path != null) {
+        arguments["--stdin-filename"] = path.toString()
     }
     
     return organizeImports(arguments, text)
 }
 
 
-internal fun Ruff.showSettings(
-    select: List<RuleSelector>? = null,
-    isolated: Boolean = true,
-    preview: Boolean = true
-): Command {
+internal fun Ruff.showSettings(rules: List<RuleSelector>): Command {
     val arguments = CommandArguments("--show-settings")
     
-    if (isolated) {
-        arguments += "--isolated"
-    }
-    
-    if (preview) {
-        arguments += "--preview"
-    }
-    
-    if (select != null) {
-        arguments["--select"] = select.joinToString(",")
-    }
+    arguments["--select"] = rules.joinToString(",")
     
     return showSettings(arguments)
 }

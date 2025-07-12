@@ -20,8 +20,8 @@ import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.paste
 import insyncwithfoo.ryecharm.psiDocumentManager
-import insyncwithfoo.ryecharm.ruff.commands.fixAllInStdinFile
-import insyncwithfoo.ryecharm.ruff.commands.formatStdinFile
+import insyncwithfoo.ryecharm.ruff.commands.fixAll
+import insyncwithfoo.ryecharm.ruff.commands.format
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runWriteCommandAction
@@ -96,12 +96,12 @@ internal class RuffOnSaveTasksRunner : ActionOnSave() {
         var newText = originalText
         
         if (configurations.fixOnSave) {
-            val command = ruff.fixAllInStdinFile(newText, path, unsafeFixes = false)
+            val command = ruff.fixAll(newText, path, unsafe = false)
             newText = getResultOrNull(command) ?: return null
         }
         
         if (configurations.formatOnSave) {
-            val command = ruff.formatStdinFile(newText, path)
+            val command = ruff.format(newText, path)
             newText = getResultOrNull(command) ?: return null
         }
         

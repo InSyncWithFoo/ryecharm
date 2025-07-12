@@ -58,7 +58,7 @@ internal class RuffGlobalInspection : GlobalSimpleInspectionTool() {
         val ruff = project.ruff ?: return
         val configurations = project.ruffConfigurations
         
-        val command = ruff.checkProject(allFixable = configurations.considerAllFixable)
+        val command = ruff.checkProject(considerAllFixable = configurations.considerAllFixable)
         val results = project.runCheckCommand(command) ?: return
         
         globalContext.putUserData(RESULTS, results.groupBy { it.filename })

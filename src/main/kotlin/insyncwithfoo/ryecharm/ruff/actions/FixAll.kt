@@ -17,7 +17,7 @@ import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.psiDocumentManager
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
-import insyncwithfoo.ryecharm.ruff.commands.fixAllInStdinFile
+import insyncwithfoo.ryecharm.ruff.commands.fixAll
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.intentions.IntentionCoroutine
 import insyncwithfoo.ryecharm.runInForeground
@@ -50,7 +50,7 @@ internal abstract class FixAll(private val unsafe: Boolean) : AnAction(), DumbAw
             ?: return project.noDocumentFound()
         val path = file.virtualFile?.toNioPathOrNull()
         
-        val command = ruff.fixAllInStdinFile(document.text, path, unsafeFixes = unsafe)
+        val command = ruff.fixAll(document.text, path, unsafe = unsafe)
         
         project.runCommandAndLoadResult(command, file)
     }

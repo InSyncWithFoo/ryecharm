@@ -24,7 +24,7 @@ import insyncwithfoo.ryecharm.information
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
-import insyncwithfoo.ryecharm.ruff.commands.formatStdinFile
+import insyncwithfoo.ryecharm.ruff.commands.format
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getOneBasedRange
 import insyncwithfoo.ryecharm.runThenNotify
@@ -228,7 +228,7 @@ internal class RuffFormatter : AsyncDocumentFormattingService() {
             return null
         }
         
-        val command = ruff.formatStdinFile(text, path, range, quiet = false)
+        val command = ruff.format(text, path, range, quiet = false)
         
         return RuffFormattingTask(request, command)
     }

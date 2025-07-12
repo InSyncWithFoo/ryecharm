@@ -12,7 +12,7 @@ import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.removeSurroundingTag
-import insyncwithfoo.ryecharm.ruff.commands.configInfo
+import insyncwithfoo.ryecharm.ruff.commands.optionInfo
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.documentation.OptionInfo
 import insyncwithfoo.ryecharm.ruff.documentation.OptionName
@@ -99,7 +99,7 @@ internal class RuffOptionDocumentationTarget(
     private suspend fun Project.getDocumentationForOption(): HTML? {
         val ruff = this.ruff ?: return null
         
-        val command = ruff.configInfo(option)
+        val command = ruff.optionInfo(option)
         val output = runUnderIOThread {
             runInBackground(command)
         }

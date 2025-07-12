@@ -15,7 +15,7 @@ import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
-import insyncwithfoo.ryecharm.ruff.commands.optimizeImportsInStdinFile
+import insyncwithfoo.ryecharm.ruff.commands.optimizeImports
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unableToRunCommand
@@ -71,7 +71,7 @@ internal class RuffImportOptimizer : ImportOptimizer {
         }
         
         return Runnable {
-            val command = ruff.optimizeImportsInStdinFile(document.text, path)
+            val command = ruff.optimizeImports(document.text, path)
             project.runCommandAndLoadResult(command, this)
         }
     }
