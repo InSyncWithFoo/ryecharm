@@ -33,19 +33,11 @@ internal class Ruff private constructor(
     fun format(arguments: CommandArguments, stdin: String) =
         FormatCommand().build(arguments, stdin)
     
-    fun clean(path: Path) =
-        CleanCommand().build().also { it.workingDirectory = path }
+    fun clean() =
+        CleanCommand().build()
     
-    fun rule(code: RuleCode) =
-        RuleCommand().build(CommandArguments(code))
-    
-    fun allRules(): Command {
-        val arguments = CommandArguments("--all")
-        
-        arguments["--output-format"] = "json"
-        
-        return RuleCommand().build(arguments)
-    }
+    fun rule(arguments: CommandArguments) =
+        RuleCommand().build(arguments)
     
     fun config(option: OptionName): Command {
         val arguments = CommandArguments("--output-format" to "json")

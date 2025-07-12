@@ -11,7 +11,9 @@ import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.ruff.CachedResult
 import insyncwithfoo.ryecharm.ruff.RuffCache
 import insyncwithfoo.ryecharm.ruff.RuleCode
+import insyncwithfoo.ryecharm.ruff.commands.allRules
 import insyncwithfoo.ryecharm.ruff.commands.ruff
+import insyncwithfoo.ryecharm.ruff.commands.rule
 import insyncwithfoo.ryecharm.ruff.ruleCode
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runUnderIOThread
