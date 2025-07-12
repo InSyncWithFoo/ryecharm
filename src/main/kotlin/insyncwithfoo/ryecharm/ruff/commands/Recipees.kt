@@ -39,6 +39,64 @@ internal fun Ruff.checkProject(considerAllFixable: Boolean): Command {
 }
 
 
+internal fun Ruff.fix(text: String, path: Path?, rules: List<RuleSelector>?, unsafe: Boolean): Command {
+    val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+    
+    if (rules != null) {
+        arguments["--select"] = rules.joinToString(",")
+    }
+    
+    if (unsafe) {
+        arguments += "--unsafe-fixes"
+    }
+    
+    if (path != null) {
+        arguments["--stdin-filename"] = path.toString()
+    }
+    
+    return fix(arguments, text)
+}
+
+
+internal fun Ruff.optimizeImports(text: String, path: Path?): Command {
+    val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+    
+    arguments["--select"] = "I,F401"
+    
+    if (path != null) {
+        arguments["--stdin-filename"] = path.toString()
+    }
+    
+    return optimizeImports(arguments, text)
+}
+
+
+internal fun Ruff.organizeImports(text: String, path: Path?): Command {
+    val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+    
+    arguments["--select"] = "I"
+    
+    if (path != null) {
+        arguments["--stdin-filename"] = path.toString()
+    }
+    
+    return organizeImports(arguments, text)
+}
+
+
+internal fun Ruff.fixAll(text: String, path: Path?, unsafe: Boolean) =
+    fix(text, path, rules = null, unsafe)
+
+
+internal fun Ruff.showSettings(rules: List<RuleSelector>): Command {
+    val arguments = CommandArguments("--show-settings")
+    
+    arguments["--select"] = rules.joinToString(",")
+    
+    return showSettings(arguments)
+}
+
+
 internal fun Ruff.format(text: String, path: Path?, range: OneBasedRange? = null, quiet: Boolean = true): Command {
     val arguments = CommandArguments("-")
     
@@ -92,61 +150,3 @@ internal fun Ruff.allOptionsInfo() =
 
 internal fun Ruff.allLintersInfo() =
     linter(CommandArguments("--output-format" to "json"))
-
-
-internal fun Ruff.optimizeImports(text: String, path: Path?): Command {
-    val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
-    
-    arguments["--select"] = "I,F401"
-    
-    if (path != null) {
-        arguments["--stdin-filename"] = path.toString()
-    }
-    
-    return optimizeImports(arguments, text)
-}
-
-
-internal fun Ruff.fix(text: String, path: Path?, rules: List<RuleSelector>?, unsafe: Boolean): Command {
-    val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
-    
-    if (rules != null) {
-        arguments["--select"] = rules.joinToString(",")
-    }
-    
-    if (unsafe) {
-        arguments += "--unsafe-fixes"
-    }
-    
-    if (path != null) {
-        arguments["--stdin-filename"] = path.toString()
-    }
-    
-    return fix(arguments, text)
-}
-
-
-internal fun Ruff.fixAll(text: String, path: Path?, unsafe: Boolean) =
-    fix(text, path, rules = null, unsafe)
-
-
-internal fun Ruff.organizeImports(text: String, path: Path?): Command {
-    val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
-    
-    arguments["--select"] = "I"
-    
-    if (path != null) {
-        arguments["--stdin-filename"] = path.toString()
-    }
-    
-    return organizeImports(arguments, text)
-}
-
-
-internal fun Ruff.showSettings(rules: List<RuleSelector>): Command {
-    val arguments = CommandArguments("--show-settings")
-    
-    arguments["--select"] = rules.joinToString(",")
-    
-    return showSettings(arguments)
-}
