@@ -48,72 +48,17 @@ internal class Ruff private constructor(
     fun version() =
         VersionCommand().build()
     
-    fun optimizeImports(text: String, stdinFilename: Path?): Command {
-        val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
-        
-        arguments["--select"] = "I,F401"
-        
-        if (stdinFilename != null) {
-            arguments["--stdin-filename"] = stdinFilename.toString()
-        }
-        
-        return OptimizeImportsCommand().build(arguments, text)
-    }
+    fun optimizeImports(arguments: CommandArguments, stdin: String) =
+        OptimizeImportsCommand().build(arguments, stdin)
     
-    fun fix(text: String, stdinFilename: Path?, select: List<RuleSelector>?, unsafeFixes: Boolean): Command {
-        val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
-        
-        if (select != null) {
-            arguments["--select"] = select.joinToString(",")
-        }
-        
-        if (unsafeFixes) {
-            arguments += "--unsafe-fixes"
-        }
-        
-        if (stdinFilename != null) {
-            arguments["--stdin-filename"] = stdinFilename.toString()
-        }
-        
-        return FixCommand().build(arguments, text)
-    }
+    fun fix(arguments: CommandArguments, stdin: String) =
+        FixCommand().build(arguments, stdin)
     
-    fun fixAll(text: String, stdinFilename: Path?, unsafeFixes: Boolean) =
-        fix(text, stdinFilename, select = null, unsafeFixes)
+    fun organizeImports(arguments: CommandArguments, stdin: String) =
+        OrganizeImportsCommand().build(arguments, stdin)
     
-    fun organizeImports(text: String, stdinFilename: Path?): Command {
-        val arguments = CommandArguments("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
-        
-        arguments["--select"] = "I"
-        
-        if (stdinFilename != null) {
-            arguments["--stdin-filename"] = stdinFilename.toString()
-        }
-        
-        return OrganizeImportsCommand().build(arguments, text)
-    }
-    
-    fun showSettings(
-        select: List<RuleSelector>? = null,
-        isolated: Boolean = true,
-        preview: Boolean = true
-    ): Command {
-        val arguments = CommandArguments("--show-settings")
-        
-        if (isolated) {
-            arguments += "--isolated"
-        }
-        
-        if (preview) {
-            arguments += "--preview"
-        }
-        
-        if (select != null) {
-            arguments["--select"] = select.joinToString(",")
-        }
-        
-        return ShowSettingsCommand().build(arguments)
-    }
+    fun showSettings(arguments: CommandArguments) =
+        ShowSettingsCommand().build(arguments)
     
     override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.ruffConfigurations

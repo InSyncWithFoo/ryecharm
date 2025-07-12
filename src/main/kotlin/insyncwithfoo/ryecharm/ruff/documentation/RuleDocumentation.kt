@@ -14,6 +14,7 @@ import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.commands.allRulesInfo
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.commands.ruleInfo
+import insyncwithfoo.ryecharm.ruff.commands.showSettings
 import insyncwithfoo.ryecharm.ruff.ruleCode
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runUnderIOThread

@@ -16,6 +16,7 @@ import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
+import insyncwithfoo.ryecharm.ruff.commands.fixAllInStdinFile
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.writeUnderAction
@@ -52,7 +53,7 @@ internal abstract class FixAll(private val unsafe: Boolean) : ExternalIntentionA
             return
         }
         
-        val command = ruff.fixAll(document.text, path, unsafeFixes = unsafe)
+        val command = ruff.fixAllInStdinFile(document.text, path, unsafeFixes = unsafe)
         
         project.runCommandAndLoadResult(command, file)
     }
