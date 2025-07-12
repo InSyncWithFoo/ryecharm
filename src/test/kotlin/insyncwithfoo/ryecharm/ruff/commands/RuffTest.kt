@@ -6,7 +6,7 @@ import org.junit.Test
 import kotlin.test.assertContains
 
 
-internal class RuffTest : CommandFactoryTest() {
+internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     
     private lateinit var ruff: Ruff
     

@@ -5,7 +5,7 @@ import org.junit.Test
 import kotlin.test.assertContains
 
 
-internal class UVTest : CommandFactoryTest() {
+internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     
     private lateinit var uv: UV
     

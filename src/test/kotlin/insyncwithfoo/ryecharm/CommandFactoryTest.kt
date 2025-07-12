@@ -7,7 +7,7 @@ import java.util.Collections
 private typealias Arguments = List<String>
 
 
-internal abstract class CommandFactoryTest : PlatformTestCase() {
+internal abstract class CommandFactoryTest(private val commandInterface: Class<*>) : PlatformTestCase() {
     
     protected val lowercase: Char
         get() = ('a'..'z').random()
@@ -47,17 +47,21 @@ internal abstract class CommandFactoryTest : PlatformTestCase() {
     protected fun buildString(capacityRange: IntRange, generate: () -> Any) =
         buildString(capacityRange.random()) { append(generate()) }
     
-    protected inline fun commandTest(
+    protected inline fun <reified T : Command> commandTest(
         command: Command,
         subcommands: List<String>,
-        arguments: List<String>,
-        block: Command.() -> Unit
+        arguments: List<String> = emptyList(),
+        workingDirectory: Path? = project.path,
+        noinline block: (Command.() -> Unit)? = null
     ) {
+        assertInstanceOf(command, commandInterface)
+        assertInstanceOf(command, T::class.java)
+        
         assertEquals(subcommands, command.subcommands)
         assertEquals(arguments, command.arguments)
-        assertEquals(project.path, command.workingDirectory)
+        assertEquals(workingDirectory, command.workingDirectory)
         
-        command.apply(block)
+        block?.let { command.apply(it) }
     }
     
 }
