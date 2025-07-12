@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.configurations.uv
 
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogPanel
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.JBIntSpinner
@@ -10,7 +11,9 @@ import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.builder.bindIntValue
 import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.panel
+import insyncwithfoo.ryecharm.bindItem
 import insyncwithfoo.ryecharm.bindText
+import insyncwithfoo.ryecharm.comboBox
 import insyncwithfoo.ryecharm.configurations.AdaptivePanel
 import insyncwithfoo.ryecharm.configurations.Overrides
 import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
@@ -56,6 +59,10 @@ private fun Row.dependencyTreeDepthInput(block: Cell<JBIntSpinner>.() -> Unit) =
 
 private fun Row.showInvertedDependencyTreeFirstInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.uv.showInvertedDependencyTreeFirst.label")).apply(block)
+
+
+private fun Row.updateMethodInput(block: Cell<ComboBox<UpdateMethod>>.() -> Unit) =
+    comboBox<UpdateMethod>().label(message("configurations.uv.updateMethod.label")).apply(block)
 
 
 private fun Row.retrieveDependenciesInReadActionInput(block: Cell<JBCheckBox>.() -> Unit) =
@@ -110,6 +117,13 @@ private fun UVPanel.makeComponent() = panel {
                 showInvertedDependencyTreeFirstInput { bindSelected(state::showInvertedDependencyTreeFirst) }
                 overrideCheckbox(state::showInvertedDependencyTreeFirst)
             }
+        }
+    }
+    
+    group(message("configurations.uv.groups.updating")) {
+        row {
+            updateMethodInput { bindItem(state::updateMethod) }
+            overrideCheckbox(state::updateMethod)
         }
     }
     

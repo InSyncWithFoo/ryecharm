@@ -97,6 +97,7 @@ nav:
     - Configurations overview: configurations/index.md
     - Ruff: configurations/ruff.md
     - uv: configurations/uv.md
+    - ty: configurations/ty.md
     - Rye: configurations/rye.md
     - Other: configurations/main.md
   - Other features: other-features.md

@@ -87,4 +87,19 @@ should be shown first.
 Default: `false`
 
 
+## Updating
+
+The method in which RyeCharm should update uv.
+
+Possible choices:
+
+* <i>Do nothing</i>: No checks will be performed.
+* <i>Notify me</i>: A notification will be shown,
+  with options to either update or disable the updater.
+* <i>Update automatically</i>: Run `uv self update`
+  and only notify the result.
+
+Default: <i>Notify me</i>
+
+
   [1]: ../uv/documentation.md#dependency-trees

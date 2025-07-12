@@ -8,8 +8,15 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
 import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.RyeCharm
+import insyncwithfoo.ryecharm.RyeCharmRegistry
 import insyncwithfoo.ryecharm.addExpiringAction
 import insyncwithfoo.ryecharm.completedAbnormally
+import insyncwithfoo.ryecharm.configurations.add
+import insyncwithfoo.ryecharm.configurations.changeGlobalUVConfigurations
+import insyncwithfoo.ryecharm.configurations.changeUVConfigurations
+import insyncwithfoo.ryecharm.configurations.changeUVOverrides
+import insyncwithfoo.ryecharm.configurations.uv.UpdateMethod
+import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.configurations.uvExecutable
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.defaultProject
@@ -17,9 +24,9 @@ import insyncwithfoo.ryecharm.information
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessful
-import insyncwithfoo.ryecharm.notifyProcessResult
 import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.parseAsJSONLeniently
+import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.propertiesComponent
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runThenNotify
@@ -50,6 +57,9 @@ private var executablesToLastChecked: Map<String, Instant>
 private data class VersionInfo(val version: String)
 
 
+/**
+ * Update uv (semi-)automatically.
+ */
 internal class Update : AnAction(), ProjectActivity, DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {
@@ -74,10 +84,14 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
     
     override suspend fun execute(project: Project) {
         val executable = project.uvExecutable ?: return
+        val configurations = project.uvConfigurations
         
-        if (!alreadyRecommendedRecently(executable)) {
-            project.checkVersionsAndRecommend()
+        when {
+            configurations.updateMethod == UpdateMethod.DISABLED -> return
+            !RyeCharmRegistry.uv.alwaysRunUpdater && alreadyRecommendedRecently(executable) -> return
         }
+        
+        project.checkVersionsAndUpdate()
     }
     
     private fun alreadyRecommendedRecently(executable: Path): Boolean {
@@ -92,7 +106,7 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
         return lastCheckedDate < today && now - lastChecked < CHECK_INTERVAL
     }
     
-    private suspend fun Project.checkVersionsAndRecommend() {
+    private suspend fun Project.checkVersionsAndUpdate() {
         val uv = this.uv ?: return
         
         val currentVersion = getCurrentVersion(uv) ?: return
@@ -105,7 +119,11 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
             return
         }
         
-        recommendUpdating(uv, currentVersion, latestVersion)
+        when (uvConfigurations.updateMethod) {
+            UpdateMethod.DISABLED -> {}
+            UpdateMethod.AUTOMATIC -> runUVSelfUpdate(uv)
+            UpdateMethod.NOTIFY -> recommendUpdating(uv, currentVersion, latestVersion)
+        }
     }
     
     private suspend fun Project.getCurrentVersion(uv: UV): String? {
@@ -150,22 +168,34 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
         val body = message("notifications.uvIsOutdated.body", currentVersion, latestVersion)
         val notification = unimportantNotificationGroup.information(title, body)
         
-        // TODO: Change updating method to auto
-        // TODO: Ignore for this project
-        // TODO: Ignore for all projects
         notification.runThenNotify(this) {
             addExpiringAction(message("notificationActions.update")) {
-                runUVSelfUpdate(uv)
+                launch<Coroutine> { runUVSelfUpdate(uv) }
+            }
+            addExpiringAction(message("notificationActions.disableUpdater")) {
+                changeGlobalUVConfigurations { updateMethod = UpdateMethod.DISABLED }
+            }
+            addExpiringAction(message("notificationActions.disableUpdaterForProject")) {
+                changeUVConfigurations {
+                    updateMethod = UpdateMethod.DISABLED
+                    changeUVOverrides { add(::updateMethod.name) }
+                }
             }
         }
     }
     
-    private fun Project.runUVSelfUpdate(uv: UV) = launch<Coroutine> {
+    private suspend fun Project.runUVSelfUpdate(uv: UV) {
         val command = uv.selfUpdate()
+        val output = runInBackground(command)
         
-        runInBackground(command) { output ->
-            notifyProcessResult(command, output)
+        if (output.completedAbnormally) {
+            return notifyIfProcessIsUnsuccessful(command, output)
         }
+        
+        val postUpdateVersion = """(?<=/tag/)\S+""".toRegex().find(output.stderr)?.value
+        val content = postUpdateVersion?.let { message("notifications.updatedUV.body", it) }
+        
+        processCompletedSuccessfully(content)
     }
     
     @Service(Service.Level.PROJECT)

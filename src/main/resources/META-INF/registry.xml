@@ -1,4 +1,10 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
+		<registryKey
+			id="insyncwithfoo.ryecharm.uv.alwaysRunUpdater"
+			key="insyncwithfoo.ryecharm.uv.alwaysRunUpdater"
+			defaultValue="false"
+			description="Always run uv updater, even if it was already run recently."
+		/>
 	</extensions>
 </idea-plugin>
