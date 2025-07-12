@@ -126,7 +126,7 @@ internal class RuffTest : CommandFactoryTest() {
     
     @Test
     fun `test allRules`() {
-        val command = ruff.allRules()
+        val command = ruff.allRulesInfo()
         val arguments = command.arguments
         
         assertEquals(listOf("rule"), command.subcommands)
@@ -151,7 +151,7 @@ internal class RuffTest : CommandFactoryTest() {
     
     @Test
     fun `test allConfig`() {
-        val command = ruff.allConfig()
+        val command = ruff.allConfigInfo()
         
         assertEquals(listOf("config"), command.subcommands)
         assertEquals(listOf("--output-format", "json"), command.arguments)

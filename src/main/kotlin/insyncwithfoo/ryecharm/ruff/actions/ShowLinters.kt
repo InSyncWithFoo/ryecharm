@@ -21,6 +21,7 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
+import insyncwithfoo.ryecharm.ruff.commands.allLintersInfo
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unknownError
@@ -150,7 +151,7 @@ internal class ShowLinters : AnAction(), DumbAware {
     }
     
     private fun Project.runRuffLinterAndShowTable(ruff: Ruff) = launch<ActionCoroutine> {
-        val command = ruff.linter()
+        val command = ruff.allLintersInfo()
         
         runInBackground(command) { output ->
             notifyIfProcessIsUnsuccessfulOr(command, output) {

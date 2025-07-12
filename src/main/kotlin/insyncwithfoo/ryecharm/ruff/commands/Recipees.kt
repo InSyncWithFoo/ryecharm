@@ -4,6 +4,7 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.RuleCode
+import insyncwithfoo.ryecharm.ruff.documentation.OptionName
 import java.nio.file.Path
 
 
@@ -36,6 +37,7 @@ internal fun Ruff.checkProject(allFixable: Boolean): Command {
     return check(arguments)
 }
 
+
 internal fun Ruff.formatStdinFile(
     text: String,
     path: Path?,
@@ -64,14 +66,33 @@ internal fun Ruff.clean(directory: Path) =
     clean().also { it.workingDirectory = directory }
 
 
-internal fun Ruff.rule(code: RuleCode) =
+internal fun Ruff.ruleInfo(code: RuleCode) =
     rule(CommandArguments(code))
 
 
-internal fun Ruff.allRules(): Command {
+internal fun Ruff.allRulesInfo(): Command {
     val arguments = CommandArguments("--all")
     
     arguments["--output-format"] = "json"
     
     return rule(arguments)
 }
+
+
+internal fun Ruff.configInfo(option: OptionName): Command {
+    val arguments = CommandArguments("--output-format" to "json")
+    
+    if (option.isNotEmpty()) {
+        arguments += option
+    }
+    
+    return config(arguments)
+}
+
+
+internal fun Ruff.allConfigInfo() =
+    config(CommandArguments("--output-format" to "json"))
+
+
+internal fun Ruff.allLintersInfo() =
+    linter(CommandArguments("--output-format" to "json"))

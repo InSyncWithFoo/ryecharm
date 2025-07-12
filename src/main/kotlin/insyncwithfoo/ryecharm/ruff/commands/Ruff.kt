@@ -39,21 +39,11 @@ internal class Ruff private constructor(
     fun rule(arguments: CommandArguments) =
         RuleCommand().build(arguments)
     
-    fun config(option: OptionName): Command {
-        val arguments = CommandArguments("--output-format" to "json")
-        
-        if (option.isNotEmpty()) {
-            arguments += option
-        }
-        
-        return ConfigCommand().build(arguments)
-    }
+    fun config(arguments: CommandArguments) =
+        ConfigCommand().build(arguments)
     
-    fun allConfig() =
-        ConfigCommand().build(CommandArguments("--output-format" to "json"))
-    
-    fun linter() =
-        LinterCommand().build(CommandArguments("--output-format" to "json"))
+    fun linter(arguments: CommandArguments) =
+        LinterCommand().build(arguments)
     
     fun version() =
         VersionCommand().build()
