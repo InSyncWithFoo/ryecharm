@@ -47,4 +47,17 @@ internal abstract class CommandFactoryTest : PlatformTestCase() {
     protected fun buildString(capacityRange: IntRange, generate: () -> Any) =
         buildString(capacityRange.random()) { append(generate()) }
     
+    protected inline fun commandTest(
+        command: Command,
+        subcommands: List<String>,
+        arguments: List<String>,
+        block: Command.() -> Unit
+    ) {
+        assertEquals(subcommands, command.subcommands)
+        assertEquals(arguments, command.arguments)
+        assertEquals(project.path, command.workingDirectory)
+        
+        command.apply(block)
+    }
+    
 }
