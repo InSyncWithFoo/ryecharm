@@ -166,7 +166,11 @@ jobs:
       -
         name: Set up Ruff
         run: |
-          pip install ruff
+          uv tool install ruff
+      -
+        name: Set up ty
+        run: |
+          uv tool install ty
       -
         name: Run tests
         run: |
