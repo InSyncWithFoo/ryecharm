@@ -47,21 +47,35 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
     protected fun buildString(capacityRange: IntRange, generate: () -> Any) =
         buildString(capacityRange.random()) { append(generate()) }
     
-    protected inline fun <reified T : Command> commandTest(
-        command: Command,
-        subcommands: List<String>,
-        arguments: List<String> = emptyList(),
-        workingDirectory: Path? = project.path,
-        noinline block: (Command.() -> Unit)? = null
-    ) {
-        assertInstanceOf(command, commandInterface)
-        assertInstanceOf(command, T::class.java)
+    protected inline fun <reified C : Command> commandClassTest(subcommands: List<String>) {
+        val instance = C::class.java.getConstructor().newInstance()
         
-        assertEquals(subcommands, command.subcommands)
+        assertInstanceOf(instance, commandInterface)
+        assertEquals(subcommands, instance.subcommands)
+    }
+    
+    protected inline fun <reified C : Command> commandTest(
+        command: Command,
+        arguments: List<String> = emptyList(),
+        stdin: String? = null,
+        workingDirectory: Path? = project.path
+    ) {
+        assertInstanceOf(command, C::class.java)
+        
         assertEquals(arguments, command.arguments)
         assertEquals(workingDirectory, command.workingDirectory)
-        
-        block?.let { command.apply(it) }
+        assertEquals(stdin, command.stdin)
+    }
+    
+    protected inline fun <reified C : Command> commandTest(
+        command: Command,
+        arguments: List<String> = emptyList(),
+        stdin: String? = null,
+        workingDirectory: Path? = project.path,
+        block: Command.() -> Unit
+    ) {
+        commandTest<C>(command, arguments, stdin, workingDirectory)
+        command.apply(block)
     }
     
 }
