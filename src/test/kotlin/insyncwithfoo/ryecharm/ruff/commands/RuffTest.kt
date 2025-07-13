@@ -32,101 +32,82 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
 
     @Test
-    fun `test check 1 - path, not all fixable`() {
-        val (text, path) = Pair(randomText(), randomPath())
-        val command = ruff.check(text, path, considerAllFixable = false)
-        
-        commandTest<CheckCommand>(command, emptyList())
-    }
-    
-    @Test
-    fun `test check 2 - no path, not all fixable`() {
+    fun `test check 1 - no path, not all fixable`() {
         val text = randomText()
         val command = ruff.check(text, path = null, considerAllFixable = false)
         
-        commandTest<CheckCommand>(command, emptyList())
+        val expectedArguments = listOf(
+            "--no-fix", "--exit-zero", "--quiet", "-",
+            "--output-format", "json"
+        )
+        
+        commandTest<CheckCommand>(command, stdin = text)
     }
     
     @Test
-    fun `test check`() {
+    fun `test check 2 - path, all fixable`() {
+        val (text, path) = Pair(randomText(), randomPath())
+        val command = ruff.check(text, path, considerAllFixable = false)
+        
+        val expectedArguments = listOf(
+            "--no-fix", "--exit-zero", "--quiet", "-",
+            "--output-format", "json",
+            "--stdin-filename", path.toString(),
+            "--fixable", "ALL"
+        )
+        
+        commandTest<CheckCommand>(command, expectedArguments, stdin = text)
+    }
+    
+    @Test
+    fun `test checkProject 1 - not all fixable`() {
+        val command = ruff.checkProject(considerAllFixable = false)
+
+        val expectedArguments = listOf(
+            "--no-fix", "--exit-zero", "--quiet",
+            "--output-format", "json"
+        )
+
+        commandTest<CheckCommand>(command, expectedArguments)
+    }
+    
+    @Test
+    fun `test checkProject 2 - all fixable`() {
+        val command = ruff.checkProject(considerAllFixable = true)
+
+        val expectedArguments = listOf(
+            "--no-fix", "--exit-zero", "--quiet",
+            "--output-format", "json",
+            "--fixable", "ALL"
+        )
+
+        commandTest<CheckCommand>(command, expectedArguments)
+    }
+
+    @Test
+    fun `test format 1 - no path, no range, not quiet`() {
         val text = randomText()
-        val path = randomPath().orRandomlyNull()
-        val allFixable = boolean
-        
-        val command = ruff.check(text, path, allFixable)
-        val arguments = command.arguments
-        
-        assertEquals(listOf("check"), command.subcommands)
-        assertEquals(text, command.stdin)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(arguments, "-")
-        assertContains(arguments, "--no-fix")
-        assertContains(arguments, "--exit-zero")
-        assertContains(arguments, "--quiet")
-        
-        assertTrue(arguments include listOf("--output-format", "json"))
-        
-        if (path != null) {
-            assertTrue(arguments include listOf("--stdin-filename", path.toString()))
-        }
-        
-        if (allFixable) {
-            assertTrue(arguments include listOf("--fixable", "ALL"))
-        }
+        val command = ruff.format(text, path = null, range = null, quiet = false)
+
+        val expectedArguments = listOf("-")
+
+        commandTest<FormatCommand>(command, expectedArguments, stdin = text)
     }
-    
+
     @Test
-    fun `test checkProject`() {
-        val allFixable = boolean
-        
-        val command = ruff.checkProject(allFixable)
-        val arguments = command.arguments
-        
-        assertEquals(listOf("check"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(arguments, "--no-fix")
-        assertContains(arguments, "--exit-zero")
-        assertContains(arguments, "--quiet")
-        
-        assertTrue(arguments include listOf("--output-format", "json"))
-        
-        if (allFixable) {
-            assertTrue(arguments include listOf("--fixable", "ALL"))
-        }
-    }
-    
-    @Test
-    fun `test format`() {
-        val randomInteger = { (0..10000).random() }
-        val randomPinpoint = { randomInteger() to randomInteger() }
-        
-        val text = randomText()
-        val path = randomPath().orRandomlyNull()
-        val range = OneBasedRange(randomPinpoint(), randomPinpoint()).orRandomlyNull()
-        val quiet = boolean
-        
-        val command = ruff.format(text, path, range)
-        val arguments = command.arguments
-        
-        assertEquals(listOf("format"), command.subcommands)
-        assertEquals(text, command.stdin)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(arguments, "-")
-        
-        if (path != null) {
-            assertTrue(arguments include listOf("--stdin-filename", path.toString()))
-        }
-        
-        if (range != null) {
-            assertTrue(arguments include listOf("--range", range.toString()))
-        }
-        
-        if (quiet) {
-            assertContains(arguments, "--quiet")
-        }
+    fun `test format 2 - path, range, quiet`() {
+        val (text, path) = Pair(randomText(), randomPath())
+        val range = OneBasedRange(1 to 2, 3 to 4)
+        val command = ruff.format(text, path, range, quiet = true)
+
+        val expectedArguments = listOf(
+            "-",
+            "--stdin-filename", path.toString(),
+            "--range", "1:2-3:4",
+            "--quiet"
+        )
+
+        commandTest<FormatCommand>(command, expectedArguments, stdin = text)
     }
     
     @Test
