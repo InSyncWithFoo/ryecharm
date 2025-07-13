@@ -190,28 +190,30 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
     
     @Test
-    fun `test optimizeImports`() {
+    fun `test optimizeImports 1 - no path`() {
         val text = randomText()
-        val path = randomPath().orRandomlyNull()
+        val command = ruff.optimizeImports(text, path = null)
         
+        val expectedArguments = listOf(
+            "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
+            "--select", "I,F401"
+        )
+
+        commandTest<OptimizeImportsCommand>(command, expectedArguments, stdin = text)
+    }
+    
+    @Test
+    fun `test optimizeImports 2 - path`() {
+        val (text, path) = Pair(randomText(), randomPath())
         val command = ruff.optimizeImports(text, path)
-        val arguments = command.arguments
         
-        assertEquals(listOf("check"), command.subcommands)
-        assertEquals(text, command.stdin)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(arguments, "-")
-        assertContains(arguments, "--fix")
-        assertContains(arguments, "--fix-only")
-        assertContains(arguments, "--exit-zero")
-        assertContains(arguments, "--quiet")
-        
-        assertTrue(arguments include listOf("--select", "I,F401"))
-        
-        if (path != null) {
-            assertTrue(arguments include listOf("--stdin-filename", path.toString()))
-        }
+        val expectedArguments = listOf(
+            "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
+            "--select", "I,F401",
+            "--stdin-filename", path.toString()
+        )
+
+        commandTest<OptimizeImportsCommand>(command, expectedArguments, stdin = text)
     }
     
     @Test
@@ -276,28 +278,30 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
     
     @Test
-    fun `test organizeImports`() {
+    fun `test organizeImports 1 - no path`() {
         val text = randomText()
-        val path = randomPath().orRandomlyNull()
+        val command = ruff.organizeImports(text, path = null)
         
+        val expectedArguments = listOf(
+            "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
+            "--select", "I"
+        )
+
+        commandTest<OrganizeImportsCommand>(command, expectedArguments, stdin = text)
+    }
+
+    @Test
+    fun `test organizeImports 2 - path`() {
+        val (text, path) = Pair(randomText(), randomPath())
         val command = ruff.organizeImports(text, path)
-        val arguments = command.arguments
         
-        assertEquals(listOf("check"), command.subcommands)
-        assertEquals(text, command.stdin)
-        assertEquals(projectPath, command.workingDirectory)
+        val expectedArguments = listOf(
+            "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
+            "--select", "I",
+            "--stdin-filename", path.toString()
+        )
         
-        assertContains(arguments, "-")
-        assertContains(arguments, "--fix")
-        assertContains(arguments, "--fix-only")
-        assertContains(arguments, "--exit-zero")
-        assertContains(arguments, "--quiet")
-        
-        assertTrue(arguments include listOf("--select", "I"))
-        
-        if (path != null) {
-            assertTrue(arguments include listOf("--stdin-filename", path.toString()))
-        }
+        commandTest<OrganizeImportsCommand>(command, expectedArguments, stdin = text)
     }
     
 }
