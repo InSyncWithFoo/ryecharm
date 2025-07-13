@@ -52,73 +52,23 @@ internal class UV private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun init(
-        name: String?,
-        kind: ProjectKind,
-        createReadme: Boolean,
-        pinPython: Boolean,
-        baseInterpreter: Path
-    ): Command {
-        val arguments = CommandArguments("--no-workspace")
-        
-        arguments["--python"] = baseInterpreter.toString()
-        
-        if (name != null) {
-            arguments["--name"] = name
-        }
-        
-        when (kind) {
-            ProjectKind.APP -> arguments += "--app"
-            ProjectKind.LIBRARY -> arguments += "--lib"
-            ProjectKind.PACKAGED_APP -> arguments += listOf("--app", "--package")
-        }
-        
-        if (!createReadme) {
-            arguments += "--no-readme"
-        }
-        
-        if (!pinPython) {
-            arguments += "--no-pin-python"
-        }
-        
-        return InitCommand().build(arguments)
-    }
+    fun init(arguments: CommandArguments) =
+        InitCommand().build(arguments)
     
-    fun add(target: PythonPackageSpecification) =
-        AddCommand().build(CommandArguments(target.toPEP508Format()))
+    fun add(arguments: CommandArguments) =
+        AddCommand().build(arguments)
     
-    fun upgrade(target: PythonPackageSpecification) =
-        UpgradeCommand().build(CommandArguments(target.toPEP508Format(), "--upgrade"))
+    fun upgrade(arguments: CommandArguments) =
+        UpgradeCommand().build(arguments)
     
-    fun remove(target: String) =
-        RemoveCommand().build(CommandArguments(target))
+    fun remove(arguments: CommandArguments) =
+        RemoveCommand().build(arguments)
     
     fun sync() =
         SyncCommand().build()
     
-    fun installGroup(name: String): Command {
-        val kind = message("progresses.command.uv.installDependencies.kind.group", name)
-        
-        return InstallDependenciesCommand(kind).build(CommandArguments("--group" to name))
-    }
-    
-    fun installAllGroups(): Command {
-        val kind = message("progresses.command.uv.installDependencies.kind.allGroups")
-        
-        return InstallDependenciesCommand(kind).build(CommandArguments("--all-groups"))
-    }
-    
-    fun installExtra(name: String): Command {
-        val kind = message("progresses.command.uv.installDependencies.kind.extra", name)
-        
-        return InstallDependenciesCommand(kind).build(CommandArguments("--extra" to name))
-    }
-    
-    fun installAllExtras(): Command {
-        val kind = message("progresses.command.uv.installDependencies.kind.allExtras")
-        
-        return InstallDependenciesCommand(kind).build(CommandArguments("--all-extras"))
-    }
+    fun installDependencies(kind: String, arguments: CommandArguments) =
+        InstallDependenciesCommand(kind).build(arguments)
     
     fun venv(baseInterpreter: Path, name: String? = null): Command {
         val arguments = CommandArguments("--python" to baseInterpreter.toString())
@@ -130,29 +80,11 @@ internal class UV private constructor(
         return VenvCommand().build(arguments)
     }
     
-    fun version() =
-        VersionCommand().build(CommandArguments("--short"))
+    fun version(arguments: CommandArguments) =
+        VersionCommand().build(arguments)
     
-    fun version(bumpType: VersionBumpType): Command {
-        val arguments = CommandArguments("--short")
-        
-        arguments["--bump"] = bumpType.toString()
-        
-        return VersionCommand().build(arguments)
-    }
-    
-    fun version(newVersion: ProjectVersion) =
-        VersionCommand().build(CommandArguments("--short", newVersion))
-    
-    fun selfVersion(json: Boolean = false): Command {
-        val arguments = CommandArguments()
-        
-        if (json) {
-            arguments["--output-format"] = "json"
-        }
-        
-        return SelfVersionCommand().build(arguments)
-    }
+    fun selfVersion(arguments: CommandArguments) =
+        SelfVersionCommand().build(arguments)
     
     fun selfUpdate() =
         SelfUpdateCommand().build()

@@ -22,6 +22,7 @@ import insyncwithfoo.ryecharm.unknownError
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.VersionBumpType
 import insyncwithfoo.ryecharm.uv.commands.uv
+import insyncwithfoo.ryecharm.uv.commands.version
 import org.jetbrains.annotations.VisibleForTesting
 
 

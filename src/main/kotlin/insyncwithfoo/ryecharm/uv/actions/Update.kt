@@ -33,6 +33,7 @@ import insyncwithfoo.ryecharm.runThenNotify
 import insyncwithfoo.ryecharm.stringifyToJSON
 import insyncwithfoo.ryecharm.unimportantNotificationGroup
 import insyncwithfoo.ryecharm.uv.commands.UV
+import insyncwithfoo.ryecharm.uv.commands.selfVersion
 import insyncwithfoo.ryecharm.uv.commands.uv
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.datetime.Clock
