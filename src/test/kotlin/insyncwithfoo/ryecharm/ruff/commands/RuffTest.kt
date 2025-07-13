@@ -48,12 +48,10 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val text = randomText()
         val command = ruff.check(text, path = null, considerAllFixable = false)
         
-        val expectedArguments = listOf(
-            "--no-fix", "--exit-zero", "--quiet", "-",
-            "--output-format", "json"
-        )
-        
-        commandTest<CheckCommand>(command, expectedArguments, stdin = text)
+        commandTest<CheckCommand>(command, stdin = text) {
+            assertArgumentsContain("--no-fix", "--exit-zero", "--quiet", "-")
+            assertArgumentsContain("--output-format" to "json")
+        }
     }
     
     @Test
@@ -61,39 +59,33 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val (text, path) = Pair(randomText(), randomPath())
         val command = ruff.check(text, path, considerAllFixable = true)
         
-        val expectedArguments = listOf(
-            "--no-fix", "--exit-zero", "--quiet", "-",
-            "--output-format", "json",
-            "--stdin-filename", path.toString(),
-            "--fixable", "ALL"
-        )
-        
-        commandTest<CheckCommand>(command, expectedArguments, stdin = text)
+        commandTest<CheckCommand>(command, stdin = text) {
+            assertArgumentsContain("--no-fix", "--exit-zero", "--quiet", "-")
+            assertArgumentsContain("--output-format" to "json")
+            assertArgumentsContain("--stdin-filename" to path.toString())
+            assertArgumentsContain("--fixable" to "ALL")
+        }
     }
     
     @Test
     fun `test checkProject 1 - not all fixable`() {
         val command = ruff.checkProject(considerAllFixable = false)
         
-        val expectedArguments = listOf(
-            "--no-fix", "--exit-zero", "--quiet",
-            "--output-format", "json"
-        )
-        
-        commandTest<CheckCommand>(command, expectedArguments)
+        commandTest<CheckCommand>(command) {
+            assertArgumentsContain("--no-fix", "--exit-zero", "--quiet")
+            assertArgumentsContain("--output-format" to "json")
+        }
     }
     
     @Test
     fun `test checkProject 2 - all fixable`() {
         val command = ruff.checkProject(considerAllFixable = true)
         
-        val expectedArguments = listOf(
-            "--no-fix", "--exit-zero", "--quiet",
-            "--output-format", "json",
-            "--fixable", "ALL"
-        )
-        
-        commandTest<CheckCommand>(command, expectedArguments)
+        commandTest<CheckCommand>(command) {
+            assertArgumentsContain("--no-fix", "--exit-zero", "--quiet")
+            assertArgumentsContain("--output-format" to "json")
+            assertArgumentsContain("--fixable" to "ALL")
+        }
     }
     
     @Test
@@ -101,9 +93,9 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val text = randomText()
         val command = ruff.format(text, path = null, range = null, quiet = false)
         
-        val expectedArguments = listOf("-")
-        
-        commandTest<FormatCommand>(command, expectedArguments, stdin = text)
+        commandTest<FormatCommand>(command, stdin = text) {
+            assertArgumentsContain("-")
+        }
     }
     
     @Test
@@ -112,13 +104,11 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val range = OneBasedRange(1 to 2, 3 to 4)
         val command = ruff.format(text, path, range, quiet = true)
         
-        val expectedArguments = listOf(
-            "-", "--quiet",
-            "--stdin-filename", path.toString(),
-            "--range", "1:2-3:4"
-        )
-        
-        commandTest<FormatCommand>(command, expectedArguments, stdin = text)
+        commandTest<FormatCommand>(command, stdin = text) {
+            assertArgumentsContain("--quiet", "-")
+            assertArgumentsContain("--stdin-filename" to path.toString())
+            assertArgumentsContain("--range" to "1:2-3:4")
+        }
     }
     
     @Test
@@ -134,21 +124,19 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val code = randomRuleCode()
         val command = ruff.ruleInfo(code)
         
-        val expectedArguments = listOf(code)
-        
-        commandTest<RuleCommand>(command, expectedArguments)
+        commandTest<RuleCommand>(command) {
+            assertArgumentsContain(code)
+        }
     }
     
     @Test
     fun `test allRules`() {
         val command = ruff.allRulesInfo()
         
-        val expectedArguments = listOf(
-            "--all",
-            "--output-format", "json"
-        )
-        
-        commandTest<RuleCommand>(command, expectedArguments)
+        commandTest<RuleCommand>(command) {
+            assertArgumentsContain("--all")
+            assertArgumentsContain("--output-format" to "json")
+        }
     }
     
     @Test
@@ -156,30 +144,28 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val option = randomOptionName()
         val command = ruff.optionInfo(option)
         
-        val expectedArguments = listOf(
-            option,
-            "--output-format", "json"
-        )
-        
-        commandTest<ConfigCommand>(command, expectedArguments)
+        commandTest<ConfigCommand>(command) {
+            assertArgumentsContain(option)
+            assertArgumentsContain("--output-format" to "json")
+        }
     }
     
     @Test
     fun `test allConfig`() {
         val command = ruff.allOptionsInfo()
         
-        val expectedArguments = listOf("--output-format", "json")
-        
-        commandTest<ConfigCommand>(command, expectedArguments)
+        commandTest<ConfigCommand>(command) {
+            assertArgumentsContain("--output-format" to "json")
+        }
     }
     
     @Test
     fun `test linter`() {
         val command = ruff.allLintersInfo()
         
-        val expectedArguments = listOf("--output-format", "json")
-        
-        commandTest<LinterCommand>(command, expectedArguments)
+        commandTest<LinterCommand>(command) {
+            assertArgumentsContain("--output-format" to "json")
+        }
     }
     
     @Test
@@ -194,12 +180,10 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val text = randomText()
         val command = ruff.optimizeImports(text, path = null)
         
-        val expectedArguments = listOf(
-            "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
-            "--select", "I,F401"
-        )
-        
-        commandTest<OptimizeImportsCommand>(command, expectedArguments, stdin = text)
+        commandTest<OptimizeImportsCommand>(command, stdin = text) {
+            assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+            assertArgumentsContain("--select" to "I,F401")
+        }
     }
     
     @Test
@@ -207,13 +191,11 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val (text, path) = Pair(randomText(), randomPath())
         val command = ruff.optimizeImports(text, path)
         
-        val expectedArguments = listOf(
-            "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
-            "--select", "I,F401",
-            "--stdin-filename", path.toString()
-        )
-        
-        commandTest<OptimizeImportsCommand>(command, expectedArguments, stdin = text)
+        commandTest<OptimizeImportsCommand>(command, stdin = text) {
+            assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+            assertArgumentsContain("--select" to "I,F401")
+            assertArgumentsContain("--stdin-filename" to path.toString())
+        }
     }
     
     @Test
@@ -282,12 +264,10 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val text = randomText()
         val command = ruff.organizeImports(text, path = null)
         
-        val expectedArguments = listOf(
-            "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
-            "--select", "I"
-        )
-        
-        commandTest<OrganizeImportsCommand>(command, expectedArguments, stdin = text)
+        commandTest<OrganizeImportsCommand>(command, stdin = text) {
+            assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+            assertArgumentsContain("--select" to "I")
+        }
     }
     
     @Test
@@ -295,13 +275,11 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val (text, path) = Pair(randomText(), randomPath())
         val command = ruff.organizeImports(text, path)
         
-        val expectedArguments = listOf(
-            "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
-            "--select", "I",
-            "--stdin-filename", path.toString()
-        )
-        
-        commandTest<OrganizeImportsCommand>(command, expectedArguments, stdin = text)
+        commandTest<OrganizeImportsCommand>(command, stdin = text) {
+            assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+            assertArgumentsContain("--select" to "I")
+            assertArgumentsContain("--stdin-filename" to path.toString())
+        }
     }
     
 }

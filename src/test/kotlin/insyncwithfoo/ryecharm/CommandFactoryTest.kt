@@ -2,6 +2,7 @@ package insyncwithfoo.ryecharm
 
 import java.nio.file.Path
 import java.util.Collections
+import kotlin.test.assertContains
 
 
 private typealias Arguments = List<String>
@@ -56,26 +57,59 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
     
     protected inline fun <reified C : Command> commandTest(
         command: Command,
-        arguments: List<String> = emptyList(),
         stdin: String? = null,
         workingDirectory: Path? = project.path
     ) {
         assertInstanceOf(command, C::class.java)
         
-        assertEquals(arguments, command.arguments)
         assertEquals(workingDirectory, command.workingDirectory)
         assertEquals(stdin, command.stdin)
     }
     
     protected inline fun <reified C : Command> commandTest(
         command: Command,
-        arguments: List<String> = emptyList(),
         stdin: String? = null,
         workingDirectory: Path? = project.path,
-        block: Command.() -> Unit
+        block: CommandArgumentsTest.() -> Unit
     ) {
-        commandTest<C>(command, arguments, stdin, workingDirectory)
-        command.apply(block)
+        commandTest<C>(command, stdin, workingDirectory)
+        
+        CommandArgumentsTest(command.arguments).apply {
+            block()
+            assertNoUnaccountedArguments()
+        }
+    }
+    
+    protected class CommandArgumentsTest(original: List<String>) {
+        
+        private val remaining = original.toMutableList()
+        
+        fun assertArgumentsContain(vararg arguments: String) {
+            for (argument in arguments) {
+                val index = remaining.indexOf(argument)
+                
+                assertContains(remaining.indices, index)
+                remaining.removeAt(index)
+            }
+        }
+        
+        fun assertArgumentsContain(argument: Pair<String, String>) {
+            val (key, value) = argument
+            
+            val keyIndex = remaining.indexOf(key)
+            val valueIndex = keyIndex + 1
+            
+            assertContains(remaining.indices, keyIndex)
+            assertContains(remaining.indices, valueIndex)
+            assertEquals(value, remaining[valueIndex])
+            
+            remaining.subList(keyIndex, valueIndex + 1).clear()
+        }
+        
+        fun assertNoUnaccountedArguments() {
+            assertEmpty(remaining)
+        }
+        
     }
     
 }
