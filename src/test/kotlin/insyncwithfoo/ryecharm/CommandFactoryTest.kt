@@ -55,11 +55,7 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
         assertEquals(subcommands, instance.subcommands)
     }
     
-    protected inline fun <reified C : Command> commandTest(
-        command: Command,
-        stdin: String? = null,
-        workingDirectory: Path? = project.path
-    ) {
+    private inline fun <reified C : Command> commandTest(command: Command, stdin: String?, workingDirectory: Path?) {
         assertInstanceOf(command, C::class.java)
         
         assertEquals(workingDirectory, command.workingDirectory)
@@ -70,12 +66,12 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
         command: Command,
         stdin: String? = null,
         workingDirectory: Path? = project.path,
-        block: CommandArgumentsTest.() -> Unit
+        noinline block: (CommandArgumentsTest.() -> Unit)? = null
     ) {
         commandTest<C>(command, stdin, workingDirectory)
         
         CommandArgumentsTest(command.arguments).apply {
-            block()
+            block?.let { it() }
             assertNoUnaccountedArguments()
         }
     }
