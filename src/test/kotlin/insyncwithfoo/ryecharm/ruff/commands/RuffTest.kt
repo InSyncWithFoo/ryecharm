@@ -41,13 +41,13 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
             "--output-format", "json"
         )
         
-        commandTest<CheckCommand>(command, stdin = text)
+        commandTest<CheckCommand>(command, expectedArguments, stdin = text)
     }
     
     @Test
     fun `test check 2 - path, all fixable`() {
         val (text, path) = Pair(randomText(), randomPath())
-        val command = ruff.check(text, path, considerAllFixable = false)
+        val command = ruff.check(text, path, considerAllFixable = true)
         
         val expectedArguments = listOf(
             "--no-fix", "--exit-zero", "--quiet", "-",
@@ -101,10 +101,9 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val command = ruff.format(text, path, range, quiet = true)
 
         val expectedArguments = listOf(
-            "-",
+            "-", "--quiet",
             "--stdin-filename", path.toString(),
-            "--range", "1:2-3:4",
-            "--quiet"
+            "--range", "1:2-3:4"
         )
 
         commandTest<FormatCommand>(command, expectedArguments, stdin = text)
