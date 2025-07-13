@@ -148,7 +148,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
             append(linterPrefix)
             append(ruleNumber)
         }
-        val command = ruff.rule(code)
+        val command = ruff.ruleInfo(code)
         
         assertEquals(listOf("rule"), command.subcommands)
         assertEquals(listOf(code), command.arguments)
@@ -173,7 +173,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val option = buildString(10..30) {
             listOf(lowercase, '.', '-').random()
         }
-        val command = ruff.config(option)
+        val command = ruff.optionInfo(option)
         
         assertEquals(listOf("config"), command.subcommands)
         assertEquals(listOf(option, "--output-format", "json"), command.arguments)
@@ -191,7 +191,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     
     @Test
     fun `test linter`() {
-        val command = ruff.linter()
+        val command = ruff.allLintersInfo()
         
         assertEquals(listOf("linter"), command.subcommands)
         assertEquals(listOf("--output-format", "json"), command.arguments)
