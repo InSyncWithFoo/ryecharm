@@ -27,6 +27,23 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     }
     
     @Test
+    fun `test command classes`() {
+        commandClassTest<InitCommand>(listOf("init"))
+        commandClassTest<AddCommand>(listOf("add"))
+        commandClassTest<RemoveCommand>(listOf("remove"))
+        commandClassTest<UpgradeCommand>(listOf("add"))
+        commandClassTest<SyncCommand>(listOf("sync"))
+        commandClassTest<InstallDependenciesCommand>(listOf("sync"))
+        commandClassTest<VenvCommand>(listOf("venv"))
+        commandClassTest<VersionCommand>(listOf("version"))
+        commandClassTest<SelfVersionCommand>(listOf("self", "version"))
+        commandClassTest<SelfUpdateCommand>(listOf("self", "update"))
+        commandClassTest<PipCompileCommand>(listOf("pip", "compile"))
+        commandClassTest<PipListCommand>(listOf("pip", "list"))
+        commandClassTest<PipTreeCommand>(listOf("pip", "tree"))
+    }
+    
+    @Test
     fun `test init`() {
         val randomNameCharacter = { listOf(lowercase, uppercase, digit, "-", ".", "_").random() }
         
@@ -125,17 +142,18 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     }
     
     @Test
-    fun `test self version`() {
-        val json = boolean
-        val command = uv.selfVersion(json = json)
+    fun `test self version 1 - text`() {
+        val command = uv.selfVersion(json = false)
         
-        assertEquals(listOf("self", "version"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
+        commandTest<SelfVersionCommand>(command)
+    }
+    
+    @Test
+    fun `test self version 2 - json`() {
+        val command = uv.selfVersion(json = true)
         
-        if (json) {
-            assertTrue(command.arguments include listOf("--output-format", "json"))
-        } else {
-            assertEquals(emptyList<String>(), command.arguments)
+        commandTest<SelfVersionCommand>(command) {
+            assertArgumentsContain("--output-format" to "json")
         }
     }
     
@@ -143,9 +161,7 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     fun `test self update`() {
         val command = uv.selfUpdate()
         
-        assertEquals(listOf("self", "update"), command.subcommands)
-        assertEquals(emptyList<String>(), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        commandTest<SelfUpdateCommand>(command)
     }
     
     @Test

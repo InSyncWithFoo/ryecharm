@@ -80,7 +80,7 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
         }
     }
     
-    protected class CommandArgumentsTest(original: List<String>) {
+    protected class CommandArgumentsTest(original: Arguments) {
         
         private val remaining = original.toMutableList()
         
