@@ -23,11 +23,11 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         append(linterPrefix)
         append(ruleNumber)
     }
-
+    
     private fun randomOptionName() = buildString(10..30) {
         listOf(lowercase, '.', '-').random()
     }
-
+    
     @Test
     fun `test command classes`() {
         commandClassTest<CheckCommand>(listOf("check"))
@@ -42,7 +42,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         commandClassTest<RuleCommand>(listOf("rule"))
         commandClassTest<VersionCommand>(listOf("version"))
     }
-
+    
     @Test
     fun `test check 1 - no path, not all fixable`() {
         val text = randomText()
@@ -74,58 +74,58 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     @Test
     fun `test checkProject 1 - not all fixable`() {
         val command = ruff.checkProject(considerAllFixable = false)
-
+        
         val expectedArguments = listOf(
             "--no-fix", "--exit-zero", "--quiet",
             "--output-format", "json"
         )
-
+        
         commandTest<CheckCommand>(command, expectedArguments)
     }
     
     @Test
     fun `test checkProject 2 - all fixable`() {
         val command = ruff.checkProject(considerAllFixable = true)
-
+        
         val expectedArguments = listOf(
             "--no-fix", "--exit-zero", "--quiet",
             "--output-format", "json",
             "--fixable", "ALL"
         )
-
+        
         commandTest<CheckCommand>(command, expectedArguments)
     }
-
+    
     @Test
     fun `test format 1 - no path, no range, not quiet`() {
         val text = randomText()
         val command = ruff.format(text, path = null, range = null, quiet = false)
-
+        
         val expectedArguments = listOf("-")
-
+        
         commandTest<FormatCommand>(command, expectedArguments, stdin = text)
     }
-
+    
     @Test
     fun `test format 2 - path, range, quiet`() {
         val (text, path) = Pair(randomText(), randomPath())
         val range = OneBasedRange(1 to 2, 3 to 4)
         val command = ruff.format(text, path, range, quiet = true)
-
+        
         val expectedArguments = listOf(
             "-", "--quiet",
             "--stdin-filename", path.toString(),
             "--range", "1:2-3:4"
         )
-
+        
         commandTest<FormatCommand>(command, expectedArguments, stdin = text)
     }
-
+    
     @Test
     fun `test clean`() {
         val path = randomPath()
         val command = ruff.clean(path)
-
+        
         commandTest<CleanCommand>(command, workingDirectory = path)
     }
     
@@ -135,7 +135,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val command = ruff.ruleInfo(code)
         
         val expectedArguments = listOf(code)
-
+        
         commandTest<RuleCommand>(command, expectedArguments)
     }
     
@@ -147,7 +147,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
             "--all",
             "--output-format", "json"
         )
-
+        
         commandTest<RuleCommand>(command, expectedArguments)
     }
     
@@ -160,16 +160,16 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
             option,
             "--output-format", "json"
         )
-
+        
         commandTest<ConfigCommand>(command, expectedArguments)
     }
     
     @Test
     fun `test allConfig`() {
         val command = ruff.allOptionsInfo()
-
+        
         val expectedArguments = listOf("--output-format", "json")
-
+        
         commandTest<ConfigCommand>(command, expectedArguments)
     }
     
@@ -178,7 +178,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val command = ruff.allLintersInfo()
         
         val expectedArguments = listOf("--output-format", "json")
-
+        
         commandTest<LinterCommand>(command, expectedArguments)
     }
     
@@ -198,7 +198,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
             "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
             "--select", "I,F401"
         )
-
+        
         commandTest<OptimizeImportsCommand>(command, expectedArguments, stdin = text)
     }
     
@@ -212,7 +212,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
             "--select", "I,F401",
             "--stdin-filename", path.toString()
         )
-
+        
         commandTest<OptimizeImportsCommand>(command, expectedArguments, stdin = text)
     }
     
@@ -286,10 +286,10 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
             "--fix", "--fix-only", "--exit-zero", "--quiet", "-",
             "--select", "I"
         )
-
+        
         commandTest<OrganizeImportsCommand>(command, expectedArguments, stdin = text)
     }
-
+    
     @Test
     fun `test organizeImports 2 - path`() {
         val (text, path) = Pair(randomText(), randomPath())

@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm.ruff.commands
 
 import com.intellij.openapi.project.Project
-import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.configurations.globalRuffExecutable
@@ -10,9 +9,6 @@ import insyncwithfoo.ryecharm.configurations.ruffExecutable
 import insyncwithfoo.ryecharm.findExecutableChild
 import insyncwithfoo.ryecharm.findExecutableInPath
 import insyncwithfoo.ryecharm.path
-import insyncwithfoo.ryecharm.ruff.RuleCode
-import insyncwithfoo.ryecharm.ruff.documentation.OptionName
-import insyncwithfoo.ryecharm.ruff.documentation.RuleSelector
 import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.binaryDirectory
 import java.nio.file.Path
