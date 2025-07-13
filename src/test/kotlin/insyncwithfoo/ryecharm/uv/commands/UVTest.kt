@@ -169,23 +169,28 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     }
     
     @Test
-    fun `test pip compile`() {
+    fun `test pip compile 1 - with header`() {
         val packages = buildList((0..10).random()) {
             add(randomPEP508Name())
         }
-        val noHeader = boolean
+        val text = packages.joinToString("\n")
+        val command = uv.pipCompile(packages, noHeader = false)
         
-        val command = uv.pipCompile(packages, noHeader)
-        val arguments = command.arguments
+        commandTest<PipCompileCommand>(command, stdin = text) {
+            assertArgumentsContain("-")
+        }
+    }
+    
+    @Test
+    fun `test pip compile 2 - no header`() {
+        val packages = buildList((0..10).random()) {
+            add(randomPEP508Name())
+        }
+        val text = packages.joinToString("\n")
+        val command = uv.pipCompile(packages, noHeader = true)
         
-        assertEquals(listOf("pip", "compile"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        assertEquals(packages.joinToString("\n"), command.stdin)
-        
-        assertContains(arguments, "-")
-        
-        if (noHeader) {
-            assertContains(command.arguments, "--no-header")
+        commandTest<PipCompileCommand>(command, stdin = text) {
+            assertArgumentsContain("--no-header", "-")
         }
     }
     
