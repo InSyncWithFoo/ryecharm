@@ -199,63 +199,48 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
     
     @Test
-    fun `test fix`() {
+    fun `test fix 1 - no path, safe`() {
         val text = randomText()
-        val path = randomPath().orRandomlyNull()
-        val select = List((0..10).random()) { randomText() }
-        val unsafeFixes = boolean
+        val rules = List((0..10).random()) { randomRuleCode() }
+        val command = ruff.fix(text, path = null, rules, unsafe = true)
         
-        val command = ruff.fix(text, path, select, unsafeFixes)
-        val arguments = command.arguments
-        
-        assertEquals(listOf("check"), command.subcommands)
-        assertEquals(text, command.stdin)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(arguments, "-")
-        assertContains(arguments, "--fix")
-        assertContains(arguments, "--fix-only")
-        assertContains(arguments, "--exit-zero")
-        assertContains(arguments, "--quiet")
-        
-        assertTrue(arguments include listOf("--select", select.joinToString(",")))
-        
-        if (path != null) {
-            assertTrue(arguments include listOf("--stdin-filename", path.toString()))
-        }
-        
-        if (unsafeFixes) {
-            assertContains(arguments, "--unsafe-fixes")
+        commandTest<FixCommand>(command, stdin = text) {
+            assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+            assertArgumentsContain("--select" to rules.joinToString(","))
         }
     }
     
     @Test
-    fun `test fixAll`() {
-        val text = randomText()
-        val path = randomPath().orRandomlyNull()
-        val unsafeFixes = boolean
+    fun `test fix 2 - path, unsafe`() {
+        val (text, path) = Pair(randomText(), randomPath())
+        val rules = List((0..10).random()) { randomRuleCode() }
+        val command = ruff.fix(text, path, rules, unsafe = true)
         
-        val command = ruff.fixAll(text, path, unsafe = unsafeFixes)
-        val arguments = command.arguments
-        
-        assertEquals(listOf("check"), command.subcommands)
-        assertEquals(text, command.stdin)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(arguments, "-")
-        assertContains(arguments, "--fix")
-        assertContains(arguments, "--fix-only")
-        assertContains(arguments, "--exit-zero")
-        assertContains(arguments, "--quiet")
-        
-        assertTrue("--select" !in arguments)
-        
-        if (path != null) {
-            assertTrue(arguments include listOf("--stdin-filename", path.toString()))
+        commandTest<FixCommand>(command, stdin = text) {
+            assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "--unsafe-fixes", "-")
+            assertArgumentsContain("--select" to rules.joinToString(","))
+            assertArgumentsContain("--stdin-filename" to path.toString())
         }
+    }
+    
+    @Test
+    fun `test fixAll 1 - no path, safe`() {
+        val text = randomText()
+        val command = ruff.fixAll(text, path = null, unsafe = false)
         
-        if (unsafeFixes) {
-            assertContains(arguments, "--unsafe-fixes")
+        commandTest<FixCommand>(command, stdin = text) {
+            assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
+        }
+    }
+    
+    @Test
+    fun `test fixAll 2 - path, unsafe`() {
+        val (text, path) = Pair(randomText(), randomPath())
+        val command = ruff.fixAll(text, path, unsafe = true)
+        
+        commandTest<FixCommand>(command, stdin = text) {
+            assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "--unsafe-fixes", "-")
+            assertArgumentsContain("--stdin-filename" to path.toString())
         }
     }
     

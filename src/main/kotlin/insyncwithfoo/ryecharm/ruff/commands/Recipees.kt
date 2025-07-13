@@ -88,10 +88,10 @@ internal fun Ruff.fixAll(text: String, path: Path?, unsafe: Boolean) =
     fix(text, path, rules = null, unsafe)
 
 
-internal fun Ruff.showSettings(rules: List<RuleSelector>): Command {
+internal fun Ruff.showSettings(selectors: List<RuleSelector>): Command {
     val arguments = CommandArguments("--show-settings")
     
-    arguments["--select"] = rules.joinToString(",")
+    arguments["--select"] = selectors.joinToString(",")
     
     return showSettings(arguments)
 }

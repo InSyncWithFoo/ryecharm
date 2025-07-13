@@ -189,7 +189,7 @@ internal suspend fun Project.getRuleDocumentationByRuleName(name: RuleName) =
 
 private suspend fun Project.getEnabledRules(selector: RuleSelector): Map<RuleName, RuleCode>? {
     val ruff = this.ruff ?: return null
-    val command = ruff.showSettings(rules = listOf(selector))
+    val command = ruff.showSettings(selectors = listOf(selector))
     
     val output = runUnderIOThread {
         runInBackground(command)
