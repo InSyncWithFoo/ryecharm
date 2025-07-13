@@ -20,7 +20,10 @@ internal class TYTest : CommandFactoryTest(TYCommand::class.java) {
     }
     
     @Test
-    fun `test version`() =
-        commandTest<VersionCommand>(ty.version())
+    fun `test version`() {
+        val command = ty.version()
+        
+        commandTest<VersionCommand>(command)
+    }
     
 }

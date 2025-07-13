@@ -21,11 +21,19 @@ internal class RyeTest : CommandFactoryTest(RyeCommand::class.java) {
     }
     
     @Test
-    fun `test config`() =
-        commandTest<ConfigCommand>(rye.configDirectory(), listOf("--show-path"))
+    fun `test config`() {
+        val command = rye.configDirectory()
+        
+        commandTest<ConfigCommand>(command) {
+            assertArgumentsContain("--show-path")
+        }
+    }
     
     @Test
-    fun `test show`() =
-        commandTest<ShowCommand>(rye.show())
+    fun `test show`() {
+        val command = rye.show()
+        
+        commandTest<ShowCommand>(command)
+    }
     
 }
