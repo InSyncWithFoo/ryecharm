@@ -202,7 +202,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     fun `test fix 1 - no path, safe`() {
         val text = randomText()
         val rules = List((0..10).random()) { randomRuleCode() }
-        val command = ruff.fix(text, path = null, rules, unsafe = true)
+        val command = ruff.fix(text, path = null, rules, unsafe = false)
         
         commandTest<FixCommand>(command, stdin = text) {
             assertArgumentsContain("--fix", "--fix-only", "--exit-zero", "--quiet", "-")
