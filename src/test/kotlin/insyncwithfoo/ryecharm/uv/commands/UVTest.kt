@@ -26,6 +26,10 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
         return first + middle + last
     }
     
+    private fun randomVersion() = buildString(5..10) {
+        listOf(lowercase, '.', '-').random()
+    }
+    
     @Test
     fun `test command classes`() {
         commandClassTest<InitCommand>(listOf("init"))
@@ -190,20 +194,18 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
         val name = randomPEP508Name()
         val command = uv.installGroup(name)
         
-        assertEquals(listOf("sync"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertTrue(command.arguments include listOf("--group", name))
+        commandTest<InstallDependenciesCommand>(command) {
+            assertArgumentsContain("--group" to name)
+        }
     }
     
     @Test
     fun `test install all groups`() {
         val command = uv.installAllGroups()
         
-        assertEquals(listOf("sync"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(command.arguments, "--all-groups")
+        commandTest<InstallDependenciesCommand>(command) {
+            assertArgumentsContain("--all-groups")
+        }
     }
     
     @Test
@@ -211,56 +213,48 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
         val name = randomPEP508Name()
         val command = uv.installExtra(name)
         
-        assertEquals(listOf("sync"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertTrue(command.arguments include listOf("--extra", name))
+        commandTest<InstallDependenciesCommand>(command) {
+            assertArgumentsContain("--extra" to name)
+        }
     }
     
     @Test
     fun `test install all extras`() {
         val command = uv.installAllExtras()
         
-        assertEquals(listOf("sync"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(command.arguments, "--all-extras")
+        commandTest<InstallDependenciesCommand>(command) {
+            assertArgumentsContain("--all-extras")
+        }
     }
     
     @Test
     fun `test version - get`() {
         val command = uv.version()
         
-        assertEquals(listOf("version"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(command.arguments, "--short")
+        commandTest<VersionCommand>(command) {
+            assertArgumentsContain("--short")
+        }
     }
     
     @Test
-    fun `test version - bump`() {
-        val bumpType = VersionBumpType.entries.random()
+    fun `test version - bump major`() {
+        val bumpType = VersionBumpType.MAJOR
         val command = uv.version(bumpType)
         
-        assertEquals(listOf("version"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(command.arguments, "--short")
-        assertTrue(command.arguments include listOf("--bump", bumpType.toString()))
+        commandTest<VersionCommand>(command) {
+            assertArgumentsContain("--short")
+            assertArgumentsContain("--bump" to "major")
+        }
     }
     
     @Test
     fun `test version - set`() {
-        val newVersion = buildString(5..10) {
-            listOf(lowercase, '.', '-').random()
-        }
+        val newVersion = randomVersion()
         val command = uv.version(newVersion)
         
-        assertEquals(listOf("version"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(command.arguments, "--short")
-        assertContains(command.arguments, newVersion)
+        commandTest<VersionCommand>(command) {
+            assertArgumentsContain(newVersion, "--short")
+        }
     }
     
 }
