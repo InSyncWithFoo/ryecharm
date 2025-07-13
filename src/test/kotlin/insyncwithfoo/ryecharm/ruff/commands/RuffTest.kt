@@ -16,6 +16,18 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         ruff = project.ruff!!
     }
     
+    private fun randomRuleCode() = buildString {
+        val linterPrefix = buildString(1..5) { lowercase }
+        val ruleNumber = buildString(3..6) { digit }
+        
+        append(linterPrefix)
+        append(ruleNumber)
+    }
+
+    private fun randomOptionName() = buildString(10..30) {
+        listOf(lowercase, '.', '-').random()
+    }
+
     @Test
     fun `test command classes`() {
         commandClassTest<CheckCommand>(listOf("check"))
@@ -108,83 +120,73 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
 
         commandTest<FormatCommand>(command, expectedArguments, stdin = text)
     }
-    
+
     @Test
     fun `test clean`() {
         val path = randomPath()
         val command = ruff.clean(path)
-        
-        assertEquals(listOf("clean"), command.subcommands)
-        assertEquals(emptyList<String>(), command.arguments)
-        assertEquals(path, command.workingDirectory)
+
+        commandTest<CleanCommand>(command, workingDirectory = path)
     }
     
     @Test
     fun `test rule`() {
-        val code = buildString {
-            val linterPrefix = buildString(1..5) { lowercase }
-            val ruleNumber = buildString(3..6) { digit }
-            
-            append(linterPrefix)
-            append(ruleNumber)
-        }
+        val code = randomRuleCode()
         val command = ruff.ruleInfo(code)
         
-        assertEquals(listOf("rule"), command.subcommands)
-        assertEquals(listOf(code), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        val expectedArguments = listOf(code)
+
+        commandTest<RuleCommand>(command, expectedArguments)
     }
     
     @Test
     fun `test allRules`() {
         val command = ruff.allRulesInfo()
-        val arguments = command.arguments
         
-        assertEquals(listOf("rule"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(arguments, "--all")
-        
-        assertTrue(arguments include listOf("--output-format", "json"))
+        val expectedArguments = listOf(
+            "--all",
+            "--output-format", "json"
+        )
+
+        commandTest<RuleCommand>(command, expectedArguments)
     }
     
     @Test
     fun `test config`() {
-        val option = buildString(10..30) {
-            listOf(lowercase, '.', '-').random()
-        }
+        val option = randomOptionName()
         val command = ruff.optionInfo(option)
         
-        assertEquals(listOf("config"), command.subcommands)
-        assertEquals(listOf(option, "--output-format", "json"), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        val expectedArguments = listOf(
+            option,
+            "--output-format", "json"
+        )
+
+        commandTest<ConfigCommand>(command, expectedArguments)
     }
     
     @Test
     fun `test allConfig`() {
         val command = ruff.allOptionsInfo()
-        
-        assertEquals(listOf("config"), command.subcommands)
-        assertEquals(listOf("--output-format", "json"), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+
+        val expectedArguments = listOf("--output-format", "json")
+
+        commandTest<ConfigCommand>(command, expectedArguments)
     }
     
     @Test
     fun `test linter`() {
         val command = ruff.allLintersInfo()
         
-        assertEquals(listOf("linter"), command.subcommands)
-        assertEquals(listOf("--output-format", "json"), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        val expectedArguments = listOf("--output-format", "json")
+
+        commandTest<LinterCommand>(command, expectedArguments)
     }
     
     @Test
     fun `test version`() {
         val command = ruff.version()
         
-        assertEquals(listOf("version"), command.subcommands)
-        assertEquals(emptyList<String>(), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        commandTest<VersionCommand>(command)
     }
     
     @Test
