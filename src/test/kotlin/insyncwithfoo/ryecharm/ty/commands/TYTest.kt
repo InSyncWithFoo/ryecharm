@@ -13,9 +13,14 @@ internal class TYTest : CommandFactoryTest(TYCommand::class.java) {
         
         ty = project.ty!!
     }
+
+    @Test
+    fun `test command classes`() {
+        commandClassTest<VersionCommand>(listOf("version"))
+    }
     
     @Test
     fun `test version`() =
-        commandTest<VersionCommand>(ty.version(), listOf("version"))
+        commandTest<VersionCommand>(ty.version())
     
 }

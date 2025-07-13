@@ -13,13 +13,19 @@ internal class RyeTest : CommandFactoryTest(RyeCommand::class.java) {
         
         rye = project.rye!!
     }
+
+    @Test
+    fun `test command classes`() {
+        commandClassTest<ConfigCommand>(listOf("config"))
+        commandClassTest<ShowCommand>(listOf("show"))
+    }
     
     @Test
     fun `test config`() =
-        commandTest<ConfigCommand>(rye.configDirectory(), listOf("config"), listOf("--show-path"))
+        commandTest<ConfigCommand>(rye.configDirectory(), listOf("--show-path"))
     
     @Test
     fun `test show`() =
-        commandTest<ShowCommand>(rye.show(), listOf("show"))
+        commandTest<ShowCommand>(rye.show())
     
 }

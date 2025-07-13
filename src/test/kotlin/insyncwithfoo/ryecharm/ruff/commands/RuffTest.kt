@@ -17,6 +17,37 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
     
     @Test
+    fun `test command classes`() {
+        commandClassTest<CheckCommand>(listOf("check"))
+        commandClassTest<FixCommand>(listOf("check"))
+        commandClassTest<OptimizeImportsCommand>(listOf("check"))
+        commandClassTest<OrganizeImportsCommand>(listOf("check"))
+        commandClassTest<ShowSettingsCommand>(listOf("check"))
+        commandClassTest<CleanCommand>(listOf("clean"))
+        commandClassTest<ConfigCommand>(listOf("config"))
+        commandClassTest<LinterCommand>(listOf("linter"))
+        commandClassTest<FormatCommand>(listOf("format"))
+        commandClassTest<RuleCommand>(listOf("rule"))
+        commandClassTest<VersionCommand>(listOf("version"))
+    }
+
+    @Test
+    fun `test check 1 - path, not all fixable`() {
+        val (text, path) = Pair(randomText(), randomPath())
+        val command = ruff.check(text, path, considerAllFixable = false)
+        
+        commandTest<CheckCommand>(command, emptyList())
+    }
+    
+    @Test
+    fun `test check 2 - no path, not all fixable`() {
+        val text = randomText()
+        val command = ruff.check(text, path = null, considerAllFixable = false)
+        
+        commandTest<CheckCommand>(command, emptyList())
+    }
+    
+    @Test
     fun `test check`() {
         val text = randomText()
         val path = randomPath().orRandomlyNull()
@@ -151,7 +182,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     
     @Test
     fun `test allConfig`() {
-        val command = ruff.allConfigInfo()
+        val command = ruff.allOptionsInfo()
         
         assertEquals(listOf("config"), command.subcommands)
         assertEquals(listOf("--output-format", "json"), command.arguments)
@@ -238,7 +269,7 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         val path = randomPath().orRandomlyNull()
         val unsafeFixes = boolean
         
-        val command = ruff.fixAll(text, path, unsafeFixes = unsafeFixes)
+        val command = ruff.fixAll(text, path, unsafe = unsafeFixes)
         val arguments = command.arguments
         
         assertEquals(listOf("check"), command.subcommands)
