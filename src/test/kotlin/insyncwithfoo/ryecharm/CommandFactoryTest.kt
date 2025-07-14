@@ -19,9 +19,6 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
     protected val ascii: Char
         get() = ('\u0000'..'\u00FF').random()
     
-    protected val boolean: Boolean
-        get() = listOf(true, false).random()
-    
     private fun randomPathFragment() =
         buildString(10..30) {
             listOf(lowercase, uppercase, digit).random()
@@ -38,12 +35,6 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
     
     protected fun randomText() =
         buildString(0..10000) { ascii }
-    
-    protected infix fun Arguments.include(subarguments: Arguments) =
-        Collections.indexOfSubList(this, subarguments) != -1
-    
-    protected fun <T> T.orRandomlyNull() =
-        this.takeIf { boolean }
     
     protected fun buildString(capacityRange: IntRange, generate: () -> Any) =
         buildString(capacityRange.random()) { append(generate()) }

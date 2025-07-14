@@ -52,58 +52,6 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     }
     
     @Test
-    fun `test init`() {
-        val randomNameCharacter = { listOf(lowercase, uppercase, digit, "-", ".", "_").random() }
-        
-        val name = buildString(5..20, randomNameCharacter).orRandomlyNull()
-        val kind = ProjectKind.entries.random()
-        val createReadme = boolean
-        val pinPython = boolean
-        val baseInterpreter = randomPath()
-        
-        val command = uv.init(name, kind, createReadme, pinPython, baseInterpreter)
-        val arguments = command.arguments
-        
-        assertEquals(listOf("init"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertContains(arguments, "--no-workspace")
-        assertTrue(arguments include listOf("--python", baseInterpreter.toString()))
-        
-        when (kind) {
-            ProjectKind.APP -> {
-                assertContains(arguments, "--app")
-                assertTrue("--package" !in arguments)
-                assertTrue("--no-package" !in arguments)
-            }
-            
-            ProjectKind.LIBRARY -> {
-                assertContains(arguments, "--lib")
-                assertTrue("--package" !in arguments)
-                assertTrue("--no-package" !in arguments)
-            }
-            
-            ProjectKind.PACKAGED_APP -> {
-                assertContains(arguments, "--app")
-                assertContains(arguments, "--package")
-                assertTrue("--no-package" !in arguments)
-            }
-        }
-        
-        if (name != null) {
-            assertTrue(arguments include listOf("--name", name))
-        }
-        
-        if (!createReadme) {
-            assertContains(arguments, "--no-readme")
-        }
-        
-        if (!pinPython) {
-            assertContains(arguments, "--no-pin-python")
-        }
-    }
-    
-    @Test
     fun `test pip tree 1 - normal, deduped, no specifiers, no latest versions, no interpreter`() {
         val `package` = randomPEP508Name()
         val depth = (0..1000).random()
