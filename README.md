@@ -59,7 +59,7 @@ You can also download the ZIP files manually from [the <i>Releases</i> tab][11],
 and follow the instructions described [here][14].
 
 Currently supported versions:
-2025.1 (build 251.23774.444) and later.
+2025.1.3 (build 251.26927.74) and later.
 
 
 ## Credits
