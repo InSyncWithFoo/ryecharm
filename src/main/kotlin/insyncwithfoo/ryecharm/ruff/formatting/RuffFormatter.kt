@@ -24,6 +24,7 @@ import insyncwithfoo.ryecharm.information
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
+import insyncwithfoo.ryecharm.ruff.commands.format
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getOneBasedRange
 import insyncwithfoo.ryecharm.runThenNotify

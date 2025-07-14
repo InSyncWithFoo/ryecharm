@@ -14,6 +14,7 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
+import insyncwithfoo.ryecharm.ruff.commands.fix
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.writeUnderAction
@@ -52,7 +53,7 @@ internal class RuffFixSimilarViolations(private val code: RuleCode, private val 
             return
         }
         
-        val command = ruff.fix(document.text, path, select = listOf(code), unsafeFixes = unsafe)
+        val command = ruff.fix(document.text, path, rules = listOf(code), unsafe = unsafe)
         
         project.runCommandAndLoadResult(command, file)
     }

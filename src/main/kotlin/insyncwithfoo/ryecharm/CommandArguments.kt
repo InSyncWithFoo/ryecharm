@@ -3,8 +3,8 @@ package insyncwithfoo.ryecharm
 
 internal class CommandArguments() {
     
-    private var withoutParameters = mutableListOf<String>()
-    private var withParameters = mutableMapOf<String, String>()
+    private val withoutParameters = mutableListOf<String>()
+    private val withParameters = mutableMapOf<String, String>()
     
     constructor(vararg arguments: String) : this() {
         add(*arguments)
@@ -43,8 +43,7 @@ internal class CommandArguments() {
     operator fun contains(other: String) =
         other in withParameters || other in withoutParameters
     
-    fun toList(): List<String> {
-        return withoutParameters + withParameters.flatMap { listOfNotNull(it.key, it.value) }
-    }
+    fun toList() =
+        withoutParameters + withParameters.flatMap { listOf(it.key, it.value) }
     
 }

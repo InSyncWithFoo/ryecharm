@@ -20,6 +20,7 @@ import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.fileDocumentManager
+import insyncwithfoo.ryecharm.ruff.commands.checkProject
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
 import insyncwithfoo.ryecharm.saveAllDocumentsAsIs
@@ -57,7 +58,7 @@ internal class RuffGlobalInspection : GlobalSimpleInspectionTool() {
         val ruff = project.ruff ?: return
         val configurations = project.ruffConfigurations
         
-        val command = ruff.checkProject(allFixable = configurations.considerAllFixable)
+        val command = ruff.checkProject(considerAllFixable = configurations.considerAllFixable)
         val results = project.runCheckCommand(command) ?: return
         
         globalContext.putUserData(RESULTS, results.groupBy { it.filename })

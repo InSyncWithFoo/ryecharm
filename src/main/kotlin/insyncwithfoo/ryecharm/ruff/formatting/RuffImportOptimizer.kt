@@ -15,6 +15,7 @@ import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
+import insyncwithfoo.ryecharm.ruff.commands.optimizeImports
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unableToRunCommand

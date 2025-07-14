@@ -19,6 +19,7 @@ import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runUnderIOThread
 import insyncwithfoo.ryecharm.toDocumentationResult
 import insyncwithfoo.ryecharm.toHTML
+import insyncwithfoo.ryecharm.uv.commands.pipTree
 import insyncwithfoo.ryecharm.uv.commands.uv
 import insyncwithfoo.ryecharm.wrappedInCodeBlock
 

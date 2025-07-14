@@ -4,7 +4,7 @@ import insyncwithfoo.ryecharm.CommandFactoryTest
 import org.junit.Test
 
 
-internal class RyeTest : CommandFactoryTest() {
+internal class RyeTest : CommandFactoryTest(RyeCommand::class.java) {
     
     private lateinit var rye: Rye
     
@@ -13,23 +13,27 @@ internal class RyeTest : CommandFactoryTest() {
         
         rye = project.rye!!
     }
+
+    @Test
+    fun `test command classes`() {
+        commandClassTest<ConfigCommand>(listOf("config"))
+        commandClassTest<ShowCommand>(listOf("show"))
+    }
     
     @Test
     fun `test config`() {
-        val command = rye.config()
+        val command = rye.configDirectory()
         
-        assertEquals(listOf("config"), command.subcommands)
-        assertEquals(listOf("--show-path"), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        commandTest<ConfigCommand>(command) {
+            assertArgumentsContain("--show-path")
+        }
     }
     
     @Test
     fun `test show`() {
         val command = rye.show()
         
-        assertEquals(listOf("show"), command.subcommands)
-        assertEquals(emptyList<String>(), command.arguments)
-        assertEquals(projectPath, command.workingDirectory)
+        commandTest<ShowCommand>(command)
     }
     
 }

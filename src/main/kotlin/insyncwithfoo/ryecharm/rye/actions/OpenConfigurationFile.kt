@@ -17,6 +17,7 @@ import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runUnderUIThread
 import insyncwithfoo.ryecharm.rye.commands.Rye
+import insyncwithfoo.ryecharm.rye.commands.configDirectory
 import insyncwithfoo.ryecharm.rye.commands.rye
 import insyncwithfoo.ryecharm.toPathOrNull
 import insyncwithfoo.ryecharm.unknownError
@@ -42,7 +43,7 @@ internal class OpenConfigurationFile : AnAction(), DumbAware {
     }
     
     private fun Project.runRyeConfigAndOpenFile(rye: Rye) = launch<ActionCoroutine> {
-        val command = rye.config()
+        val command = rye.configDirectory()
         val output = runInBackground(command)
         
         if (output.isCancelled) {

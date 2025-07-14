@@ -6,6 +6,7 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.ShowCommandOutputAction
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.uv.commands.UV
+import insyncwithfoo.ryecharm.uv.commands.selfVersion
 import insyncwithfoo.ryecharm.uv.commands.uv
 
 

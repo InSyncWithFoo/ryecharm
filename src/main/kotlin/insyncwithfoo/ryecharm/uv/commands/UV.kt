@@ -2,7 +2,6 @@ package insyncwithfoo.ryecharm.uv.commands
 
 import com.intellij.openapi.project.Project
 import com.jetbrains.python.packaging.common.PythonPackageSpecification
-import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.Labeled
@@ -52,166 +51,44 @@ internal class UV private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun init(
-        name: String?,
-        kind: ProjectKind,
-        createReadme: Boolean,
-        pinPython: Boolean,
-        baseInterpreter: Path
-    ): Command {
-        val arguments = CommandArguments("--no-workspace")
-        
-        arguments["--python"] = baseInterpreter.toString()
-        
-        if (name != null) {
-            arguments["--name"] = name
-        }
-        
-        when (kind) {
-            ProjectKind.APP -> arguments += "--app"
-            ProjectKind.LIBRARY -> arguments += "--lib"
-            ProjectKind.PACKAGED_APP -> arguments += listOf("--app", "--package")
-        }
-        
-        if (!createReadme) {
-            arguments += "--no-readme"
-        }
-        
-        if (!pinPython) {
-            arguments += "--no-pin-python"
-        }
-        
-        return InitCommand().build(arguments)
-    }
+    fun add(arguments: CommandArguments) =
+        AddCommand().build(arguments)
     
-    fun add(target: PythonPackageSpecification) =
-        AddCommand().build(CommandArguments(target.toPEP508Format()))
+    fun init(arguments: CommandArguments) =
+        InitCommand().build(arguments)
     
-    fun upgrade(target: PythonPackageSpecification) =
-        UpgradeCommand().build(CommandArguments(target.toPEP508Format(), "--upgrade"))
+    fun installDependencies(kind: String, arguments: CommandArguments) =
+        InstallDependenciesCommand(kind).build(arguments)
     
-    fun remove(target: String) =
-        RemoveCommand().build(CommandArguments(target))
+    fun remove(arguments: CommandArguments) =
+        RemoveCommand().build(arguments)
     
     fun sync() =
         SyncCommand().build()
     
-    fun installGroup(name: String): Command {
-        val kind = message("progresses.command.uv.installDependencies.kind.group", name)
-        
-        return InstallDependenciesCommand(kind).build(CommandArguments("--group" to name))
-    }
+    fun upgrade(arguments: CommandArguments) =
+        UpgradeCommand().build(arguments)
     
-    fun installAllGroups(): Command {
-        val kind = message("progresses.command.uv.installDependencies.kind.allGroups")
-        
-        return InstallDependenciesCommand(kind).build(CommandArguments("--all-groups"))
-    }
+    fun venv(arguments: CommandArguments) =
+        VenvCommand().build(arguments)
     
-    fun installExtra(name: String): Command {
-        val kind = message("progresses.command.uv.installDependencies.kind.extra", name)
-        
-        return InstallDependenciesCommand(kind).build(CommandArguments("--extra" to name))
-    }
+    fun version(arguments: CommandArguments) =
+        VersionCommand().build(arguments)
     
-    fun installAllExtras(): Command {
-        val kind = message("progresses.command.uv.installDependencies.kind.allExtras")
-        
-        return InstallDependenciesCommand(kind).build(CommandArguments("--all-extras"))
-    }
+    fun pipCompile(arguments: CommandArguments, stdin: String) =
+        PipCompileCommand().build(arguments, stdin)
     
-    fun venv(baseInterpreter: Path, name: String? = null): Command {
-        val arguments = CommandArguments("--python" to baseInterpreter.toString())
-        
-        if (name != null) {
-            arguments += name
-        }
-        
-        return VenvCommand().build(arguments)
-    }
+    fun pipList(arguments: CommandArguments) =
+        PipListCommand().build(arguments)
     
-    fun version() =
-        VersionCommand().build(CommandArguments("--short"))
-    
-    fun version(bumpType: VersionBumpType): Command {
-        val arguments = CommandArguments("--short")
-        
-        arguments["--bump"] = bumpType.toString()
-        
-        return VersionCommand().build(arguments)
-    }
-    
-    fun version(newVersion: ProjectVersion) =
-        VersionCommand().build(CommandArguments("--short", newVersion))
-    
-    fun selfVersion(json: Boolean = false): Command {
-        val arguments = CommandArguments()
-        
-        if (json) {
-            arguments["--output-format"] = "json"
-        }
-        
-        return SelfVersionCommand().build(arguments)
-    }
+    fun pipTree(arguments: CommandArguments) =
+        PipTreeCommand().build(arguments)
     
     fun selfUpdate() =
         SelfUpdateCommand().build()
     
-    fun pipCompile(packages: List<String>, noHeader: Boolean = true): Command {
-        val arguments = CommandArguments("-")
-        val stdin = packages.joinToString("\n")
-        
-        if (noHeader) {
-            arguments += "--no-header"
-        }
-        
-        return PipCompileCommand().build(arguments, stdin)
-    }
-    
-    fun pipList(python: Path? = null): Command {
-        val arguments = CommandArguments("--format", "json", "--quiet")
-        
-        if (python != null) {
-            arguments["--python"] = python.toString()
-        }
-        
-        return PipListCommand().build(arguments)
-    }
-    
-    // TODO: `--prune`, `--strict` (?)
-    fun pipTree(
-        `package`: String,
-        inverted: Boolean,
-        showVersionSpecifiers: Boolean,
-        showLatestVersions: Boolean,
-        dedupe: Boolean,
-        depth: Int,
-        interpreter: Path?
-    ): Command {
-        val arguments = CommandArguments("--package" to `package`, "--depth" to depth.toString())
-        
-        if (inverted) {
-            arguments += "--invert"
-        }
-        
-        if (showVersionSpecifiers) {
-            arguments += "--show-version-specifiers"
-        }
-        
-        if (showLatestVersions) {
-            arguments += "--outdated"
-        }
-        
-        if (!dedupe) {
-            arguments += "--no-dedupe"
-        }
-        
-        if (interpreter != null) {
-            arguments["--python"] = interpreter.toString()
-        }
-        
-        return PipTreeCommand().build(arguments)
-    }
+    fun selfVersion(arguments: CommandArguments) =
+        SelfVersionCommand().build(arguments)
     
     override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.uvConfigurations

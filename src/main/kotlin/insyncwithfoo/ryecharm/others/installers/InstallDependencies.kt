@@ -12,6 +12,10 @@ import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.uv.commands.UV
+import insyncwithfoo.ryecharm.uv.commands.installAllExtras
+import insyncwithfoo.ryecharm.uv.commands.installAllGroups
+import insyncwithfoo.ryecharm.uv.commands.installExtra
+import insyncwithfoo.ryecharm.uv.commands.installGroup
 import insyncwithfoo.ryecharm.uv.commands.uv
 import kotlinx.coroutines.CoroutineScope
 

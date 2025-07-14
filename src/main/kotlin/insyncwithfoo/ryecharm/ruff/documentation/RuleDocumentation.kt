@@ -11,7 +11,10 @@ import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.ruff.CachedResult
 import insyncwithfoo.ryecharm.ruff.RuffCache
 import insyncwithfoo.ryecharm.ruff.RuleCode
+import insyncwithfoo.ryecharm.ruff.commands.allRulesInfo
 import insyncwithfoo.ryecharm.ruff.commands.ruff
+import insyncwithfoo.ryecharm.ruff.commands.ruleInfo
+import insyncwithfoo.ryecharm.ruff.commands.showSettings
 import insyncwithfoo.ryecharm.ruff.ruleCode
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runUnderIOThread
@@ -119,7 +122,7 @@ internal fun Markdown.replaceRuleLinksWithSpecializedURIs() = this.replace(ruleL
 
 private suspend fun Project.getNewRuleNameToCodeMap(): Map<RuleName, RuleCode>? {
     val ruff = this.ruff ?: return null
-    val command = ruff.allRules()
+    val command = ruff.allRulesInfo()
     
     val output = runUnderIOThread {
         runInBackground(command)
@@ -156,7 +159,7 @@ internal suspend fun Project.getRuleNameToCodeMap(): Map<RuleName, RuleCode>? {
 
 internal suspend fun Project.getRuleDocumentationByFullCode(code: RuleCode): Markdown? {
     val ruff = this.ruff ?: return null
-    val command = ruff.rule(code)
+    val command = ruff.ruleInfo(code)
     
     val output = runUnderIOThread {
         runInBackground(command)
@@ -186,7 +189,7 @@ internal suspend fun Project.getRuleDocumentationByRuleName(name: RuleName) =
 
 private suspend fun Project.getEnabledRules(selector: RuleSelector): Map<RuleName, RuleCode>? {
     val ruff = this.ruff ?: return null
-    val command = ruff.showSettings(select = listOf(selector))
+    val command = ruff.showSettings(selectors = listOf(selector))
     
     val output = runUnderIOThread {
         runInBackground(command)

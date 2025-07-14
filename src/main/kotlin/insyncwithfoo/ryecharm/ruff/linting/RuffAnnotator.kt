@@ -18,6 +18,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.ruff.commands.Ruff
+import insyncwithfoo.ryecharm.ruff.commands.check
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
@@ -74,7 +75,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
     override fun doAnnotate(collectedInfo: InitialInfo?): AnnotationResult? {
         val (project, configurations, ruff, text, path) = collectedInfo ?: return null
         
-        val command = ruff.check(text, path, allFixable = configurations.considerAllFixable)
+        val command = ruff.check(text, path, considerAllFixable = configurations.considerAllFixable)
         val results = project.runCheckCommand(command) ?: return null
         
         return AnnotationResult(configurations, results)
