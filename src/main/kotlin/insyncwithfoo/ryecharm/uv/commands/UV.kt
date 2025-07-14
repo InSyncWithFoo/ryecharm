@@ -86,7 +86,7 @@ internal class UV private constructor(
         PipCompileCommand().build(arguments, stdin)
     
     fun pipList(arguments: CommandArguments) =
-        PythonListCommand().build(arguments)
+        PipListCommand().build(arguments)
     
     fun pipTree(arguments: CommandArguments) =
         PipTreeCommand().build(arguments)
