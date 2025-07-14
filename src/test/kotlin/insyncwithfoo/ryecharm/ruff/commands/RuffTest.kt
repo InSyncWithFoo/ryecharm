@@ -3,7 +3,6 @@ package insyncwithfoo.ryecharm.ruff.commands
 import insyncwithfoo.ryecharm.CommandFactoryTest
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import org.junit.Test
-import kotlin.test.assertContains
 
 
 internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
@@ -31,16 +30,16 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     @Test
     fun `test command classes`() {
         commandClassTest<CheckCommand>(listOf("check"))
+        commandClassTest<CleanCommand>(listOf("clean"))
+        commandClassTest<ConfigCommand>(listOf("config"))
+        commandClassTest<FormatCommand>(listOf("format"))
+        commandClassTest<LinterCommand>(listOf("linter"))
+        commandClassTest<RuleCommand>(listOf("rule"))
+        commandClassTest<VersionCommand>(listOf("version"))
         commandClassTest<FixCommand>(listOf("check"))
         commandClassTest<OptimizeImportsCommand>(listOf("check"))
         commandClassTest<OrganizeImportsCommand>(listOf("check"))
         commandClassTest<ShowSettingsCommand>(listOf("check"))
-        commandClassTest<CleanCommand>(listOf("clean"))
-        commandClassTest<ConfigCommand>(listOf("config"))
-        commandClassTest<LinterCommand>(listOf("linter"))
-        commandClassTest<FormatCommand>(listOf("format"))
-        commandClassTest<RuleCommand>(listOf("rule"))
-        commandClassTest<VersionCommand>(listOf("version"))
     }
     
     @Test

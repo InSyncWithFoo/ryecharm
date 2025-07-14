@@ -2,7 +2,6 @@ package insyncwithfoo.ryecharm.uv.commands
 
 import com.intellij.openapi.project.Project
 import com.jetbrains.python.packaging.common.PythonPackageSpecification
-import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.Labeled
@@ -52,14 +51,14 @@ internal class UV private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
-    fun init(arguments: CommandArguments) =
-        InitCommand().build(arguments)
-    
     fun add(arguments: CommandArguments) =
         AddCommand().build(arguments)
     
-    fun upgrade(arguments: CommandArguments) =
-        UpgradeCommand().build(arguments)
+    fun init(arguments: CommandArguments) =
+        InitCommand().build(arguments)
+    
+    fun installDependencies(kind: String, arguments: CommandArguments) =
+        InstallDependenciesCommand(kind).build(arguments)
     
     fun remove(arguments: CommandArguments) =
         RemoveCommand().build(arguments)
@@ -67,20 +66,14 @@ internal class UV private constructor(
     fun sync() =
         SyncCommand().build()
     
-    fun installDependencies(kind: String, arguments: CommandArguments) =
-        InstallDependenciesCommand(kind).build(arguments)
+    fun upgrade(arguments: CommandArguments) =
+        UpgradeCommand().build(arguments)
     
     fun venv(arguments: CommandArguments) =
         VenvCommand().build(arguments)
     
     fun version(arguments: CommandArguments) =
         VersionCommand().build(arguments)
-    
-    fun selfVersion(arguments: CommandArguments) =
-        SelfVersionCommand().build(arguments)
-    
-    fun selfUpdate() =
-        SelfUpdateCommand().build()
     
     fun pipCompile(arguments: CommandArguments, stdin: String) =
         PipCompileCommand().build(arguments, stdin)
@@ -90,6 +83,12 @@ internal class UV private constructor(
     
     fun pipTree(arguments: CommandArguments) =
         PipTreeCommand().build(arguments)
+    
+    fun selfUpdate() =
+        SelfUpdateCommand().build()
+    
+    fun selfVersion(arguments: CommandArguments) =
+        SelfVersionCommand().build(arguments)
     
     override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.uvConfigurations

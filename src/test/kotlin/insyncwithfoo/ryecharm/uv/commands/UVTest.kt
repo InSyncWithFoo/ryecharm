@@ -36,19 +36,19 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     
     @Test
     fun `test command classes`() {
-        commandClassTest<InitCommand>(listOf("init"))
         commandClassTest<AddCommand>(listOf("add"))
-        commandClassTest<RemoveCommand>(listOf("remove"))
-        commandClassTest<UpgradeCommand>(listOf("add"))
-        commandClassTest<SyncCommand>(listOf("sync"))
+        commandClassTest<InitCommand>(listOf("init"))
         commandClassTest<InstallDependenciesCommand>(listOf("sync"))
+        commandClassTest<RemoveCommand>(listOf("remove"))
+        commandClassTest<SyncCommand>(listOf("sync"))
+        commandClassTest<UpgradeCommand>(listOf("add"))
         commandClassTest<VenvCommand>(listOf("venv"))
-        commandClassTest<VersionCommand>(listOf("version"))
-        commandClassTest<SelfVersionCommand>(listOf("self", "version"))
-        commandClassTest<SelfUpdateCommand>(listOf("self", "update"))
         commandClassTest<PipCompileCommand>(listOf("pip", "compile"))
         commandClassTest<PipListCommand>(listOf("pip", "list"))
         commandClassTest<PipTreeCommand>(listOf("pip", "tree"))
+        commandClassTest<VersionCommand>(listOf("version"))
+        commandClassTest<SelfUpdateCommand>(listOf("self", "update"))
+        commandClassTest<SelfVersionCommand>(listOf("self", "version"))
     }
     
     @Test

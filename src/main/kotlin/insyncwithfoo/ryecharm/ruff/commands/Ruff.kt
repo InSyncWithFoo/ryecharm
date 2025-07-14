@@ -26,29 +26,29 @@ internal class Ruff private constructor(
     fun check(arguments: CommandArguments, stdin: String? = null) =
         CheckCommand().build(arguments, stdin)
     
-    fun format(arguments: CommandArguments, stdin: String) =
-        FormatCommand().build(arguments, stdin)
-    
     fun clean() =
         CleanCommand().build()
-    
-    fun rule(arguments: CommandArguments) =
-        RuleCommand().build(arguments)
     
     fun config(arguments: CommandArguments) =
         ConfigCommand().build(arguments)
     
+    fun format(arguments: CommandArguments, stdin: String) =
+        FormatCommand().build(arguments, stdin)
+    
     fun linter(arguments: CommandArguments) =
         LinterCommand().build(arguments)
+    
+    fun rule(arguments: CommandArguments) =
+        RuleCommand().build(arguments)
     
     fun version() =
         VersionCommand().build()
     
-    fun optimizeImports(arguments: CommandArguments, stdin: String) =
-        OptimizeImportsCommand().build(arguments, stdin)
-    
     fun fix(arguments: CommandArguments, stdin: String) =
         FixCommand().build(arguments, stdin)
+    
+    fun optimizeImports(arguments: CommandArguments, stdin: String) =
+        OptimizeImportsCommand().build(arguments, stdin)
     
     fun organizeImports(arguments: CommandArguments, stdin: String) =
         OrganizeImportsCommand().build(arguments, stdin)
