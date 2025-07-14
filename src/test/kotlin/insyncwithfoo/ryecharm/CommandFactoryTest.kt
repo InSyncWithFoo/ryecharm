@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm
 
 import java.nio.file.Path
-import java.util.Collections
 import kotlin.test.assertContains
 
 
@@ -46,23 +45,19 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
         assertEquals(subcommands, instance.subcommands)
     }
     
-    private inline fun <reified C : Command> commandTest(command: Command, stdin: String?, workingDirectory: Path?) {
-        assertInstanceOf(command, C::class.java)
-        
-        assertEquals(workingDirectory, command.workingDirectory)
-        assertEquals(stdin, command.stdin)
-    }
-    
     protected inline fun <reified C : Command> commandTest(
         command: Command,
         stdin: String? = null,
         workingDirectory: Path? = project.path,
-        noinline block: (CommandArgumentsTest.() -> Unit)? = null
+        block: CommandArgumentsTest.() -> Unit = {}
     ) {
-        commandTest<C>(command, stdin, workingDirectory)
+        assertInstanceOf(command, C::class.java)
+        
+        assertEquals(workingDirectory, command.workingDirectory)
+        assertEquals(stdin, command.stdin)
         
         CommandArgumentsTest(command.arguments).apply {
-            block?.let { it() }
+            block()
             assertNoUnaccountedArguments()
         }
     }
