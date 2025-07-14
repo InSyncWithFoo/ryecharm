@@ -97,6 +97,17 @@ internal fun UV.version(newVersion: ProjectVersion) =
     version(CommandArguments("--short", newVersion))
 
 
+internal fun UV.venv(baseInterpreter: Path, name: String? = null): Command {
+    val arguments = CommandArguments("--python" to baseInterpreter.toString())
+    
+    if (name != null) {
+        arguments += name
+    }
+    
+    return venv(arguments)
+}
+
+
 internal fun UV.selfVersion(json: Boolean = false): Command {
     val arguments = CommandArguments()
     
@@ -105,4 +116,65 @@ internal fun UV.selfVersion(json: Boolean = false): Command {
     }
     
     return selfVersion(arguments)
+}
+
+
+internal fun UV.pipCompile(packages: List<String>, noHeader: Boolean = true): Command {
+    val arguments = CommandArguments("-")
+    val stdin = packages.joinToString("\n")
+    
+    if (noHeader) {
+        arguments += "--no-header"
+    }
+    
+    return pipCompile(arguments, stdin)
+}
+
+
+internal fun UV.pipList(interpreter: Path? = null): Command {
+    val arguments = CommandArguments("--quiet")
+    
+    arguments["--format"] = "json"
+    
+    if (interpreter != null) {
+        arguments["--python"] = interpreter.toString()
+    }
+    
+    return pipList(arguments)
+}
+
+
+// TODO: `--prune`, `--strict` (?)
+internal fun UV.pipTree(
+    `package`: String,
+    inverted: Boolean,
+    showVersionSpecifiers: Boolean,
+    showLatestVersions: Boolean,
+    dedupe: Boolean,
+    depth: Int,
+    interpreter: Path?
+): Command {
+    val arguments = CommandArguments("--package" to `package`, "--depth" to depth.toString())
+    
+    if (inverted) {
+        arguments += "--invert"
+    }
+    
+    if (showVersionSpecifiers) {
+        arguments += "--show-version-specifiers"
+    }
+    
+    if (showLatestVersions) {
+        arguments += "--outdated"
+    }
+    
+    if (!dedupe) {
+        arguments += "--no-dedupe"
+    }
+    
+    if (interpreter != null) {
+        arguments["--python"] = interpreter.toString()
+    }
+    
+    return pipTree(arguments)
 }

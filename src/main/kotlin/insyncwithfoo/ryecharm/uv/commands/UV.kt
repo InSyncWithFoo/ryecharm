@@ -70,15 +70,8 @@ internal class UV private constructor(
     fun installDependencies(kind: String, arguments: CommandArguments) =
         InstallDependenciesCommand(kind).build(arguments)
     
-    fun venv(baseInterpreter: Path, name: String? = null): Command {
-        val arguments = CommandArguments("--python" to baseInterpreter.toString())
-        
-        if (name != null) {
-            arguments += name
-        }
-        
-        return VenvCommand().build(arguments)
-    }
+    fun venv(arguments: CommandArguments) =
+        VenvCommand().build(arguments)
     
     fun version(arguments: CommandArguments) =
         VersionCommand().build(arguments)
@@ -89,61 +82,14 @@ internal class UV private constructor(
     fun selfUpdate() =
         SelfUpdateCommand().build()
     
-    fun pipCompile(packages: List<String>, noHeader: Boolean = true): Command {
-        val arguments = CommandArguments("-")
-        val stdin = packages.joinToString("\n")
-        
-        if (noHeader) {
-            arguments += "--no-header"
-        }
-        
-        return PipCompileCommand().build(arguments, stdin)
-    }
+    fun pipCompile(arguments: CommandArguments, stdin: String) =
+        PipCompileCommand().build(arguments, stdin)
     
-    fun pipList(python: Path? = null): Command {
-        val arguments = CommandArguments("--format", "json", "--quiet")
-        
-        if (python != null) {
-            arguments["--python"] = python.toString()
-        }
-        
-        return PipListCommand().build(arguments)
-    }
+    fun pipList(arguments: CommandArguments) =
+        PythonListCommand().build(arguments)
     
-    // TODO: `--prune`, `--strict` (?)
-    fun pipTree(
-        `package`: String,
-        inverted: Boolean,
-        showVersionSpecifiers: Boolean,
-        showLatestVersions: Boolean,
-        dedupe: Boolean,
-        depth: Int,
-        interpreter: Path?
-    ): Command {
-        val arguments = CommandArguments("--package" to `package`, "--depth" to depth.toString())
-        
-        if (inverted) {
-            arguments += "--invert"
-        }
-        
-        if (showVersionSpecifiers) {
-            arguments += "--show-version-specifiers"
-        }
-        
-        if (showLatestVersions) {
-            arguments += "--outdated"
-        }
-        
-        if (!dedupe) {
-            arguments += "--no-dedupe"
-        }
-        
-        if (interpreter != null) {
-            arguments["--python"] = interpreter.toString()
-        }
-        
-        return PipTreeCommand().build(arguments)
-    }
+    fun pipTree(arguments: CommandArguments) =
+        PipTreeCommand().build(arguments)
     
     override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.uvConfigurations

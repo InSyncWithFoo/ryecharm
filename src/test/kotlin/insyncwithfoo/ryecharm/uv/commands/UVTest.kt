@@ -30,6 +30,10 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
         listOf(lowercase, '.', '-').random()
     }
     
+    private fun randomPackageList() = buildList((0..10).random()) {
+        add(randomPEP508Name())
+    }
+    
     @Test
     fun `test command classes`() {
         commandClassTest<InitCommand>(listOf("init"))
@@ -72,11 +76,13 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
                 assertTrue("--package" !in arguments)
                 assertTrue("--no-package" !in arguments)
             }
+            
             ProjectKind.LIBRARY -> {
                 assertContains(arguments, "--lib")
                 assertTrue("--package" !in arguments)
                 assertTrue("--no-package" !in arguments)
             }
+            
             ProjectKind.PACKAGED_APP -> {
                 assertContains(arguments, "--app")
                 assertContains(arguments, "--package")
@@ -98,50 +104,44 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     }
     
     @Test
-    fun `test pip tree`() {
+    fun `test pip tree 1 - normal, deduped, no specifiers, no latest versions, no interpreter`() {
         val `package` = randomPEP508Name()
-        val (inverted, showVersionSpecifiers, showLatestVersions, dedupe) = listOf(boolean, boolean, boolean, boolean)
-        val depth = (0..10000).random()
-        val interpreter = randomPath().orRandomlyNull()
-        
+        val depth = (0..1000).random()
         val command = uv.pipTree(
             `package`,
-            inverted,
-            showVersionSpecifiers,
-            showLatestVersions,
-            dedupe,
-            depth,
-            interpreter
+            inverted = false,
+            showVersionSpecifiers = false,
+            showLatestVersions = false,
+            dedupe = true,
+            depth = depth,
+            interpreter = null
         )
         
-        val arguments = command.arguments
-        
-        assertEquals(listOf("pip", "tree"), command.subcommands)
-        assertEquals(projectPath, command.workingDirectory)
-        
-        assertTrue(arguments include listOf("--package", `package`))
-        assertTrue(arguments include listOf("--depth", depth.toString()))
-        
-        if (inverted) {
-            assertContains(arguments, "--invert")
+        commandTest<PipTreeCommand>(command) {
+            assertArgumentsContain("--package" to `package`)
+            assertArgumentsContain("--depth" to depth.toString())
         }
+    }
+    
+    @Test
+    fun `test pip tree 2 - inverted, not deduped, with specifiers, with latest versions, with interpreter`() {
+        val (`package`, interpreter) = Pair(randomPEP508Name(), randomPath())
+        val depth = (0..1000).random()
+        val command = uv.pipTree(
+            `package`,
+            inverted = true,
+            showVersionSpecifiers = true,
+            showLatestVersions = true,
+            dedupe = false,
+            depth = depth,
+            interpreter = interpreter
+        )
         
-        if (showVersionSpecifiers) {
-            assertContains(arguments, "--show-version-specifiers")
-        }
-        
-        if (showLatestVersions) {
-            assertContains(arguments, "--outdated")
-        }
-        
-        if (!dedupe) {
-            assertContains(arguments, "--no-dedupe")
-        }
-        
-        if (interpreter != null) {
-            assertTrue(arguments include listOf("--python", interpreter.toString()))
-        } else {
-            assertTrue("--python" !in arguments)
+        commandTest<PipTreeCommand>(command) {
+            assertArgumentsContain("--invert", "--show-version-specifiers", "--outdated", "--no-dedupe")
+            assertArgumentsContain("--package" to `package`)
+            assertArgumentsContain("--depth" to depth.toString())
+            assertArgumentsContain("--python" to interpreter.toString())
         }
     }
     
@@ -170,9 +170,7 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     
     @Test
     fun `test pip compile 1 - with header`() {
-        val packages = buildList((0..10).random()) {
-            add(randomPEP508Name())
-        }
+        val packages = randomPackageList()
         val text = packages.joinToString("\n")
         val command = uv.pipCompile(packages, noHeader = false)
         
@@ -183,14 +181,34 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     
     @Test
     fun `test pip compile 2 - no header`() {
-        val packages = buildList((0..10).random()) {
-            add(randomPEP508Name())
-        }
+        val packages = randomPackageList()
         val text = packages.joinToString("\n")
         val command = uv.pipCompile(packages, noHeader = true)
         
         commandTest<PipCompileCommand>(command, stdin = text) {
             assertArgumentsContain("--no-header", "-")
+        }
+    }
+    
+    @Test
+    fun `test pip list 1 - no interpreter`() {
+        val command = uv.pipList(interpreter = null)
+        
+        commandTest<PipListCommand>(command) {
+            assertArgumentsContain("--quiet")
+            assertArgumentsContain("--format" to "json")
+        }
+    }
+    
+    @Test
+    fun `test pip list 2 - with interpreter`() {
+        val interpreter = randomPath()
+        val command = uv.pipList(interpreter)
+        
+        commandTest<PipListCommand>(command) {
+            assertArgumentsContain("--quiet")
+            assertArgumentsContain("--format" to "json")
+            assertArgumentsContain("--python" to interpreter.toString())
         }
     }
     
@@ -259,6 +277,27 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
         
         commandTest<VersionCommand>(command) {
             assertArgumentsContain(newVersion, "--short")
+        }
+    }
+    
+    @Test
+    fun `test venv 1 - no name`() {
+        val interpreter = randomPath()
+        val command = uv.venv(interpreter, name = null)
+        
+        commandTest<VenvCommand>(command) {
+            assertArgumentsContain("--python" to interpreter.toString())
+        }
+    }
+    
+    @Test
+    fun `test venv 2 - with name`() {
+        val (interpreter, name) = Pair(randomPath(), randomPEP508Name())
+        val command = uv.venv(interpreter, name = name)
+        
+        commandTest<VenvCommand>(command) {
+            assertArgumentsContain(name)
+            assertArgumentsContain("--python" to interpreter.toString())
         }
     }
     

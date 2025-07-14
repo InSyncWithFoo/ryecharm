@@ -25,6 +25,7 @@ import insyncwithfoo.ryecharm.pep508Normalize
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.stringContent
 import insyncwithfoo.ryecharm.traverse
+import insyncwithfoo.ryecharm.uv.commands.pipList
 import insyncwithfoo.ryecharm.uv.commands.uv
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.Settings
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.dependencyVersionInlayHintsSettings
@@ -47,7 +48,7 @@ private fun DependencyList.toMap(): DependencyMap =
 
 internal suspend fun Project.getInstalledDependencies(interpreter: Path?): DependencyMap? {
     val uv = this.uv ?: return null
-    val command = uv.pipList(python = interpreter)
+    val command = uv.pipList(interpreter = interpreter)
     
     val output = runInBackground(command)
     
