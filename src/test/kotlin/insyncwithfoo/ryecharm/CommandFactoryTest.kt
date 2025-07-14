@@ -4,9 +4,6 @@ import java.nio.file.Path
 import kotlin.test.assertContains
 
 
-private typealias Arguments = List<String>
-
-
 internal abstract class CommandFactoryTest(private val commandInterface: Class<*>) : PlatformTestCase() {
     
     protected val lowercase: Char
@@ -62,34 +59,30 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
         }
     }
     
-    protected class CommandArgumentsTest(original: Arguments) {
+    protected class CommandArgumentsTest(original: CommandArguments) {
         
-        private val remaining = original.toMutableList()
+        private val remainingPositionalsAndFlags = original.positionalAndFlags.toMutableList()
+        private val remainingNamedOptions = original.namedOptions.toMutableMap()
         
         fun assertArgumentsContain(vararg arguments: String) {
             for (argument in arguments) {
-                val index = remaining.indexOf(argument)
-                
-                assertContains(remaining.indices, index)
-                remaining.removeAt(index)
+                assertContains(remainingPositionalsAndFlags, argument)
+                remainingPositionalsAndFlags.remove(argument)
             }
         }
         
         fun assertArgumentsContain(argument: Pair<String, String>) {
             val (key, value) = argument
             
-            val keyIndex = remaining.indexOf(key)
-            val valueIndex = keyIndex + 1
+            assertContains(remainingNamedOptions, key)
+            assertEquals(value, remainingNamedOptions[key])
             
-            assertContains(remaining.indices, keyIndex)
-            assertContains(remaining.indices, valueIndex)
-            assertEquals(value, remaining[valueIndex])
-            
-            remaining.subList(keyIndex, valueIndex + 1).clear()
+            remainingNamedOptions.remove(key)
         }
         
         fun assertNoUnaccountedArguments() {
-            assertEmpty(remaining)
+            assertEmpty(remainingPositionalsAndFlags)
+            assertEmpty(remainingNamedOptions.toList())
         }
         
     }

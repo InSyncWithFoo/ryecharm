@@ -37,7 +37,7 @@ internal abstract class CommandFactory {
     }
     
     protected open fun Command.build(arguments: CommandArguments? = null, stdin: String? = null) = this.apply {
-        this.arguments = arguments?.withGlobalOptions()?.toList() ?: emptyList()
+        this.arguments = arguments?.withGlobalOptions() ?: CommandArguments()
         this.stdin = stdin
         
         setExecutableAndWorkingDirectory()
@@ -75,7 +75,7 @@ internal abstract class Command {
     abstract val subcommands: List<String>
     
     lateinit var executable: Path
-    lateinit var arguments: List<String>
+    lateinit var arguments: CommandArguments
     
     var stdin: String? = null
     
@@ -92,7 +92,7 @@ internal abstract class Command {
         get() = listOfNotNull(
             executable.toString(),
             *subcommands.toTypedArray(),
-            *arguments.toTypedArray()
+            *arguments.toList().toTypedArray()
         )
     
     private val commandLine: GeneralCommandLine

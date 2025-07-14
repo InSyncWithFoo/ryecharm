@@ -1,10 +1,20 @@
 package insyncwithfoo.ryecharm
 
+import org.jetbrains.annotations.VisibleForTesting
+
 
 internal class CommandArguments() {
     
-    private val withoutParameters = mutableListOf<String>()
-    private val withParameters = mutableMapOf<String, String>()
+    private val _positionalsAndFlags = mutableListOf<String>()
+    private val _namedOptions = mutableMapOf<String, String>()
+    
+    @get:VisibleForTesting
+    val positionalAndFlags: List<String>
+        get() = _positionalsAndFlags
+    
+    @get:VisibleForTesting
+    val namedOptions: Map<String, String>
+        get() = _namedOptions
     
     constructor(vararg arguments: String) : this() {
         add(*arguments)
@@ -15,16 +25,16 @@ internal class CommandArguments() {
     }
     
     private fun add(vararg arguments: String) {
-        withoutParameters.addAll(arguments)
+        _positionalsAndFlags.addAll(arguments)
     }
     
     private fun add(arguments: Iterable<String>) {
-        withoutParameters.addAll(arguments)
+        _positionalsAndFlags.addAll(arguments)
     }
     
     private fun add(vararg arguments: Pair<String, String>) {
         arguments.forEach { (option, parameter) ->
-            withParameters[option] = parameter
+            _namedOptions[option] = parameter
         }
     }
     
@@ -41,9 +51,9 @@ internal class CommandArguments() {
     }
     
     operator fun contains(other: String) =
-        other in withParameters || other in withoutParameters
+        other in _namedOptions || other in _positionalsAndFlags
     
     fun toList() =
-        withoutParameters + withParameters.flatMap { listOf(it.key, it.value) }
+        _positionalsAndFlags + _namedOptions.flatMap { listOf(it.key, it.value) }
     
 }
