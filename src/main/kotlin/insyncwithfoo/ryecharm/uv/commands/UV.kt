@@ -35,8 +35,16 @@ internal fun PythonPackageSpecification.toPEP508Format() =
     name + versionSpecs.orEmpty()
 
 
-internal enum class VersionBumpType {
-    MAJOR, MINOR, PATCH;
+internal enum class VersionBumpType(override val label: String) : Labeled {
+    MAJOR(message("dialogs.bumpProjectVersion.major")),
+    MINOR(message("dialogs.bumpProjectVersion.minor")),
+    PATCH(message("dialogs.bumpProjectVersion.patch")),
+    STABLE(message("dialogs.bumpProjectVersion.stable")),
+    ALPHA(message("dialogs.bumpProjectVersion.alpha")),
+    BETA(message("dialogs.bumpProjectVersion.beta")),
+    RC(message("dialogs.bumpProjectVersion.rc")),
+    POST(message("dialogs.bumpProjectVersion.post")),
+    DEV(message("dialogs.bumpProjectVersion.dev"));
     
     override fun toString() = name.lowercase()
 }

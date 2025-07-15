@@ -2,14 +2,13 @@ package insyncwithfoo.ryecharm.ruff.actions
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiFile
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
+import insyncwithfoo.ryecharm.editor
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noDocumentFound
@@ -22,10 +21,6 @@ import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.intentions.IntentionCoroutine
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.writeUnderAction
-
-
-private val AnActionEvent.editor: Editor?
-    get() = dataContext.getData(CommonDataKeys.EDITOR)
 
 
 internal abstract class FixAll(private val unsafe: Boolean) : AnAction(), DumbAware {
