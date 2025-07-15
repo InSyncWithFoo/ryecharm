@@ -14,17 +14,20 @@ internal fun Project?.showMessage(body: String) {
 }
 
 
-internal fun somethingIsWrong(title: String, body: String, project: Project? = null) {
+private fun somethingIsWrong(title: String, body: String, project: Project? = null) {
     Messages.showErrorDialog(project, body, title)
 }
 
-internal fun somethingIsWrong(body: String, project: Project? = null) {
+
+private fun somethingIsWrong(body: String, project: Project? = null) {
     somethingIsWrong(title = message("messages.somethingIsWrong.title"), body, project)
 }
+
 
 internal fun Project?.somethingIsWrong(title: String, body: String) {
     somethingIsWrong(title, body, project = this)
 }
+
 
 internal fun Project?.somethingIsWrong(body: String) {
     somethingIsWrong(body, project = this)

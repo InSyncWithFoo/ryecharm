@@ -5,7 +5,6 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.ui.VerticalFlowLayout
 import com.intellij.ui.ScrollPaneFactory
 import com.intellij.ui.TableSpeedSearch
@@ -14,6 +13,7 @@ import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ColumnInfo
 import com.intellij.util.ui.ListTableModel
 import insyncwithfoo.ryecharm.Command
+import insyncwithfoo.ryecharm.Dialog
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.defaultProject
 import insyncwithfoo.ryecharm.launch
@@ -75,20 +75,7 @@ private fun column(header: String, getText: (LinterTableRow) -> String) =
 /**
  * @see com.intellij.ide.actions.AboutDialog.showOssInfo
  */
-private class LintersDialog(private val linters: List<Linter>, project: Project) : DialogWrapper(project) {
-    
-    private var okButtonText: String
-        @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
-        get() = throw RuntimeException()
-        set(value) = setOKButtonText(value)
-    
-    private var widthAndHeight: Pair<Int, Int>
-        @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
-        get() = throw RuntimeException()
-        set(value) {
-            val (width, height) = value
-            setSize(width, height)
-        }
+private class LintersDialog(private val linters: List<Linter>, project: Project) : Dialog(project) {
     
     private val columns = arrayOf<ColumnInfo<LinterTableRow, String>>(
         column(message("dialogs.ruffLinters.linterName")) { it.linterName },

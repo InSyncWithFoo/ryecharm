@@ -31,10 +31,6 @@ internal fun Row.singleFolderTextField(): Cell<TextFieldWithBrowseButton> {
 }
 
 
-internal fun <C : JComponent> Cell<C>.topLabel(label: String) =
-    label(label, position = LabelPosition.TOP)
-
-
 internal fun <C : JComponent> Cell<C>.makeFlexible() = apply {
     align(AlignX.FILL)
     resizableColumn()
@@ -42,7 +38,7 @@ internal fun <C : JComponent> Cell<C>.makeFlexible() = apply {
 
 
 internal var Cell<TextFieldWithBrowseButton>.emptyText: String
-    @Deprecated("The getter must not be used.", level = DeprecationLevel.ERROR)
+    @Deprecated("The getter must not be used.", level = DeprecationLevel.HIDDEN)
     get() = throw RuntimeException()
     set(value) {
         component.emptyText.text = value
