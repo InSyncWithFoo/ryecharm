@@ -58,6 +58,24 @@ internal fun Project.notifyProcessResult(command: Command, output: ProcessOutput
     }
 
 
+private fun NotificationGroup.genericError(content: String) =
+    error(message("notifications.error.title"), content)
+
+
+/**
+ * Search for the first line starting with `error: ` in stderr
+ * and re-emit it as a notification.
+ */
+internal fun Project.notifyErrorFromOutput(output: ProcessOutput) {
+    val error = """(?m)^error: (.+)""".toRegex().find(output.stderr) ?: return
+    val content = error.groups[1]!!.value
+    
+    importantNotificationGroup.genericError(content).runThenNotify(this) {
+        addSeeOutputActions(output)
+    }
+}
+
+
 private fun NotificationGroup.genericWarning(content: String) =
     warning(message("notifications.warning.title"), content)
 
@@ -67,7 +85,7 @@ private fun NotificationGroup.genericWarning(content: String) =
  * and re-emit them as notifications.
  */
 internal fun Project.notifyWarningsFromOutput(output: ProcessOutput) {
-    val warning = """^warning: (.+)""".toRegex()
+    val warning = """(?m)^warning: (.+)""".toRegex()
     val warnings = warning.findAll(output.stderr)
     
     warnings.forEach {
