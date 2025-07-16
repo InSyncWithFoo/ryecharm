@@ -67,7 +67,7 @@ private fun NotificationGroup.genericError(content: String) =
  * and re-emit it as a notification.
  */
 internal fun Project.notifyErrorFromOutput(output: ProcessOutput) {
-    val error = """^error: (.+)""".toRegex().find(output.stderr) ?: return
+    val error = """(?m)^error: (.+)""".toRegex().find(output.stderr) ?: return
     val content = error.groups[1]!!.value
     
     importantNotificationGroup.genericError(content).runThenNotify(this) {
@@ -85,7 +85,7 @@ private fun NotificationGroup.genericWarning(content: String) =
  * and re-emit them as notifications.
  */
 internal fun Project.notifyWarningsFromOutput(output: ProcessOutput) {
-    val warning = """^warning: (.+)""".toRegex()
+    val warning = """(?m)^warning: (.+)""".toRegex()
     val warnings = warning.findAll(output.stderr)
     
     warnings.forEach {

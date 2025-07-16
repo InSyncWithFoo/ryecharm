@@ -76,7 +76,7 @@ private fun Project.notifyErrorOrNewVersion(command: Command, output: ProcessOut
     
     notifyWarningsFromOutput(output)
     
-    if (!output.isSuccessful) {
+    if (!output.isSuccessful || output.stdout.isBlank()) {
         return notifyErrorFromOutput(output)
     }
     
