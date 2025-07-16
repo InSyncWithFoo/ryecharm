@@ -76,7 +76,7 @@ private fun Project.notifyErrorOrNewVersion(command: Command, output: ProcessOut
     
     notifyWarningsFromOutput(output)
     
-    if (!output.isSuccessful || output.stdout.isBlank()) {
+    if (!output.isSuccessful) {
         return notifyErrorFromOutput(output)
     }
     
@@ -92,9 +92,7 @@ private fun Project.runCommandAndLoadOutput(command: Command, file: PsiFile?) = 
         else -> file.virtualFile?.refresh()
     }
     
-    notifyIfProcessIsUnsuccessfulOr(command, output) {
-        notifyErrorOrNewVersion(command, output)
-    }
+    notifyErrorOrNewVersion(command, output)
 }
 
 
