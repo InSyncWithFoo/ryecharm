@@ -103,7 +103,7 @@ private class Bumper(private val bumpType: VersionBumpType) :
     override fun getFamilyName() =
         message("intentions.uv.bumpProjectVersion.familyName")
     
-    override fun getText() = "$familyName: $bumpType"
+    override fun getText() = bumpType.toString()
     
     override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?) =
         editor != null && file?.virtualFile?.isPyprojectToml == true
