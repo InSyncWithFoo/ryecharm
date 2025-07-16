@@ -24,12 +24,16 @@ import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.fileEditorManager
 import insyncwithfoo.ryecharm.isPyprojectToml
+import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
+import insyncwithfoo.ryecharm.notifyErrorFromOutput
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
+import insyncwithfoo.ryecharm.notifyWarningsFromOutput
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
+import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.radioButtonFor
 import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.saveAllDocumentsAsIs
@@ -61,6 +65,25 @@ private fun Project.notifyNewVersion(command: Command, output: ProcessOutput) {
 }
 
 
+private fun Project.notifyErrorOrNewVersion(command: Command, output: ProcessOutput) {
+    if (output.isCancelled) {
+        return
+    }
+    
+    if (output.isTimeout) {
+        return processTimeout(command)
+    }
+    
+    notifyWarningsFromOutput(output)
+    
+    if (!output.isSuccessful) {
+        return notifyErrorFromOutput(output)
+    }
+    
+    notifyNewVersion(command, output)
+}
+
+
 private fun Project.runCommandAndLoadOutput(command: Command, file: PsiFile?) = launch<IntentionCoroutine> {
     val output = runInForeground(command)
     
@@ -70,7 +93,7 @@ private fun Project.runCommandAndLoadOutput(command: Command, file: PsiFile?) = 
     }
     
     notifyIfProcessIsUnsuccessfulOr(command, output) {
-        notifyNewVersion(command, output)
+        notifyErrorOrNewVersion(command, output)
     }
 }
 
