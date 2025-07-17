@@ -67,11 +67,19 @@ private fun NotificationGroup.genericError(content: String) =
  * and re-emit it as a notification.
  */
 internal fun Project.notifyErrorFromOutput(output: ProcessOutput) {
-    val error = """(?m)^error: (.+)""".toRegex().find(output.stderr) ?: return
-    val content = error.groups[1]!!.value
+    val prefix = "error: "
     
-    importantNotificationGroup.genericError(content).runThenNotify(this) {
-        addSeeOutputActions(output)
+    for (line in output.stderr.lines()) {
+        if (!line.startsWith(prefix)) {
+            continue
+        }
+        
+        val content = line.removePrefix(prefix)
+        
+        importantNotificationGroup.genericError(content).runThenNotify(this) {
+            addSeeOutputActions(output)
+        }
+        break
     }
 }
 
@@ -85,11 +93,14 @@ private fun NotificationGroup.genericWarning(content: String) =
  * and re-emit them as notifications.
  */
 internal fun Project.notifyWarningsFromOutput(output: ProcessOutput) {
-    val warning = """(?m)^warning: (.+)""".toRegex()
-    val warnings = warning.findAll(output.stderr)
+    val prefix = "warning: "
     
-    warnings.forEach {
-        val content = it.groups[1]!!.value
+    for (line in output.stderr.lines()) {
+        if (!line.startsWith(prefix)) {
+            continue
+        }
+        
+        val content = line.removePrefix(prefix)
         
         importantNotificationGroup.genericWarning(content).runThenNotify(this) {
             addSeeOutputActions(output)
@@ -136,7 +147,8 @@ private fun NotificationGroup.unknownError(
 
 
 /**
- * Emit a notification saying that an unknown error has happened.
+ * Emit a notification saying that an unknown error has happened,
+ * where "unknown" means "not explicitly handled by RyeCharm".
  * 
  * Typically used when the process is neither cancelled nor timed out,
  * but the exit code is not 0.

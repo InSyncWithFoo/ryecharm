@@ -29,7 +29,6 @@ import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.notifyErrorFromOutput
-import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
 import insyncwithfoo.ryecharm.notifyWarningsFromOutput
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.processCompletedSuccessfully

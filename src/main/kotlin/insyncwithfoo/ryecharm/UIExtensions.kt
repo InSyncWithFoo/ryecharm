@@ -7,7 +7,6 @@ import com.intellij.openapi.ui.emptyText
 import com.intellij.ui.SimpleListCellRenderer
 import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.Cell
-import com.intellij.ui.dsl.builder.LabelPosition
 import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.builder.bindText
 import javax.swing.JComponent
