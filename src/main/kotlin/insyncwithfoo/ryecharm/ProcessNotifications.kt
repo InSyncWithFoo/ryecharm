@@ -58,7 +58,7 @@ internal fun Project.notifyProcessResult(command: Command, output: ProcessOutput
     }
 
 
-private fun NotificationGroup.genericError(content: String) =
+internal fun NotificationGroup.genericError(content: String) =
     error(message("notifications.error.title"), content)
 
 

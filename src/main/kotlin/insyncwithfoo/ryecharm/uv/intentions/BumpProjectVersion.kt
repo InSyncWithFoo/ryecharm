@@ -19,22 +19,26 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.Dialog
 import insyncwithfoo.ryecharm.ExternalIntentionAction
 import insyncwithfoo.ryecharm.WriteIntentionAction
+import insyncwithfoo.ryecharm.addCopyTextAction
+import insyncwithfoo.ryecharm.addSeeOutputActions
 import insyncwithfoo.ryecharm.bindSelected
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
 import insyncwithfoo.ryecharm.fileDocumentManager
 import insyncwithfoo.ryecharm.fileEditorManager
+import insyncwithfoo.ryecharm.genericError
+import insyncwithfoo.ryecharm.importantNotificationGroup
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.isSuccessful
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
-import insyncwithfoo.ryecharm.notifyErrorFromOutput
 import insyncwithfoo.ryecharm.notifyWarningsFromOutput
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.radioButtonFor
 import insyncwithfoo.ryecharm.runInForeground
+import insyncwithfoo.ryecharm.runThenNotify
 import insyncwithfoo.ryecharm.saveAllDocumentsAsIs
 import insyncwithfoo.ryecharm.unknownError
 import insyncwithfoo.ryecharm.uv.commands.UV
@@ -75,11 +79,20 @@ private fun Project.notifyErrorOrNewVersion(command: Command, output: ProcessOut
     
     notifyWarningsFromOutput(output)
     
-    if (!output.isSuccessful) {
-        return notifyErrorFromOutput(output)
+    if (output.isSuccessful) {
+        return notifyNewVersion(command, output)
     }
     
-    notifyNewVersion(command, output)
+    val stderr = output.stderr.trim()
+    val errorContent = stderr.removePrefix("error: ")
+    
+    val versions = """(\S+) => (\S+)""".toRegex().find(stderr)
+        ?: return unknownError(command, output)
+    
+    importantNotificationGroup.genericError(errorContent).runThenNotify(this) {
+        addSeeOutputActions(output)
+        addCopyTextAction(message("notificationActions.copyNewVersionToClipboard"), versions.groups[2]!!.value)
+    }
 }
 
 
