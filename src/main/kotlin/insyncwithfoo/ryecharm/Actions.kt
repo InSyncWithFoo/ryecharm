@@ -29,7 +29,7 @@ internal abstract class ShowCommandOutputAction : AnAction(), DumbAware {
     private fun Project.runCommandAndShowOutput(command: Command) = launch<ActionCoroutine> {
         runInBackground(command) { output ->
             notifyIfProcessIsUnsuccessfulOr(command, output) {
-                showMessage(output.stdout)
+                showProcessResult(output.stdout)
             }
         }
     }
@@ -52,7 +52,7 @@ internal abstract class ShowExecutableAction : AnAction(), DumbAware {
             else -> message("messages.showExecutable.body", executable)
         }
         
-        project.showMessage(message)
+        project.showProcessResult(message)
     }
     
 }

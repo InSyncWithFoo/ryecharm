@@ -302,4 +302,4 @@ Commands and settings integrated:
   [0.1.0-alpha-4]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-3..v0.1.0-alpha-4
   [0.1.0-alpha-3]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-2..v0.1.0-alpha-3
   [0.1.0-alpha-2]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-1..v0.1.0-alpha-2
-  [0.1.0-alpha-1]: https://github.com/InSyncWithFoo/ryecharm/commits
+  [0.1.0-alpha-1]: https://github.com/InSyncWithFoo/ryecharm/commits/v0.1.0-alpha-1

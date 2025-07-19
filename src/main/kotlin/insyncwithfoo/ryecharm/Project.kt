@@ -24,8 +24,12 @@ private val projectManager: ProjectManager
     get() = ProjectManager.getInstance()
 
 
+/**
+ * Non-default projects that are currently opened
+ * and hasn't been disposed.
+ */
 internal val openProjects: Sequence<Project>
-    get() = projectManager.openProjects.asSequence()
+    get() = projectManager.openProjects.asSequence().filter { it.isNormal }
 
 
 /**

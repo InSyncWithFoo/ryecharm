@@ -11,9 +11,7 @@ internal val Project.lspServerManager: LspServerManager
 
 
 internal inline fun <reified T : LspServerSupportProvider> Project.restartNativeServers() {
-    if (lspIsAvailable && this.isNormal) {
-        lspServerManager.stopAndRestartIfNeeded(T::class.java)
-    }
+    lspServerManager.stopAndRestartIfNeeded(T::class.java)
 }
 
 

@@ -9,7 +9,12 @@ internal fun Project?.showMessage(title: String, body: String) {
 }
 
 
-internal fun Project?.showMessage(body: String) {
+internal fun showMessage(title: String, body: String) {
+    Messages.showMessageDialog(null, body, title, RyeIcons.SMALL_32)
+}
+
+
+internal fun Project?.showProcessResult(body: String) {
     showMessage(message("messages.processResult.title"), body)
 }
 
