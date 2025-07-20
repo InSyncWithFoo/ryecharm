@@ -6,15 +6,7 @@ are available in a `pyproject.toml` file.
 
 This is equivalent to running `uv version --bump ...` at the project's path.
 
-
-=== "Major"
-    ![](../assets/uv-intentions-bump-project-version-demo-major.png)
-
-=== "Minor"
-    ![](../assets/uv-intentions-bump-project-version-demo-minor.png)
-
-=== "Patch"
-    ![](../assets/uv-intentions-bump-project-version-demo-patch.png)
+![](../assets/uv-intentions-bump-project-version-demo.png)
 
 
 ## Synchronize project
@@ -24,5 +16,3 @@ It does not modify the file, but trigger a subprocess
 that updates the project's environment.
 
 This is equivalent to running `uv sync` at the project's path.
-
-![](../assets/uv-intentions-synchronize-project-demo.png)
