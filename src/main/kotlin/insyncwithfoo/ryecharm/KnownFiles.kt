@@ -164,6 +164,14 @@ internal fun VirtualFile.canBeFormattedByRuff(project: Project? = null): Boolean
 }
 
 
+/**
+ * Whether the given file can be fixed by Ruff's linter using `I,F401`.
+ */
+internal fun VirtualFile.importOrganizationIsApplicable(project: Project? = null): Boolean {
+    return isPythonFile
+}
+
+
 // https://github.com/InSyncWithFoo/ryecharm/issues/5
 /**
  * Whether the given file's extension is `.rst`.
@@ -207,3 +215,10 @@ internal val PsiFile.canBeLintedByRuff: Boolean
  */
 internal val PsiFile.canBeFormattedByRuff: Boolean
     get() = isNormalPyFile || virtualFile?.canBeFormattedByRuff(project) == true
+
+
+/**
+ * Shorthand for [VirtualFile.importOrganizationIsApplicable].
+ */
+internal val PsiFile.importOrganizationIsApplicable: Boolean
+    get() = isNormalPyFile || virtualFile?.importOrganizationIsApplicable(project) == true
