@@ -14,6 +14,18 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-15] - 2025-07-20
+
+### Dependencies
+
+* [Gradle][_0.1.0-a15-d1]: 8.14.2 &rarr; 8.14.3
+* [@Kotlin/kotlinx.serialization][_0.1.0-a15-d2]: 1.9.0 &rarr; 1.7.3
+
+
+  [_0.1.0-a15-d1]: https://github.com/gradle/gradle
+  [_0.1.0-a15-d2]: https://github.com/Kotlin/kotlinx.serialization
+
+
 ## [0.1.0-alpha-14] - 2025-06-29
 
 ### Dependencies
@@ -288,7 +300,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..HEAD
+  [0.1.0-alpha-15]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..v0.1.0-alpha-15
   [0.1.0-alpha-14]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..v0.1.0-alpha-14
   [0.1.0-alpha-13]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-12..v0.1.0-alpha-13
   [0.1.0-alpha-12]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-11..v0.1.0-alpha-12
