@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.editor.Editor
+import com.intellij.platform.lsp.tests.checkLspHighlighting
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
@@ -41,6 +42,11 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         fixture.configureByFile(filePath)
         test()
     }
+    
+    protected fun languageServerDiagnosticTest(filePath: String) =
+        fileBasedTest(filePath) {
+            fixture.checkLspHighlighting()
+        }
     
     final override fun getTestDataPath() = this::class.testDataPath
     
