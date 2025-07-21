@@ -23,15 +23,17 @@ internal abstract class LanguageServerTestCase : PlatformTestCase() {
         return fixtureFactory.createCodeInsightFixture(projectBuilder.fixture)
     }
     
-    protected fun languageServerDiagnosticTest(filePath: String) =
+    protected fun diagnosticTest(filePath: String) {
+        thisLogger().warn(project.basePath!!)
+        thisLogger().warn(project.basePath!!.toPathOrNull()!!.toFile().exists().toString())
+        thisLogger().warn(projectPath?.listDirectoryEntries()?.toList()?.toString())
+        
         fileBasedTest(filePath) {
-            thisLogger().warn(project.basePath!!)
-            thisLogger().warn(project.basePath!!.toPathOrNull()!!.toFile().exists().toString())
-            thisLogger().warn(projectPath?.listDirectoryEntries()?.toList()?.toString())
             thisLogger().warn(file.virtualFile.toNioPath().toString())
             thisLogger().warn(file.virtualFile.toNioPath().toFile().exists().toString())
             
             fixture.checkLspHighlighting()
         }
+    }
     
 }

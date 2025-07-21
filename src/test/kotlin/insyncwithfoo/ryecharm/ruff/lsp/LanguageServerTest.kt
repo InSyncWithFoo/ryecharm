@@ -20,9 +20,9 @@ internal class LanguageServerTest : LanguageServerTestCase() {
     }
     
     @Test
-    fun `test diagnostics - python file`() = languageServerDiagnosticTest("F401.py")
+    fun `test diagnostics - python file`() = diagnosticTest("F401.py")
     
     @Test
-    fun `test diagnostics - pyproject toml`() = languageServerDiagnosticTest("pyproject.toml")
+    fun `test diagnostics - pyproject toml`() = diagnosticTest("pyproject.toml")
     
 }
