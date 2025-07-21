@@ -47,8 +47,8 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
     
     protected fun languageServerDiagnosticTest(filePath: String) =
         fileBasedTest(filePath) {
-            thisLogger().error(project.guessProjectDir()?.toString())
-            thisLogger().error(project.basePath)
+            thisLogger().warn(project.guessProjectDir()?.toString())
+            thisLogger().warn(project.basePath)
             
             fixture.checkLspHighlighting()
         }
