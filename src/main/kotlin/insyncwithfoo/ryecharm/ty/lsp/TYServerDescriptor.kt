@@ -13,7 +13,6 @@ import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ty.createInitializationOptionsObject
 import org.eclipse.lsp4j.ClientCapabilities
 import java.nio.file.Path
-import kotlin.io.path.div
 
 
 internal class TYServerDescriptor(project: Project, private val executable: Path) :
@@ -43,6 +42,12 @@ internal class TYServerDescriptor(project: Project, private val executable: Path
     override fun isSupportedFile(file: VirtualFile) =
         file.isSupportedByTY(project)
     
+    override fun getFilePath(file: VirtualFile) =
+        when (application.isUnitTestMode) {
+            true -> Path.of(project.basePath!!, file.path).toString()
+            else -> super.getFilePath(file)
+        }
+    
     override fun createInitializationOptions() =
         project.createInitializationOptionsObject().also {
             val logger = project.tyLogger
@@ -50,12 +55,6 @@ internal class TYServerDescriptor(project: Project, private val executable: Path
             logger?.info("Sending initializationOptions:")
             logger?.info("$it")
             logger?.info("")
-        }
-    
-    override fun getFilePath(file: VirtualFile) =
-        when (application.isUnitTestMode) {
-            true -> (Path.of(project.basePath!!) / file.path).toString()
-            else -> super.getFilePath(file)
         }
     
     override fun createCommandLine() = GeneralCommandLine().apply {

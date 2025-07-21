@@ -1,6 +1,9 @@
 package insyncwithfoo.ryecharm
 
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.BaseProjectDirectories.Companion.getBaseDirectories
+import com.intellij.platform.lsp.tests.checkLspHighlighting
 import com.intellij.platform.lsp.tests.checkLspHighlightingForData
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.ExpectedHighlightingData
@@ -46,11 +49,12 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
     
     protected fun languageServerDiagnosticTest(filePath: String) =
         fileBasedTest(filePath) {
-            val document = file.fileDocument
-            val (checkWarnings, checkWeakWarnings, checkInfos) = Triple(true, true, true)
-            val expected = ExpectedHighlightingData(document, checkWarnings, checkWeakWarnings, checkInfos)
+            thisLogger().warn(project.basePath)
+            thisLogger().warn(project.baseDir.toString())
+            thisLogger().warn(project.baseDir.path)
+            thisLogger().warn(project.getBaseDirectories().toList().toString())
             
-            fixture.checkLspHighlightingForData(expected)
+            fixture.checkLspHighlighting()
         }
     
     final override fun getTestDataPath() = this::class.testDataPath
