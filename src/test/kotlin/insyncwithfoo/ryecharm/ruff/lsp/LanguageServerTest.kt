@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
+import insyncwithfoo.ryecharm.testDataPath
 import insyncwithfoo.ryecharm.toPathOrNull
 import org.junit.Test
 import java.nio.file.Path
@@ -21,7 +22,7 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
     override fun setUp() {
         super.setUp()
         
-        myFixture.testDataPath = this.testDataPath
+        myFixture.testDataPath = this::class.testDataPath
         
         project.changeRuffConfigurations {
             runningMode = RunningMode.LSP
@@ -45,7 +46,7 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         }
         
         thisLogger().warn(myFixture.testDataPath)
-        thisLogger().warn(this.testDataPath)
+        thisLogger().warn(this::class.testDataPath)
         
         myFixture.configureByFile("F401.py")
         
