@@ -1,8 +1,10 @@
 package insyncwithfoo.ryecharm
 
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.platform.lsp.tests.checkLspHighlighting
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
+import kotlin.io.path.listDirectoryEntries
 
 
 internal abstract class LanguageServerTestCase : PlatformTestCase() {
@@ -23,6 +25,12 @@ internal abstract class LanguageServerTestCase : PlatformTestCase() {
     
     protected fun languageServerDiagnosticTest(filePath: String) =
         fileBasedTest(filePath) {
+            thisLogger().warn(project.basePath!!)
+            thisLogger().warn(project.basePath!!.toPathOrNull()!!.toFile().exists().toString())
+            thisLogger().warn(projectPath?.listDirectoryEntries()?.toList()?.toString())
+            thisLogger().warn(file.virtualFile.toNioPath().toString())
+            thisLogger().warn(file.virtualFile.toNioPath().toFile().exists().toString())
+            
             fixture.checkLspHighlighting()
         }
     
