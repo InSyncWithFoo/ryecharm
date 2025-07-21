@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.diagnostic.thisLogger
+import com.intellij.openapi.project.guessProjectDir
 import com.intellij.platform.lsp.tests.checkLspHighlighting
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
