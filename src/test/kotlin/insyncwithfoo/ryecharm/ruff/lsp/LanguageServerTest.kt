@@ -40,7 +40,12 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         
         try {
             thisLogger().warn(Path.of(project.basePath!!).listDirectoryEntries().toList().toString())
-        } catch (_: Throwable) {}
+        } catch (_: Throwable) {
+            thisLogger().warn("LDE failed")
+        }
+        
+        thisLogger().warn(myFixture.testDataPath)
+        thisLogger().warn(this.testDataPath)
         
         myFixture.configureByFile("F401.py")
         
