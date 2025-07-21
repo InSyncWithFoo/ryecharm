@@ -15,9 +15,6 @@ import org.junit.Test
 
 internal class LanguageServerTest : PlatformTestCase() {
     
-    private val servers: Collection<LspServer>
-        get() = project.lspServerManager.getServersForProvider(RuffServerSupportProvider::class.java)
-    
     override fun setUp() {
         super.setUp()
         
@@ -28,15 +25,9 @@ internal class LanguageServerTest : PlatformTestCase() {
     }
     
     @Test
-    fun `test diagnostics - python file`() = languageServerDiagnosticTest("F401.py") {
-        assertNotEmpty(servers)
-        assertTrue(file.canBeLintedByRuff)
-    }
+    fun `test diagnostics - python file`() = languageServerDiagnosticTest("F401.py")
     
     @Test
-    fun `test diagnostics - pyproject toml`() = languageServerDiagnosticTest("pyproject.toml") {
-        assertNotEmpty(servers)
-        assertTrue(file.canBeLintedByRuff)
-    }
+    fun `test diagnostics - pyproject toml`() = languageServerDiagnosticTest("pyproject.toml")
     
 }

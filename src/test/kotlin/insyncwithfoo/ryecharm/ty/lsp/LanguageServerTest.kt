@@ -20,6 +20,6 @@ internal class LanguageServerTest : PlatformTestCase() {
     }
     
     @Test
-    fun `test diagnostics`() = languageServerDiagnosticTest("invalid-assignment.py") {}
+    fun `test diagnostics`() = languageServerDiagnosticTest("invalid-assignment.py")
     
 }

@@ -1,6 +1,8 @@
 package insyncwithfoo.ryecharm
 
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.guessProjectDir
 import com.intellij.platform.lsp.tests.checkLspHighlighting
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
@@ -43,9 +45,11 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         test()
     }
     
-    protected inline fun languageServerDiagnosticTest(filePath: String, test: () -> Unit) =
+    protected fun languageServerDiagnosticTest(filePath: String) =
         fileBasedTest(filePath) {
-            test()
+            thisLogger().error(project.guessProjectDir()?.toString())
+            thisLogger().error(project.basePath)
+            
             fixture.checkLspHighlighting()
         }
     
