@@ -1,23 +1,29 @@
 package insyncwithfoo.ryecharm
 
-import com.intellij.openapi.diagnostic.thisLogger
-import com.intellij.openapi.project.guessProjectDir
 import com.intellij.platform.lsp.tests.checkLspHighlighting
-import com.intellij.testFramework.builders.ModuleFixtureBuilder
-import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
-import com.intellij.testFramework.fixtures.ModuleFixture
+import com.intellij.testFramework.fixtures.CodeInsightTestFixture
+import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
 
 
-internal abstract class LanguageServerTestCase : CodeInsightFixtureTestCase<ModuleFixtureBuilder<ModuleFixture>>() {
+internal abstract class LanguageServerTestCase : PlatformTestCase() {
     
-    protected fun languageServerDiagnosticTest(filePath: String) {
-        myFixture.configureByFile(filePath)
-        
-        thisLogger().warn(project.guessProjectDir()?.toString())
-        thisLogger().warn(project.basePath)
-        thisLogger().warn(file.virtualFile.toString())
-        
-        myFixture.checkLspHighlighting()
+    override fun setUp() {
+        super.setUp()
+        fixture.testDataPath = this.testDataPath
     }
+    
+    final override fun createMyFixture(): CodeInsightTestFixture? {
+        val fixtureFactory = IdeaTestFixtureFactory.getFixtureFactory()
+        
+        val name = """${this::class.java.name}.$name"""
+        val projectBuilder = fixtureFactory.createFixtureBuilder(name)
+        
+        return fixtureFactory.createCodeInsightFixture(projectBuilder.fixture)
+    }
+    
+    protected fun languageServerDiagnosticTest(filePath: String) =
+        fileBasedTest(filePath) {
+            fixture.checkLspHighlighting()
+        }
     
 }

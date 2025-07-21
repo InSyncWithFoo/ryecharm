@@ -5,6 +5,7 @@ import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeTYConfigurations
 import insyncwithfoo.ryecharm.configurations.changeTYOverrides
 import insyncwithfoo.ryecharm.configurations.ty.RunningMode
+import org.junit.Test
 
 
 internal class LanguageServerTest : LanguageServerTestCase() {
@@ -18,6 +19,7 @@ internal class LanguageServerTest : LanguageServerTestCase() {
         }
     }
     
+    @Test
     fun `test diagnostics`() = languageServerDiagnosticTest("invalid-assignment.py")
     
 }
