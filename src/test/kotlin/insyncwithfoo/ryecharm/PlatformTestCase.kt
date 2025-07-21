@@ -52,7 +52,9 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
             
             thisLogger().warn("$p: ${p.toFile().exists()}")
             thisLogger().warn("${p / "src"}: ${(p / "src").toFile().exists()}")
-            thisLogger().warn(p.listDirectoryEntries().toList().toString())
+            thisLogger().warn("${file}: ${file.virtualFile?.toNioPath()}")
+            thisLogger().warn("${file}: ${file.viewProvider.virtualFile.toNioPath()}")
+            // thisLogger().warn(p.listDirectoryEntries().toList().toString())
             
             fixture.checkLspHighlighting()
         }
