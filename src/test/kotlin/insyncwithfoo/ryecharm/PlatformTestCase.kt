@@ -2,15 +2,14 @@ package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.project.BaseProjectDirectories.Companion.getBaseDirectories
 import com.intellij.platform.lsp.tests.checkLspHighlighting
-import com.intellij.platform.lsp.tests.checkLspHighlightingForData
 import com.intellij.psi.PsiFile
-import com.intellij.testFramework.ExpectedHighlightingData
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import java.nio.file.Path
+import kotlin.io.path.div
+import kotlin.io.path.listDirectoryEntries
 import kotlin.reflect.KClass
 
 
@@ -49,10 +48,11 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
     
     protected fun languageServerDiagnosticTest(filePath: String) =
         fileBasedTest(filePath) {
-            thisLogger().warn(project.basePath)
-            thisLogger().warn(project.baseDir.toString())
-            thisLogger().warn(project.baseDir.path)
-            thisLogger().warn(project.getBaseDirectories().toList().toString())
+            val p = Path.of(project.basePath!!)
+            
+            thisLogger().warn("$p: ${p.toFile().exists()}")
+            thisLogger().warn("${p / "src"}: ${(p / "src").toFile().exists()}")
+            thisLogger().warn(p.listDirectoryEntries().toList().toString())
             
             fixture.checkLspHighlighting()
         }
