@@ -1,10 +1,9 @@
 package insyncwithfoo.ryecharm
 
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.project.guessProjectDir
-import com.intellij.platform.lsp.tests.checkLspHighlighting
+import com.intellij.platform.lsp.tests.checkLspHighlightingForData
 import com.intellij.psi.PsiFile
+import com.intellij.testFramework.ExpectedHighlightingData
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
@@ -32,7 +31,7 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         get() = fixture.file
     
     protected val projectPath: Path?
-        get() = project.path
+        get() = project.basePath?.toPathOrNull()
     
     override fun setUp() {
         super.setUp()
@@ -47,10 +46,11 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
     
     protected fun languageServerDiagnosticTest(filePath: String) =
         fileBasedTest(filePath) {
-            thisLogger().warn(project.guessProjectDir()?.toString())
-            thisLogger().warn(project.basePath)
+            val document = file.fileDocument
+            val (checkWarnings, checkWeakWarnings, checkInfos) = Triple(true, true, true)
+            val expected = ExpectedHighlightingData(document, checkWarnings, checkWeakWarnings, checkInfos)
             
-            fixture.checkLspHighlighting()
+            fixture.checkLspHighlightingForData(expected)
         }
     
     final override fun getTestDataPath() = this::class.testDataPath

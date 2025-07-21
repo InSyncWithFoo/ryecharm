@@ -4,6 +4,7 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
+import insyncwithfoo.ryecharm.application
 import insyncwithfoo.ryecharm.common.logging.tyLogger
 import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.isSupportedByTY
@@ -12,6 +13,7 @@ import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ty.createInitializationOptionsObject
 import org.eclipse.lsp4j.ClientCapabilities
 import java.nio.file.Path
+import kotlin.io.path.div
 
 
 internal class TYServerDescriptor(project: Project, private val executable: Path) :
@@ -48,6 +50,12 @@ internal class TYServerDescriptor(project: Project, private val executable: Path
             logger?.info("Sending initializationOptions:")
             logger?.info("$it")
             logger?.info("")
+        }
+    
+    override fun getFilePath(file: VirtualFile) =
+        when (application.isUnitTestMode) {
+            true -> (Path.of(project.basePath!!) / file.path).toString()
+            else -> super.getFilePath(file)
         }
     
     override fun createCommandLine() = GeneralCommandLine().apply {
