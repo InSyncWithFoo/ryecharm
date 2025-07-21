@@ -1,14 +1,22 @@
 package insyncwithfoo.ryecharm.ruff.lsp
 
+import com.intellij.platform.lsp.api.LspServer
+import com.intellij.platform.lsp.api.LspServerDescriptor
+import com.jetbrains.rd.util.threading.coroutines.RdCoroutineScope.Companion.override
 import insyncwithfoo.ryecharm.PlatformTestCase
+import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
+import insyncwithfoo.ryecharm.lspServerManager
 import org.junit.Test
 
 
 internal class LanguageServerTest : PlatformTestCase() {
+    
+    private val servers: Collection<LspServer>
+        get() = project.lspServerManager.getServersForProvider(RuffServerSupportProvider::class.java)
     
     override fun setUp() {
         super.setUp()
@@ -20,9 +28,15 @@ internal class LanguageServerTest : PlatformTestCase() {
     }
     
     @Test
-    fun `test diagnostics - python file`() = languageServerDiagnosticTest("F401.py")
+    fun `test diagnostics - python file`() = languageServerDiagnosticTest("F401.py") {
+        assertNotEmpty(servers)
+        assertTrue(file.canBeLintedByRuff)
+    }
     
     @Test
-    fun `test diagnostics - pyproject toml`() = languageServerDiagnosticTest("pyproject.toml")
+    fun `test diagnostics - pyproject toml`() = languageServerDiagnosticTest("pyproject.toml") {
+        assertNotEmpty(servers)
+        assertTrue(file.canBeLintedByRuff)
+    }
     
 }
