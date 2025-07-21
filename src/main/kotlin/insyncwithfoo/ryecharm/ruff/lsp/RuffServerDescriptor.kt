@@ -55,12 +55,6 @@ internal class RuffServerDescriptor(project: Project, private val executable: Pa
     override fun isSupportedFile(file: VirtualFile) =
         file.isExpectedByRuffServer
     
-    override fun getFilePath(file: VirtualFile) =
-        when (application.isUnitTestMode) {
-            true -> Path.of(project.basePath!!, file.path).toString()
-            else -> super.getFilePath(file)
-        }
-    
     override fun createInitializationOptions() =
         project.createInitializationOptionsObject().also {
             val logger = project.ruffLogger

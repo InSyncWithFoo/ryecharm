@@ -42,12 +42,6 @@ internal class TYServerDescriptor(project: Project, private val executable: Path
     override fun isSupportedFile(file: VirtualFile) =
         file.isSupportedByTY(project)
     
-    override fun getFilePath(file: VirtualFile) =
-        when (application.isUnitTestMode) {
-            true -> Path.of(project.basePath!!, file.path).toString()
-            else -> super.getFilePath(file)
-        }
-    
     override fun createInitializationOptions() =
         project.createInitializationOptionsObject().also {
             val logger = project.tyLogger
