@@ -1,6 +1,5 @@
 package insyncwithfoo.ryecharm
 
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.Editor
 import com.intellij.platform.lsp.tests.checkLspHighlighting
 import com.intellij.psi.PsiFile
@@ -8,8 +7,6 @@ import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import java.nio.file.Path
-import kotlin.io.path.div
-import kotlin.io.path.listDirectoryEntries
 import kotlin.reflect.KClass
 
 
@@ -48,14 +45,6 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
     
     protected fun languageServerDiagnosticTest(filePath: String) =
         fileBasedTest(filePath) {
-            val p = Path.of(project.basePath!!)
-            
-            thisLogger().warn("$p: ${p.toFile().exists()}")
-            thisLogger().warn("${p / "src"}: ${(p / "src").toFile().exists()}")
-            thisLogger().warn("${file}: ${file.virtualFile?.toNioPath()}")
-            thisLogger().warn("${file}: ${file.viewProvider.virtualFile.toNioPath()}")
-            // thisLogger().warn(p.listDirectoryEntries().toList().toString())
-            
             fixture.checkLspHighlighting()
         }
     

@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.ruff.lsp
 
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.platform.lsp.api.LspServer
 import com.intellij.platform.lsp.api.LspServerDescriptor
 import com.jetbrains.rd.util.threading.coroutines.RdCoroutineScope.Companion.override
@@ -17,6 +18,11 @@ internal class LanguageServerTest : PlatformTestCase() {
     
     override fun setUp() {
         super.setUp()
+        
+        thisLogger().warn(fixture.testDataPath)
+        thisLogger().warn(this.testDataPath)
+        
+        fixture.testDataPath = this.testDataPath
         
         project.changeRuffConfigurations {
             runningMode = RunningMode.LSP
