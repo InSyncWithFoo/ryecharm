@@ -70,24 +70,6 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
     override fun getTestDataPath() =
         Path.of(this::class.testDataPath).toAbsolutePath().toString()
     
-    override fun createTempDirTestFixture() =
-        LightTempDirTestFixtureImpl(true)
-        // object : TempDirTestFixture by TempDirTestFixtureImpl() {
-        //     override fun getFile(path: String): VirtualFile? {
-        //         val origin = Path.of(testDataPath, path)
-        //         val target = Path.of(tempDirPath, path)
-        //
-        //         VfsRootAccess.allowRootAccess(testRootDisposable, target.toString())
-        //
-        //         target.createParentDirectories()
-        //         origin.copyTo(target, overwrite = true)
-        //
-        //         return localFileSystem.refreshAndFindFileByPath(target.toString()).also {
-        //             IndexingTestUtil.waitUntilIndexesAreReadyInAllOpenedProjects()
-        //         }
-        //     }
-        // }
-    
     @Test
     fun `test diagnostics - python file`() {
         thisLogger().warn(Path.of("").toAbsolutePath().toString())
@@ -107,6 +89,9 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         
         fixture.configureByFile("F401.py")
         
+        thisLogger().warn(file.virtualFile.path)
+        thisLogger().warn(file.virtualFile.presentableUrl)
+        thisLogger().warn(file.virtualFile.toString())
         // thisLogger().warn(file.virtualFile.toNioPath().toString())
         // thisLogger().warn(file.virtualFile.toNioPath().toFile().exists().toString())
         thisLogger().warn(file.virtualFile.canBeLintedByRuff(project).toString())
@@ -114,6 +99,8 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         
         thisLogger().warn(project.lspServerManager.getServersForProvider(RuffServerSupportProvider::class.java)
                               .toList().toString())
+        
+        
         
         fixture.checkLspHighlighting()
     }
