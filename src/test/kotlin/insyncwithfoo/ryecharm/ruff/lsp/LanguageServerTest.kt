@@ -12,7 +12,6 @@ import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestC
 import com.intellij.testFramework.fixtures.TempDirTestFixture
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import com.intellij.testFramework.fixtures.impl.TempDirTestFixtureImpl
-import insyncwithfoo.ryecharm.PlatformTestCase
 import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
@@ -26,7 +25,9 @@ import insyncwithfoo.ryecharm.testDataPath
 import insyncwithfoo.ryecharm.toPathOrNull
 import org.junit.Test
 import java.nio.file.Path
+import kotlin.io.path.copyTo
 import kotlin.io.path.createDirectory
+import kotlin.io.path.createParentDirectories
 import kotlin.io.path.div
 import kotlin.io.path.listDirectoryEntries
 
@@ -49,6 +50,10 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         super.setUp()
         
         (fixture as? CodeInsightTestFixtureImpl)?.canChangeDocumentDuringHighlighting(true)
+        
+        thisLogger().warn("f: ${fixture.testDataPath}")
+        thisLogger().warn("f: ${this::class.testDataPath}")
+        
         fixture.testDataPath = this::class.testDataPath
         
         if (!projectPath!!.toFile().exists()) {
