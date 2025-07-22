@@ -68,22 +68,22 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
     
     override fun getTestDataPath() = this::class.testDataPath
     
-    override fun createTempDirTestFixture() =
-        object : TempDirTestFixture by TempDirTestFixtureImpl() {
-            // override fun getFile(path: String): VirtualFile? {
-            //     val origin = Path.of(testDataPath, path)
-            //     val target = Path.of(tempDirPath, path)
-            //
-            //     VfsRootAccess.allowRootAccess(testRootDisposable, target.toString())
-            //
-            //     target.createParentDirectories()
-            //     origin.copyTo(target, overwrite = true)
-            //
-            //     return localFileSystem.refreshAndFindFileByPath(target.toString()).also {
-            //         IndexingTestUtil.waitUntilIndexesAreReadyInAllOpenedProjects()
-            //     }
-            // }
-        }
+    // override fun createTempDirTestFixture() =
+    //     object : TempDirTestFixture by TempDirTestFixtureImpl() {
+    //         // override fun getFile(path: String): VirtualFile? {
+    //         //     val origin = Path.of(testDataPath, path)
+    //         //     val target = Path.of(tempDirPath, path)
+    //         //
+    //         //     VfsRootAccess.allowRootAccess(testRootDisposable, target.toString())
+    //         //
+    //         //     target.createParentDirectories()
+    //         //     origin.copyTo(target, overwrite = true)
+    //         //
+    //         //     return localFileSystem.refreshAndFindFileByPath(target.toString()).also {
+    //         //         IndexingTestUtil.waitUntilIndexesAreReadyInAllOpenedProjects()
+    //         //     }
+    //         // }
+    //     }
     
     @Test
     fun `test diagnostics - python file`() {
