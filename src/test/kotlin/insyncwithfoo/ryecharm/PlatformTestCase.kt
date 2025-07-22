@@ -13,7 +13,7 @@ private val KClass<*>.qualifiedNameWithoutPackagePrefix: String
     get() = qualifiedName!!.removePrefix("${RyeCharm.ID}.")
 
 
-private val KClass<*>.testDataPath: String
+internal val KClass<*>.testDataPath: String
     get() = "src/test/testData/${qualifiedNameWithoutPackagePrefix.replace(".", "/")}"
 
 
@@ -29,7 +29,7 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         get() = fixture.file
     
     protected val projectPath: Path?
-        get() = project.path
+        get() = project.basePath?.toPathOrNull()
     
     override fun setUp() {
         super.setUp()
