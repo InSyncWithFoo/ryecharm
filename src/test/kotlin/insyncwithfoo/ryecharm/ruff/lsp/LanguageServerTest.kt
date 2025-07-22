@@ -1,13 +1,11 @@
 package insyncwithfoo.ryecharm.ruff.lsp
 
 import com.intellij.openapi.diagnostic.thisLogger
-import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.newvfs.impl.VfsRootAccess
 import com.intellij.platform.lsp.tests.checkLspHighlighting
-import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import com.intellij.testFramework.fixtures.TempDirTestFixture
 import com.intellij.testFramework.fixtures.impl.TempDirTestFixtureImpl
-import insyncwithfoo.ryecharm.LanguageServerTestCase
 import insyncwithfoo.ryecharm.PlatformTestCase
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
@@ -16,9 +14,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.localFileSystem
 import insyncwithfoo.ryecharm.testDataPath
 import insyncwithfoo.ryecharm.toPathOrNull
-import kotlinx.io.IOException
 import org.junit.Test
-import java.nio.file.NoSuchFileException
 import java.nio.file.Path
 import kotlin.io.path.copyTo
 import kotlin.io.path.createDirectory
@@ -32,7 +28,9 @@ internal class LanguageServerTest : PlatformTestCase() {
     override fun setUp() {
         super.setUp()
         
-        projectPath!!.createDirectory()
+        if (!projectPath!!.toFile().exists()) {
+            projectPath!!.createDirectory()
+        }
         
         project.changeRuffConfigurations {
             runningMode = RunningMode.LSP
@@ -40,25 +38,20 @@ internal class LanguageServerTest : PlatformTestCase() {
         }
     }
     
-    override fun createTempDirTestFixture() = TempDirTestFixtureImpl()
-    
-    private fun copyFileToProject(filePath: String): VirtualFile {
-        val origin = Path.of(testDataPath, filePath)
-        val target = projectPath!! / filePath
-        
-        target.createParentDirectories()
-        origin.copyTo(target, overwrite = true)
-        
-        return localFileSystem.findFileByIoFile(target.toFile())!!
-    }
-    
-    private fun configureByFile(filePath: String) {
-        copyFileToProject(filePath)
-        
-        try {
-            fixture.configureByFile(filePath)
-        } catch (_: NoSuchFileException) {}
-    }
+    override fun createTempDirTestFixture() =
+        object : TempDirTestFixture by TempDirTestFixtureImpl() {
+            override fun getFile(path: String): VirtualFile? {
+                val origin = Path.of(testDataPath, path)
+                val target = Path.of(tempDirPath, path)
+                
+                VfsRootAccess.allowRootAccess(testRootDisposable, target.toString())
+                
+                target.createParentDirectories()
+                origin.copyTo(target, overwrite = true)
+                
+                return localFileSystem.refreshAndFindFileByPath(target.toString())
+            }
+        }
     
     @Test
     fun `test diagnostics - python file`() {
@@ -77,7 +70,7 @@ internal class LanguageServerTest : PlatformTestCase() {
         thisLogger().warn(myFixture.testDataPath)
         thisLogger().warn(this::class.testDataPath)
         
-        configureByFile("F401.py")
+        fixture.configureByFile("F401.py")
         
         thisLogger().warn(myFixture.file.virtualFile.toNioPath().toString())
         thisLogger().warn(myFixture.file.virtualFile.toNioPath().toFile().exists().toString())
