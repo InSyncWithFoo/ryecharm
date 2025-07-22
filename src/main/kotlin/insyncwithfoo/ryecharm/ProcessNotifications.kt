@@ -165,7 +165,7 @@ internal fun Project.unknownError(command: Command, processOutput: ProcessOutput
 
 private fun NotificationGroup.processTimeout(command: Command): Notification {
     val title = message("notifications.processTimeout.title")
-    val body = message("notifications.processTimeout.body", command)
+    val body = message("notifications.processTimeout.body", command.shortenedForm)
     
     return warning(title, body)
 }
