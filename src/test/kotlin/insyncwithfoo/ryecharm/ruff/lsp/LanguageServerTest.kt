@@ -16,6 +16,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
 import insyncwithfoo.ryecharm.localFileSystem
 import insyncwithfoo.ryecharm.testDataPath
 import insyncwithfoo.ryecharm.toPathOrNull
+import kotlinx.io.IOException
 import org.junit.Test
 import java.nio.file.Path
 import kotlin.io.path.copyTo
@@ -50,6 +51,14 @@ internal class LanguageServerTest : PlatformTestCase() {
         return localFileSystem.findFileByIoFile(target.toFile())!!
     }
     
+    private fun configureByFile(filePath: String) {
+        copyFileToProject(filePath)
+        
+        try {
+            fixture.configureByFile(filePath)
+        } catch (_: IOException) {}
+    }
+    
     @Test
     fun `test diagnostics - python file`() {
         thisLogger().warn(Path.of("").toAbsolutePath().toString())
@@ -67,9 +76,7 @@ internal class LanguageServerTest : PlatformTestCase() {
         thisLogger().warn(myFixture.testDataPath)
         thisLogger().warn(this::class.testDataPath)
         
-        // myFixture.configureByFile("F401.py")
-        val testFile = copyFileToProject("F401.py")
-        myFixture.openFileInEditor(testFile)
+        configureByFile("F401.py")
         
         thisLogger().warn(myFixture.file.virtualFile.toNioPath().toString())
         thisLogger().warn(myFixture.file.virtualFile.toNioPath().toFile().exists().toString())
