@@ -104,8 +104,8 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         
         fixture.configureByFile("F401.py")
         
-        thisLogger().warn(file.virtualFile.toNioPath().toString())
-        thisLogger().warn(file.virtualFile.toNioPath().toFile().exists().toString())
+        // thisLogger().warn(file.virtualFile.toNioPath().toString())
+        // thisLogger().warn(file.virtualFile.toNioPath().toFile().exists().toString())
         thisLogger().warn(file.virtualFile.canBeLintedByRuff(project).toString())
         thisLogger().warn(Pair(project.ruffExecutable, project.ruffConfigurations).toString())
         
