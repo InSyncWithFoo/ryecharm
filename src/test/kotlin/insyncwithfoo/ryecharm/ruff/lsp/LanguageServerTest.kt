@@ -71,7 +71,7 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         Path.of(this::class.testDataPath).toAbsolutePath().toString()
     
     override fun createTempDirTestFixture() =
-        LightTempDirTestFixtureImpl(false)
+        LightTempDirTestFixtureImpl(true)
         // object : TempDirTestFixture by TempDirTestFixtureImpl() {
         //     override fun getFile(path: String): VirtualFile? {
         //         val origin = Path.of(testDataPath, path)
