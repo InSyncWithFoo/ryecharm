@@ -14,6 +14,7 @@ import insyncwithfoo.ryecharm.testDataPath
 import insyncwithfoo.ryecharm.toPathOrNull
 import org.junit.Test
 import java.nio.file.Path
+import kotlin.io.path.div
 import kotlin.io.path.listDirectoryEntries
 
 
@@ -21,8 +22,6 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
     
     override fun setUp() {
         super.setUp()
-        
-        myFixture.testDataPath = this::class.testDataPath
         
         project.changeRuffConfigurations {
             runningMode = RunningMode.LSP
@@ -34,8 +33,15 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         return TempDirTestFixtureImpl()
     }
     
+    override fun getTestDataPath(): String? {
+        return (Path.of("").toAbsolutePath() / this::class.testDataPath).toString()
+    }
+    
     @Test
     fun `test diagnostics - python file`() {
+        thisLogger().warn(Path.of("").toAbsolutePath().toString())
+        thisLogger().warn((Path.of("").toAbsolutePath() / this::class.testDataPath).toString())
+        
         thisLogger().warn(this.project.basePath!!)
         thisLogger().warn(this.project.basePath!!.toPathOrNull()!!.toFile().exists().toString())
         
