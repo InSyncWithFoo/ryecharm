@@ -32,7 +32,7 @@ internal abstract class CommandFactory {
     abstract fun CommandArguments.withGlobalOptions(): CommandArguments
     
     private fun Command.setExecutableAndWorkingDirectory() = this.apply {
-        executable = this@CommandFactory.executable
+        executable = this@CommandFactory.executable.toString()
         workingDirectory = this@CommandFactory.workingDirectory
     }
     
@@ -74,7 +74,7 @@ internal abstract class Command {
      */
     abstract val subcommands: List<String>
     
-    lateinit var executable: Path
+    lateinit var executable: String
     lateinit var arguments: CommandArguments
     
     var stdin: String? = null
@@ -90,7 +90,7 @@ internal abstract class Command {
     
     private val fragments: List<String>
         get() = listOfNotNull(
-            executable.toString(),
+            executable,
             *subcommands.toTypedArray(),
             *arguments.toList().toTypedArray()
         )
@@ -110,7 +110,7 @@ internal abstract class Command {
         }
     
     private val executableName: String
-        get() = executable.nameWithoutExtension
+        get() = Path.of(executable).nameWithoutExtension
     
     /**
      * A simple form to be used in notifications and such.
