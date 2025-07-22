@@ -13,6 +13,7 @@ import com.intellij.testFramework.fixtures.TempDirTestFixture
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import com.intellij.testFramework.fixtures.impl.LightTempDirTestFixtureImpl
 import com.intellij.testFramework.fixtures.impl.TempDirTestFixtureImpl
+import com.intellij.util.io.createParentDirectories
 import insyncwithfoo.ryecharm.canBeLintedByRuff
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
@@ -25,9 +26,11 @@ import insyncwithfoo.ryecharm.lspServerManager
 import insyncwithfoo.ryecharm.testDataPath
 import insyncwithfoo.ryecharm.toPathOrNull
 import org.junit.Test
+import java.io.IOException
 import java.nio.file.Path
 import kotlin.io.path.copyTo
 import kotlin.io.path.createDirectory
+import kotlin.io.path.createFile
 import kotlin.io.path.createParentDirectories
 import kotlin.io.path.div
 import kotlin.io.path.listDirectoryEntries
@@ -44,8 +47,8 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
     protected val file: PsiFile
         get() = fixture.file
     
-    protected val projectPath: Path?
-        get() = project.basePath?.toPathOrNull()
+    protected val projectPath: Path
+        get() = Path.of(project.basePath!!)
     
     override fun setUp() {
         super.setUp()
@@ -89,6 +92,19 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         
         fixture.configureByFile("F401.py")
         
+        projectPath.createParentDirectories()
+        try {
+            projectPath.createDirectory()
+        } catch (_: IOException) {
+            thisLogger().warn("Exists: $projectPath")
+        }
+        (projectPath / file.virtualFile.path).createParentDirectories()
+        try {
+            (projectPath / file.virtualFile.path).createFile()
+        } catch (_: IOException) {
+            thisLogger().warn("Exists: ${projectPath / file.virtualFile.path}")
+        }
+        
         thisLogger().warn(file.virtualFile.path)
         thisLogger().warn(file.virtualFile.presentableUrl)
         thisLogger().warn(file.virtualFile.toString())
@@ -99,8 +115,6 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         
         thisLogger().warn(project.lspServerManager.getServersForProvider(RuffServerSupportProvider::class.java)
                               .toList().toString())
-        
-        
         
         fixture.checkLspHighlighting()
     }
