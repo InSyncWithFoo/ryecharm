@@ -1,6 +1,0 @@
-[project]
-name = "foobar"
-version = "0.1.0"
-authors = <warn>[
-	{ url = "" }
-]</warn>

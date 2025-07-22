@@ -6,7 +6,6 @@ import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import java.nio.file.Path
-import kotlin.io.path.div
 import kotlin.reflect.KClass
 
 
@@ -14,7 +13,7 @@ private val KClass<*>.qualifiedNameWithoutPackagePrefix: String
     get() = qualifiedName!!.removePrefix("${RyeCharm.ID}.")
 
 
-internal val KClass<*>.testDataPath: String
+private val KClass<*>.testDataPath: String
     get() = "src/test/testData/${qualifiedNameWithoutPackagePrefix.replace(".", "/")}"
 
 
@@ -30,7 +29,7 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         get() = fixture.file
     
     protected val projectPath: Path?
-        get() = project.basePath?.toPathOrNull()
+        get() = project.path
     
     override fun setUp() {
         super.setUp()
@@ -43,6 +42,6 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         test()
     }
     
-    override fun getTestDataPath() = this::class.testDataPath
+    final override fun getTestDataPath() = this::class.testDataPath
     
 }
