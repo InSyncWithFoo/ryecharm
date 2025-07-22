@@ -98,11 +98,11 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         } catch (_: IOException) {
             thisLogger().warn("Exists: $projectPath")
         }
-        (projectPath / file.virtualFile.path).createParentDirectories()
+        (projectPath / file.virtualFile.path.removePrefix("/")).createParentDirectories()
         try {
-            (projectPath / file.virtualFile.path).createFile()
+            (projectPath / file.virtualFile.path.removePrefix("/")).createFile()
         } catch (_: IOException) {
-            thisLogger().warn("Exists: ${projectPath / file.virtualFile.path}")
+            thisLogger().warn("Exists: ${projectPath / file.virtualFile.path.removePrefix("/")}")
         }
         
         thisLogger().warn(file.virtualFile.path)
