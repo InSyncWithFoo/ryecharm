@@ -6,6 +6,7 @@ import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixture4TestCase
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import java.nio.file.Path
+import kotlin.io.path.div
 import kotlin.reflect.KClass
 
 
@@ -42,6 +43,7 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         test()
     }
     
-    final override fun getTestDataPath() = this::class.testDataPath
+    override fun getTestDataPath() =
+        (Path.of("").toAbsolutePath() / this::class.testDataPath).toString()
     
 }
