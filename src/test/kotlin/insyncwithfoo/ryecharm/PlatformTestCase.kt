@@ -43,7 +43,6 @@ internal abstract class PlatformTestCase : LightPlatformCodeInsightFixture4TestC
         test()
     }
     
-    override fun getTestDataPath() =
-        (Path.of("").toAbsolutePath() / this::class.testDataPath).toString()
+    override fun getTestDataPath() = this::class.testDataPath
     
 }
