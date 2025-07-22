@@ -66,6 +66,8 @@ internal class LanguageServerTest : LightPlatformCodeInsightFixture4TestCase() {
         }
     }
     
+    override fun getTestDataPath() = this::class.testDataPath
+    
     override fun createTempDirTestFixture() =
         object : TempDirTestFixture by TempDirTestFixtureImpl() {
             override fun getFile(path: String): VirtualFile? {
