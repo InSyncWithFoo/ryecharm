@@ -18,6 +18,7 @@ import insyncwithfoo.ryecharm.testDataPath
 import insyncwithfoo.ryecharm.toPathOrNull
 import kotlinx.io.IOException
 import org.junit.Test
+import java.nio.file.NoSuchFileException
 import java.nio.file.Path
 import kotlin.io.path.copyTo
 import kotlin.io.path.createDirectory
@@ -56,7 +57,7 @@ internal class LanguageServerTest : PlatformTestCase() {
         
         try {
             fixture.configureByFile(filePath)
-        } catch (_: IOException) {}
+        } catch (_: NoSuchFileException) {}
     }
     
     @Test
