@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm.others.installers
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.Service
+import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
@@ -36,7 +37,7 @@ private sealed class InstallKind {
 internal class InstallDependencies private constructor(
     private val project: Project,
     private val kind: InstallKind
-) : AnAction() {
+) : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {
         val uv = project.uv

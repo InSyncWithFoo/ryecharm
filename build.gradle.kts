@@ -48,6 +48,7 @@ dependencies {
     compileOnly(libs.kotlinxSerialization)
     testImplementation(kotlin("test"))
     testImplementation(libs.junit)
+    testImplementation(libs.reflections)
     
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
