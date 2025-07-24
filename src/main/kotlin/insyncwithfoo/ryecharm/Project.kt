@@ -44,15 +44,6 @@ internal val defaultProject: Project
     get() = projectManager.defaultProject
 
 
-/**
- * The only opened project, if there is one.
- * 
- * @see openProjects
- */
-internal val currentProject: Project?
-    get() = openProjects.singleOrNull()
-
-
 internal val Project.rootManager: ProjectRootManager
     get() = ProjectRootManager.getInstance(this)
 
