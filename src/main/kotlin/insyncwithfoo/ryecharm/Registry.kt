@@ -19,7 +19,10 @@ internal class UV(override val parentPrefix: String) : Prefixed {
     override val ownPrefix = "uv"
     
     val alwaysRunUpdater: Boolean
-        get() = Registry.`is`(key("alwaysRunUpdater"))
+        get() = Registry.`is`(key(::alwaysRunInstaller.name))
+    
+    val alwaysRunInstaller: Boolean
+        get() = Registry.`is`(key(::alwaysRunInstaller.name))
     
 }
 

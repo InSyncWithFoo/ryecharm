@@ -6,10 +6,10 @@ import com.intellij.notification.Notification
 import com.intellij.notification.NotificationAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
+import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.ShowSettingsUtil
 import com.intellij.openapi.project.Project
 import com.intellij.util.ui.EmptyClipboardOwner
-import insyncwithfoo.ryecharm.configurations.PanelBasedConfigurable
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 import java.nio.file.Path
@@ -55,18 +55,8 @@ internal fun Notification.addCopyPathAction(path: Path) =
     addCopyTextAction(message("notificationActions.copyPathToClipboard"), path.toString())
 
 
-private fun <C : PanelBasedConfigurable<*>> Project.showSettingsDialog(toSelect: Class<C>) {
-    ShowSettingsUtil.getInstance().showSettingsDialog(this, toSelect)
-}
-
-
-internal fun Notification.addOpenSettingsAction(
-    project: Project,
-    configurableClass: Class<out PanelBasedConfigurable<*>>
-) {
-    addExpiringAction(message("notificationActions.openSettings")) {
-        project.showSettingsDialog(configurableClass)
-    }
+internal inline fun <reified C : Configurable> Project.showSettingsDialog() {
+    ShowSettingsUtil.getInstance().showSettingsDialog(this, C::class.java)
 }
 
 

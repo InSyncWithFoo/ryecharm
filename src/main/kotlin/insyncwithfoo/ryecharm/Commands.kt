@@ -151,3 +151,26 @@ internal abstract class Command {
     }
     
 }
+
+
+internal fun Command.Companion.create(executable: String, vararg arguments: String, runningMessage: String) =
+    create(executable, emptyList(), arguments.toList(), runningMessage)
+
+
+private fun Command.Companion.create(
+    executable: String,
+    subcommands: List<String>,
+    arguments: List<String>,
+    runningMessage: String,
+) =
+    object : Command() {
+        
+        override val subcommands = subcommands
+        override val runningMessage = runningMessage
+        
+        init {
+            this.executable = executable
+            this.arguments = CommandArguments(*arguments.toTypedArray())
+        }
+        
+    }

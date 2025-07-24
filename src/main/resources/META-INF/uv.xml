@@ -61,6 +61,11 @@
 			id="insyncwithfoo.ryecharm.uv.actions.Update"
 			implementation="insyncwithfoo.ryecharm.uv.actions.Update"
 		/>
+		
+		<postStartupActivity
+			id="insyncwithfoo.ryecharm.uv.actions.Install"
+			implementation="insyncwithfoo.ryecharm.uv.actions.Install"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
@@ -107,6 +112,12 @@
 			id="insyncwithfoo.ryecharm.uv.intentions.BumpProjectVersion"
 			class="insyncwithfoo.ryecharm.uv.intentions.BumpProjectVersion"
 			icon="AllIcons.Actions.Edit"
+		/>
+		
+		<action
+			id="insyncwithfoo.ryecharm.uv.actions.Install"
+			class="insyncwithfoo.ryecharm.uv.actions.Install"
+			icon="/icons/other-install-13.svg"
 		/>
 	</actions>
 </idea-plugin>
