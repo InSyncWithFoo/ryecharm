@@ -5,6 +5,8 @@ import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import com.intellij.testFramework.fixtures.impl.TempDirTestFixtureImpl
+import com.intellij.testFramework.utils.io.createDirectory
+import com.intellij.util.io.createParentDirectories
 import java.nio.file.Path
 
 
@@ -18,8 +20,13 @@ internal abstract class LanguageServerTestCase : HeavyPlatformTestCase() {
     override fun setUp() {
         super.setUp()
         
+        if (!projectPath.toFile().exists()) {
+            projectPath.createParentDirectories()
+            projectPath.createDirectory()
+        }
+        
         val fixtureFactory = IdeaTestFixtureFactory.getFixtureFactory()
-        val fixtureBuilder = fixtureFactory.createFixtureBuilder("", projectPath, true)
+        val fixtureBuilder = fixtureFactory.createFixtureBuilder(this::class.qualifiedName!!, projectPath, true)
         
         fixture = CodeInsightTestFixtureImpl(
             fixtureBuilder.fixture,

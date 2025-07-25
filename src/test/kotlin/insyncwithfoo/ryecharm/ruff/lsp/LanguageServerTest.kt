@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.ruff.lsp
 
 import com.intellij.platform.lsp.tests.checkLspHighlighting
+import com.intellij.platform.lsp.tests.waitUntilFileOpenedByLspServer
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
@@ -24,7 +25,8 @@ internal class LanguageServerTest : LanguageServerTestCase() {
     }
     
     fun `test diagnostics - python file`() {
-        fixture.configureByFile("F401.py")
+        val file = fixture.configureByFile("F401.py")
+        waitUntilFileOpenedByLspServer(project, file.virtualFile)
         fixture.checkLspHighlighting()
     }
     
