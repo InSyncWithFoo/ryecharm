@@ -26,6 +26,7 @@ internal abstract class LanguageServerTestCase : HeavyPlatformTestCase() {
             TempDirTestFixtureImpl()
         )
         fixture.testDataPath = this::class.testDataPath
+        fixture.setUp()
     }
     
 }
