@@ -13,6 +13,7 @@ import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeRuffConfigurations
 import insyncwithfoo.ryecharm.configurations.changeRuffOverrides
 import insyncwithfoo.ryecharm.configurations.ruff.RunningMode
+import insyncwithfoo.ryecharm.openFile
 
 
 internal class LanguageServerTest : LanguageServerTestCase() {
@@ -32,7 +33,9 @@ internal class LanguageServerTest : LanguageServerTestCase() {
         thisLogger().warn(file.virtualFile.toString())
         thisLogger().warn(file.virtualFile.toNioPath().toFile().exists().toString())
         
+        project.openFile(file.virtualFile)
         waitUntilFileOpenedByLspServer(project, file.virtualFile)
+        
         fixture.checkLspHighlighting()
     }
     
