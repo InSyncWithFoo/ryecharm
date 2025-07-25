@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm
 
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.testFramework.HeavyPlatformTestCase
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture
 import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory
@@ -19,6 +20,8 @@ internal abstract class LanguageServerTestCase : HeavyPlatformTestCase() {
     
     override fun setUp() {
         super.setUp()
+        
+        thisLogger().warn(projectPath.toString())
         
         if (!projectPath.toFile().exists()) {
             projectPath.createParentDirectories()
