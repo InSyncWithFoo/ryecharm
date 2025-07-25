@@ -6,5 +6,12 @@
 			defaultValue="false"
 			description="Always run uv updater, even if it was already run recently."
 		/>
+		
+		<registryKey
+			id="insyncwithfoo.ryecharm.uv.alwaysRunInstaller"
+			key="insyncwithfoo.ryecharm.uv.alwaysRunInstaller"
+			defaultValue="false"
+			description="Run uv installer even on plugin reinstallation."
+		/>
 	</extensions>
 </idea-plugin>

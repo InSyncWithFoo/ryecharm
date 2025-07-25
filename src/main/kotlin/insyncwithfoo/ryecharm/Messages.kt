@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.MessageDialogBuilder
 import com.intellij.openapi.ui.Messages
 
 
@@ -17,6 +18,10 @@ internal fun showMessage(title: String, body: String) {
 internal fun Project?.showProcessResult(body: String) {
     showMessage(message("messages.processResult.title"), body)
 }
+
+
+internal fun Project?.confirm(body: String) =
+    MessageDialogBuilder.yesNo(RyeCharm.NAME, body, RyeIcons.SMALL_32).ask(this)
 
 
 private fun somethingIsWrong(title: String, body: String, project: Project? = null) {
