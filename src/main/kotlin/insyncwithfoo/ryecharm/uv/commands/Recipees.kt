@@ -80,11 +80,11 @@ internal fun UV.installAllExtras(): Command {
 }
 
 
-internal fun UV.version() =
+internal fun UV.getProjectVersion() =
     version(CommandArguments("--short"))
 
 
-internal fun UV.version(bumpType: VersionBumpType): Command {
+internal fun UV.bumpProjectVersion(bumpType: VersionBumpType): Command {
     val arguments = CommandArguments("--short")
     
     arguments["--bump"] = bumpType.toString()
@@ -93,7 +93,7 @@ internal fun UV.version(bumpType: VersionBumpType): Command {
 }
 
 
-internal fun UV.version(newVersion: ProjectVersion) =
+internal fun UV.setProjectVersion(newVersion: ProjectVersion) =
     version(CommandArguments("--short", newVersion))
 
 

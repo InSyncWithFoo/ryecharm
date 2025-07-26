@@ -43,8 +43,8 @@ import insyncwithfoo.ryecharm.saveAllDocumentsAsIs
 import insyncwithfoo.ryecharm.unknownError
 import insyncwithfoo.ryecharm.uv.commands.UV
 import insyncwithfoo.ryecharm.uv.commands.VersionBumpType
+import insyncwithfoo.ryecharm.uv.commands.bumpProjectVersion
 import insyncwithfoo.ryecharm.uv.commands.uv
-import insyncwithfoo.ryecharm.uv.commands.version
 
 
 private fun VirtualFile.refresh() {
@@ -123,7 +123,7 @@ private fun Project.doBumping(bumpType: VersionBumpType, file: PsiFile?) {
         )
     }
     
-    val command = uv.version(bumpType)
+    val command = uv.bumpProjectVersion(bumpType)
     
     runCommandAndLoadOutput(command, file)
 }

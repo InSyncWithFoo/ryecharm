@@ -200,7 +200,7 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     
     @Test
     fun `test version - get`() {
-        val command = uv.version()
+        val command = uv.getProjectVersion()
         
         commandTest<VersionCommand>(command) {
             assertArgumentsContain("--short")
@@ -210,7 +210,7 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     @Test
     fun `test version - bump major`() {
         val bumpType = VersionBumpType.MAJOR
-        val command = uv.version(bumpType)
+        val command = uv.bumpProjectVersion(bumpType)
         
         commandTest<VersionCommand>(command) {
             assertArgumentsContain("--short")
@@ -221,7 +221,7 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     @Test
     fun `test version - set`() {
         val newVersion = randomVersion()
-        val command = uv.version(newVersion)
+        val command = uv.setProjectVersion(newVersion)
         
         commandTest<VersionCommand>(command) {
             assertArgumentsContain(newVersion, "--short")
