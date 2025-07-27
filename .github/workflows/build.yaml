@@ -23,7 +23,6 @@ jobs:
     outputs:
       version: ${{ steps.properties.outputs.version }}
       changelog: ${{ steps.properties.outputs.changelog }}
-      pluginVerifierHomeDir: ${{ steps.properties.outputs.pluginVerifierHomeDir }}
     
     steps:
       -
@@ -54,7 +53,6 @@ jobs:
           CHANGELOG="$(python scripts/changelog.py $VERSION)"
           
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "pluginVerifierHomeDir=~/.pluginVerifier" >> $GITHUB_OUTPUT
           
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGELOG" >> $GITHUB_OUTPUT
@@ -153,6 +151,8 @@ jobs:
       -
         name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: true
       -
         name: Set up Rye
         uses: eifinger/setup-rye@v4
@@ -246,18 +246,14 @@ jobs:
       -
         name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-      -
-        name: Set up IDEs cache
-        uses: actions/cache@v4
         with:
-          path: ${{ needs.build.outputs.pluginVerifierHomeDir }}/ides
-          key: plugin-verifier-${{ hashFiles('build/listProductsReleases.txt') }}
+          cache-read-only: true
       -
         name: Run verifier
         continue-on-error: true
         run: |
           chmod +x ./gradlew
-          ./gradlew verifyPlugin -Dplugin.verifier.home.dir=${{ needs.build.outputs.pluginVerifierHomeDir }}
+          ./gradlew verifyPlugin
       -
         name: Upload result
         if: always()
@@ -328,6 +324,8 @@ jobs:
       -
         name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: true
       -
         name: Publish plugin to Nightly channel
         env:
