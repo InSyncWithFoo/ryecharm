@@ -85,6 +85,7 @@ nav:
     - Actions: uv/actions.md
     - Intentions: uv/intentions.md
     - Inspections: uv/inspections.md
+    - Run configurations: uv/run-configurations.md
     - Documentation: uv/documentation.md
   - ty:
       - ty integration: ty/index.md
