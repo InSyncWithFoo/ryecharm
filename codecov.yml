@@ -1,0 +1,13 @@
+coverage:
+  status:
+    project:
+      default:
+        informational: true
+        threshold: 0%
+        base: auto
+    patch:
+      default:
+        informational: true
+comment:
+  layout: "condensed_header, condensed_files, condensed_footer"
+  hide_project_coverage: true
