@@ -77,11 +77,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#custom-task" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -682,19 +677,6 @@
       
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Run configurations
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -706,59 +688,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#custom-task" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom task
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#project-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      Project script
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#global-tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      Global tool
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#standalone-scripts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Standalone scripts
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1218,50 +1147,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#custom-task" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom task
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#project-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      Project script
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#global-tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      Global tool
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#standalone-scripts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Standalone scripts
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1294,30 +1179,8 @@
 
   <h1>Run configurations</h1>
 
-<p>A <i><a href="https://www.jetbrains.com/help/pycharm/run-debug-configuration.html">run configuration</a></i> defines something that can be executed.</p>
-<p>RyeCharm provides a <i>uv</i> run configuration type,
-which is available in the feature's standard dialog.</p>
-<p><img alt="" src="../../assets/uv-run-configurations-demo-custom-task-dialog.png" /></p>
-<p>This type has multiple subpanels, also known as "factories",
-by which uv run configurations can be defined.</p>
-<h2 id="custom-task">Custom task<a class="headerlink" href="#custom-task" title="Permanent link">#</a></h2>
-<p>Run an uv command with the given arguments
-and environment at the specified working directory.</p>
-<h2 id="project-script">Project script<a class="headerlink" href="#project-script" title="Permanent link">#</a></h2>
-<p>Run a <a href="https://packaging.python.org/en/latest/specifications/pyproject-toml/#entry-points">project script</a> using <code>uv run</code>.</p>
-<p>Run configurations of this kind can be automatically configured
-using run line markers shown in <code>pyproject.toml</code> or
-the corresponding actions in the menu when a subkey
-of either <code>[project.scripts]</code> or <code>[project.gui-scripts]</code> is right-clicked.</p>
-<p><img alt="" src="../../assets/uv-run-configurations-demo-project-script-line-markers.png" /></p>
-<h2 id="global-tool">Global tool<a class="headerlink" href="#global-tool" title="Permanent link">#</a></h2>
-<p>Run a <a href="https://docs.astral.sh/uv/guides/tools/">global tool</a> using <code>uvx</code>/<code>uv tool run</code>.</p>
-<h2 id="standalone-scripts">Standalone scripts<a class="headerlink" href="#standalone-scripts" title="Permanent link">#</a></h2>
-<p>Run a <a href="https://peps.python.org/pep-0723/">PEP 723</a> script using <code>uv run --script</code>.</p>
-<p>Run configurations of this kind can be automatically configured
-using run line markers shown next to script metadata blocks or
-the corresponding actions in the menu when such blocks are right-clicked.</p>
-<p><img alt="" src="../../assets/uv-run-configurations-demo-standalone-script-line-markers.png" /></p>
+<p>RyeCharm used to provide a <i>uv</i> run configuration type.
+This feature was removed in favor of <a href="https://www.jetbrains.com/help/pycharm/run-debug-configuration-uv.html">PyCharm's native support</a>.</p>
 
 
 

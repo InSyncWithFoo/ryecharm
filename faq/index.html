@@ -1176,6 +1176,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how-stable-is-this-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      How stable is this project?
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1223,6 +1232,15 @@
   <a href="#is-this-an-official-astral-project" class="md-nav__link">
     <span class="md-ellipsis">
       Is this an official Astral project?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-stable-is-this-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      How stable is this project?
     </span>
   </a>
   
@@ -1276,6 +1294,23 @@ RyeCharm aims to combine the best of both worlds.</p>
 <h2 id="is-this-an-official-astral-project">Is this an official Astral project?<a class="headerlink" href="#is-this-an-official-astral-project" title="Permanent link">#</a></h2>
 <p>No. However, it <em>is</em> meant to serve
 as the first step towards an "official" plugin.</p>
+<h2 id="how-stable-is-this-project">How stable is this project?<a class="headerlink" href="#how-stable-is-this-project" title="Permanent link">#</a></h2>
+<p>As you might have inferred from the version, not at all.
+<em>Expect things to be broken everytime you update</em>.</p>
+<p>RyeCharm won't be stable in the foreseeable future,
+at least until the tools it integrates are.</p>
+<ul>
+<li>Ruff is relatively stable in terms of CLI API, but it still isn't at 1.0.0.</li>
+<li>ty, which eventually will be merged with Ruff, is under development.</li>
+<li>uv's major features are mostly stable, but it also gets
+  a new "major" release (0.x) with breaking changes every couple of months.
+  Even "minor" releases (0.x.y) bring a lot of changes and improvements.</li>
+<li>PyCharm's native uv support and other packaging/language server features
+  have also been constantly improving since the second half of 2024.</li>
+</ul>
+<p>That said, RyeCharm tries not to compete with PyCharm and
+will remove its own features if they collide with native features.</p>
+<p>Consult the <a href="https://github.com/InSyncWithFoo/ryecharm/blob/HEAD/CHANGELOG.md">changelog</a> of each release to know what has changed.</p>
 
 
 
