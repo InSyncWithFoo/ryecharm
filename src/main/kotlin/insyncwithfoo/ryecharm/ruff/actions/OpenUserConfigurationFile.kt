@@ -23,6 +23,11 @@ import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
 
 
+/**
+ * Find and open user-level Ruff configuration file in a new editor.
+ * 
+ * @see findUserConfigurationFile
+ */
 internal class OpenUserConfigurationFile : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {

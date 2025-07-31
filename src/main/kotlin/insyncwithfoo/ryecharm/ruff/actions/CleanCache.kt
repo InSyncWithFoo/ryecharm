@@ -16,6 +16,9 @@ import insyncwithfoo.ryecharm.runInBackground
 import java.nio.file.Path
 
 
+/**
+ * Run `ruff clean`.
+ */
 internal class CleanCache : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {

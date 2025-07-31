@@ -42,6 +42,12 @@ private suspend fun fetch(url: String) =
     }
 
 
+/**
+ * Install uv semi-automatically if it isn't already installed.
+ * 
+ * If run as a [ProjectActivity],
+ * emit a notification that recommends installing uv.
+ */
 internal class Install : AnAction(), ProjectActivity, DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {

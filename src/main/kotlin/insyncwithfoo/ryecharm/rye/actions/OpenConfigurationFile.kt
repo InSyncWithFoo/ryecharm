@@ -24,6 +24,9 @@ import insyncwithfoo.ryecharm.unknownError
 import java.nio.file.Path
 
 
+/**
+ * Find and open user-level Ruff configuration file in a new editor.
+ */
 internal class OpenConfigurationFile : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {

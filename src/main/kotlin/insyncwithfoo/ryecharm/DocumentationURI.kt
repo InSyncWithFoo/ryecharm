@@ -13,7 +13,7 @@ internal enum class DocumentationURIHost(private val value: String) {
     override fun toString() = value
     
     companion object {
-        fun byValue(value: String) =
+        fun fromValue(value: String) =
             entries.find { value == it.value }
     }
 }
@@ -51,7 +51,7 @@ internal class DocumentationURI private constructor(val host: DocumentationURIHo
                 return null
             }
             
-            val host = DocumentationURIHost.byValue(uri.host) ?: return null
+            val host = DocumentationURIHost.fromValue(uri.host) ?: return null
             
             return DocumentationURI(host, uri.path.removePrefix("/"))
         }

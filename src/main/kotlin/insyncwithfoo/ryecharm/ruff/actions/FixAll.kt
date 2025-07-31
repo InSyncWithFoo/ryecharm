@@ -23,6 +23,9 @@ import insyncwithfoo.ryecharm.runInForeground
 import insyncwithfoo.ryecharm.writeUnderAction
 
 
+/**
+ * @see insyncwithfoo.ryecharm.ruff.intentions.FixAll
+ */
 internal abstract class FixAll(private val unsafe: Boolean) : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {

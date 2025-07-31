@@ -14,6 +14,9 @@ import insyncwithfoo.ryecharm.rye.commands.Rye
 import insyncwithfoo.ryecharm.rye.commands.rye
 
 
+/**
+ * Run `rye show` and open a new editor whose content is the output.
+ */
 internal class ShowProjectInformation : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {

@@ -7,6 +7,9 @@ import insyncwithfoo.ryecharm.openProjects
 import insyncwithfoo.ryecharm.ruff.RuffCache
 
 
+/**
+ * @see RuffCache
+ */
 internal class ClearPluginCache : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {

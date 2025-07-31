@@ -119,6 +119,9 @@ private class LintersDialog(private val linters: List<Linter>, project: Project)
 }
 
 
+/**
+ * Display Ruff's "linters" and their categories in a quick-searchable table.
+ */
 internal class ShowLinters : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {

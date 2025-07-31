@@ -15,6 +15,7 @@ import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeGlobalUVConfigurations
 import insyncwithfoo.ryecharm.configurations.changeUVConfigurations
 import insyncwithfoo.ryecharm.configurations.changeUVOverrides
+import insyncwithfoo.ryecharm.configurations.uv.UVConfigurations
 import insyncwithfoo.ryecharm.configurations.uv.UpdateMethod
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.configurations.uvExecutable
@@ -61,6 +62,10 @@ private data class VersionInfo(val version: String)
 
 /**
  * Update uv (semi-)automatically.
+ * 
+ * If triggered as a [ProjectActivity],
+ * either emit a notification that recommends updating uv or directly do so,
+ * depending on [UVConfigurations.updateMethod].
  */
 internal class Update : AnAction(), ProjectActivity, DumbAware {
     

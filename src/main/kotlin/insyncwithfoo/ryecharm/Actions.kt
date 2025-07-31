@@ -15,6 +15,10 @@ internal val AnActionEvent.editor: Editor?
     get() = dataContext.getData(CommonDataKeys.EDITOR)
 
 
+/**
+ * Run the command returned by [createCommand]
+ * and show its output in an UI message.
+ */
 internal abstract class ShowCommandOutputAction : AnAction(), DumbAware {
     
     abstract fun createCommand(event: AnActionEvent, project: Project): Command?
@@ -40,6 +44,9 @@ internal abstract class ShowCommandOutputAction : AnAction(), DumbAware {
 }
 
 
+/**
+ * Resolve the tool's executable and show it in an UI message.
+ */
 internal abstract class ShowExecutableAction : AnAction(), DumbAware {
     
     abstract fun Project?.getExecutable(): Path?
