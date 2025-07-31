@@ -342,5 +342,11 @@ jobs:
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
         run: |
           chmod +x ./gradlew
-          NIGHTLY_VERSION=$(python scripts/modify_version_for_nightly.py)
+          
+          sed -i -E \
+            "s/(pluginVersion = [^[:space:]]+)/\\1-nightly.$(git rev-parse --short HEAD)/g" \
+            gradle.properties
+          
+          NIGHTLY_VERSION=$(grep -oP '^pluginVersion = \K\S+' gradle.properties)
+          
           ./gradlew publishPlugin -Pchannel=Nightly -PpluginVersion=${NIGHTLY_VERSION}
