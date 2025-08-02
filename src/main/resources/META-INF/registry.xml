@@ -13,5 +13,12 @@
 			defaultValue="false"
 			description="Run uv installer even on plugin reinstallation."
 		/>
+		
+		<registryKey
+			id="insyncwithfoo.ryecharm.ty.alwaysRunEnabler"
+			key="insyncwithfoo.ryecharm.ty.alwaysRunEnabler"
+			defaultValue="false"
+			description="Run ty enabler even on plugin reinstallation."
+		/>
 	</extensions>
 </idea-plugin>

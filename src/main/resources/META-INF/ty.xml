@@ -1,4 +1,11 @@
 <idea-plugin>
+	<extensions defaultExtensionNs="com.intellij">
+		<postStartupActivity
+			id="insyncwithfoo.ryecharm.ty.actions.Enable"
+			implementation="insyncwithfoo.ryecharm.ty.actions.Enable"
+		/>
+	</extensions>
+	
 	<actions>
 		<action
 			id="insyncwithfoo.ryecharm.ty.actions.ShowExecutable"
@@ -10,6 +17,12 @@
 			id="insyncwithfoo.ryecharm.ty.actions.ShowVersion"
 			class="insyncwithfoo.ryecharm.ty.actions.ShowVersion"
 			icon="AllIcons.General.ShowInfos"
+		/>
+		
+		<action
+			id="insyncwithfoo.ryecharm.ty.actions.Enable"
+			class="insyncwithfoo.ryecharm.ty.actions.Enable"
+			icon="AllIcons.General.Settings"
 		/>
 	</actions>
 </idea-plugin>

@@ -9,6 +9,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.globalRyeConfigurations
 import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
 import insyncwithfoo.ryecharm.configurations.ty.TYConfigurations
+import insyncwithfoo.ryecharm.configurations.ty.TYGlobalService
 import insyncwithfoo.ryecharm.configurations.ty.TYLocalService
 import insyncwithfoo.ryecharm.configurations.ty.TYOverrideService
 import insyncwithfoo.ryecharm.configurations.ty.globalTYConfigurations
@@ -131,6 +132,14 @@ internal val globalTYExecutable: Path?
  */
 internal fun changeGlobalUVConfigurations(action: UVConfigurations.() -> Unit) {
     UVGlobalService.getInstance().state.apply(action)
+}
+
+
+/**
+ * Change global ty configurations in-place.
+ */
+internal fun changeGlobalTYConfigurations(action: TYConfigurations.() -> Unit) {
+    TYGlobalService.getInstance().state.apply(action)
 }
 
 
