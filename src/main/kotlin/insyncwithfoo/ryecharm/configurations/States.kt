@@ -32,6 +32,15 @@ internal typealias SettingName = String
 internal typealias Overrides = MutableMap<SettingName, Boolean>
 
 
+/**
+ * Add [name] to the override map.
+ * 
+ * Typically used as:
+ * 
+ * ```kotlin
+ * changeToolOverrides { add(::setting.name) }
+ * ```
+ */
 internal fun Overrides.add(name: SettingName) {
     this[name] = true
 }
@@ -83,7 +92,7 @@ internal abstract class DisplayableState : BaseState(), Copyable {
     
     private val displayName: String
         get() {
-            val serialNameAnnotation = this::class.annotations.find { it is SerialName } as? SerialName
+            val serialNameAnnotation = this::class.annotations.filterIsInstance<SerialName>().firstOrNull()
             return serialNameAnnotation?.value ?: this::class.simpleName!!
         }
     

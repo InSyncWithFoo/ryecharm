@@ -52,10 +52,10 @@ internal class Install : AnAction(), ProjectActivity, DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: defaultProject
-        val uvExecutable = project.uvExecutable
+        val executable = project.uvExecutable
         
-        if (uvExecutable != null) {
-            val prompt = message("messages.uvIsAlreadyInstalled.body", uvExecutable)
+        if (executable != null) {
+            val prompt = message("messages.uvIsAlreadyInstalled.body", executable)
             
             if (!project.confirm(prompt)) {
                 return
@@ -66,9 +66,9 @@ internal class Install : AnAction(), ProjectActivity, DumbAware {
     }
     
     override suspend fun execute(project: Project) {
-        val uvExecutable = project.uvExecutable
+        val executable = project.uvExecutable
         
-        if (uvExecutable != null && !RyeCharmRegistry.uv.alwaysRunInstaller) {
+        if (executable != null && !RyeCharmRegistry.uv.alwaysRunInstaller) {
             return
         }
         

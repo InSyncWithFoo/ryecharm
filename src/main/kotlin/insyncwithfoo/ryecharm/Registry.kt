@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.util.registry.Registry
+import kotlin.reflect.KProperty0
 
 
 private interface Prefixed {
@@ -8,8 +9,11 @@ private interface Prefixed {
     val parentPrefix: String?
     val ownPrefix: String
     
-    fun key(name: String) =
+    private fun key(name: String) =
         listOfNotNull(parentPrefix, ownPrefix, name).joinToString(".")
+    
+    fun key(property: KProperty0<*>) =
+        key(property.name)
     
 }
 
@@ -19,10 +23,10 @@ internal class UV(override val parentPrefix: String) : Prefixed {
     override val ownPrefix = "uv"
     
     val alwaysRunUpdater: Boolean
-        get() = Registry.`is`(key(::alwaysRunUpdater.name))
+        get() = Registry.`is`(key(::alwaysRunUpdater))
     
     val alwaysRunInstaller: Boolean
-        get() = Registry.`is`(key(::alwaysRunInstaller.name))
+        get() = Registry.`is`(key(::alwaysRunInstaller))
     
 }
 

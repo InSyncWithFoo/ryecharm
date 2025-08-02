@@ -136,6 +136,8 @@ internal fun changeGlobalUVConfigurations(action: UVConfigurations.() -> Unit) {
 
 /**
  * Change Ruff configurations in-place.
+ * 
+ * @see changeRuffOverrides
  */
 internal fun Project.changeRuffConfigurations(action: RuffConfigurations.() -> Unit) {
     RuffLocalService.getInstance(this).state.apply(action)
@@ -144,6 +146,9 @@ internal fun Project.changeRuffConfigurations(action: RuffConfigurations.() -> U
 
 /**
  * Change Ruff overrides in-place.
+ * 
+ * @see changeRuffConfigurations
+ * @see add
  */
 internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
     RuffOverrideService.getInstance(this).state.names.apply(action)
@@ -152,6 +157,8 @@ internal fun Project.changeRuffOverrides(action: Overrides.() -> Unit) {
 
 /**
  * Change uv configurations in-place.
+ * 
+ * @see changeUVOverrides
  */
 internal fun Project.changeUVConfigurations(action: UVConfigurations.() -> Unit) {
     UVLocalService.getInstance(this).state.apply(action)
@@ -160,6 +167,9 @@ internal fun Project.changeUVConfigurations(action: UVConfigurations.() -> Unit)
 
 /**
  * Change uv overrides in-place.
+ * 
+ * @see changeUVConfigurations
+ * @see add
  */
 internal fun Project.changeUVOverrides(action: Overrides.() -> Unit) {
     UVOverrideService.getInstance(this).state.names.apply(action)
@@ -168,6 +178,8 @@ internal fun Project.changeUVOverrides(action: Overrides.() -> Unit) {
 
 /**
  * Change ty configurations in-place.
+ *
+ * @see changeTYOverrides
  */
 internal fun Project.changeTYConfigurations(action: TYConfigurations.() -> Unit) {
     TYLocalService.getInstance(this).state.apply(action)
@@ -176,6 +188,9 @@ internal fun Project.changeTYConfigurations(action: TYConfigurations.() -> Unit)
 
 /**
  * Change ty overrides in-place.
+ * 
+ * @see changeTYConfigurations
+ * @see add
  */
 internal fun Project.changeTYOverrides(action: Overrides.() -> Unit) {
     TYOverrideService.getInstance(this).state.names.apply(action)

@@ -55,6 +55,10 @@ internal fun Notification.addCopyPathAction(path: Path) =
     addCopyTextAction(message("notificationActions.copyPathToClipboard"), path.toString())
 
 
+/**
+ * Open the <i>Settings</i> dialog and
+ * go to the panel defined by [C].
+ */
 internal inline fun <reified C : Configurable> Project.showSettingsDialog() {
     ShowSettingsUtil.getInstance().showSettingsDialog(this, C::class.java)
 }
