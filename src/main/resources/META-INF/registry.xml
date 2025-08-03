@@ -11,14 +11,14 @@
 			id="insyncwithfoo.ryecharm.uv.alwaysRunInstaller"
 			key="insyncwithfoo.ryecharm.uv.alwaysRunInstaller"
 			defaultValue="false"
-			description="Run uv installer even on plugin reinstallation."
+			description="Always run uv installer, even if it was already run."
 		/>
 		
 		<registryKey
 			id="insyncwithfoo.ryecharm.ty.alwaysRunEnabler"
 			key="insyncwithfoo.ryecharm.ty.alwaysRunEnabler"
 			defaultValue="false"
-			description="Run ty enabler even on plugin reinstallation."
+			description="Always run ty enabler, even if it was already run."
 		/>
 	</extensions>
 </idea-plugin>
