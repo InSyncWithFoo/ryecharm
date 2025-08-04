@@ -31,6 +31,16 @@ internal class UV(override val parentPrefix: String) : Prefixed {
 }
 
 
+internal class TY(override val parentPrefix: String) : Prefixed {
+    
+    override val ownPrefix = "ty"
+    
+    val alwaysRunEnabler: Boolean
+        get() = Registry.`is`(key(::alwaysRunEnabler))
+    
+}
+
+
 /**
  * Thin wrapper around [Registry] to allow for ergonomic syntax.
  */
@@ -40,5 +50,6 @@ internal object RyeCharmRegistry : Prefixed {
     override val ownPrefix = RyeCharm.ID
     
     val uv = UV(ownPrefix)
+    val ty = TY(ownPrefix)
     
 }
