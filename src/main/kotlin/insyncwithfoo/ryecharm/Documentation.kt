@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm
 import com.intellij.lang.documentation.DocumentationMarkup
 import com.intellij.markdown.utils.doc.DocMarkdownToHtmlConverter
 import com.intellij.openapi.application.readAction
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.text.HtmlChunk
 import com.intellij.platform.backend.documentation.DocumentationResult
 
@@ -20,8 +21,8 @@ internal typealias HTML = String
  * nested code blocks are not rendered correctly.
  * Increasing outer code fence levels does not help.
  */
-internal fun Markdown.toHTML(): HTML =
-    DocMarkdownToHtmlConverter.convert(defaultProject, this)
+internal fun Markdown.toHTML(project: Project = defaultProject): HTML =
+    DocMarkdownToHtmlConverter.convert(project, this)
 
 
 internal suspend inline fun Markdown.toHTMLInReadAction() =

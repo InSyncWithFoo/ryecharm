@@ -3,6 +3,7 @@
 package insyncwithfoo.ryecharm.common.terminal
 
 import insyncwithfoo.ryecharm.parseAsJSON
+import insyncwithfoo.ryecharm.toHTML
 import kotlinx.serialization.Serializable
 import org.jetbrains.plugins.terminal.block.completion.spec.ShellCommandSpec
 import org.jetbrains.plugins.terminal.block.completion.spec.dsl.ShellArgumentContext
@@ -24,7 +25,7 @@ private typealias ArgumentBuilder = (ContentBuilder<ShellArgumentContext>) -> Un
 /**
  * @see SuggestionPriority
  */
-private const val MAX_SUGGESTION_PRIORITY = 100
+private val SUGGESTION_PRIORITY_RANGE = 0..100
 
 
 @Serializable
@@ -88,7 +89,7 @@ private fun ShellCommandContext.option(names: List<String>, content: ShellOption
 
 
 private fun ShellCommandContext.option(optionNode: OptionOrArgumentNode) = option(optionNode.names) {
-    optionNode.description?.let { description(it) }
+    optionNode.description?.let { description(it.toHTML()) }
     
     if (optionNode.type != null) {
         argument(optionNode)
@@ -97,15 +98,15 @@ private fun ShellCommandContext.option(optionNode: OptionOrArgumentNode) = optio
 
 
 private fun CommandNode.makeContentBuilder(suggestionPriority: SuggestionPriority): ShellCommandContext.() -> Unit = {
-    priority = suggestionPriority
+    priority = suggestionPriority.coerceIn(SUGGESTION_PRIORITY_RANGE)
     
-    description?.let { description(it) }
+    description?.let { description(it.toHTML()) }
     arguments.forEach { argument(it) }
     options.forEach { option(it) }
     
     subcommands {
         subcommands.values.forEachIndexed { index, command ->
-            subcommand(command, suggestionPriority = MAX_SUGGESTION_PRIORITY - index)
+            subcommand(command, suggestionPriority = SUGGESTION_PRIORITY_RANGE.last - index)
         }
     }
 }
@@ -116,7 +117,7 @@ private fun ShellChildCommandsContext.subcommand(command: CommandNode, suggestio
 
 
 private fun ShellCommandSpec(tree: CommandNode) =
-    ShellCommandSpec(tree.name, tree.makeContentBuilder(MAX_SUGGESTION_PRIORITY))
+    ShellCommandSpec(tree.name, tree.makeContentBuilder(SUGGESTION_PRIORITY_RANGE.last))
 
 
 private fun ClassLoader.loadCommandTreeFrom(path: String) =
