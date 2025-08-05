@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm.uv.commands
 
 import com.intellij.openapi.project.Project
-import com.jetbrains.python.packaging.common.PythonPackageSpecification
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.Labeled
@@ -29,10 +28,6 @@ internal enum class ProjectKind(override val label: String) : Labeled {
     LIBRARY(message("newProjectPanel.settings.projectKind.library")),
     PACKAGED_APP(message("newProjectPanel.settings.projectKind.packagedApp"));
 }
-
-
-internal fun PythonPackageSpecification.toPEP508Format() =
-    name + versionSpecs.orEmpty()
 
 
 internal enum class VersionBumpType(override val label: String) : Labeled {

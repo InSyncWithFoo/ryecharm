@@ -1,6 +1,6 @@
 package insyncwithfoo.ryecharm.uv.commands
 
-import com.jetbrains.python.packaging.common.PythonPackageSpecification
+import com.jetbrains.python.packaging.common.PythonRepositoryPackageSpecification
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.message
@@ -40,12 +40,12 @@ internal fun UV.init(
 }
 
 
-internal fun UV.add(target: PythonPackageSpecification) =
-    add(CommandArguments(target.toPEP508Format()))
+internal fun UV.add(target: PythonRepositoryPackageSpecification) =
+    add(CommandArguments(target.nameWithVersionSpec))
 
 
-internal fun UV.upgrade(target: PythonPackageSpecification) =
-    upgrade(CommandArguments(target.toPEP508Format(), "--upgrade"))
+internal fun UV.upgrade(target: PythonRepositoryPackageSpecification) =
+    upgrade(CommandArguments(target.nameWithVersionSpec, "--upgrade"))
 
 
 internal fun UV.remove(target: String) =
