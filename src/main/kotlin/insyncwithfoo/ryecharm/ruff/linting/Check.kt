@@ -10,7 +10,6 @@ import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unknownError
 
 
-@Suppress("UnstableApiUsage")
 internal fun Project.runCheckCommand(command: Command): List<Diagnostic>? {
     val output = runBlockingCancellable {
         runInBackground(command)

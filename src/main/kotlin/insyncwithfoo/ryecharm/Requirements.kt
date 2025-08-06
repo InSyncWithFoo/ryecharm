@@ -53,7 +53,7 @@ private val TOMLPath.isKnownUVDependencyArrayKey: Boolean
  * * `uv.upgrade-package`
  * * `uv.pip.upgrade-package`
  */
-internal val TomlKey.isPairedWithDependencySpecifierArray: Boolean
+private val TomlKey.isPairedWithDependencySpecifierArray: Boolean
     get() {
         val file = containingFile.virtualFile ?: return false
         val absoluteName = this.absoluteName

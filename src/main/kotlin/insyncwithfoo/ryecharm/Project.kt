@@ -65,7 +65,7 @@ internal val Project.modules: Array<Module>
  * 
  * @see pythonSdk
  */
-private val Project.sdk: Sdk?
+private val Project.pythonSDK: Sdk?
     get() = rootManager.projectSdk?.takeIf { PythonSdkUtil.isPythonSdk(it) }
 
 
@@ -77,11 +77,11 @@ internal val Project.path: Path?
 /**
  * Attempt to convert the result of [Sdk.getHomePath] to a [Path].
  * 
- * @see sdk
+ * @see pythonSDK
  * @see toPathIfItExists
  */
 internal val Project.interpreterPath: Path?
-    get() = sdk?.homePath?.toPathIfItExists()
+    get() = pythonSDK?.homePath?.toPathIfItExists()
 
 
 internal val Project.interpreterDirectory: Path?

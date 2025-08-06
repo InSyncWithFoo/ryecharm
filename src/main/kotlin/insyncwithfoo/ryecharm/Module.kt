@@ -10,7 +10,7 @@ import com.jetbrains.python.sdk.basePath
 import java.nio.file.Path
 
 
-private val Module?.sdk: Sdk?
+private val Module?.pythonSDK: Sdk?
     get() = PythonSdkUtil.findPythonSdk(this)
 
 
@@ -23,7 +23,7 @@ internal val Module.path: Path?
 
 
 internal val Module.interpreterPath: Path?
-    get() = sdk?.homePath?.let { Path.of(it) } ?: project.interpreterPath
+    get() = pythonSDK?.homePath?.let { Path.of(it) } ?: project.interpreterPath
 
 
 internal val PsiElement.module: Module?

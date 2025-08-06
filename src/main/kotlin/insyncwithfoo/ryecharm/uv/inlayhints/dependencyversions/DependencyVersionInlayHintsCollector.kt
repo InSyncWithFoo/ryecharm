@@ -79,7 +79,6 @@ internal class DependencyVersionInlayHintsCollector(private val dependencies: De
         }
     }
     
-    @Suppress("UnstableApiUsage")
     private fun getInstalledDependencies(file: PsiFile) = runBlockingCancellable {
         val (project, module) = Pair(file.project, file.module)
         project.getInstalledDependencies(module?.interpreterPath)
