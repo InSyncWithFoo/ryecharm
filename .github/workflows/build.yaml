@@ -47,7 +47,6 @@ jobs:
         id: properties
         shell: bash
         run: |
-          chmod +x ./gradlew
           PROPERTIES="$(./gradlew properties --console=plain -q)"
           VERSION="$(echo "$PROPERTIES" | grep "^version:" | cut -f2- -d ' ')"
           CHANGELOG="$(python scripts/changelog.py $VERSION)"
@@ -172,7 +171,6 @@ jobs:
       -
         name: Run tests
         run: |
-          chmod +x ./gradlew
           ./gradlew check
       -
         name: Upload result
@@ -259,7 +257,6 @@ jobs:
         name: Run verifier
         continue-on-error: true
         run: |
-          chmod +x ./gradlew
           ./gradlew verifyPlugin
       -
         name: Upload result
@@ -341,7 +338,6 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
         run: |
-          chmod +x ./gradlew
           
           sed -i -E \
             "s/(pluginVersion = [^[:space:]]+)/\\1-nightly.$(git rev-parse --short HEAD)/g" \
