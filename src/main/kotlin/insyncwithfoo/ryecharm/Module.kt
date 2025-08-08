@@ -14,6 +14,16 @@ private val Module?.pythonSDK: Sdk?
     get() = PythonSdkUtil.findPythonSdk(this)
 
 
+/**
+ * Whether the module SDK is of uv flavor.
+ *
+ * @see pythonSDK
+ * @see isUV
+ */
+internal val Module.sdkIsUV: Boolean
+    get() = pythonSDK?.isUV == true
+
+
 internal val Module.rootManager: ModuleRootManager
     get() = ModuleRootManager.getInstance(this)
 

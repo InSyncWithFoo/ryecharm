@@ -87,8 +87,8 @@ internal class DependencyTreeDocumentationTarget(
     
     private fun makeTreePopup(stdout: String) = popup {
         val lead = when (inverted) {
-            true -> message("documentation.popup.dependencytree.tree.lead.inverted", `package`)
-            else -> message("documentation.popup.dependencytree.tree.lead", `package`)
+            true -> message("documentation.popup.dependencytree.tree.lead.inverted")
+            else -> message("documentation.popup.dependencytree.tree.lead")
         }
         val content = """
             |$lead

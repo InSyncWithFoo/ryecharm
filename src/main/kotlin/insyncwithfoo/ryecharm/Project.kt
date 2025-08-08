@@ -69,6 +69,16 @@ private val Project.pythonSDK: Sdk?
     get() = rootManager.projectSdk?.takeIf { PythonSdkUtil.isPythonSdk(it) }
 
 
+/**
+ * Whether the project SDK is of uv flavor.
+ * 
+ * @see pythonSDK
+ * @see isUV
+ */
+internal val Project.sdkIsUV: Boolean
+    get() = pythonSDK?.isUV == true
+
+
 internal val Project.path: Path?
     get() = guessProjectDir()?.toNioPathOrNull()?.toNullIfNotExists()
         ?: basePath?.toPathOrNull()?.toNullIfNotExists()
