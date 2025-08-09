@@ -73,6 +73,14 @@ private fun Row.dependenciesDataMaxAgeInput(block: Cell<JBIntSpinner>.() -> Unit
     spinner(0..1_000_000).apply(block)
 
 
+private fun Row.suppressIncorrectNIRIInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.suppressIncorrectNIRI.label")).apply(block)
+
+
+private fun Row.suppressIncorrectNIRINonUVSDKInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.uv.suppressIncorrectNIRINonUVSDK.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun UVPanel.makeComponent() = panel {
     
@@ -135,6 +143,17 @@ private fun UVPanel.makeComponent() = panel {
         row(message("configurations.uv.dependenciesDataMaxAge.label")) {
             dependenciesDataMaxAgeInput { bindIntValue(state::dependenciesDataMaxAge) }
             overrideCheckbox(state::dependenciesDataMaxAge)
+        }
+        
+        row {
+            suppressIncorrectNIRIInput { bindSelected(state::suppressIncorrectNIRI) }
+            overrideCheckbox(state::suppressIncorrectNIRI)
+        }
+        indent {
+            row {
+                suppressIncorrectNIRINonUVSDKInput { bindSelected(state::suppressIncorrectNIRINonUVSDK) }
+                overrideCheckbox(state::suppressIncorrectNIRINonUVSDK)
+            }
         }
     }
     
