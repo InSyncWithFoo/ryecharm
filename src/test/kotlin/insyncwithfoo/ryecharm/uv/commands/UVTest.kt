@@ -2,7 +2,6 @@ package insyncwithfoo.ryecharm.uv.commands
 
 import insyncwithfoo.ryecharm.CommandFactoryTest
 import org.junit.Test
-import kotlin.test.assertContains
 
 
 internal class UVTest : CommandFactoryTest(UVCommand::class.java) {

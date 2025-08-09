@@ -157,7 +157,7 @@
 		/>
 		
 		<action
-			id="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable.Action"
+			id="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
 			class="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
 			icon="AllIcons.Actions.Search"
 		/>

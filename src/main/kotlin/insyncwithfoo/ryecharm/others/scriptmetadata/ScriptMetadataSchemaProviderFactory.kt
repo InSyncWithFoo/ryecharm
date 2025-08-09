@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.others.scriptmetadata
 
+import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.jetbrains.jsonSchema.extension.JsonSchemaFileProvider
@@ -31,7 +32,7 @@ internal class ScriptMetadataSchemaProvider : JsonSchemaFileProvider {
 }
 
 
-internal class ScriptMetadataSchemaProviderFactory : JsonSchemaProviderFactory {
+internal class ScriptMetadataSchemaProviderFactory : JsonSchemaProviderFactory, DumbAware {
     
     override fun getProviders(project: Project): List<JsonSchemaFileProvider> =
         listOf(ScriptMetadataSchemaProvider())

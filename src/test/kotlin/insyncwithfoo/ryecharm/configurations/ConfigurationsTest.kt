@@ -1,9 +1,8 @@
 package insyncwithfoo.ryecharm.configurations
 
 import com.intellij.openapi.components.BaseState
-import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.assertHasMessage
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
@@ -32,7 +31,7 @@ internal abstract class ConfigurationsTest<C : BaseState> {
     protected fun doMessagesTest(getKeyForName: (String) -> String) {
         fields.forEach { (name, _) ->
             val key = getKeyForName(name)
-            assertNotEquals("!$key!", message(key))
+            assertHasMessage(key)
         }
     }
     

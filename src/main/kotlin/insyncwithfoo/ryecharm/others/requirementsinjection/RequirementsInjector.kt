@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm.others.requirementsinjection
 import com.intellij.lang.injection.general.Injection
 import com.intellij.lang.injection.general.LanguageInjectionContributor
 import com.intellij.lang.injection.general.SimpleInjection
+import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
 import com.jetbrains.python.requirements.RequirementsLanguage
 import com.jetbrains.python.requirements.injection.TomlRequirementsLanguageInjector
@@ -27,7 +28,7 @@ import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersion
  * @see isDependencySpecifierString
  * @see DependencyVersionInlayHintsProvider
  */
-internal class RequirementsInjector : LanguageInjectionContributor {
+internal class RequirementsInjector : LanguageInjectionContributor, DumbAware {
     
     override fun getInjection(context: PsiElement): Injection? {
         val project = context.project
