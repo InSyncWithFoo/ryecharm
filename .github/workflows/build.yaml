@@ -120,12 +120,11 @@ jobs:
       matrix:
         platform: [ ubuntu-latest, macos-latest, windows-latest ]
     
-    continue-on-error: ${{ matrix.platform == 'windows-latest' }}
-    
     permissions:
       actions: write
     
     runs-on: ${{ matrix.platform }}
+    continue-on-error: ${{ matrix.platform == 'windows-latest' }}
     
     steps:
       -
@@ -338,7 +337,6 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
         run: |
-          
           sed -i -E \
             "s/(pluginVersion = [^[:space:]]+)/\\1-nightly.$(git rev-parse --short HEAD)/g" \
             gradle.properties

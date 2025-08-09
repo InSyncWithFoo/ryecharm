@@ -17,12 +17,11 @@ import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.dependencySpecifierLookAlike
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.isPyprojectToml
-import insyncwithfoo.ryecharm.isString
-import insyncwithfoo.ryecharm.keyValuePair
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.module
 import insyncwithfoo.ryecharm.pep508Normalize
 import insyncwithfoo.ryecharm.runInBackground
+import insyncwithfoo.ryecharm.stringArrayTomlKey
 import insyncwithfoo.ryecharm.stringContent
 import insyncwithfoo.ryecharm.traverse
 import insyncwithfoo.ryecharm.uv.commands.pipList
@@ -30,7 +29,6 @@ import insyncwithfoo.ryecharm.uv.commands.uv
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.Settings
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.dependencyVersionInlayHintsSettings
 import insyncwithfoo.ryecharm.uv.parsePipListOutput
-import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlFile
 import org.toml.lang.psi.TomlLiteral
 import java.nio.file.Path
@@ -85,11 +83,7 @@ internal class DependencyVersionInlayHintsCollector(private val dependencies: De
     }
     
     private fun shouldShowHint(element: TomlLiteral, file: VirtualFile, settings: Settings): Boolean {
-        val string = element.takeIf { it.isString } ?: return false
-        val array = string.parent as? TomlArray ?: return false
-        val keyValuePair = array.keyValuePair ?: return false
-        
-        val key = keyValuePair.key
+        val key = element.stringArrayTomlKey ?: return false
         val absoluteName = key.absoluteName
         
         return when {

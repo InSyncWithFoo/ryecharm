@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.psi.PsiElement
+import org.toml.lang.psi.TomlArray
 import org.toml.lang.psi.TomlElement
 import org.toml.lang.psi.TomlKey
 import org.toml.lang.psi.TomlKeySegment
@@ -50,10 +51,10 @@ internal val TomlKey.absoluteName: TOMLPath
 
 /**
  * Return either:
- *
+ * 
  * * Itself (`this` is a [TomlKey])
  * * Its parent (`this` is possibly a [TomlKeySegment])
- * * Its grandparent (`this` is possibly a [PsiElement]`(BARE_KEY)`)
+ * * Its grandparent (`this` is possibly a leaf [PsiElement]`(BARE_KEY)`)
  * * `null`, when none of the above succeeds.
  */
 internal val PsiElement.wrappingTomlKey: TomlKey?
@@ -62,9 +63,31 @@ internal val PsiElement.wrappingTomlKey: TomlKey?
         ?: parent?.parent as? TomlKey
 
 
+/**
+ * Return either:
+ * 
+ * * Itself (`this` is a [TomlLiteral])
+ * * Its parent (`this` is possibly a leaf [PsiElement]`(...)`)
+ * * `null`, when none of the above succeeds.
+ */
 internal val PsiElement.wrappingTomlLiteral: TomlLiteral?
     get() = this as? TomlLiteral
         ?: parent as? TomlLiteral
+
+
+/**
+ * If this element is a TOML string whose parent is an array,
+ * return the key corresponding to that array.
+ */
+internal val PsiElement.stringArrayTomlKey: TomlKey?
+    get() {
+        val literal = wrappingTomlLiteral ?: return null
+        val string = literal.takeIf { it.isString } ?: return null
+        val array = string.parent as? TomlArray ?: return null
+        val key = array.keyValuePair?.key ?: return null
+        
+        return key
+    }
 
 
 /**
