@@ -1141,6 +1141,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#inspections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inspections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#suppress-unsatisfiedrequirementinspection-for-build-systemrequires" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suppress UnsatisfiedRequirementInspection for build-system.requires
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Suppress UnsatisfiedRequirementInspection for build-system.requires">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#even-when-the-interpreter-is-not-uv-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      Even when the interpreter is not uv-based
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1260,6 +1299,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#inspections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inspections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#suppress-unsatisfiedrequirementinspection-for-build-systemrequires" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suppress UnsatisfiedRequirementInspection for build-system.requires
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Suppress UnsatisfiedRequirementInspection for build-system.requires">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#even-when-the-interpreter-is-not-uv-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      Even when the interpreter is not uv-based
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1302,6 +1380,19 @@ should have TOML injected.</p>
 <p>Whether settings taking requirements arrays as values
 should have <i>Requirements</i> injected.</p>
 <p>Default: <code>true</code></p>
+<h2 id="inspections">Inspections<a class="headerlink" href="#inspections" title="Permanent link">#</a></h2>
+<h3 id="suppress-unsatisfiedrequirementinspection-for-build-systemrequires">Suppress <code>UnsatisfiedRequirementInspection</code> for <code>build-system.requires</code><a class="headerlink" href="#suppress-unsatisfiedrequirementinspection-for-build-systemrequires" title="Permanent link">#</a></h3>
+<p>Whether <code>UnsatisfiedRequirementInspection</code> errors for dependencies defined
+in <code>pyproject.toml</code>'s <a href="https://packaging.python.org/en/latest/specifications/pyproject-toml/#declaring-build-system-dependencies-the-build-system-table"><code>build-system.requires</code></a> should be suppressed.</p>
+<p>Such errors are considered false positives,
+as build dependencies are normally installed into isolated environments;
+plus, this only happens during build time, not development time.</p>
+<p>Default: <code>true</code></p>
+<h4 id="even-when-the-interpreter-is-not-uv-based">Even when the interpreter is not uv-based<a class="headerlink" href="#even-when-the-interpreter-is-not-uv-based" title="Permanent link">#</a></h4>
+<p>Whether the errors should be suppressed even when
+the project interpreter is not created by uv
+or otherwise configured to be uv-managed.</p>
+<p>Default: <code>false</code></p>
 
 
 
