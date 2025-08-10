@@ -66,12 +66,6 @@
 			id="insyncwithfoo.ryecharm.uv.actions.Install"
 			implementation="insyncwithfoo.ryecharm.uv.actions.Install"
 		/>
-		
-		<lang.inspectionSuppressor
-			id="insyncwithfoo.ryecharm.uv.suppressors.UnsatisfiedRequirementInspectionSuppressor"
-			language="TOML"
-			implementationClass="insyncwithfoo.ryecharm.uv.suppressors.UnsatisfiedRequirementInspectionSuppressor"
-		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">

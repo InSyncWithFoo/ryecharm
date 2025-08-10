@@ -29,8 +29,6 @@ internal class UVConfigurations : DisplayableState() {
     
     var retrieveDependenciesInReadAction by property(false)
     var dependenciesDataMaxAge by property(5)
-    var suppressIncorrectNIRI by property(true)
-    var suppressIncorrectNIRINonUVSDK by property(false)
 }
 
 

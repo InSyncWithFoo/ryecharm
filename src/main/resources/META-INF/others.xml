@@ -81,6 +81,12 @@
 			language="TOML"
 			implementationClass="insyncwithfoo.ryecharm.others.installers.GutterInstallButtonsProvider"
 		/>
+		
+		<lang.inspectionSuppressor
+			id="insyncwithfoo.ryecharm.others.suppressors.UnsatisfiedRequirementInspectionSuppressor"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.others.suppressors.UnsatisfiedRequirementInspectionSuppressor"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="JavaScript">

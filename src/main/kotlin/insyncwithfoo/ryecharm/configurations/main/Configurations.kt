@@ -8,6 +8,9 @@ import insyncwithfoo.ryecharm.configurations.SettingName
 internal class MainConfigurations : DisplayableState() {
     var languageInjectionPEP723Blocks by property(true)
     var languageInjectionRequirements by property(true)
+    
+    var suppressIncorrectNIRI by property(true)
+    var suppressIncorrectNIRINonUVSDK by property(false)
 }
 
 

@@ -1,5 +1,4 @@
-package insyncwithfoo.ryecharm.uv.suppressors
-
+package insyncwithfoo.ryecharm.others.suppressors
 
 import com.intellij.codeInspection.InspectionSuppressor
 import com.intellij.codeInspection.SuppressQuickFix
@@ -8,7 +7,7 @@ import com.intellij.psi.PsiElement
 import com.jetbrains.python.requirements.inspections.tools.NotInstalledRequirementInspection
 import insyncwithfoo.ryecharm.TOMLPath
 import insyncwithfoo.ryecharm.absoluteName
-import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
+import insyncwithfoo.ryecharm.configurations.main.mainConfigurations
 import insyncwithfoo.ryecharm.isPyprojectToml
 import insyncwithfoo.ryecharm.sdkIsUV
 import insyncwithfoo.ryecharm.stringArrayTomlKey
@@ -31,7 +30,7 @@ internal class UnsatisfiedRequirementInspectionSuppressor : InspectionSuppressor
         }
         
         val (project, file) = Pair(element.project, element.containingFile.virtualFile)
-        val configurations = project.uvConfigurations
+        val configurations = project.mainConfigurations
         
         when {
             !file.isPyprojectToml -> return false

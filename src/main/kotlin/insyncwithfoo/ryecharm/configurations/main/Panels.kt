@@ -26,6 +26,14 @@ private fun Row.languageInjectionRequirementsInput(block: Cell<JBCheckBox>.() ->
     checkBox(message("configurations.main.languageInjectionRequirements.label")).apply(block)
 
 
+private fun Row.suppressIncorrectNIRIInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.main.suppressIncorrectNIRI.label")).apply(block)
+
+
+private fun Row.suppressIncorrectNIRINonUVSDKInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.main.suppressIncorrectNIRINonUVSDK.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun MainPanel.makeComponent() = panel {
     group(message("configurations.main.groups.languageInjection")) {
@@ -36,6 +44,19 @@ private fun MainPanel.makeComponent() = panel {
         row {
             languageInjectionRequirementsInput { bindSelected(state::languageInjectionRequirements) }
             overrideCheckbox(state::languageInjectionRequirements)
+        }
+    }
+    
+    group(message(message("configurations.main.groups.inspections"))) {
+        row {
+            suppressIncorrectNIRIInput { bindSelected(state::suppressIncorrectNIRI) }
+            overrideCheckbox(state::suppressIncorrectNIRI)
+        }
+        indent {
+            row {
+                suppressIncorrectNIRINonUVSDKInput { bindSelected(state::suppressIncorrectNIRINonUVSDK) }
+                overrideCheckbox(state::suppressIncorrectNIRINonUVSDK)
+            }
         }
     }
 }

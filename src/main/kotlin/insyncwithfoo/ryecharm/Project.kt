@@ -76,7 +76,7 @@ private val Project.pythonSDK: Sdk?
  * @see isUV
  */
 internal val Project.sdkIsUV: Boolean
-    get() = pythonSDK?.isUV == true
+    get() = pythonSDK?.isUV == true || modules.singleOrNull()?.sdkIsUV == true
 
 
 internal val Project.path: Path?
