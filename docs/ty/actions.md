@@ -10,3 +10,8 @@ the ty executable.
 Display a message showing the version of the current ty executable.
 
 This is equivalent to running `ty version`.
+
+
+## Enable
+
+Open ty's setting panel, where the <i>Running mode</i> setting can be changed.

@@ -18,6 +18,17 @@ This is equivalent to running `uv self version`.
 
 ## Update
 
-Update uv.
+Update uv to the latest version.
 
 This is equivalent to running `uv self update`.
+
+
+## Install uv
+
+Install uv. Will give a warning
+if uv is already installed and available on PATH.
+
+This is equivalent to running [uv's standalone installers][1].
+
+
+  [1]: https://docs.astral.sh/uv/getting-started/installation/#standalone-installer

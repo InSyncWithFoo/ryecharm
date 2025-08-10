@@ -14,6 +14,61 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-16] - 2025-08-10
+
+See [the documentation][0.1.0-a16-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.12.8][0.1.0-a16-2]
+* uv: [0.8.8][0.1.0-a16-3]
+* Rye: [0.44.0][0.1.0-a16-4]
+* ty: [0.0.1-alpha.17][0.1.0-a16-5]
+
+
+### Added
+
+* On project open, RyeCharm will now:
+
+  * Recommend installing uv if it is not found.
+  * Recommend enabling ty if it is installed but disabled.
+  
+  These recommendations are only shown once.
+  The corresponding functionality can still be triggered using actions
+  (<i>Install uv</i> and <i>Enable ty</i> accordingly).
+
+* `UnsatisfiedRequirementInspection` errors for dependencies defined
+  in `pyproject.toml`'s `build-system.requires` will now be suppressed.
+  Such errors are considered false positives,
+  as build dependencies are normally installed into isolated environments;
+  plus, this only happens during build time, not development time.
+
+  This feature is enabled by default for projects using uv-based interpreters,
+  but it can also be enabled for other projects.
+
+
+### Fixed
+
+* Previously, a few features would not work during IDE indexing.
+  This has been fixed.
+  RyeCharm has never relied on IDE indices and it will continue to do so.
+* Command descriptions used to be rendered as HTML directly,
+  causing certain parts to be displayed incorrectly.
+  Now they will be rendered as Markdown.
+
+
+### Removed
+
+* 2025.1 and older versions are no longer supported.
+
+
+  [0.1.0-a16-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a16-2]: https://github.com/astral-sh/ruff/releases/tag/0.12.8
+  [0.1.0-a16-3]: https://github.com/astral-sh/uv/releases/tag/0.8.8
+  [0.1.0-a16-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a16-5]: https://github.com/astral-sh/ty/releases/tag/0.0.1-alpha.17
+
+
 ## [0.1.0-alpha-15] - 2025-07-20
 
 See [the documentation][0.1.0-a15-1] for more information.
@@ -806,7 +861,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..HEAD
+  [0.1.0-alpha-16]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..v0.1.0-alpha-16
   [0.1.0-alpha-15]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..v0.1.0-alpha-15
   [0.1.0-alpha-14]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..v0.1.0-alpha-14
   [0.1.0-alpha-13]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-12..v0.1.0-alpha-13
