@@ -26,7 +26,8 @@ internal interface WriteIntentionAction : IntentionAction {
 
 
 /**
- * Marker for intentions that are mainly based on external processes.
+ * Marker for intentions that are mainly based on external processes
+ * and thus do not have a preview.
  * 
  * @see generatePreview
  */
