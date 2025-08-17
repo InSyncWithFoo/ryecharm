@@ -12,7 +12,7 @@ internal class MainConfigurations : DisplayableState() {
     var suppressIncorrectNIRI by property(true)
     var suppressIncorrectNIRINonUVSDK by property(false)
     
-    var consoleFilterTYPaths by property(true)
+    var consoleFilterRuffAndTYPaths by property(true)
 }
 
 

@@ -11,12 +11,14 @@ internal class MainConfigurationsTest : ConfigurationsTest<MainConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 4) {
+        doShapeTest(expectedSize = 5) {
             assertEquals(true, languageInjectionPEP723Blocks)
             assertEquals(true, languageInjectionRequirements)
             
             assertEquals(true, suppressIncorrectNIRI)
             assertEquals(false, suppressIncorrectNIRINonUVSDK)
+            
+            assertEquals(true, consoleFilterRuffAndTYPaths)
         }
     }
     

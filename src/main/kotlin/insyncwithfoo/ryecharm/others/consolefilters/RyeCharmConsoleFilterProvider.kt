@@ -17,7 +17,7 @@ internal class RyeCharmConsoleFilterProvider : ConsoleFilterProvider {
         val configurations = project.mainConfigurations
         
         return arrayOfNotNull(
-            TYPathLinker(project).takeIf { configurations.consoleFilterTYPaths && project.path != null }
+            RuffAndTYPathLinker(project).takeIf { configurations.consoleFilterRuffAndTYPaths && project.path != null }
         )
     }
     

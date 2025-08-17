@@ -34,8 +34,8 @@ private fun Row.suppressIncorrectNIRINonUVSDKInput(block: Cell<JBCheckBox>.() ->
     checkBox(message("configurations.main.suppressIncorrectNIRINonUVSDK.label")).apply(block)
 
 
-private fun Row.consoleFilterTYPathsInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.main.consoleFilterTYPaths.label")).apply(block)
+private fun Row.consoleFilterRuffAndTYPathsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.main.consoleFilterRuffAndTYPaths.label")).apply(block)
 
 
 @Suppress("DialogTitleCapitalization")
@@ -66,8 +66,8 @@ private fun MainPanel.makeComponent() = panel {
     
     group(message("configurations.main.groups.consoleFilters")) {
         row {
-            consoleFilterTYPathsInput { bindSelected(state::consoleFilterTYPaths) }
-            overrideCheckbox(state::consoleFilterTYPaths)
+            consoleFilterRuffAndTYPathsInput { bindSelected(state::consoleFilterRuffAndTYPaths) }
+            overrideCheckbox(state::consoleFilterRuffAndTYPaths)
         }
     }
 }

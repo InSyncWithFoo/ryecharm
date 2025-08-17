@@ -10,7 +10,7 @@ import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ruff.toZeroBased
 
 
-internal class TYPathLinker(private val project: Project) : Filter, DumbAware {
+internal class RuffAndTYPathLinker(private val project: Project) : Filter, DumbAware {
     
     override fun applyFilter(line: String, entireLength: Int): Filter.Result? {
         val lineBreakTrimmed = line.trimEnd()
