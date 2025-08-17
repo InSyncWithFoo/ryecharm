@@ -87,6 +87,11 @@
 			language="TOML"
 			implementationClass="insyncwithfoo.ryecharm.others.suppressors.UnsatisfiedRequirementInspectionSuppressor"
 		/>
+		
+		<consoleFilterProvider
+			id="insyncwithfoo.ryecharm.others.consolefilters.RyeCharmConsoleFilterProvider"
+			implementation="insyncwithfoo.ryecharm.others.consolefilters.RyeCharmConsoleFilterProvider"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="JavaScript">

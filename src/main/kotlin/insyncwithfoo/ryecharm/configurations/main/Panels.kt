@@ -34,6 +34,10 @@ private fun Row.suppressIncorrectNIRINonUVSDKInput(block: Cell<JBCheckBox>.() ->
     checkBox(message("configurations.main.suppressIncorrectNIRINonUVSDK.label")).apply(block)
 
 
+private fun Row.consoleFilterTYPathsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.main.consoleFilterTYPaths.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun MainPanel.makeComponent() = panel {
     group(message("configurations.main.groups.languageInjection")) {
@@ -47,7 +51,7 @@ private fun MainPanel.makeComponent() = panel {
         }
     }
     
-    group(message(message("configurations.main.groups.inspections"))) {
+    group(message("configurations.main.groups.inspections")) {
         row {
             suppressIncorrectNIRIInput { bindSelected(state::suppressIncorrectNIRI) }
             overrideCheckbox(state::suppressIncorrectNIRI)
@@ -57,6 +61,13 @@ private fun MainPanel.makeComponent() = panel {
                 suppressIncorrectNIRINonUVSDKInput { bindSelected(state::suppressIncorrectNIRINonUVSDK) }
                 overrideCheckbox(state::suppressIncorrectNIRINonUVSDK)
             }
+        }
+    }
+    
+    group(message("configurations.main.groups.consoleFilters")) {
+        row {
+            consoleFilterTYPathsInput { bindSelected(state::consoleFilterTYPaths) }
+            overrideCheckbox(state::consoleFilterTYPaths)
         }
     }
 }
