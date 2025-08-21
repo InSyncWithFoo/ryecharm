@@ -1,9 +1,11 @@
 package insyncwithfoo.ryecharm.ruff.documentation
 
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.text.HtmlChunk
 import insyncwithfoo.ryecharm.DocumentationURI
 import insyncwithfoo.ryecharm.HTML
 import insyncwithfoo.ryecharm.Markdown
+import insyncwithfoo.ryecharm.Popup
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.popup
 import insyncwithfoo.ryecharm.removeSurroundingTag
@@ -58,9 +60,22 @@ private val definitionHighlightedKeySegment = """(?x)
  * Before: `lint_flake8-annotations_allow-star-arg-any`
  * 
  * After: `lint.flake8-annotations.allow-star-arg-any`
+ * 
+ * @see tomlPathToAnchor
  */
 private fun String.anchorToTOMLPath() =
     this.replace("_", ".")
+
+
+/**
+ * Before: `lint.flake8-annotations.allow-star-arg-any`
+ *
+ * After: `lint_flake8-annotations_allow-star-arg-any`
+ * 
+ * @see anchorToTOMLPath
+ */
+private fun OptionName.tomlPathToAnchor() =
+    this.replace(".", "_")
 
 
 internal fun OptionName.toAbsoluteName(): OptionName =
@@ -131,6 +146,20 @@ private fun OptionName.toDefinitionBlock(): HTML {
 }
 
 
+private fun Popup.linkToDocsFooter(name: OptionName) = bottom {
+    val anchor = when (name.isEmpty()) {
+        true -> ""
+        else -> "#${name.tomlPathToAnchor()}"
+    }
+    val url = "https://docs.astral.sh/ruff/settings/$anchor"
+    
+    // TODO: More ergonomic API
+    icon("${AllIcons.Toolwindows::class.qualifiedName}.Documentation")
+    html("&nbsp;")
+    html("""<a href="$url"><code>$name</code></a>""")
+}
+
+
 private val OptionInfo.renderedContentBlock: HTML
     get() = doc
         .replaceSectionLinksWithSpecializedURIs()
@@ -171,6 +200,8 @@ private fun OptionInfo.makeDocumentationPopup(name: OptionName) = popup {
         
         example(renderedExampleBlock)
     }
+    
+    linkToDocsFooter(name)
 }
 
 
@@ -205,6 +236,8 @@ private fun Map<OptionName, OptionInfo>.makeDocumentationPopup(name: OptionName)
     separator()
     
     content(content.toHTML())
+    
+    linkToDocsFooter(name)
 }
 
 
