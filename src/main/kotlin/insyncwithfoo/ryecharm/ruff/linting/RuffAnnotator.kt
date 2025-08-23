@@ -4,6 +4,7 @@ import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.ide.scratch.ScratchUtil
 import com.intellij.lang.annotation.AnnotationBuilder
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
@@ -56,8 +57,10 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         
         val project = file.project
         val configurations = project.ruffConfigurations
+        val virtualFile = file.virtualFile ?: return null
         
-        if (configurations.runningMode != RunningMode.COMMAND_LINE) {
+        // TODO: Make this configurable
+        if (configurations.runningMode != RunningMode.COMMAND_LINE && !ScratchUtil.isScratch(virtualFile)) {
             return null
         }
         
@@ -66,7 +69,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
         }
         
         val ruff = project.ruff ?: return null
-        val path = file.virtualFile.toNioPathOrNull() ?: return null
+        val path = virtualFile.toNioPathOrNull() ?: return null
         val document = file.viewProvider.document
         
         return InitialInfo(project, configurations, ruff, document.text, path)
