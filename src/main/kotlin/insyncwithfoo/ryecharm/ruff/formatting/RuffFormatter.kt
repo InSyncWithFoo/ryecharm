@@ -15,6 +15,8 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.addOpenPluginIssueTrackerAction
 import insyncwithfoo.ryecharm.addSeeOutputActions
 import insyncwithfoo.ryecharm.canBeFormattedByRuff
+import insyncwithfoo.ryecharm.common.logging.debug
+import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.configurations.ruffExecutable
 import insyncwithfoo.ryecharm.couldNotConstructCommandFactory
@@ -106,27 +108,34 @@ private fun OSProcessHandler.addProcessTerminatedListener(action: CapturingProce
 }
 
 
-private class RuffFormattingTask(private val request: AsyncFormattingRequest, command: Command) :
+private class RuffFormattingTask(private val request: AsyncFormattingRequest, private val command: Command) :
     RuffFormatter.FormattingTask()
 {
     
+    private val project = request.context.project
     private val handler = command.processHandler
     
     override fun isRunUnderProgress() = true
     
     override fun run() = handler.run {
+        project.ruffLogger?.debug(command)
+        
         addProcessTerminatedListener { event ->
-            val configurations = request.context.project.ruffConfigurations
+            val configurations = project.ruffConfigurations
             
             handleOutput(event, snoozeError = configurations.snoozeFormattingTaskError)
         }
         startNotify()
     }
     
-    private fun CapturingProcessAdapter.handleOutput(event: ProcessEvent, snoozeError: Boolean) = when {
-        event.exitCode == 0 -> request.onTextReady(output.stdout)
-        snoozeError -> request.noChange()
-        else -> request.errorHappened(output)
+    private fun CapturingProcessAdapter.handleOutput(event: ProcessEvent, snoozeError: Boolean) {
+        project.ruffLogger?.debug(output)
+        
+        when {
+            event.exitCode == 0 -> request.onTextReady(output.stdout)
+            snoozeError -> request.noChange()
+            else -> request.errorHappened(output)
+        }
     }
     
     override fun cancel(): Boolean {

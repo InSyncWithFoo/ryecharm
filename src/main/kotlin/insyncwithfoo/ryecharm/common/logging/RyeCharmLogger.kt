@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.common.logging
 
+import com.intellij.execution.process.ProcessOutput
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.Disposable
@@ -7,6 +8,8 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
+import insyncwithfoo.ryecharm.Command
+import insyncwithfoo.ryecharm.ProcessOutputSurrogate
 import insyncwithfoo.ryecharm.message
 
 
@@ -30,6 +33,17 @@ internal class ConsoleHolder(private val project: Project, private val console: 
     fun warning(message: String) = print(message, contentType = ConsoleViewContentType.LOG_WARNING_OUTPUT)
     fun error(message: String) = print(message, contentType = ConsoleViewContentType.LOG_ERROR_OUTPUT)
     
+}
+
+
+internal fun ConsoleHolder.debug(command: Command) {
+    debug("Running: (${command.workingDirectory}) $command")
+}
+
+
+internal fun ConsoleHolder.debug(output: ProcessOutput) {
+    debug("Output: ${ProcessOutputSurrogate(output)}")
+    debug("")
 }
 
 

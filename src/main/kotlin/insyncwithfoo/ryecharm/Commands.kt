@@ -5,6 +5,7 @@ import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.project.Project
 import com.intellij.util.io.toByteArray
+import insyncwithfoo.ryecharm.common.logging.debug
 import insyncwithfoo.ryecharm.common.logging.ruffLogger
 import insyncwithfoo.ryecharm.common.logging.ryeLogger
 import insyncwithfoo.ryecharm.common.logging.tyLogger
@@ -138,11 +139,10 @@ internal abstract class Command {
             else -> null
         }
         
-        consoleHolder?.debug("Running: ($workingDirectory) $this")
+        consoleHolder?.debug(this)
         
         return processHandler.runProcess(NO_TIME_LIMIT).also {
-            consoleHolder?.debug("Output: ${ProcessOutputSurrogate(it)}")
-            consoleHolder?.debug("")
+            consoleHolder?.debug(it)
         }
     }
     
