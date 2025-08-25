@@ -116,11 +116,12 @@ private fun Project.doBumping(bumpType: VersionBumpType, file: PsiFile?) {
     val uv = this.uv
     
     if (uv == null) {
-        return couldNotConstructCommandFactory<UV>(
+        couldNotConstructCommandFactory<UV>(
             """
             |Was trying to bump project version.
             """.trimMargin()
         )
+        return
     }
     
     val command = uv.bumpProjectVersion(bumpType)

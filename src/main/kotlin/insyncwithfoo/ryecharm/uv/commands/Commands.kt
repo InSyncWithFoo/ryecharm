@@ -93,7 +93,7 @@ internal class PipCompileCommand : Command(), UVCommand {
     override val subcommands = listOf("pip", "compile")
     
     override val runningMessage: String
-        get() = message("progresses.command.uv.pipcompile")
+        get() = message("progresses.command.uv.pipCompile")
     
 }
 
@@ -103,7 +103,7 @@ internal class PipListCommand : Command(), UVCommand {
     override val subcommands = listOf("pip", "list")
     
     override val runningMessage: String
-        get() = message("progresses.command.uv.piplist")
+        get() = message("progresses.command.uv.pipList")
     
 }
 
@@ -113,7 +113,7 @@ internal class PipTreeCommand : Command(), UVCommand {
     override val subcommands = listOf("pip", "tree")
     
     override val runningMessage: String
-        get() = message("progresses.command.uv.piptree")
+        get() = message("progresses.command.uv.pipTree")
     
 }
 

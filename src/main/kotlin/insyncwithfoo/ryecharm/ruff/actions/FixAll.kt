@@ -30,7 +30,7 @@ internal abstract class FixAll(private val unsafe: Boolean) : AnAction(), DumbAw
     
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return noProjectFound()
-        val editor = event.editor ?: return project.noDocumentFound()
+        val editor = event.dataContext.editor ?: return project.noDocumentFound()
         
         val ruff = project.ruff
         

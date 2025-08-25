@@ -2,17 +2,11 @@ package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.components.Service
-import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import kotlinx.coroutines.CoroutineScope
 import java.nio.file.Path
-
-
-internal val AnActionEvent.editor: Editor?
-    get() = dataContext.getData(CommonDataKeys.EDITOR)
 
 
 /**
