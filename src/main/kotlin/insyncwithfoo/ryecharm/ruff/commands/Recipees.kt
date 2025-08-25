@@ -17,14 +17,10 @@ internal enum class AnalyzeGraphDirection {
 
 
 // TODO: `--detect-string-imports`, `--min-dots`
-internal fun Ruff.analyzeGraph(file: Path? = null, interpreter: Path?, direction: AnalyzeGraphDirection): Command {
+internal fun Ruff.analyzeGraph(interpreter: Path?, direction: AnalyzeGraphDirection): Command {
     val arguments = CommandArguments()
     
     arguments["--direction"] = direction.toString()
-    
-    if (file != null) {
-        arguments += file.toString()
-    }
     
     if (interpreter != null) {
         arguments["--python"] = interpreter.toString()

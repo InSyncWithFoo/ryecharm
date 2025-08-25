@@ -46,9 +46,9 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
     
     @Test
-    fun `test analyzeGraph 1 - no path, no interpreter, dependencies`() {
+    fun `test analyzeGraph 1 - dependencies, no interpreter`() {
         val direction = AnalyzeGraphDirection.DEPENDENCIES
-        val command = ruff.analyzeGraph(file = null, interpreter = null, direction)
+        val command = ruff.analyzeGraph(interpreter = null, direction)
         
         commandTest<AnalyzeGraphCommand>(command) {
             assertArgumentsContain("--direction" to "dependencies")
@@ -56,13 +56,12 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
     
     @Test
-    fun `test analyzeGraph 2 - with path, with interpreter, dependents`() {
-        val (file, interpreter) = Pair(randomPath(), randomPath())
+    fun `test analyzeGraph 2 - dependents, with interpreter`() {
+        val interpreter = randomPath()
         val direction = AnalyzeGraphDirection.DEPENDENTS
-        val command = ruff.analyzeGraph(file, interpreter, direction)
+        val command = ruff.analyzeGraph(interpreter, direction)
         
         commandTest<AnalyzeGraphCommand>(command) {
-            assertArgumentsContain(file.toString())
             assertArgumentsContain("--python" to interpreter.toString())
             assertArgumentsContain("--direction" to "dependents")
         }

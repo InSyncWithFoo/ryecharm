@@ -41,8 +41,11 @@ internal class ImportGraphHierarchyProvider : HierarchyProvider {
             return null
         }
         
-        val element = dataContext.getRelevantElement() as? PsiWhiteSpace ?: return null
-        val file = element.parent as? PyFile ?: return null
+        val file = when (val element = dataContext.getRelevantElement()) {
+            is PsiWhiteSpace -> element.parent as? PyFile ?: return null
+            is PyFile -> element
+            else -> return null
+        }
         
         if (!file.isNormalPyFile) {
             return null

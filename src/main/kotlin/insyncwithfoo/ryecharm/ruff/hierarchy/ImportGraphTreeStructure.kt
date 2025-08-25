@@ -4,6 +4,7 @@ import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.jetbrains.python.hierarchy.call.PyCallHierarchyTreeStructureBase
 import com.jetbrains.python.hierarchy.call.PyCalleeFunctionTreeStructure
 import com.jetbrains.python.hierarchy.call.PyCallerFunctionTreeStructure
@@ -61,6 +62,10 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
     PyCallHierarchyTreeStructureBase(file.project, file, scopeType)
 {
     
+    private val importGraph by lazy {
+        file.project.getImportGraph()
+    }
+    
     override fun getChildren(element: PyElement) =
         when (element is PyFile && element.isNormalPyFile) {
             true -> getChildren(element) ?: emptyMap()
@@ -70,22 +75,34 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
     private fun getChildren(file: PyFile): Map<PsiElement, Collection<PsiElement>>? {
         val project = file.project
         val filePath = file.virtualFile.toNioPathOrNull() ?: return null
+        val importGraph = this.importGraph ?: return null
         
-        val childPaths = project.getChildPaths(filePath) ?: return null
-        val psiManager = project.psiManager
+        // TODO: Query non-project files lazily
+        val children = importGraph[filePath] ?: return emptyMap()
+        val childrenToGrandchildren = mutableMapOf<PsiElement, List<PsiElement>>()
         
-        val childFiles = childPaths.mapNotNull { child ->
-            child.toLocalVirtualFile()?.let { psiManager.findFile(it) }
+        for (child in children) {
+            val grandchildren = importGraph[child] ?: emptyList()
+            
+            val childFile = project.findPSIFile(child) ?: continue
+            val grandchildrenFiles = grandchildren.mapNotNull { project.findPSIFile(it) }
+            
+            childrenToGrandchildren[childFile] = grandchildrenFiles
         }
         
-        return childFiles.associateWith { emptyList() }
+        return childrenToGrandchildren
     }
     
-    private fun Project.getChildPaths(file: Path): Children? {
+    private fun Project.findPSIFile(path: Path): PsiFile? {
+        val virtualFile = path.toLocalVirtualFile() ?: return null
+        return psiManager.findFile(virtualFile)
+    }
+    
+    private fun Project.getImportGraph(): ImportGraph? {
         val projectPath = this.path ?: return null
         
         val ruff = this.ruff ?: return null
-        val command = ruff.analyzeGraph(file, interpreterPath, direction)
+        val command = ruff.analyzeGraph(interpreterPath, direction)
         
         val output = runBlockingCancellable {
             runInBackground(command)
@@ -97,11 +114,8 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
         
         val pathSerializer = RelativePathSerializer(base = projectPath)
         val graphSerializer = MapSerializer(pathSerializer, ListSerializer(pathSerializer))
-        val result = output.stdout.parseAsJSON<ImportGraph>(graphSerializer) ?: return null
         
-        return result.entries.firstNotNullOf { (parent, children) ->
-            children.takeIf { file == parent }
-        }
+        return output.stdout.parseAsJSON<ImportGraph>(graphSerializer)
     }
     
 }
