@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.execution.process.ProcessHandlerFactory
+import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.application.Application
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.EditorFactory
@@ -11,6 +12,10 @@ import com.intellij.openapi.vfs.VirtualFileManager
 
 internal val application: Application
     get() = ApplicationManager.getApplication()
+
+
+internal val actionManager: ActionManager
+    get() = ActionManager.getInstance()
 
 
 internal val fileDocumentManager: FileDocumentManager
@@ -31,3 +36,8 @@ internal val processHandlerFactory: ProcessHandlerFactory
 
 internal val localFileSystem: LocalFileSystem
     get() = LocalFileSystem.getInstance()
+
+
+internal fun invokeLater(action: () -> Unit) {
+    application.invokeLater(action)
+}

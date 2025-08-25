@@ -13,6 +13,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.toNioPathOrNull
 import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.PsiManager
 import com.intellij.testFramework.LightVirtualFile
 import com.intellij.util.messages.MessageBusConnection
 import com.jetbrains.python.sdk.PythonSdkUtil
@@ -50,6 +51,10 @@ internal val Project.rootManager: ProjectRootManager
 
 private val Project.moduleManager: ModuleManager
     get() = ModuleManager.getInstance(this)
+
+
+internal val Project.psiManager: PsiManager
+    get() = PsiManager.getInstance(this)
 
 
 internal val Project.psiDocumentManager: PsiDocumentManager
