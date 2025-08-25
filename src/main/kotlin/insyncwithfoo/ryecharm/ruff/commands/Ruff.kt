@@ -23,6 +23,9 @@ internal class Ruff private constructor(
     override val workingDirectory: Path?
 ) : CommandFactory() {
     
+    fun analyzeGraph(arguments: CommandArguments) =
+        AnalyzeGraphCommand().build(arguments)
+    
     fun check(arguments: CommandArguments, stdin: String? = null) =
         CheckCommand().build(arguments, stdin)
     
