@@ -115,7 +115,7 @@ internal class ImportGraphBrowser(file: PyFile) : CallHierarchyBrowserBase(file.
         
         override fun isSelected(event: AnActionEvent): Boolean {
             val currentType = event.updateSession.compute(this, "getCurrentViewType", ActionUpdateThread.EDT) {
-                getCurrentViewType()
+                currentViewType
             }
             
             return type == currentType
@@ -133,7 +133,7 @@ internal class ImportGraphBrowser(file: PyFile) : CallHierarchyBrowserBase(file.
             val isValidBase = HierarchyBrowserBaseEx::class.java.getDeclaredMethod("isValidBase")
             isValidBase.isAccessible = true
             
-            setEnabled(isValidBase.invoke(this@ImportGraphBrowser) as Boolean)
+            isEnabled = isValidBase.invoke(this@ImportGraphBrowser) as Boolean
         }
         
     }
