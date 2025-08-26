@@ -177,6 +177,13 @@ private fun Row.letNativeClientPullDiagnosticsInput(block: Cell<JBCheckBox>.() -
 }
 
 
+private fun Row.showImportGraphOnCallHierarchyForFileInput(block: Cell<JBCheckBox>.() -> Unit) = run {
+    val comment = message("configurations.ruff.showImportGraphOnCallHierarchyForFile.comment")
+    
+    checkBox(message("configurations.ruff.showImportGraphOnCallHierarchyForFile.label")).comment(comment).apply(block)
+}
+
+
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
@@ -374,6 +381,10 @@ private fun RuffPanel.makeComponent() = panel {
         row {
             letNativeClientPullDiagnosticsInput { bindSelected(state::letNativeClientPullDiagnostics) }
             overrideCheckbox(state::letNativeClientPullDiagnostics)
+        }
+        row {
+            showImportGraphOnCallHierarchyForFileInput { bindSelected(state::showImportGraphOnCallHierarchyForFile) }
+            overrideCheckbox(state::showImportGraphOnCallHierarchyForFile)
         }
     }
     

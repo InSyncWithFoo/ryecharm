@@ -8,6 +8,7 @@ import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.hierarchy.call.PyCallHierarchyBrowser
 import com.jetbrains.python.hierarchy.call.PyCallHierarchyProvider
 import com.jetbrains.python.psi.PyFile
+import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.getRelevantElement
 import insyncwithfoo.ryecharm.isNormalPyFile
 import insyncwithfoo.ryecharm.path
@@ -36,16 +37,17 @@ internal class ImportGraphHierarchyProvider : HierarchyProvider {
      */
     override fun getTarget(dataContext: DataContext): PsiElement? {
         val project = dataContext.project ?: return null
+        val configurations = project.ruffConfigurations
         
         if (project.ruff == null || project.path == null) {
             return null
         }
         
-        val file = when (val element = dataContext.getRelevantElement()) {
-            is PsiWhiteSpace -> element.parent as? PyFile ?: return null
-            is PyFile -> element
-            else -> return null
+        if (!configurations.showImportGraphOnCallHierarchyForFile) {
+            return null
         }
+        
+        val file = dataContext.getRelevantElement() as? PyFile ?: return null
         
         if (!file.isNormalPyFile) {
             return null
