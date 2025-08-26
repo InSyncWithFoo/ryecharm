@@ -11,7 +11,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 38) {
+        doShapeTest(expectedSize = 36) {
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
             assertEquals(null, configurationFile)
