@@ -4,8 +4,6 @@ import com.intellij.ide.hierarchy.HierarchyBrowser
 import com.intellij.ide.hierarchy.HierarchyProvider
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiWhiteSpace
-import com.jetbrains.python.hierarchy.call.PyCallHierarchyBrowser
 import com.jetbrains.python.hierarchy.call.PyCallHierarchyProvider
 import com.jetbrains.python.psi.PyFile
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
@@ -25,14 +23,10 @@ import insyncwithfoo.ryecharm.ruff.commands.ruff
 internal class ImportGraphHierarchyProvider : HierarchyProvider {
     
     /**
-     * Return the containing [PyFile] if and only if
-     * the current element is a top-level [PsiWhiteSpace].
+     * Return the current element if and only if
+     * it is a normal [PyFile].
      * 
-     * [PyCallHierarchyProvider] doesn't return null
-     * when invoked on a [PsiWhiteSpace] child of a [PyFile],
-     * even though [PyCallHierarchyBrowser] only expects functions
-     * (judging by its constructor's parameter names).
-     * 
+     * @see isNormalPyFile
      * @see PyCallHierarchyProvider.getTarget
      */
     override fun getTarget(dataContext: DataContext): PsiElement? {
@@ -59,9 +53,6 @@ internal class ImportGraphHierarchyProvider : HierarchyProvider {
     override fun createHierarchyBrowser(target: PsiElement) =
         ImportGraphBrowser(target as PyFile)
     
-    /**
-     * @see PyCallHierarchyProvider.browserActivated
-     */
     override fun browserActivated(hierarchyBrowser: HierarchyBrowser) {
         (hierarchyBrowser as ImportGraphBrowser)
             .changeView(ImportGraphBrowser.importersOf)

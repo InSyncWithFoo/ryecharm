@@ -60,7 +60,7 @@ internal fun String.toOSDependentFileName() = when {
  * Return the corresponding [VirtualFile]
  * as found by [LocalFileSystem], if any.
  */
-internal fun Path.toLocalVirtualFile()=
+internal fun Path.toLocalVirtualFile() =
     localFileSystem.findFileByNioFile(this)
 
 
