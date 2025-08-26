@@ -36,6 +36,7 @@ import kotlin.io.path.div
 private typealias Parent = Path
 private typealias Children = List<Path>
 private typealias ImportGraph = Map<Parent, Children>
+private typealias MutableImportGraph = MutableMap<Parent, Children>
 
 
 private class RelativePathSerializer(private val base: Path) : KSerializer<Path> {
@@ -62,9 +63,7 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
     PyCallHierarchyTreeStructureBase(file.project, file, scopeType)
 {
     
-    private val importGraph by lazy {
-        file.project.getImportGraph()
-    }
+    private lateinit var cachedGraph: MutableImportGraph
     
     override fun getChildren(element: PyElement) =
         when (element is PyFile && element.isNormalPyFile) {
@@ -72,25 +71,22 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
             else -> emptyMap()
         }
     
+    /**
+     * Return a map of children nodes (e.g., modules imported)
+     * to usage nodes (e.g., `import` statements for those modules).
+     * 
+     * Since `ruff analyze graph` doesn't say where the usages are,
+     * the list of usage nodes are always empty.
+     */
     private fun getChildren(file: PyFile): Map<PsiElement, Collection<PsiElement>>? {
         val project = file.project
         val filePath = file.virtualFile.toNioPathOrNull() ?: return null
-        val importGraph = this.importGraph ?: return null
         
-        // TODO: Query non-project files lazily
-        val children = importGraph[filePath] ?: return emptyMap()
-        val childrenToGrandchildren = mutableMapOf<PsiElement, List<PsiElement>>()
+        val children = project.getChildrenOrQuery(filePath) ?: return null
         
-        for (child in children) {
-            val grandchildren = importGraph[child] ?: emptyList()
-            
-            val childFile = project.findPSIFile(child) ?: continue
-            val grandchildrenFiles = grandchildren.mapNotNull { project.findPSIFile(it) }
-            
-            childrenToGrandchildren[childFile] = grandchildrenFiles
-        }
-        
-        return childrenToGrandchildren
+        return children
+            .mapNotNull { project.findPSIFile(it) }
+            .associateWith { emptyList() }
     }
     
     private fun Project.findPSIFile(path: Path): PsiFile? {
@@ -98,11 +94,26 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
         return psiManager.findFile(virtualFile)
     }
     
-    private fun Project.getImportGraph(): ImportGraph? {
+    private fun Project.getChildrenOrQuery(file: Parent): Children? {
+        if (!::cachedGraph.isInitialized) {
+            cachedGraph = getImportGraph()?.toMutableMap() ?: return null
+        }
+        
+        if (cachedGraph[file] != null) {
+            return cachedGraph[file]
+        }
+        
+        val graph = getImportGraph(file) ?: return null
+        val children = graph[file] ?: return null
+        
+        return children.also { cachedGraph[file] = it }
+    }
+    
+    private fun Project.getImportGraph(file: Path? = null): ImportGraph? {
         val projectPath = this.path ?: return null
         
         val ruff = this.ruff ?: return null
-        val command = ruff.analyzeGraph(interpreterPath, direction)
+        val command = ruff.analyzeGraph(file, interpreterPath, direction)
         
         val output = runBlockingCancellable {
             runInBackground(command)
