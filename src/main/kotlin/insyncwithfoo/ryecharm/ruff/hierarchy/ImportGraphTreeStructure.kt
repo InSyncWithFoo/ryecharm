@@ -114,7 +114,7 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
     }
     
     private fun Module.getImportGraph(file: Path? = null): ImportGraph? {
-        val projectPath = this.path ?: return null
+        val projectPath = project.path ?: return null
         
         val ruff = project.ruff ?: return null
         val command = ruff.analyzeGraph(file, interpreterPath, direction)
