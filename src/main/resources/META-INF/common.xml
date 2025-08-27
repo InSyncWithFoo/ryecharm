@@ -25,6 +25,10 @@
 			
 			factoryClass="insyncwithfoo.ryecharm.common.logging.RyeCharmLoggingToolWindowFactory"
 		/>
+		
+		<dependencySupport kind="python" coordinate="ruff" displayName="Ruff"/>
+		<dependencySupport kind="python" coordinate="uv" displayName="uv"/>
+		<dependencySupport kind="python" coordinate="ty" displayName="ty"/>
 	</extensions>
 	
 	<actions>
