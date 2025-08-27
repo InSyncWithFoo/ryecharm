@@ -35,6 +35,9 @@ internal abstract class CommandFactoryTest(private val commandInterface: Class<*
     protected fun buildString(capacityRange: IntRange, generate: () -> Any) =
         buildString(capacityRange.random()) { append(generate()) }
     
+    protected inline fun <reified C> subclassCount() =
+        `package`.getSubtypesOf<C>().size
+    
     protected inline fun <reified C : Command> commandClassTest(subcommands: List<String>) {
         val instance = C::class.java.getConstructor().newInstance()
         

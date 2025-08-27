@@ -24,6 +24,7 @@ internal val lsp4ijIsAvailable: Boolean
  * it is part of IntelliJ IDEA Ultimate, WebStorm, PhpStorm, PyCharm Professional,
  * DataSpell, RubyMine, CLion, Aqua, DataGrip, GoLand, Rider, and RustRover.
  */
+@Suppress("UnusedExpression")
 internal val lspIsAvailable by lazy {
     try {
         LspServerSupportProvider

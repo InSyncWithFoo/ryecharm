@@ -29,6 +29,8 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     
     @Test
     fun `test command classes`() {
+        assertEquals(11, subclassCount<RuffCommand>())
+        
         commandClassTest<CheckCommand>(listOf("check"))
         commandClassTest<CleanCommand>(listOf("clean"))
         commandClassTest<ConfigCommand>(listOf("config"))

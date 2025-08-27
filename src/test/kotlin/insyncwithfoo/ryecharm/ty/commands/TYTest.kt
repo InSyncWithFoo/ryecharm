@@ -16,6 +16,8 @@ internal class TYTest : CommandFactoryTest(TYCommand::class.java) {
 
     @Test
     fun `test command classes`() {
+        assertEquals(1, subclassCount<TYCommand>())
+        
         commandClassTest<VersionCommand>(listOf("version"))
     }
     

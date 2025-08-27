@@ -35,6 +35,8 @@ internal class UVTest : CommandFactoryTest(UVCommand::class.java) {
     
     @Test
     fun `test command classes`() {
+        assertEquals(13, subclassCount<UVCommand>())
+        
         commandClassTest<AddCommand>(listOf("add"))
         commandClassTest<InitCommand>(listOf("init"))
         commandClassTest<InstallDependenciesCommand>(listOf("sync"))

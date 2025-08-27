@@ -16,6 +16,8 @@ internal class RyeTest : CommandFactoryTest(RyeCommand::class.java) {
 
     @Test
     fun `test command classes`() {
+        assertEquals(2, subclassCount<RyeCommand>())
+        
         commandClassTest<ConfigCommand>(listOf("config"))
         commandClassTest<ShowCommand>(listOf("show"))
     }
