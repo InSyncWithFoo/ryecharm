@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm.ruff.hierarchy
 
+import com.intellij.openapi.module.Module
 import com.intellij.openapi.progress.runBlockingCancellable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.toNioPathOrNull
@@ -13,6 +14,7 @@ import com.jetbrains.python.psi.PyFile
 import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.isNormalPyFile
+import insyncwithfoo.ryecharm.module
 import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.psiManager
@@ -80,9 +82,11 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
      */
     private fun getChildren(file: PyFile): Map<PsiElement, Collection<PsiElement>>? {
         val project = file.project
+        val module = file.module ?: return null
+        
         val filePath = file.virtualFile.toNioPathOrNull() ?: return null
         
-        val children = project.getChildrenOrQuery(filePath) ?: return null
+        val children = module.getChildrenOrQuery(filePath) ?: return null
         
         return children
             .mapNotNull { project.findPSIFile(it) }
@@ -94,7 +98,7 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
         return psiManager.findFile(virtualFile)
     }
     
-    private fun Project.getChildrenOrQuery(file: Parent): Children? {
+    private fun Module.getChildrenOrQuery(file: Parent): Children? {
         if (!::cachedGraph.isInitialized) {
             cachedGraph = getImportGraph()?.toMutableMap() ?: return null
         }
@@ -109,14 +113,14 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
         return children.also { cachedGraph[file] = it }
     }
     
-    private fun Project.getImportGraph(file: Path? = null): ImportGraph? {
+    private fun Module.getImportGraph(file: Path? = null): ImportGraph? {
         val projectPath = this.path ?: return null
         
-        val ruff = this.ruff ?: return null
+        val ruff = project.ruff ?: return null
         val command = ruff.analyzeGraph(file, interpreterPath, direction)
         
         val output = runBlockingCancellable {
-            runInBackground(command)
+            project.runInBackground(command)
         }
         
         if (output.completedAbnormally) {
