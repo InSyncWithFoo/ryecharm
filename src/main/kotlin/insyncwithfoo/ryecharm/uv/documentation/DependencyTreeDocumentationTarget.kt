@@ -2,7 +2,7 @@ package insyncwithfoo.ryecharm.uv.documentation
 
 import com.intellij.execution.process.ProcessOutput
 import com.intellij.openapi.application.readAction
-import com.intellij.openapi.project.Project
+import com.intellij.openapi.module.Module
 import com.intellij.platform.backend.documentation.DocumentationResult
 import com.intellij.psi.PsiElement
 import insyncwithfoo.ryecharm.ElementBasedDocumentationTarget
@@ -34,12 +34,12 @@ internal class DependencyTreeDocumentationTarget(
         DependencyTreeDocumentationTarget(element, `package`, inverted)
     
     override fun computeDocumentation() = DocumentationResult.asyncDocumentation {
-        project.getDocumentation()?.toDocumentationResult()
+        module?.getDocumentation()?.toDocumentationResult()
     }
     
-    private suspend fun Project.getDocumentation(): HTML? {
-        val uv = this.uv ?: return null
-        val configurations = uvConfigurations
+    private suspend fun Module.getDocumentation(): HTML? {
+        val uv = project.uv ?: return null
+        val configurations = project.uvConfigurations
         
         // TODO: Use `uv tree` instead?
         val command = uv.pipTree(
@@ -53,11 +53,11 @@ internal class DependencyTreeDocumentationTarget(
         )
         
         val output = runUnderIOThread {
-            runInBackground(command)
+            project.runInBackground(command)
         }
         
         if (output.isTimeout) {
-            processTimeout(command)
+            project.processTimeout(command)
             return null
         }
         

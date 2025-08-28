@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.model.Pointer
+import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.presentation.TargetPresentation
@@ -15,6 +16,9 @@ internal abstract class ElementBasedDocumentationTarget : DocumentationTarget {
     
     protected val project: Project
         get() = element.project
+    
+    protected val module: Module?
+        get() = element.module
     
     protected abstract fun fromDereferenced(element: PsiElement): ElementBasedDocumentationTarget
     
