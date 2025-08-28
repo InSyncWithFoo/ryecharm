@@ -29,8 +29,9 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     
     @Test
     fun `test command classes`() {
-        assertEquals(11, subclassCount<RuffCommand>())
+        assertEquals(12, subclassCount<RuffCommand>())
         
+        commandClassTest<AnalyzeGraphCommand>(listOf("analyze", "graph"))
         commandClassTest<CheckCommand>(listOf("check"))
         commandClassTest<CleanCommand>(listOf("clean"))
         commandClassTest<ConfigCommand>(listOf("config"))
@@ -42,6 +43,29 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
         commandClassTest<OptimizeImportsCommand>(listOf("check"))
         commandClassTest<OrganizeImportsCommand>(listOf("check"))
         commandClassTest<ShowSettingsCommand>(listOf("check"))
+    }
+    
+    @Test
+    fun `test analyzeGraph 1 - dependencies, no path, no interpreter`() {
+        val direction = AnalyzeGraphDirection.DEPENDENCIES
+        val command = ruff.analyzeGraph(file = null, interpreter = null, direction)
+        
+        commandTest<AnalyzeGraphCommand>(command) {
+            assertArgumentsContain("--direction" to "dependencies")
+        }
+    }
+    
+    @Test
+    fun `test analyzeGraph 2 - dependents, with path, with interpreter`() {
+        val (file, interpreter) = Pair(randomPath(), randomPath())
+        val direction = AnalyzeGraphDirection.DEPENDENTS
+        val command = ruff.analyzeGraph(file, interpreter, direction)
+        
+        commandTest<AnalyzeGraphCommand>(command) {
+            assertArgumentsContain(file.toString())
+            assertArgumentsContain("--python" to interpreter.toString())
+            assertArgumentsContain("--direction" to "dependents")
+        }
     }
     
     @Test

@@ -1,5 +1,6 @@
 package insyncwithfoo.ryecharm
 
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonBuilder
@@ -25,6 +26,18 @@ internal inline fun <reified T : Any> String.parseAsJSONLeniently() =
 internal inline fun <reified T : Any> String.parseAsJSON() =
     try {
         Json.decodeFromString<T>(this)
+    } catch (_: SerializationException) {
+        null
+    }
+
+
+/**
+ * Parse the given string as JSON using the given serializer,
+ * returning `null` on failure.
+ */
+internal inline fun <reified T : Any> String.parseAsJSON(serializer: KSerializer<T>) =
+    try {
+        Json.decodeFromString(serializer, this)
     } catch (_: SerializationException) {
         null
     }

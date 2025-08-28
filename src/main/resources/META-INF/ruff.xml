@@ -90,6 +90,13 @@
 			prefix="insyncwithfoo.ryecharm://ruff.rule/"
 			handlerClass="insyncwithfoo.ryecharm.ruff.tooltips.RuleTooltipLinkHandler"
 		/>
+		
+		<callHierarchyProvider
+			id="insyncwithfoo.ryecharm.ruff.hierarchy.ImportGraphHierarchyProvider"
+			order="first"
+			language="Python"
+			implementationClass="insyncwithfoo.ryecharm.ruff.hierarchy.ImportGraphHierarchyProvider"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">

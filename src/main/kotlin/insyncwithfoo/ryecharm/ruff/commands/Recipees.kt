@@ -9,6 +9,31 @@ import insyncwithfoo.ryecharm.ruff.documentation.RuleSelector
 import java.nio.file.Path
 
 
+internal enum class AnalyzeGraphDirection {
+    DEPENDENCIES, DEPENDENTS;
+    
+    override fun toString() = name.lowercase()
+}
+
+
+// TODO: `--detect-string-imports`, `--min-dots`
+internal fun Ruff.analyzeGraph(file: Path? = null, interpreter: Path?, direction: AnalyzeGraphDirection): Command {
+    val arguments = CommandArguments()
+    
+    arguments["--direction"] = direction.toString()
+    
+    if (file != null) {
+        arguments += file.toString()
+    }
+    
+    if (interpreter != null) {
+        arguments["--python"] = interpreter.toString()
+    }
+    
+    return analyzeGraph(arguments)
+}
+
+
 internal fun Ruff.check(text: String, path: Path?, considerAllFixable: Boolean): Command {
     val arguments = CommandArguments("--no-fix", "--exit-zero", "--quiet", "-")
     

@@ -9,7 +9,8 @@ import kotlin.test.assertTrue
 internal class ActionMessagesTest {
     
     private val notRegistered = listOf(
-        "insyncwithfoo.ryecharm.others.installers.InstallDependencies"
+        "insyncwithfoo.ryecharm.others.installers.InstallDependencies",
+        "insyncwithfoo.ryecharm.ruff.hierarchy.ImportGraphBrowser.ChangeViewTypeAction"
     )
     
     private val Class<*>.isExempted: Boolean

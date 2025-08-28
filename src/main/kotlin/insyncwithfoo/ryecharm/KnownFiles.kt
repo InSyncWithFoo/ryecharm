@@ -192,7 +192,7 @@ private val PsiFile.isJupyter: Boolean
  * Whether the given file is a [PyFile]
  * that contains only Python code.
  */
-private val PsiFile.isNormalPyFile: Boolean
+internal val PsiFile.isNormalPyFile: Boolean
     get() = this is PyFile && !this.isReST && !this.isJupyter
 
 

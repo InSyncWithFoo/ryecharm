@@ -2,6 +2,8 @@ package insyncwithfoo.ryecharm
 
 import com.intellij.execution.configurations.PathEnvironmentVariableUtil
 import com.intellij.openapi.util.SystemInfo
+import com.intellij.openapi.vfs.LocalFileSystem
+import com.intellij.openapi.vfs.VirtualFile
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.InvalidPathException
@@ -52,6 +54,14 @@ internal fun String.toOSDependentFileName() = when {
     SystemInfo.isWindows -> "$this.exe"
     else -> this
 }
+
+
+/**
+ * Return the corresponding [VirtualFile]
+ * as found by [LocalFileSystem], if any.
+ */
+internal fun Path.toLocalVirtualFile() =
+    localFileSystem.findFileByNioFile(this)
 
 
 /**

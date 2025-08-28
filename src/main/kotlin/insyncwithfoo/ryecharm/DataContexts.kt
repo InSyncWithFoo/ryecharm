@@ -26,3 +26,27 @@ internal val DataContext.editor: Editor?
 
 internal val DataContext.hostEditor: Editor?
     get() = getData(CommonDataKeys.HOST_EDITOR)
+
+
+internal fun DataContext.getRelevantFile(): PsiFile? {
+    file?.let { return it }
+    
+    val project = this.project ?: return null
+    val editor = this.editor ?: return null
+    
+    return project.psiDocumentManager.getPsiFile(editor.document)
+}
+
+
+/**
+ * @see com.jetbrains.python.hierarchy.call.PyCallHierarchyProvider.getTarget
+ */
+internal fun DataContext.getRelevantElement(): PsiElement? {
+    element?.let { return it }
+    
+    val editor = this.editor ?: return null
+    val file = getRelevantFile() ?: return null
+    val offset = editor.caretModel.offset
+    
+    return file.findElementAt(offset)
+}

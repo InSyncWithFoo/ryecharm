@@ -4,6 +4,16 @@ import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.message
 
 
+internal class AnalyzeGraphCommand : Command(), RuffCommand {
+    
+    override val subcommands = listOf("analyze", "graph")
+    
+    override val runningMessage: String
+        get() = message("progresses.command.ruff.analyzeGraph")
+    
+}
+
+
 internal class CheckCommand : Command(), RuffCommand {
     
     override val subcommands = listOf("check")
