@@ -21,7 +21,7 @@ The all-in-one PyCharm plugin for Astral-backed Python tools:
 
 ## Usage
 
-If you already have Ruff, uv and/or Rye installed,
+If you already have Ruff, uv, ty and/or Rye installed,
 you can start using this plugin the moment you install it.
 The executables will be automatically detected.
 
@@ -71,11 +71,12 @@ Parts of this repository were taken or derived from:
 * [@astral-sh/rye][4]
 * [@astral-sh/ty][3]
 * [@astral-sh/uv][2]
-* [@JetBrains/intellij-community][16]
-* [@JetBrains/intellij-platform-plugin-template][17]
-* [@koxudaxi/poetry-pycharm-plugin][18]
-* [@koxudaxi/ruff-pycharm-plugin][19]
-* [@lensvol/intellij-blackconnect][20]
+* [@intellij-rust/intellij-rust][16]
+* [@JetBrains/intellij-community][17]
+* [@JetBrains/intellij-platform-plugin-template][18]
+* [@koxudaxi/poetry-pycharm-plugin][19]
+* [@koxudaxi/ruff-pycharm-plugin][20]
+* [@lensvol/intellij-blackconnect][21]
 
 
   [6]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml
@@ -88,8 +89,9 @@ Parts of this repository were taken or derived from:
   [13]: https://github.com/InSyncWithFoo/ryecharm/actions/workflows/build.yaml
   [14]: https://www.jetbrains.com/help/pycharm/managing-plugins.html#install_plugin_from_disk
   [15]: https://github.com/alexander-doroshko/intellij-lsp-plugin-example
-  [16]: https://github.com/JetBrains/intellij-community
-  [17]: https://github.com/JetBrains/intellij-platform-plugin-template
-  [18]: https://github.com/koxudaxi/poetry-pycharm-plugin
-  [19]: https://github.com/koxudaxi/ruff-pycharm-plugin
-  [20]: https://github.com/lensvol/intellij-blackconnect
+  [16]: https://github.com/intellij-rust/intellij-rust
+  [17]: https://github.com/JetBrains/intellij-community
+  [18]: https://github.com/JetBrains/intellij-platform-plugin-template
+  [19]: https://github.com/koxudaxi/poetry-pycharm-plugin
+  [20]: https://github.com/koxudaxi/ruff-pycharm-plugin
+  [21]: https://github.com/lensvol/intellij-blackconnect

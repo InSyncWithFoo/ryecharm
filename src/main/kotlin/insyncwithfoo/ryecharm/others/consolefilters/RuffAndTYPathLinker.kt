@@ -1,12 +1,11 @@
 package insyncwithfoo.ryecharm.others.consolefilters
 
-import com.intellij.execution.filters.FileHyperlinkInfoBase
 import com.intellij.execution.filters.Filter
+import com.intellij.execution.filters.OpenFileHyperlinkInfo
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
-import insyncwithfoo.ryecharm.localFileSystem
-import insyncwithfoo.ryecharm.path
+import com.intellij.openapi.project.guessProjectDir
+import com.intellij.openapi.vfs.resolveFromRootOrRelative
 import insyncwithfoo.ryecharm.ruff.toZeroBased
 
 
@@ -15,16 +14,16 @@ internal class RuffAndTYPathLinker(private val project: Project) : Filter, DumbA
     override fun applyFilter(line: String, entireLength: Int): Filter.Result? {
         val lineBreakTrimmed = line.trimEnd()
         val (prefix, path, oneBasedLineIndex, oneBasedColumnIndex) =
-            """( +--> )(.+):(\d+):(\d+)""".toRegex().matchEntire(lineBreakTrimmed)?.destructured ?: return null
+            PATTERN.matchEntire(lineBreakTrimmed)?.destructured ?: return null
         
-        val absolutePath = project.path?.resolve(path) ?: return null
-        val virtualFile = localFileSystem.findFileByNioFile(absolutePath) ?: return null
+        val projectDirectory = project.guessProjectDir() ?: return null
+        val virtualFile = projectDirectory.resolveFromRootOrRelative(path) ?: return null
         
         val lineOffset = entireLength - line.length
         val (linkStart, linkEnd) = Pair(lineOffset + prefix.length, lineOffset + lineBreakTrimmed.length)
-        val linkInfo = FileLinkInfo(
-            virtualFile,
+        val linkInfo = OpenFileHyperlinkInfo(
             project,
+            virtualFile,
             oneBasedLineIndex.toInt().toZeroBased(),
             oneBasedColumnIndex.toInt().toZeroBased()
         )
@@ -34,11 +33,8 @@ internal class RuffAndTYPathLinker(private val project: Project) : Filter, DumbA
         return Filter.Result(listOf(item))
     }
     
-    private class FileLinkInfo(
-        override val virtualFile: VirtualFile,
-        project: Project,
-        line: Int,
-        column: Int
-    ) : FileHyperlinkInfoBase(project, line, column, myUseBrowser = true)
+    companion object {
+        private val PATTERN = """( *(?:-->|:::) )(.+):(\d+):(\d+)""".toRegex()
+    }
     
 }
