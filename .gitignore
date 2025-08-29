@@ -2,6 +2,7 @@ scripts/*
 !scripts/changelog.py
 !scripts/edit_releases.py
 !scripts/command_specs.py
+!scripts/update_ipgp.py
 
 .run/*
 !.run/Build.run.xml
