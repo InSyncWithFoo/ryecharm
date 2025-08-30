@@ -32,9 +32,17 @@ internal val Module.path: Path?
     get() = basePath?.toPathOrNull()
 
 
+/**
+ * The [pythonSDK] associated with this module,
+ * or that of the project.
+ */
 internal val Module.interpreterPath: Path?
     get() = pythonSDK?.homePath?.let { Path.of(it) } ?: project.interpreterPath
 
 
+/**
+ * The module associated with this element,
+ * or the only module in the project.
+ */
 internal val PsiElement.module: Module?
     get() = ModuleUtilCore.findModuleForPsiElement(this) ?: project.modules.singleOrNull()
