@@ -192,4 +192,32 @@ internal class RuffAndTYPathLinkerTest : ConsoleFilterTest() {
         )
     }
     
+    @Test
+    fun `test leading space in file name`() = fileBasedTest(" leading_space.py") {
+        filterTest(
+            before = """
+                |B006 Do not use mutable data structures for argument defaults
+                | -->  leading_space.py:1:11
+                |  |
+                |1 | def f(a = []): ...
+                |  |           ^^
+                |  |
+                |help: Replace with `None`; initialize within function
+                |
+                |Found 1 error.
+            """.trimMargin(),
+            after = """
+                |B006 Do not use mutable data structures for argument defaults
+                | --> [ leading_space.py:1:11 ->  leading_space.py]
+                |  |
+                |1 | def f(a = []): ...
+                |  |           ^^
+                |  |
+                |help: Replace with `None`; initialize within function
+                |
+                |Found 1 error.
+            """.trimMargin()
+        )
+    }
+    
 }
