@@ -154,7 +154,7 @@ private fun Popup.linkToDocsFooter(name: OptionName) = bottom {
     val url = "https://docs.astral.sh/ruff/settings/$anchor"
     
     // TODO: More ergonomic API
-    icon("${AllIcons.Toolwindows::class.qualifiedName}.Documentation")
+    icon("${AllIcons.Toolwindows::class.qualifiedName}.WebToolWindow")
     html("&nbsp;")
     html("""<a href="$url"><code>$name</code></a>""")
 }
