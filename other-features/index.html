@@ -324,6 +324,8 @@
       
         
       
+        
+      
     
     
     
@@ -471,6 +473,29 @@
   
   <span class="md-ellipsis">
     Folding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ruff/import-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Import graphs
     
   </span>
   
@@ -1153,6 +1178,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#console-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Console filters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#language-injection" class="md-nav__link">
     <span class="md-ellipsis">
       Language injection
@@ -1351,6 +1385,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#console-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Console filters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#language-injection" class="md-nav__link">
     <span class="md-ellipsis">
       Language injection
@@ -1537,6 +1580,13 @@ are replaced with Python logos.</p>
 <p>If the <a href="https://blog.jetbrains.com/idea/2024/02/the-new-terminal-beta-is-now-in-jetbrains-ides/">new terminal</a> is used,
 autocompletion will be provided for <code>ruff</code>, <code>uv</code>, <code>uvx</code> and <code>rye</code> commands.</p>
 <p><img alt="" src="../assets/features-new-terminal-autocompletion-demo.png" /></p>
+<h2 id="console-filters">Console filters<a class="headerlink" href="#console-filters" title="Permanent link">#</a></h2>
+<p>In console views, file paths within Ruff and ty diagnostics are hyperlinked,
+which can be clicked on to navigate to the specified location.
+Relative paths are resolved against the project's path.
+If the specified path is not resolvable no links will be shown.</p>
+<p>Recognized formats are <code>--&gt; path:line:column</code> and <code>::: path:line:column</code>.</p>
+<p><img alt="" src="../assets/features-console-filters-ruff-and-ty-path-linker-demo.png" /></p>
 <h2 id="language-injection">Language injection<a class="headerlink" href="#language-injection" title="Permanent link">#</a></h2>
 <h3 id="inline-script-metadata-block">Inline script metadata block<a class="headerlink" href="#inline-script-metadata-block" title="Permanent link">#</a></h3>
 <p><a href="https://peps.python.org/pep-0723/">PEP 723</a> inline script metadata blocks
@@ -1644,6 +1694,11 @@ at the project's path.</p>
 <p>Tool commands run by RyeCharm and their outputs are logged
 by the <i>RyeCharm logs</i> tool window.
 This might be helpful for debugging purposes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Commands are only logged after the tool window
+have been opened at least once.</p>
+</div>
 <figure>
 <figcaption>Button:</figcaption>
 <p><img alt="" src="../assets/features-logging-tool-window-demo-action.png" /></p>
