@@ -35,6 +35,18 @@ autocompletion will be provided for `ruff`, `uv`, `uvx` and `rye` commands.
 ![](./assets/features-new-terminal-autocompletion-demo.png)
 
 
+## Console filters
+
+In console views, file paths within Ruff and ty diagnostics are hyperlinked,
+which can be clicked on to navigate to the specified location.
+Relative paths are resolved against the project's path.
+If the specified path is not resolvable no links will be shown.
+
+Recognized formats are `--> path:line:column` and `::: path:line:column`.
+
+![](./assets/features-console-filters-ruff-and-ty-path-linker-demo.png)
+
+
 ## Language injection
 
 
@@ -176,6 +188,10 @@ Errors will be reported for a dependency group if:
 Tool commands run by RyeCharm and their outputs are logged
 by the <i>RyeCharm logs</i> tool window.
 This might be helpful for debugging purposes.
+
+!!! note
+    Commands are only logged after the tool window
+    have been opened at least once.
 
 <figure markdown="1">
   <figcaption>Button:</figcaption>

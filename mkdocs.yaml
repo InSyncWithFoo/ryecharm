@@ -78,6 +78,7 @@ nav:
     - Formatting: ruff/formatting.md
     - Documentation: ruff/documentation.md
     - Folding: ruff/folding.md
+    - Import graphs: ruff/import-graphs.md
     - Actions: ruff/actions.md
     - Intentions: ruff/intentions.md
   - uv:

@@ -14,6 +14,26 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-17] - 2025-08-31
+
+### Dependencies
+
+* [@actions/checkout][_0.1.0-a17-d1]: 4 &rarr; 5
+* [Qodana][_0.1.0-a17-d2]: 2025.1.1 &rarr; 2025.2.1
+* [Kotlin JVM plugin][_0.1.0-a17-d3]: 2.2.0 &rarr; 2.2.10
+* [LSP4IJ][_0.1.0-a17-d4]: 0.14.2 &rarr; 0.15.0
+* [Material for MkDocs][_0.1.0-a17-d5]: 9.6.16 &rarr; 9.6.18
+* [@actions/setup-java][_0.1.0-a17-d6]: 4 &rarr; 5
+
+
+  [_0.1.0-a17-d1]: https://github.com/actions/checkout
+  [_0.1.0-a17-d2]: https://github.com/JetBrains/qodana-action
+  [_0.1.0-a17-d3]: https://github.com/JetBrains/kotlin
+  [_0.1.0-a17-d4]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a17-d5]: https://github.com/squidfunk/mkdocs-material
+  [_0.1.0-a17-d6]: https://github.com/actions/setup-java
+
+
 ## [0.1.0-alpha-16] - 2025-08-10
 
 ### Dependencies
@@ -316,7 +336,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..HEAD
+  [0.1.0-alpha-17]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..v0.1.0-alpha-17
   [0.1.0-alpha-16]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..v0.1.0-alpha-16
   [0.1.0-alpha-15]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..v0.1.0-alpha-15
   [0.1.0-alpha-14]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..v0.1.0-alpha-14

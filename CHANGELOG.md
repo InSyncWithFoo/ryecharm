@@ -14,6 +14,53 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-17] - 2025-08-31
+
+See [the documentation][0.1.0-a17-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.12.11][0.1.0-a17-2]
+* uv: [0.8.14][0.1.0-a17-3]
+* Rye: [0.44.0][0.1.0-a17-4]
+* ty: [0.0.1-alpha.19][0.1.0-a17-5]
+
+
+### Added
+
+* File paths in Ruff and ty diagnostics as they are displayed in the terminal
+  (`--> path:line:column`, `::: path:line:column`) will now be hyperlinked.
+  They can be clicked on to navigate to the specified location.
+* If the corresponding setting is enabled, triggering <i>Call Hierarchy</i> on
+  a Python file will now show which files it imports and which files import it,
+  as output by `ruff analyze graph`.
+  The setting is disabled by default, because the feature might cause
+  log-only but user-visible errors due to technical limitations.
+
+
+### Changed
+
+* Previously, in LSP modes, Ruff won't run on scratch files as they are not
+  considered part of the project.
+  Now, RyeCharm will also run Ruff on such files, via the CLI.
+* Dependency tree popups are now module-aware and thus works better
+  in IntelliJ IDEA. Other IDEs are not affected by this change.
+
+
+### Fixed
+
+* ty servers will now be restarted automatically on settings change.
+* Formatting commands (e.g., `ruff format`) will now be logged in
+  Ruff's logging console, as is already the case with other commands.
+
+
+  [0.1.0-a17-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a17-2]: https://github.com/astral-sh/ruff/releases/tag/0.12.11
+  [0.1.0-a17-3]: https://github.com/astral-sh/uv/releases/tag/0.8.14
+  [0.1.0-a17-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a17-5]: https://github.com/astral-sh/ty/releases/tag/0.0.1-alpha.19
+
+
 ## [0.1.0-alpha-16] - 2025-08-10
 
 See [the documentation][0.1.0-a16-1] for more information.
@@ -861,7 +908,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..HEAD
+  [0.1.0-alpha-17]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..v0.1.0-alpha-17
   [0.1.0-alpha-16]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..v0.1.0-alpha-16
   [0.1.0-alpha-15]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..v0.1.0-alpha-15
   [0.1.0-alpha-14]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-13..v0.1.0-alpha-14
