@@ -25,7 +25,7 @@
 	
 	<depends optional="true" config-file="terminal.xml">org.jetbrains.plugins.terminal</depends>
 	<depends optional="true" config-file="lsp4ij.xml">com.redhat.devtools.lsp4ij</depends>
-	<depends optional="true" config-file="ultimate.xml">com.intellij.modules.ultimate</depends>
+	<depends optional="true" config-file="lsp.xml">com.intellij.modules.lsp</depends>
 	
 	<resource-bundle>messages.ryecharm</resource-bundle>
 	
