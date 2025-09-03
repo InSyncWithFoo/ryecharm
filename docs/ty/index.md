@@ -5,5 +5,5 @@ There is no <i>Command line</i> mode.
 The other modes are the same as [that of Ruff][2].
 
 
-  [1]: https://github.com/astral-sh/ty/blob/main/docs/README.md
+  [1]: https://docs.astral.sh/ty/
   [2]: ../ruff/running-modes.md
