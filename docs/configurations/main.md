@@ -44,5 +44,23 @@ or otherwise configured to be uv-managed.
 Default: `false`
 
 
+## Console filters
+
+
+### Linkify paths in `ruff` and `ty` outputs
+
+Whether paths in Ruff and ty diagnostics should be hyperlinked.
+
+Default: `true`
+
+
+#### Resolve relative paths against source roots
+
+Whether relative paths, if not resolvable against project root,
+should then be resolved against source roots.
+
+Default: `false`
+
+
   [1]: https://peps.python.org/pep-0723/
   [2]: https://packaging.python.org/en/latest/specifications/pyproject-toml/#declaring-build-system-dependencies-the-build-system-table

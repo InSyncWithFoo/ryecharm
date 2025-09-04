@@ -11,7 +11,7 @@ internal class MainConfigurationsTest : ConfigurationsTest<MainConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 5) {
+        doShapeTest(expectedSize = 6) {
             assertEquals(true, languageInjectionPEP723Blocks)
             assertEquals(true, languageInjectionRequirements)
             
@@ -19,6 +19,7 @@ internal class MainConfigurationsTest : ConfigurationsTest<MainConfigurations>()
             assertEquals(false, suppressIncorrectNIRINonUVSDK)
             
             assertEquals(true, consoleFilterRuffAndTYPaths)
+            assertEquals(false, resolveRuffTYPathsAgainstSourceRoots)
         }
     }
     
