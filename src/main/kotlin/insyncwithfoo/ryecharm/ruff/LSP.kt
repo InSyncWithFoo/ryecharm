@@ -6,8 +6,8 @@ import org.eclipse.lsp4j.CodeAction
 import org.eclipse.lsp4j.Diagnostic
 
 
-internal val Diagnostic.codeAsString: String?
-    get() = code?.get() as String?
+internal val Diagnostic.id: DiagnosticID
+    get() = DiagnosticID.from(code?.get() as String?)
 
 
 /**

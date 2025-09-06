@@ -7,13 +7,15 @@ import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
 import insyncwithfoo.ryecharm.ruff.toZeroBased
+import insyncwithfoo.ryecharm.ruff.DiagnosticID
+import insyncwithfoo.ryecharm.ruff.isLikelySyntaxError
 
 
 /**
  * @see insyncwithfoo.ryecharm.ruff.isForSyntaxError
  */
 internal val Diagnostic.isForSyntaxError: Boolean
-    get() = id == null
+    get() = id.isLikelySyntaxError
 
 
 /**
@@ -24,7 +26,7 @@ internal val Diagnostic.isForFile: Boolean
 
 
 private val Diagnostic.isUnsuppressable: Boolean
-    get() = id in listOf(
+    get() = (id as? DiagnosticID.Lint)?.value in listOf(
         "PGH004"  // blanket-noqa
     )
 
@@ -32,18 +34,18 @@ private val Diagnostic.isUnsuppressable: Boolean
 internal fun Diagnostic.makeFixViolationFix(configurations: RuffConfigurations) =
     when {
         !configurations.quickFixes || !configurations.fixViolation -> null
-        fix == null || id == null -> null
-        else -> RuffFixViolation(id, fix)
+        fix == null || id !is DiagnosticID.Lint -> null
+        else -> RuffFixViolation(id.value, fix)
     }
 
 
 internal fun Diagnostic.makeFixSimilarViolationsFixes(configurations: RuffConfigurations) =
     when {
         !configurations.quickFixes || !configurations.fixSimilarViolations -> null
-        fix == null || id == null -> null
+        fix == null || id !is DiagnosticID.Lint -> null
         else -> Pair(
-            RuffFixSimilarViolations(id, unsafe = false),
-            RuffFixSimilarViolations(id, unsafe = true)
+            RuffFixSimilarViolations(id.value, unsafe = false),
+            RuffFixSimilarViolations(id.value, unsafe = true)
         )
     }
 
@@ -51,8 +53,8 @@ internal fun Diagnostic.makeFixSimilarViolationsFixes(configurations: RuffConfig
 internal fun Diagnostic.makeDisableRuleCommentFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) =
     when {
         !configurations.quickFixes || !configurations.disableRuleComment -> null
-        id == null || this.isUnsuppressable -> null
-        else -> RuffDisableRuleComment(id, offset)
+        id !is DiagnosticID.Lint || this.isUnsuppressable -> null
+        else -> RuffDisableRuleComment(id.value, offset)
     }
 
 

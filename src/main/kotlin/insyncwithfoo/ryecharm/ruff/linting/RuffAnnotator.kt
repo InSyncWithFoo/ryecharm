@@ -23,6 +23,7 @@ import insyncwithfoo.ryecharm.ruff.commands.check
 import insyncwithfoo.ryecharm.ruff.commands.ruff
 import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
+import insyncwithfoo.ryecharm.ruff.ruleCode
 import java.nio.file.Path
 
 
@@ -97,7 +98,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             val message = diagnostic.message
             val builder = holder.newAnnotation(highlightSeverity, message)
             
-            val tooltip = configurations.getFormattedTooltip(diagnostic.message, diagnostic.id)
+            val tooltip = configurations.getFormattedTooltip(diagnostic.message, diagnostic.id.ruleCode)
             val range = document.getOffsetRange(diagnostic.oneBasedRange)
             val noqaOffset = diagnostic.getNoqaOffset(document)
             

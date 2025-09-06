@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.ruff.linting
 
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.ruff.DiagnosticID
 import insyncwithfoo.ryecharm.ruff.OneBasedIndex
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -49,7 +50,7 @@ internal data class Fix(
 @Serializable
 internal data class Diagnostic(
     @SerialName("code")
-    val id: String?,
+    val id: DiagnosticID,
     val url: String?,
     val message: String,
     val fix: Fix?,
