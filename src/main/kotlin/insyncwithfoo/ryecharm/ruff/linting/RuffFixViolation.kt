@@ -13,7 +13,7 @@ import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
 
 
-private val ExpandedEdit.contentWithNormalizedLineEndings: String
+private val Edit.contentWithNormalizedLineEndings: String
     get() = content.replace("\r\n", "\n")
 
 
@@ -68,7 +68,7 @@ internal class RuffFixViolation(private val code: RuleCode, private val fix: Fix
         }
     }
     
-    private fun Document.performEdits(edits: List<ExpandedEdit>) {
+    private fun Document.performEdits(edits: List<Edit>) {
         val rangesToEdits = edits.associateBy { getOffsetRange(it.oneBasedRange) }
         val interleavedRanges = getInterleavedRanges(rangesToEdits.keys)
         
