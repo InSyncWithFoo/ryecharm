@@ -13,7 +13,7 @@ import insyncwithfoo.ryecharm.ruff.toZeroBased
  * @see insyncwithfoo.ryecharm.ruff.isForSyntaxError
  */
 internal val Diagnostic.isForSyntaxError: Boolean
-    get() = code == null
+    get() = id == null
 
 
 /**
@@ -24,7 +24,7 @@ internal val Diagnostic.isForFile: Boolean
 
 
 private val Diagnostic.isUnsuppressable: Boolean
-    get() = code in listOf(
+    get() = id in listOf(
         "PGH004"  // blanket-noqa
     )
 
@@ -32,18 +32,18 @@ private val Diagnostic.isUnsuppressable: Boolean
 internal fun Diagnostic.makeFixViolationFix(configurations: RuffConfigurations) =
     when {
         !configurations.quickFixes || !configurations.fixViolation -> null
-        fix == null || code == null -> null
-        else -> RuffFixViolation(code, fix)
+        fix == null || id == null -> null
+        else -> RuffFixViolation(id, fix)
     }
 
 
 internal fun Diagnostic.makeFixSimilarViolationsFixes(configurations: RuffConfigurations) =
     when {
         !configurations.quickFixes || !configurations.fixSimilarViolations -> null
-        fix == null || code == null -> null
+        fix == null || id == null -> null
         else -> Pair(
-            RuffFixSimilarViolations(code, unsafe = false),
-            RuffFixSimilarViolations(code, unsafe = true)
+            RuffFixSimilarViolations(id, unsafe = false),
+            RuffFixSimilarViolations(id, unsafe = true)
         )
     }
 
@@ -51,8 +51,8 @@ internal fun Diagnostic.makeFixSimilarViolationsFixes(configurations: RuffConfig
 internal fun Diagnostic.makeDisableRuleCommentFix(configurations: RuffConfigurations, offset: ZeroBasedIndex) =
     when {
         !configurations.quickFixes || !configurations.disableRuleComment -> null
-        code == null || this.isUnsuppressable -> null
-        else -> RuffDisableRuleComment(code, offset)
+        id == null || this.isUnsuppressable -> null
+        else -> RuffDisableRuleComment(id, offset)
     }
 
 

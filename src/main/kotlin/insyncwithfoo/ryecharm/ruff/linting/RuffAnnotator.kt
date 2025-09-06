@@ -97,7 +97,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             val message = diagnostic.message
             val builder = holder.newAnnotation(highlightSeverity, message)
             
-            val tooltip = configurations.getFormattedTooltip(diagnostic.message, diagnostic.code)
+            val tooltip = configurations.getFormattedTooltip(diagnostic.message, diagnostic.id)
             val range = document.getOffsetRange(diagnostic.oneBasedRange)
             val noqaOffset = diagnostic.getNoqaOffset(document)
             

@@ -48,7 +48,8 @@ internal data class Fix(
 
 @Serializable
 internal data class Diagnostic(
-    val code: String?,
+    @SerialName("code")
+    val id: String?,
     val url: String?,
     val message: String,
     val fix: Fix?,
