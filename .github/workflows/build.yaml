@@ -215,7 +215,7 @@ jobs:
           java-version: 21
       -
         name: Switch to Qodana Community
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.repository != 'InSyncWithFoo/ryecharm'
         run: |
           sed -i -E "s/qodana-jvm/qodana-jvm-community/g" qodana.yaml
       -
