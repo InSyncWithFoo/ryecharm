@@ -150,6 +150,13 @@ kover {
 }
 
 tasks {
+    compileKotlin {
+        compilerOptions {
+            allWarningsAsErrors = true
+            extraWarnings = true
+        }
+    }
+    
     runIde {
         // From https://app.slack.com/client/T5P9YATH9/C5U8BM1MK
         systemProperty("ide.browser.jcef.headless.enabled", "true")
