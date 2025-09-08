@@ -10,10 +10,6 @@ import com.intellij.openapi.vfs.resolveFromRootOrRelative
 import insyncwithfoo.ryecharm.configurations.main.mainConfigurations
 import insyncwithfoo.ryecharm.ruff.toZeroBased
 import insyncwithfoo.ryecharm.sourceRoots
-import insyncwithfoo.ryecharm.localFileSystem
-import insyncwithfoo.ryecharm.toPathOrNull
-import org.jetbrains.plugins.terminal.TerminalProjectOptionsProvider
-import kotlin.io.path.isDirectory
 
 
 internal class RuffAndTYPathLinker(private val project: Project) : Filter, DumbAware {
@@ -49,36 +45,9 @@ internal class RuffAndTYPathLinker(private val project: Project) : Filter, DumbA
             possibleBases += sourceRoots
         }
         
-        // TODO: Hide this behind a setting
-        getTerminalStartingDirectory()?.let { possibleBases += it }
-        
         return possibleBases.firstNotNullOfOrNull {
             it.resolveFromRootOrRelative(path)
         }
-    }
-    
-    /**
-     * @see org.jetbrains.plugins.terminal.runner.LocalOptionsConfigurer.getWorkingDirectory
-     */
-    @Suppress("UnstableApiUsage")
-    private fun Project.getTerminalStartingDirectory(): VirtualFile? {
-        val terminalSettings = try {
-            TerminalProjectOptionsProvider.getInstance(this)
-        } catch(_: NoClassDefFoundError) {
-            return null
-        }
-        
-        terminalSettings.startingDirectory?.toPathOrNull()
-            ?.takeIf { it.isDirectory() }
-            ?.let { localFileSystem.findFileByNioFile(it) }
-            ?.let { return it }
-        
-        terminalSettings.defaultStartingDirectory?.toPathOrNull()
-            ?.takeIf { it.isDirectory() }
-            ?.let { localFileSystem.findFileByNioFile(it) }
-            ?.let { return it }
-        
-        return null
     }
     
     companion object {
