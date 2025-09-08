@@ -1,6 +1,7 @@
 package insyncwithfoo.ryecharm.ruff.linting
 
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.ruff.DiagnosticID
 import insyncwithfoo.ryecharm.ruff.OneBasedIndex
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -30,7 +31,7 @@ internal data class SourceLocation(
 
 
 @Serializable
-internal data class ExpandedEdit(
+internal data class Edit(
     val content: String,
     override val location: SourceLocation,
     @SerialName("end_location")
@@ -42,13 +43,14 @@ internal data class ExpandedEdit(
 internal data class Fix(
     val applicability: Applicability,
     val message: String?,
-    val edits: List<ExpandedEdit>
+    val edits: List<Edit>
 )
 
 
 @Serializable
 internal data class Diagnostic(
-    val code: String?,
+    @SerialName("code")
+    val id: DiagnosticID,
     val url: String?,
     val message: String,
     val fix: Fix?,

@@ -6,13 +6,14 @@ import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiFile
 import com.redhat.devtools.lsp4ij.client.features.LSPDiagnosticFeature
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
 import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
+import insyncwithfoo.ryecharm.ruff.id
 import insyncwithfoo.ryecharm.ruff.isForSyntaxError
 import insyncwithfoo.ryecharm.ruff.isRuffDisableRuleComment
 import insyncwithfoo.ryecharm.ruff.isRuffFixViolation
+import insyncwithfoo.ryecharm.ruff.ruleCode
 import org.eclipse.lsp4j.Diagnostic
 
 
@@ -30,7 +31,7 @@ internal class DiagnosticFeature : LSPDiagnosticFeature() {
         configurations.linting
     
     override fun getTooltip(diagnostic: Diagnostic): String {
-        val rule = diagnostic.codeAsString
+        val rule = diagnostic.id.ruleCode
         val message = diagnostic.message
         
         return configurations.getFormattedTooltip(message, rule)

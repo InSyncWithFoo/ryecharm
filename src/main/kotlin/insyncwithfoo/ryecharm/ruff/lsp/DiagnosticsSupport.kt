@@ -7,12 +7,13 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.customization.LspDiagnosticsSupport
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
-import insyncwithfoo.ryecharm.ruff.codeAsString
 import insyncwithfoo.ryecharm.ruff.diagnosticIsForFile
 import insyncwithfoo.ryecharm.ruff.getFormattedTooltip
+import insyncwithfoo.ryecharm.ruff.id
 import insyncwithfoo.ryecharm.ruff.isForSyntaxError
 import insyncwithfoo.ryecharm.ruff.isRuffDisableRuleComment
 import insyncwithfoo.ryecharm.ruff.isRuffFixViolation
+import insyncwithfoo.ryecharm.ruff.ruleCode
 import org.eclipse.lsp4j.Diagnostic
 
 
@@ -27,7 +28,7 @@ internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
         configurations.letNativeClientPullDiagnostics
     
     override fun getTooltip(diagnostic: Diagnostic): String {
-        val rule = diagnostic.codeAsString
+        val rule = diagnostic.id.ruleCode
         val message = diagnostic.message
         
         return configurations.getFormattedTooltip(message, rule)
