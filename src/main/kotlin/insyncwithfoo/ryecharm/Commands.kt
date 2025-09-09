@@ -16,6 +16,7 @@ import insyncwithfoo.ryecharm.ty.commands.TYCommand
 import insyncwithfoo.ryecharm.uv.commands.UVCommand
 import java.nio.CharBuffer
 import java.nio.file.Path
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.io.path.nameWithoutExtension
 
 
@@ -79,8 +80,9 @@ internal abstract class Command {
     lateinit var arguments: CommandArguments
     
     var stdin: String? = null
-    
     var workingDirectory: Path? = null
+    
+    val id = counter.incrementAndGet()
     
     /**
      * A message to be displayed in the progress bar
@@ -142,12 +144,13 @@ internal abstract class Command {
         consoleHolder?.debug(this)
         
         return processHandler.runProcess(NO_TIME_LIMIT).also {
-            consoleHolder?.debug(it)
+            consoleHolder?.debug(this, it)
         }
     }
     
     companion object {
         private const val NO_TIME_LIMIT = -1
+        private val counter = AtomicInteger()
     }
     
 }

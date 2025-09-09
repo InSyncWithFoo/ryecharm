@@ -37,12 +37,12 @@ internal class ConsoleHolder(private val project: Project, private val console: 
 
 
 internal fun ConsoleHolder.debug(command: Command) {
-    debug("Running: (${command.workingDirectory}) $command")
+    debug("Running[${command.id}]: (${command.workingDirectory}) $command")
 }
 
 
-internal fun ConsoleHolder.debug(output: ProcessOutput) {
-    debug("Output: ${ProcessOutputSurrogate(output)}")
+internal fun ConsoleHolder.debug(command: Command, output: ProcessOutput) {
+    debug("Output[${command.id}]: ${ProcessOutputSurrogate(output)}")
     debug("")
 }
 

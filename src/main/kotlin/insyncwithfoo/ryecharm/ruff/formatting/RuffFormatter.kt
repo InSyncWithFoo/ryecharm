@@ -123,13 +123,13 @@ private class RuffFormattingTask(private val request: AsyncFormattingRequest, pr
         addProcessTerminatedListener { event ->
             val configurations = project.ruffConfigurations
             
-            handleOutput(event, snoozeError = configurations.snoozeFormattingTaskError)
+            handleOutput(command, event, snoozeError = configurations.snoozeFormattingTaskError)
         }
         startNotify()
     }
     
-    private fun CapturingProcessAdapter.handleOutput(event: ProcessEvent, snoozeError: Boolean) {
-        project.ruffLogger?.debug(output)
+    private fun CapturingProcessAdapter.handleOutput(command: Command, event: ProcessEvent, snoozeError: Boolean) {
+        project.ruffLogger?.debug(command, output)
         
         when {
             event.exitCode == 0 -> request.onTextReady(output.stdout)
