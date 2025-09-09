@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessOutput
+import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.Project
 import com.intellij.util.io.toByteArray
 import insyncwithfoo.ryecharm.common.logging.debug
@@ -14,6 +15,7 @@ import insyncwithfoo.ryecharm.ruff.commands.RuffCommand
 import insyncwithfoo.ryecharm.rye.commands.RyeCommand
 import insyncwithfoo.ryecharm.ty.commands.TYCommand
 import insyncwithfoo.ryecharm.uv.commands.UVCommand
+import kotlinx.coroutines.CoroutineScope
 import java.nio.CharBuffer
 import java.nio.file.Path
 import java.util.concurrent.atomic.AtomicInteger
@@ -141,12 +143,15 @@ internal abstract class Command {
             else -> null
         }
         
-        consoleHolder?.debug(this)
+        project.launch<Coroutine> { consoleHolder?.debug(this@Command) }
         
         return processHandler.runProcess(NO_TIME_LIMIT).also {
-            consoleHolder?.debug(this, it)
+            project.launch<Coroutine> { consoleHolder?.debug(this@Command, it) }
         }
     }
+    
+    @Service(Service.Level.PROJECT)
+    private class Coroutine(override val scope: CoroutineScope) : CoroutineService
     
     companion object {
         private const val NO_TIME_LIMIT = -1
