@@ -1,8 +1,5 @@
 package insyncwithfoo.ryecharm.common.logging
 
-import com.intellij.execution.impl.ConsoleViewImpl
-import com.intellij.execution.ui.ConsoleView
-import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
@@ -15,23 +12,11 @@ import com.intellij.openapi.wm.ex.ToolWindowManagerListener
 import com.intellij.openapi.wm.ex.ToolWindowManagerListener.ToolWindowManagerEventType
 import com.intellij.ui.content.ContentFactory
 import insyncwithfoo.ryecharm.RyeCharm
-import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.messageBusConnection
 
 
 private val contentFactory: ContentFactory
     get() = ContentFactory.getInstance()
-
-
-private fun Project.makeConsole(): ConsoleView {
-    val viewer = false
-    return ConsoleViewImpl(this, viewer)
-}
-
-
-private fun ConsoleView.log(message: String) {
-    print(message, ConsoleViewContentType.NORMAL_OUTPUT)
-}
 
 
 private fun Project.onClose(listener: (Project) -> Unit) {
@@ -68,15 +53,14 @@ internal class RyeCharmLoggingToolWindowFactory : ToolWindowFactory, DumbAware {
         for (consoleKind in ConsoleHolderKind.entries) {
             val tabName = consoleKind.tabName
             
-            val console = project.makeConsole()
+            val console = RyeCharmLoggingConsole(project, tabName)
             val contentTabCanBePinned = false
             val content = contentFactory.createContent(console.component, tabName, contentTabCanBePinned)
             
             toolWindow.contentManager.addContent(content)
             project.pluginLogger.register(consoleKind, console)
             
-            console.log(message("toolWindows.initializationMessage", tabName))
-            console.log("\n\n")
+            console.printNotice()
         }
         
         project.onClose {
