@@ -4,6 +4,10 @@ import com.intellij.execution.impl.ConsoleViewImpl
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.execution.ui.ConsoleViewPlace
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
+import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
+import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
 import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.message
@@ -19,6 +23,14 @@ internal class RyeCharmLoggingConsole(project: Project, private val tabName: Str
 {
     
     override fun getPlace() = ConsoleViewPlace(RyeCharm.ID)
+    
+    override fun createConsoleActions(): Array<AnAction> {
+        val toggleSoftWraps = ToggleUseSoftWrapsToolbarAction(SoftWrapAppliancePlaces.CONSOLE)
+        val scrollToBottom = ScrollToTheEndToolbarAction(editor)
+        val clearConsole = clearThisConsoleAction()
+        
+        return arrayOf(toggleSoftWraps, scrollToBottom, clearConsole)
+    }
     
     /**
      * Call the super implementation and [printNotice].
