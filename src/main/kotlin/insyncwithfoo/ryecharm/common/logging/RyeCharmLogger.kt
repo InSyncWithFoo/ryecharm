@@ -13,6 +13,10 @@ import insyncwithfoo.ryecharm.toSurrogate
 import insyncwithfoo.ryecharm.message
 
 
+internal const val COMMAND_LOG_LINE_PREFIX = "Running"
+internal const val OUTPUT_LOG_LINE_PREFIX = "Output"
+
+
 internal class ConsoleHolder(private val project: Project, private val console: ConsoleView) : Disposable {
     
     init {
@@ -36,13 +40,19 @@ internal class ConsoleHolder(private val project: Project, private val console: 
 }
 
 
+/**
+ * @see RyeCharmCommandOutputFoldingBuilder.getPlaceholderText
+ */
 internal fun ConsoleHolder.debug(command: Command) {
-    debug("Running[${command.id}]: (${command.workingDirectory}) $command")
+    debug("$COMMAND_LOG_LINE_PREFIX[${command.id}]: (${command.workingDirectory}) $command")
 }
 
 
+/**
+ * @see RyeCharmCommandOutputFoldingBuilder.getPlaceholderText
+ */
 internal fun ConsoleHolder.debug(command: Command, output: ProcessOutput) {
-    debug("Output[${command.id}]: ${output.toSurrogate()}")
+    debug("$OUTPUT_LOG_LINE_PREFIX[${command.id}]: ${output.toSurrogate()}")
     debug("")
 }
 

@@ -29,6 +29,11 @@
 		<dependencySupport kind="python" coordinate="ruff" displayName="Ruff"/>
 		<dependencySupport kind="python" coordinate="uv" displayName="uv"/>
 		<dependencySupport kind="python" coordinate="ty" displayName="ty"/>
+		
+		<console.folding
+			id="insyncwithfoo.ryecharm.common.logging.RyeCharmCommandOutputFoldingBuilder"
+			implementation="insyncwithfoo.ryecharm.common.logging.RyeCharmCommandOutputFoldingBuilder"
+		/>
 	</extensions>
 	
 	<actions>
