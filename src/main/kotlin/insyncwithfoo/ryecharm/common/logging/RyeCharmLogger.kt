@@ -9,7 +9,7 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import insyncwithfoo.ryecharm.Command
-import insyncwithfoo.ryecharm.ProcessOutputSurrogate
+import insyncwithfoo.ryecharm.toSurrogate
 import insyncwithfoo.ryecharm.message
 
 
@@ -42,7 +42,7 @@ internal fun ConsoleHolder.debug(command: Command) {
 
 
 internal fun ConsoleHolder.debug(command: Command, output: ProcessOutput) {
-    debug("Output[${command.id}]: ${ProcessOutputSurrogate(output)}")
+    debug("Output[${command.id}]: ${output.toSurrogate()}")
     debug("")
 }
 

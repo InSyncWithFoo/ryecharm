@@ -7,6 +7,7 @@ import kotlinx.serialization.json.JsonBuilder
 
 
 private val lenientParser = Json { ignoreUnknownKeys = true }
+private val prettyPrinter = Json { prettyPrint = true }
 
 
 /**
@@ -64,3 +65,11 @@ internal inline fun <reified T : Any> String.parseAsJSON(noinline builderAction:
  */
 internal inline fun <reified T : Any> T.stringifyToJSON() =
     Json.encodeToString<T>(this)
+
+
+/**
+ * Convert the given object to JSON,
+ * pretty printed (4 spaces indentation).
+ */
+internal inline fun <reified T : Any> T.stringifyToPrettyJSON() =
+    prettyPrinter.encodeToString<T>(this)
