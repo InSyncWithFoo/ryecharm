@@ -139,7 +139,7 @@ private fun OptionName.toDefinitionBlock(): HTML {
         val prefix = fragments.slice(1..index).joinToString(".")
         val uri = DocumentationURI.ruffOption(prefix)
         
-        @Suppress("AssignedValueIsNeverRead")
+        @Suppress("AssignedValueIsNeverRead", "UNCHECKED_CAST")
         index++
         
         """<a href="$uri">${it.value}</a>"""
