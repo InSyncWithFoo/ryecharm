@@ -125,6 +125,7 @@ private fun Markdown.replaceSectionLinksWithSpecializedURIs() = this.replace(sec
 }
 
 
+@Suppress("AssignedValueIsNeverRead")
 private fun OptionName.toDefinitionBlock(): HTML {
     val fragments = this.split(".")
     val html = this.wrappedInCodeBlock("toml").toHTML().removeSurroundingTag("pre")
