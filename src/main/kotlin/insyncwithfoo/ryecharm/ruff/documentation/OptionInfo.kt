@@ -129,17 +129,17 @@ private fun OptionName.toDefinitionBlock(): HTML {
     val fragments = this.split(".")
     val html = this.wrappedInCodeBlock("toml").toHTML().removeSurroundingTag("pre")
     
-    var index = 0
+    var index = -1
     
     return html.replace(definitionHighlightedKeySegment) {
+        index++  // TODO: KT-80648
+        
         if (index == fragments.lastIndex) {
             return@replace it.value
         }
         
         val prefix = fragments.slice(1..index).joinToString(".")
         val uri = DocumentationURI.ruffOption(prefix)
-        
-        index++
         
         """<a href="$uri">${it.value}</a>"""
     }
