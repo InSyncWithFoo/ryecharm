@@ -9,8 +9,12 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import insyncwithfoo.ryecharm.Command
-import insyncwithfoo.ryecharm.ProcessOutputSurrogate
+import insyncwithfoo.ryecharm.toSurrogate
 import insyncwithfoo.ryecharm.message
+
+
+internal const val COMMAND_LOG_LINE_PREFIX = "Running"
+internal const val OUTPUT_LOG_LINE_PREFIX = "Output"
 
 
 internal class ConsoleHolder(private val project: Project, private val console: ConsoleView) : Disposable {
@@ -36,13 +40,19 @@ internal class ConsoleHolder(private val project: Project, private val console: 
 }
 
 
+/**
+ * @see RyeCharmCommandOutputFoldingBuilder.getPlaceholderText
+ */
 internal fun ConsoleHolder.debug(command: Command) {
-    debug("Running[${command.id}]: (${command.workingDirectory}) $command")
+    debug("$COMMAND_LOG_LINE_PREFIX[${command.id}]: (${command.workingDirectory}) $command")
 }
 
 
+/**
+ * @see RyeCharmCommandOutputFoldingBuilder.getPlaceholderText
+ */
 internal fun ConsoleHolder.debug(command: Command, output: ProcessOutput) {
-    debug("Output[${command.id}]: ${ProcessOutputSurrogate(output)}")
+    debug("$OUTPUT_LOG_LINE_PREFIX[${command.id}]: ${output.toSurrogate()}")
     debug("")
 }
 

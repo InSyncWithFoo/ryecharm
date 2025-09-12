@@ -35,10 +35,9 @@ internal class ProcessOutputSurrogate(
     val isTimeout: Boolean,
     val isCancelled: Boolean
 ) {
-    override fun toString() = this.stringifyToJSON()
+    override fun toString() = this.stringifyToPrettyJSON()
 }
 
 
-internal fun ProcessOutputSurrogate(processOutput: ProcessOutput) = with(processOutput) {
+internal fun ProcessOutput.toSurrogate() =
     ProcessOutputSurrogate(stdout, stderr, exitCode, isTimeout, isCancelled)
-}
