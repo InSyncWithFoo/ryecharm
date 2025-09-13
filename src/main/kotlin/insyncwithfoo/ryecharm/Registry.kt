@@ -18,6 +18,26 @@ private interface Prefixed {
 }
 
 
+internal class Logging(override val parentPrefix: String) : Prefixed {
+    
+    override val ownPrefix = "logging"
+    
+    val logCommandsOnOutput: Boolean
+        get() = Registry.`is`(key(::logCommandsOnOutput))
+    
+}
+
+
+internal class Common(override val parentPrefix: String) : Prefixed {
+    
+    override val ownPrefix = "common"
+    
+    val logging = Logging(ownPrefix)
+    
+}
+
+
+
 internal class UV(override val parentPrefix: String) : Prefixed {
     
     override val ownPrefix = "uv"
@@ -49,6 +69,7 @@ internal object RyeCharmRegistry : Prefixed {
     override val parentPrefix = null
     override val ownPrefix = RyeCharm.ID
     
+    val common = Common(ownPrefix)
     val uv = UV(ownPrefix)
     val ty = TY(ownPrefix)
     

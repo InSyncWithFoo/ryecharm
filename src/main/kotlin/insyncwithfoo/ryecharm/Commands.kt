@@ -143,10 +143,20 @@ internal abstract class Command {
             else -> null
         }
         
-        project.launch<Coroutine> { consoleHolder?.debug(this@Command) }
-        
-        return processHandler.runProcess(NO_TIME_LIMIT).also {
-            project.launch<Coroutine> { consoleHolder?.debug(this@Command, it) }
+        return when (RyeCharmRegistry.common.logging.logCommandsOnOutput) {
+            true -> processHandler.runProcess(NO_TIME_LIMIT).also {
+                project.launch<Coroutine> {
+                    consoleHolder?.debug(this@Command)
+                    consoleHolder?.debug(this@Command, it)
+                }
+            }
+            else -> {
+                project.launch<Coroutine> { consoleHolder?.debug(this@Command) }
+                
+                processHandler.runProcess(NO_TIME_LIMIT).also {
+                    project.launch<Coroutine> { consoleHolder?.debug(this@Command, it) }
+                }
+            }
         }
     }
     
