@@ -38,6 +38,10 @@ private fun Row.consoleFilterRuffAndTYPathsInput(block: Cell<JBCheckBox>.() -> U
     checkBox(message("configurations.main.consoleFilterRuffAndTYPaths.label")).apply(block)
 
 
+private fun Row.resolveRuffTYPathsAgainstSourceRootsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.main.resolveRuffTYPathsAgainstSourceRoots.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun MainPanel.makeComponent() = panel {
     group(message("configurations.main.groups.languageInjection")) {
@@ -68,6 +72,12 @@ private fun MainPanel.makeComponent() = panel {
         row {
             consoleFilterRuffAndTYPathsInput { bindSelected(state::consoleFilterRuffAndTYPaths) }
             overrideCheckbox(state::consoleFilterRuffAndTYPaths)
+        }
+        indent {
+            row {
+                resolveRuffTYPathsAgainstSourceRootsInput { bindSelected(state::resolveRuffTYPathsAgainstSourceRoots) }
+                overrideCheckbox(state::resolveRuffTYPathsAgainstSourceRoots)
+            }
         }
     }
 }

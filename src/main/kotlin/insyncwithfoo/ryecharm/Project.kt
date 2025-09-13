@@ -103,6 +103,10 @@ internal val Project.interpreterDirectory: Path?
     get() = interpreterPath?.parent
 
 
+internal val Project.sourceRoots: List<VirtualFile>
+    get() = modules.flatMap { it.sourceRoots }
+
+
 /**
  * Whether a project:
  * * Is not the pseudo project used to store
