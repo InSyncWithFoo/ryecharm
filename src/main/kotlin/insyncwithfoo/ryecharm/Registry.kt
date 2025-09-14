@@ -9,8 +9,11 @@ private interface Prefixed {
     val parentPrefix: String?
     val ownPrefix: String
     
+    val fullPrefix: String
+        get() = listOfNotNull(parentPrefix, ownPrefix).joinToString(".")
+    
     private fun key(name: String) =
-        listOfNotNull(parentPrefix, ownPrefix, name).joinToString(".")
+        "$fullPrefix.$name"
     
     fun key(property: KProperty0<*>) =
         key(property.name)
@@ -32,7 +35,7 @@ internal class Common(override val parentPrefix: String) : Prefixed {
     
     override val ownPrefix = "common"
     
-    val logging = Logging(ownPrefix)
+    val logging = Logging(fullPrefix)
     
 }
 
@@ -69,8 +72,8 @@ internal object RyeCharmRegistry : Prefixed {
     override val parentPrefix = null
     override val ownPrefix = RyeCharm.ID
     
-    val common = Common(ownPrefix)
-    val uv = UV(ownPrefix)
-    val ty = TY(ownPrefix)
+    val common = Common(fullPrefix)
+    val uv = UV(fullPrefix)
+    val ty = TY(fullPrefix)
     
 }
