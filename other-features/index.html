@@ -1583,8 +1583,9 @@ autocompletion will be provided for <code>ruff</code>, <code>uv</code>, <code>uv
 <h2 id="console-filters">Console filters<a class="headerlink" href="#console-filters" title="Permanent link">#</a></h2>
 <p>In console views, file paths within Ruff and ty diagnostics are hyperlinked,
 which can be clicked on to navigate to the specified location.
-Relative paths are resolved against the project's path.
-If the specified path is not resolvable no links will be shown.</p>
+Relative paths are resolved against the project's path
+and, <a href="../configurations/main/#resolve-relative-paths-against-source-roots">optionally</a>, <a href="https://www.jetbrains.com/help/pycharm/content-root.html">source roots</a>.
+If the specified path is not resolvable, no links will be shown.</p>
 <p>Recognized formats are <code>--&gt; path:line:column</code> and <code>::: path:line:column</code>.</p>
 <p><img alt="" src="../assets/features-console-filters-ruff-and-ty-path-linker-demo.png" /></p>
 <h2 id="language-injection">Language injection<a class="headerlink" href="#language-injection" title="Permanent link">#</a></h2>
