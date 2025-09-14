@@ -14,6 +14,25 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-18] - 2025-09-14
+
+### Contributors
+
+* @jeroenbrouwer
+
+
+### Dependencies
+
+* [@JetBrains/java-annotations][_0.1.0-a18-d1]: 26.0.2 &rarr; 26.0.2-1
+* [@actions/setup-python][_0.1.0-a18-d2]: 5 &rarr; 6
+* [Kotlin JVM plugin][_0.1.0-a18-d3]: 2.2.10 &rarr; 2.2.20
+
+
+  [_0.1.0-a18-d1]: https://github.com/JetBrains/java-annotations
+  [_0.1.0-a18-d2]: https://github.com/actions/setup-python
+  [_0.1.0-a18-d3]: https://github.com/JetBrains/kotlin
+
+
 ## [0.1.0-alpha-17] - 2025-08-31
 
 ### Dependencies
@@ -336,7 +355,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..HEAD
+  [0.1.0-alpha-18]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..v0.1.0-alpha-18
   [0.1.0-alpha-17]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..v0.1.0-alpha-17
   [0.1.0-alpha-16]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..v0.1.0-alpha-16
   [0.1.0-alpha-15]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..v0.1.0-alpha-15

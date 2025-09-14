@@ -14,6 +14,56 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-18] - 2025-09-14
+
+See [the documentation][0.1.0-a18-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.13.0][0.1.0-a18-2]
+* uv: [0.8.17][0.1.0-a18-3]
+* Rye: [0.44.0][0.1.0-a18-4]
+* ty: [0.0.1-alpha.20][0.1.0-a18-5]
+
+
+### Added
+
+* Previously, paths in Ruff and ty diagnostics would only be resolved
+  against the project's path.
+  Now they will also be resolved against [source roots][0.1.0-a18-a-1]
+  if [the corresponding setting][0.1.0-a18-a-2] is enabled.
+
+
+### Changed
+
+* The logging consoles have been improved for readability:
+
+  * Log lines are now marked with command IDs.
+  * Output lines are now prettified and folded by default.
+  * On console clear, the notice at the top will be reprinted.
+
+
+### Fixed
+
+* Ruff 0.12.4 slightly changed its JSON output format,
+  which would cause syntax errors to be considered suppressible.
+  This has been fixed.
+
+
+### Removed
+
+* 2025.2 and older versions are no longer supported.
+
+
+  [0.1.0-a18-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a18-2]: https://github.com/astral-sh/ruff/releases/tag/0.13.0
+  [0.1.0-a18-3]: https://github.com/astral-sh/uv/releases/tag/0.8.17
+  [0.1.0-a18-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a18-5]: https://github.com/astral-sh/ty/releases/tag/0.0.1-alpha.20
+  [0.1.0-a18-a-1]: https://www.jetbrains.com/help/pycharm/content-root.html
+  [0.1.0-a18-a-2]: https://insyncwithfoo.github.io/ryecharm/configurations/main/#resolve-relative-paths-against-source-roots
+
+
 ## [0.1.0-alpha-17] - 2025-08-31
 
 See [the documentation][0.1.0-a17-1] for more information.
@@ -908,7 +958,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..HEAD
+  [0.1.0-alpha-18]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..v0.1.0-alpha-18
   [0.1.0-alpha-17]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..v0.1.0-alpha-17
   [0.1.0-alpha-16]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..v0.1.0-alpha-16
   [0.1.0-alpha-15]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-14..v0.1.0-alpha-15

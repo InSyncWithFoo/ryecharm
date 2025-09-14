@@ -39,8 +39,9 @@ autocompletion will be provided for `ruff`, `uv`, `uvx` and `rye` commands.
 
 In console views, file paths within Ruff and ty diagnostics are hyperlinked,
 which can be clicked on to navigate to the specified location.
-Relative paths are resolved against the project's path.
-If the specified path is not resolvable no links will be shown.
+Relative paths are resolved against the project's path
+and, [optionally][5], [source roots][6].
+If the specified path is not resolvable, no links will be shown.
 
 Recognized formats are `--> path:line:column` and `::: path:line:column`.
 
@@ -52,12 +53,12 @@ Recognized formats are `--> path:line:column` and `::: path:line:column`.
 
 ### Inline script metadata block
 
-[PEP 723][5] inline script metadata blocks
+[PEP 723][7] inline script metadata blocks
 are automatically injected with TOML.
 Only Python files whose extensions are
 either `.py` or unknown are supported.
 
-This can be disabled using [the corresponding setting][6].
+This can be disabled using [the corresponding setting][8].
 To force rerendering, make an arbitrary edit or reopen the file.
 
 ![](./assets/features-inline-script-metadata-language-injection-demo.png)
@@ -65,9 +66,9 @@ To force rerendering, make an arbitrary edit or reopen the file.
 
 ### Requirements arrays in TOML files
 
-uv settings that takes an array of [PEP 508][7] dependencies
+uv settings that takes an array of [PEP 508][9] dependencies
 are injected with <i>Requirements</i>,
-similar to [that of `project.dependencies`][8].
+similar to [that of `project.dependencies`][10].
 Such settings include:
 
 * \[`tool.uv`] `constraint-dependencies`
@@ -77,7 +78,7 @@ Such settings include:
 * \[`tool.uv`] `pip.upgrade-package`
 
 `project.optional-dependencies` and `dependency-groups` are also supported.
-This monkeypatches [PY-71120][9].
+This monkeypatches [PY-71120][11].
 
 === "pyproject.toml"
     ![](./assets/features-requirements-arrays-language-injection-demo-pyproject-toml.png)
@@ -142,13 +143,13 @@ Unless the delay proves to be a problem, you can safely ignore this warning.
 
 ## Dependency groups
 
-[PEP 735][10] dependency groups are supported
+[PEP 735][12] dependency groups are supported
 using a number of features.
 
 
 ### Language injection
 
-See [&sect; <i>Requirements arrays in TOML files</i>][11].
+See [&sect; <i>Requirements arrays in TOML files</i>][13].
 
 ![](./assets/features-dependency-groups-language-injection.png)
 
@@ -180,7 +181,7 @@ Errors will be reported for a dependency group if:
 
 * It includes an invalid group.
 * It includes itself.
-* It has the same [normalized name][12] as another group.
+* It has the same [normalized name][14] as another group.
 
 
 ## Command logs
@@ -208,11 +209,13 @@ This might be helpful for debugging purposes.
   [2]: https://www.jetbrains.com/help/pycharm/settings-editor-tabs.html#Settings_Editor_Tabs.topic
   [3]: https://www.jetbrains.com/help/pycharm/part-4-using-the-navigation-bar.html
   [4]: https://blog.jetbrains.com/idea/2024/02/the-new-terminal-beta-is-now-in-jetbrains-ides/
-  [5]: https://peps.python.org/pep-0723/
-  [6]: ./configurations/main.md#pep-723-inline-script-metadata-blocks
-  [7]: https://peps.python.org/pep-0508/
-  [8]: https://www.jetbrains.com/help/pycharm/pyproject-toml-support.html#specify-project-dependencies
-  [9]: https://youtrack.jetbrains.com/issue/PY-71120
-  [10]: https://peps.python.org/pep-0735/
-  [11]: #requirements-arrays-in-toml-files
-  [12]: https://packaging.python.org/en/latest/specifications/name-normalization/
+  [5]: ./configurations/main.md#resolve-relative-paths-against-source-roots
+  [6]: https://www.jetbrains.com/help/pycharm/content-root.html
+  [7]: https://peps.python.org/pep-0723/
+  [8]: ./configurations/main.md#pep-723-inline-script-metadata-blocks
+  [9]: https://peps.python.org/pep-0508/
+  [10]: https://www.jetbrains.com/help/pycharm/pyproject-toml-support.html#specify-project-dependencies
+  [11]: https://youtrack.jetbrains.com/issue/PY-71120
+  [12]: https://peps.python.org/pep-0735/
+  [13]: #requirements-arrays-in-toml-files
+  [14]: https://packaging.python.org/en/latest/specifications/name-normalization/
