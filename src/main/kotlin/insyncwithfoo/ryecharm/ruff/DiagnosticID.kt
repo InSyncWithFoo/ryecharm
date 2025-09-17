@@ -3,11 +3,12 @@ package insyncwithfoo.ryecharm.ruff
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonPrimitive
 
 
 // https://github.com/astral-sh/ruff/blob/2467c4352e/crates/ruff_db/src/diagnostic/mod.rs#L1047
@@ -30,14 +31,22 @@ internal sealed class DiagnosticID(val value: String) {
 private class DiagnosticIDSerializer : KSerializer<DiagnosticID> {
     
     override val descriptor: SerialDescriptor =
-        PrimitiveSerialDescriptor("DiagnosticID", PrimitiveKind.STRING)
+        buildClassSerialDescriptor("DiagnosticID")
     
     override fun serialize(encoder: Encoder, value: DiagnosticID) {
         throw SerializationException("The serializer must not be used")
     }
     
-    override fun deserialize(decoder: Decoder) =
-        DiagnosticID.from(decoder.decodeString())
+    override fun deserialize(decoder: Decoder): DiagnosticID {
+        val decoder = decoder as? JsonDecoder ?: return DiagnosticID.None
+        val element = decoder.decodeJsonElement()
+        
+        if (element !is JsonPrimitive || !element.isString) {
+            return DiagnosticID.None
+        }
+        
+        return DiagnosticID.from(element.content)
+    }
     
 }
 
