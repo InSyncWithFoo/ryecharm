@@ -14,6 +14,18 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-19] - 2025-09-21
+
+### Dependencies
+
+* [LSP4IJ][_0.1.0-a19-d1]: 0.15.0 &rarr; 0.16.1
+* [Kover][_0.1.0-a19-d2]: 0.9.1 &rarr; 0.9.2
+
+
+  [_0.1.0-a19-d1]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a19-d2]: https://github.com/Kotlin/kotlinx-kover
+
+
 ## [0.1.0-alpha-18] - 2025-09-14
 
 ### Contributors
@@ -355,7 +367,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-19..HEAD
+  [0.1.0-alpha-19]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..v0.1.0-alpha-19
   [0.1.0-alpha-18]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..v0.1.0-alpha-18
   [0.1.0-alpha-17]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..v0.1.0-alpha-17
   [0.1.0-alpha-16]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..v0.1.0-alpha-16

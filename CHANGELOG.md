@@ -14,6 +14,36 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-19] - 2025-09-21
+
+See [the documentation][0.1.0-a19-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.13.1][0.1.0-a19-2]
+* uv: [0.8.19][0.1.0-a19-3]
+* Rye: [0.44.0][0.1.0-a19-4]
+* ty: [0.0.1-alpha.21][0.1.0-a19-5]
+
+
+### Fixed
+
+* In the previous version, RyeCharm would raise deserialization errors
+  if Ruff is older than 0.12.4 and thus uses `"code": null`
+  for syntax error diagnostics, causing multiple duplicate notifications.
+  This has been fixed.
+* Dependency tree popups no longer cause
+  "Read access is allowed from inside read-action only"
+  threading errors.
+
+
+  [0.1.0-a19-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a19-2]: https://github.com/astral-sh/ruff/releases/tag/0.13.1
+  [0.1.0-a19-3]: https://github.com/astral-sh/uv/releases/tag/0.8.19
+  [0.1.0-a19-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a19-5]: https://github.com/astral-sh/ty/releases/tag/0.0.1-alpha.21
+
+
 ## [0.1.0-alpha-18] - 2025-09-14
 
 See [the documentation][0.1.0-a18-1] for more information.
@@ -958,7 +988,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-19..HEAD
+  [0.1.0-alpha-19]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..v0.1.0-alpha-19
   [0.1.0-alpha-18]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..v0.1.0-alpha-18
   [0.1.0-alpha-17]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..v0.1.0-alpha-17
   [0.1.0-alpha-16]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-15..v0.1.0-alpha-16
