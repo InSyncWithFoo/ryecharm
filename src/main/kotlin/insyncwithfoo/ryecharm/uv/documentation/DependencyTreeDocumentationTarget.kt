@@ -34,7 +34,7 @@ internal class DependencyTreeDocumentationTarget(
         DependencyTreeDocumentationTarget(element, `package`, inverted)
     
     override fun computeDocumentation() = DocumentationResult.asyncDocumentation {
-        module?.getDocumentation()?.toDocumentationResult()
+        readAction { module }?.getDocumentation()?.toDocumentationResult()
     }
     
     private suspend fun Module.getDocumentation(): HTML? {
