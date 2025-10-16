@@ -193,5 +193,9 @@
 			class="insyncwithfoo.ryecharm.ruff.actions.SuggestProjectExecutable"
 			topic="com.jetbrains.python.packaging.common.PythonPackageManagementListener"
 		/>
+		<listener
+			class="insyncwithfoo.ryecharm.ruff.onsave.RuffOnSaveTasksRunner"
+			topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"
+		/>
 	</projectListeners>
 </idea-plugin>
