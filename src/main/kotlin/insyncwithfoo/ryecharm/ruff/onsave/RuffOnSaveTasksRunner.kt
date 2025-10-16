@@ -2,8 +2,10 @@ package insyncwithfoo.ryecharm.ruff.onsave
 
 import com.intellij.ide.actionsOnSave.impl.ActionsOnSaveFileDocumentManagerListener.ActionOnSave
 import com.intellij.ide.actionsOnSave.impl.ActionsOnSaveFileDocumentManagerListener.DocumentUpdatingActionOnSave
+import com.intellij.ide.scratch.ScratchUtil
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.fileEditor.FileDocumentManagerListener
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.toNioPathOrNull
@@ -44,6 +46,10 @@ private operator fun Project.contains(file: VirtualFile) =
 /**
  * Fix and/or format files with Ruff on save.
  * 
+ * Scratch files don't trigger on-save actions,
+ * so this class also implements [FileDocumentManagerListener]
+ * as a workaround.
+ * 
  * This deliberately inherits from [ActionOnSave]
  * instead of [DocumentUpdatingActionOnSave]
  * because it isn't clear what should be done to:
@@ -52,10 +58,36 @@ private operator fun Project.contains(file: VirtualFile) =
  * * Write the new content back in suspending context under write action
  * * Do both of the above in a non-read-action BGT.
  */
-internal class RuffOnSaveTasksRunner : ActionOnSave() {
+internal class RuffOnSaveTasksRunner(private val project: Project? = null) :
+    ActionOnSave(), FileDocumentManagerListener
+{
     
     override fun isEnabledForProject(project: Project) =
         project.ruff != null && project.ruffConfigurations.run { formatOnSave || fixOnSave }
+    
+    /**
+     * Same as [processDocuments], but for scratch files.
+     */
+    override fun beforeDocumentSaving(document: Document) {
+        if (project == null || !isEnabledForProject(project)) {
+            return
+        }
+        
+        val psiFile = project.psiDocumentManager.getPsiFile(document) ?: return
+        val virtualFile = psiFile.virtualFile ?: return
+        
+        if (!ScratchUtil.isScratch(virtualFile)) {
+            return
+        }
+        
+        val configurations = project.ruffConfigurations
+        
+        if (!psiFile.isApplicableForSpecifiedTasks(configurations)) {
+            return
+        }
+        
+        project.process(document, psiFile)
+    }
     
     override fun processDocuments(project: Project, documents: Array<Document>) {
         val configurations = project.ruffConfigurations
