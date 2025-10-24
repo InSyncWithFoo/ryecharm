@@ -1,14 +1,24 @@
 package insyncwithfoo.ryecharm.ruff.folding
 
 import insyncwithfoo.ryecharm.PlatformTestCase
+import insyncwithfoo.ryecharm.ruff.RuleCode
+import insyncwithfoo.ryecharm.ruff.documentation.RuleName
 import org.junit.Test
 
 
 internal class RuffRuleFoldingTest : PlatformTestCase() {
     
+    private var codeToNameMap: Map<RuleCode, RuleName>? = null
+    
     override fun setUp() {
         super.setUp()
-        project.getCodeToNameMapOrTriggerRetrieving()
+        
+        codeToNameMap = project.getCodeToNameMapOrTriggerRetrieving()
+    }
+    
+    @Test
+    fun `test map`() {
+        assertNotNull(codeToNameMap)
     }
     
     @Test
