@@ -82,7 +82,7 @@ jobs:
           echo "filename=${FILENAME:0:-4}" >> $GITHUB_OUTPUT
       -
         name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ steps.artifact.outputs.filename }}
           path: ./build/distributions/content/*/*
@@ -174,7 +174,7 @@ jobs:
       -
         name: Upload result
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: tests-result-${{ matrix.platform }}
           path: ${{ github.workspace }}/build/reports/tests
@@ -260,7 +260,7 @@ jobs:
       -
         name: Upload result
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: pluginVerifier-result
           path: ${{ github.workspace }}/build/reports/pluginVerifier
