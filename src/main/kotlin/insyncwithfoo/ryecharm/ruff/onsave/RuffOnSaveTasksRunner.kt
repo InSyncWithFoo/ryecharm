@@ -2,8 +2,10 @@ package insyncwithfoo.ryecharm.ruff.onsave
 
 import com.intellij.ide.actionsOnSave.impl.ActionsOnSaveFileDocumentManagerListener.ActionOnSave
 import com.intellij.ide.actionsOnSave.impl.ActionsOnSaveFileDocumentManagerListener.DocumentUpdatingActionOnSave
+import com.intellij.ide.scratch.ScratchUtil
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.fileEditor.FileDocumentManagerListener
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.toNioPathOrNull
@@ -41,8 +43,27 @@ private operator fun Project.contains(file: VirtualFile) =
     basePath?.let { file.canonicalPath?.startsWith(it) } ?: false
 
 
+private enum class FileScope {
+    PROJECT,
+    NON_PROJECT,
+    SCRATCH;
+
+    companion object {
+        fun from(project: Project, file: VirtualFile) = when {
+            ScratchUtil.isScratch(file) -> SCRATCH
+            file in project -> PROJECT
+            else -> NON_PROJECT
+        }
+    }
+}
+
+
 /**
  * Fix and/or format files with Ruff on save.
+ * 
+ * Scratch files don't trigger on-save actions,
+ * so this class also implements [FileDocumentManagerListener]
+ * as a workaround.
  * 
  * This deliberately inherits from [ActionOnSave]
  * instead of [DocumentUpdatingActionOnSave]
@@ -52,30 +73,55 @@ private operator fun Project.contains(file: VirtualFile) =
  * * Write the new content back in suspending context under write action
  * * Do both of the above in a non-read-action BGT.
  */
-internal class RuffOnSaveTasksRunner : ActionOnSave() {
+internal class RuffOnSaveTasksRunner(private val project: Project? = null) :
+    ActionOnSave(), FileDocumentManagerListener
+{
     
     override fun isEnabledForProject(project: Project) =
         project.ruff != null && project.ruffConfigurations.run { formatOnSave || fixOnSave }
+    
+    /**
+     * Same as [processDocuments], but for scratch files.
+     */
+    override fun beforeDocumentSaving(document: Document) {
+        if (project == null || !isEnabledForProject(project)) {
+            return
+        }
+        
+        processDocuments(project, arrayOf(document))
+    }
     
     override fun processDocuments(project: Project, documents: Array<Document>) {
         val configurations = project.ruffConfigurations
         val psiDocumentManager = project.psiDocumentManager
         
-        val projectFilesOnly = configurations.runOnSaveProjectFilesOnly
+        val allowedScopes = listOfNotNull(
+            FileScope.PROJECT.takeIf { configurations.runOnSaveProjectFiles },
+            FileScope.NON_PROJECT.takeIf { configurations.runOnSaveNonProjectFiles },
+            FileScope.SCRATCH.takeIf { configurations.runOnSaveScratchFiles },
+        )
         
-        documents.forEach { document ->
+        if (allowedScopes.isEmpty() || !configurations.run { fixOnSave || formatOnSave }) {
+            return
+        }
+        
+        for (document in documents) {
             val file = psiDocumentManager.getPsiFile(document)
             val virtualFile = file?.virtualFile
             
             if (file == null || !file.isApplicableForSpecifiedTasks(configurations)) {
-                return@forEach
+                continue
             }
             
-            if (virtualFile == null || projectFilesOnly && virtualFile !in project) {
-                return@forEach
+            if (virtualFile == null) {
+                continue
             }
             
-            project.process(document, file)
+            val scope = FileScope.from(project, virtualFile)
+            
+            if (scope in allowedScopes) {
+                project.process(document, file)
+            }
         }
     }
     
