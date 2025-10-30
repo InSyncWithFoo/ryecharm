@@ -43,6 +43,21 @@ private operator fun Project.contains(file: VirtualFile) =
     basePath?.let { file.canonicalPath?.startsWith(it) } ?: false
 
 
+private enum class FileScope {
+    PROJECT,
+    NON_PROJECT,
+    SCRATCH;
+
+    companion object {
+        fun from(project: Project, file: VirtualFile) = when {
+            ScratchUtil.isScratch(file) -> SCRATCH
+            file in project -> PROJECT
+            else -> NON_PROJECT
+        }
+    }
+}
+
+
 /**
  * Fix and/or format files with Ruff on save.
  * 
@@ -73,41 +88,40 @@ internal class RuffOnSaveTasksRunner(private val project: Project? = null) :
             return
         }
         
-        val psiFile = project.psiDocumentManager.getPsiFile(document) ?: return
-        val virtualFile = psiFile.virtualFile ?: return
-        
-        if (!ScratchUtil.isScratch(virtualFile)) {
-            return
-        }
-        
-        val configurations = project.ruffConfigurations
-        
-        if (!psiFile.isApplicableForSpecifiedTasks(configurations)) {
-            return
-        }
-        
-        project.process(document, psiFile)
+        processDocuments(project, arrayOf(document))
     }
     
     override fun processDocuments(project: Project, documents: Array<Document>) {
         val configurations = project.ruffConfigurations
         val psiDocumentManager = project.psiDocumentManager
         
-        val projectFilesOnly = configurations.runOnSaveProjectFilesOnly
+        val allowedScopes = listOfNotNull(
+            FileScope.PROJECT.takeIf { configurations.runOnSaveProjectFiles },
+            FileScope.NON_PROJECT.takeIf { configurations.runOnSaveNonProjectFiles },
+            FileScope.SCRATCH.takeIf { configurations.runOnSaveScratchFiles },
+        )
         
-        documents.forEach { document ->
+        if (allowedScopes.isEmpty() || !configurations.run { fixOnSave || formatOnSave }) {
+            return
+        }
+        
+        for (document in documents) {
             val file = psiDocumentManager.getPsiFile(document)
             val virtualFile = file?.virtualFile
             
             if (file == null || !file.isApplicableForSpecifiedTasks(configurations)) {
-                return@forEach
+                continue
             }
             
-            if (virtualFile == null || projectFilesOnly && virtualFile !in project) {
-                return@forEach
+            if (virtualFile == null) {
+                continue
             }
             
-            project.process(document, file)
+            val scope = FileScope.from(project, virtualFile)
+            
+            if (scope in allowedScopes) {
+                project.process(document, file)
+            }
         }
     }
     

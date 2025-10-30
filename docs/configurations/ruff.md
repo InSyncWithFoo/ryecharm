@@ -252,11 +252,32 @@ Whether Ruff should be run on files before saving.
 If both "fix problems" and "format" are enabled, they are run in that order.
 
 
-### Project files only
+### Files to run on
 
-Whether only files belong to the current project should be run on.
+What kind of files on which Ruff should be run on save.
+
+
+#### Project files
+
+Whether files contained in the project directory
+or a descendant thereof should be run on.
 
 Default: `true`
+
+
+#### Non-project files
+
+Whether files that are neither project files nor scratch files
+should be run on.
+
+Default: `false`
+
+
+#### Scratch files
+
+Whether [scratch files][19] should be run on.
+
+Default: `false`
 
 
 ### Format
@@ -283,7 +304,7 @@ Whether RyeCharm should automatically find a potential
 Ruff executable and suggest setting that as the executable
 for the current project on some events.
 
-This functionality can also be [triggered as an action][19].
+This functionality can also be [triggered as an action][20].
 
 
 #### On project open
@@ -303,7 +324,7 @@ Default: `true`
 
 ### Folding
 
-Settings related to [code folding][20] functionalities.
+Settings related to [code folding][21] functionalities.
 
 
 #### Fold single-rule selectors by default
@@ -346,5 +367,6 @@ Default: `true`
   [16]: ../ruff/documentation.md
   [17]: https://docs.astral.sh/ruff/editors/settings/#loglevel
   [18]: https://docs.astral.sh/ruff/editors/settings/#logfile
-  [19]: ../ruff/actions.md#suggest-project-executable
-  [20]: ../ruff/folding.md
+  [19]: https://www.jetbrains.com/help/pycharm/scratches.html
+  [20]: ../ruff/actions.md#suggest-project-executable
+  [21]: ../ruff/folding.md

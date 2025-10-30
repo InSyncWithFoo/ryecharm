@@ -80,7 +80,9 @@ internal class RuffConfigurations : DisplayableState() {
     var logLevel by enum(LogLevel.INFO)
     var logFile by string(null)
     
-    var runOnSaveProjectFilesOnly by property(true)
+    var runOnSaveProjectFiles by property(true)
+    var runOnSaveNonProjectFiles by property(false)
+    var runOnSaveScratchFiles by property(false)
     var formatOnSave by property(false)
     var fixOnSave by property(false)
     

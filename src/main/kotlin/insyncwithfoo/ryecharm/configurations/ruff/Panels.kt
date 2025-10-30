@@ -134,8 +134,16 @@ private fun Row.logFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) 
     singleFileTextField().makeFlexible().apply(block)
 
 
-private fun Row.runOnSaveProjectFilesOnlyInput(block: Cell<JBCheckBox>.() -> Unit) =
-    checkBox(message("configurations.ruff.runOnSaveProjectFilesOnly.label")).apply(block)
+private fun Row.runOnSaveProjectFilesInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.runOnSaveProjectFiles.label")).apply(block)
+
+
+private fun Row.runOnSaveNonProjectFilesInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.runOnSaveNonProjectFiles.label")).apply(block)
+
+
+private fun Row.runOnSaveScratchFilesInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.runOnSaveScratchFiles.label")).apply(block)
 
 
 private fun Row.formatOnSaveInput(block: Cell<JBCheckBox>.() -> Unit) =
@@ -323,8 +331,21 @@ private fun RuffPanel.makeComponent() = panel {
     
     group(message("configurations.ruff.groups.runOnSave")) {
         row {
-            runOnSaveProjectFilesOnlyInput { bindSelected(state::runOnSaveProjectFilesOnly) }
-            overrideCheckbox(state::runOnSaveProjectFilesOnly)
+            label(message("configurations.ruff.subgroups.runOnSaveFiles.groupLabel"))
+        }
+        indent {
+            row {
+                runOnSaveProjectFilesInput { bindSelected(state::runOnSaveProjectFiles) }
+                overrideCheckbox(state::runOnSaveProjectFiles)
+            }
+            row {
+                runOnSaveNonProjectFilesInput { bindSelected(state::runOnSaveNonProjectFiles) }
+                overrideCheckbox(state::runOnSaveNonProjectFiles)
+            }
+            row {
+                runOnSaveScratchFilesInput { bindSelected(state::runOnSaveScratchFiles) }
+                overrideCheckbox(state::runOnSaveScratchFiles)
+            }
         }
         
         separator()
