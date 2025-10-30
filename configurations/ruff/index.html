@@ -1318,11 +1318,44 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#project-files-only" class="md-nav__link">
+  <a href="#files-to-run-on" class="md-nav__link">
     <span class="md-ellipsis">
-      Project files only
+      Files to run on
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Files to run on">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-project-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-project files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scratch-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scratch files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1902,11 +1935,44 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#project-files-only" class="md-nav__link">
+  <a href="#files-to-run-on" class="md-nav__link">
     <span class="md-ellipsis">
-      Project files only
+      Files to run on
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Files to run on">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-project-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-project files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scratch-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scratch files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2220,9 +2286,19 @@ the keys of the <code>tool.ruff</code> table in the <code>pyproject.toml</code> 
 <h2 id="run-on-save">Run on save<a class="headerlink" href="#run-on-save" title="Permanent link">#</a></h2>
 <p>Whether Ruff should be run on files before saving.</p>
 <p>If both "fix problems" and "format" are enabled, they are run in that order.</p>
-<h3 id="project-files-only">Project files only<a class="headerlink" href="#project-files-only" title="Permanent link">#</a></h3>
-<p>Whether only files belong to the current project should be run on.</p>
+<h3 id="files-to-run-on">Files to run on<a class="headerlink" href="#files-to-run-on" title="Permanent link">#</a></h3>
+<p>What kind of files on which Ruff should be run on save.</p>
+<h4 id="project-files">Project files<a class="headerlink" href="#project-files" title="Permanent link">#</a></h4>
+<p>Whether files contained in the project directory
+or a descendant thereof should be run on.</p>
 <p>Default: <code>true</code></p>
+<h4 id="non-project-files">Non-project files<a class="headerlink" href="#non-project-files" title="Permanent link">#</a></h4>
+<p>Whether files that are neither project files nor scratch files
+should be run on.</p>
+<p>Default: <code>false</code></p>
+<h4 id="scratch-files">Scratch files<a class="headerlink" href="#scratch-files" title="Permanent link">#</a></h4>
+<p>Whether <a href="https://www.jetbrains.com/help/pycharm/scratches.html">scratch files</a> should be run on.</p>
+<p>Default: <code>false</code></p>
 <h3 id="format">Format<a class="headerlink" href="#format" title="Permanent link">#</a></h3>
 <p>Whether Ruff should format the file before it is saved.</p>
 <p>Default: <code>false</code></p>
