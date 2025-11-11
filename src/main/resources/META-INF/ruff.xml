@@ -5,6 +5,11 @@
 			implementation="insyncwithfoo.ryecharm.ruff.onsave.RuffOnSaveTasksRunner"
 		/>
 		
+		<actionOnSaveInfoProvider
+			id="insyncwithfoo.ryecharm.ruff.onsave.RuffOnSaveTasksInfoProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.onsave.RuffOnSaveTasksInfoProvider"
+		/>
+		
 		<externalAnnotator
 			id="insyncwithfoo.ryecharm.ruff.linting.RuffAnnotator"
 			order="first"
