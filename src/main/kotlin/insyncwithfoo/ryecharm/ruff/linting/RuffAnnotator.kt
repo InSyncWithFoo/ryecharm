@@ -102,6 +102,7 @@ internal class RuffAnnotator : ExternalAnnotator<InitialInfo, AnnotationResult>(
             val range = document.getOffsetRange(diagnostic.oneBasedRange)
             val noqaOffset = diagnostic.getNoqaOffset(document)
             
+            builder.needsUpdateOnTyping()
             builder.tooltip(tooltip)
             
             when (diagnostic.isForFile && configurations.fileLevelBanner) {
