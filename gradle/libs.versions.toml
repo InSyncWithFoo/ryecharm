@@ -2,6 +2,7 @@
 # libraries
 annotations = "26.0.2-1"
 kotlinxSerialization = "1.9.0"
+ktorClientCIO = "3.3.2"
 junit = "4.13.2"
 reflections = "0.10.2"
 
@@ -21,6 +22,11 @@ version.ref = "annotations"
 group = "org.jetbrains.kotlinx"
 name = "kotlinx-serialization-json"
 version.ref = "kotlinxSerialization"
+
+[libraries.ktorClientCIO]
+group = "io.ktor"
+name = "ktor-client-cio"
+version.ref = "ktorClientCIO"
 
 [libraries.junit]
 group = "junit"
