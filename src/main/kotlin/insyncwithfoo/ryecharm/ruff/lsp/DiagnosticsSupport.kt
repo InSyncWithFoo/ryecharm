@@ -62,12 +62,6 @@ internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
             builder.highlightType(it)
         }
         
-        @Suppress("UnstableApiUsage")
-        getEnforcedTextAttributes(diagnostic)?.let {
-            builder.enforcedTextAttributes(it)
-        }
-        
-        // TODO: Use customizeQuickFixes once it is no longer internal
         quickFixes.filter { it.isAllowed }.forEach { builder.withFix(it) }
         
         builder.create()
