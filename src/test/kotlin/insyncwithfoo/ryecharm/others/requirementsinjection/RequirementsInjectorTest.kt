@@ -34,6 +34,8 @@ internal class RequirementsInjectorTest : LanguageInjectionTestCase() {
             
             filenames.forEach { filename ->
                 fileBasedTest("$directory/$filename") {
+                    println("$directory/$filename")
+                    
                     val fragment = fragments.single()
                     
                     assertTrue(arrayKeyAtLineStart.containsMatchIn(file.text))
