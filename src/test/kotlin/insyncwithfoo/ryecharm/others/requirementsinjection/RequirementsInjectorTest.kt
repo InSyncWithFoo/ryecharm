@@ -8,6 +8,11 @@ import org.junit.Test
 internal class RequirementsInjectorTest : LanguageInjectionTestCase() {
     
     @Test
+    fun `test RequirementsFile is available`() {
+        assertEquals(RequirementsFile::class, RequirementsFile::class)
+    }
+    
+    @Test
     fun `test project optional-dependencies`() = fileBasedTest("projectOptionalDependencies/pyproject.toml") {
         assertEquals(2, fragments.size)
     }
@@ -34,8 +39,6 @@ internal class RequirementsInjectorTest : LanguageInjectionTestCase() {
             
             filenames.forEach { filename ->
                 fileBasedTest("$directory/$filename") {
-                    println("$directory/$filename")
-                    
                     val fragment = fragments.single()
                     
                     assertTrue(arrayKeyAtLineStart.containsMatchIn(file.text))
