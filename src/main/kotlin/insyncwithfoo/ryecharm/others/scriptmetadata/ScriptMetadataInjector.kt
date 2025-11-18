@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm.others.scriptmetadata
 
 import com.intellij.formatting.InjectedFormattingOptionsProvider
-import com.intellij.lang.Language
 import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.openapi.project.DumbAware
@@ -12,14 +11,8 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.jetbrains.python.psi.PyFile
 import insyncwithfoo.ryecharm.configurations.main.mainConfigurations
+import insyncwithfoo.ryecharm.inject
 import org.toml.lang.TomlLanguage
-
-
-private fun MultiHostRegistrar.inject(language: Language, addRanges: MultiHostRegistrar.() -> Unit) {
-    startInjecting(language, language.associatedFileType?.defaultExtension)
-    addRanges()
-    doneInjecting()
-}
 
 
 private fun MultiHostRegistrar.addPlace(comment: PsiComment, range: TextRange) {
@@ -64,7 +57,7 @@ internal class ScriptMetadataInjector : MultiHostInjector, InjectedFormattingOpt
             previousLineBreak?.prevSibling?.isStartBlockLine != true -> return
         }
         
-        val scriptBlockComments = containingFile!!.findScriptBlockBodyElements()
+        val scriptBlockComments = containingFile.findScriptBlockBodyElements()
         
         if (comment !in scriptBlockComments) {
             return
