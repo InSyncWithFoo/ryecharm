@@ -8,11 +8,6 @@ import org.junit.Test
 internal class RequirementsInjectorTest : LanguageInjectionTestCase() {
     
     @Test
-    fun `test RequirementsFile is available`() {
-        assertEquals(RequirementsFile::class, RequirementsFile::class)
-    }
-    
-    @Test
     fun `test project optional-dependencies`() = fileBasedTest("projectOptionalDependencies/pyproject.toml") {
         assertEquals(2, fragments.size)
     }

@@ -57,12 +57,10 @@ internal class RequirementsInjector : MultiHostInjector, DumbAware {  // TODO: R
         
         val string = context.kind as? TomlLiteralKind.String ?: return
         val valueRange = string.offsets.value ?: return
-        
         val (prefix, suffix) = Pair("", "")
-        val range = TextRange(valueRange.startOffset, valueRange.endOffset)
         
         registrar.inject(RequirementsLanguage.INSTANCE) {
-            registrar.addPlace(prefix, suffix, context, range)
+            registrar.addPlace(prefix, suffix, context, valueRange)
         }
     }
     
