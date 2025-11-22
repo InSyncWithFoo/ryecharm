@@ -10,6 +10,7 @@ import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.RyeCharmRegistry
 import insyncwithfoo.ryecharm.addExpiringAction
+import insyncwithfoo.ryecharm.addOpenBrowserAction
 import insyncwithfoo.ryecharm.completedAbnormally
 import insyncwithfoo.ryecharm.configurations.add
 import insyncwithfoo.ryecharm.configurations.changeGlobalUVConfigurations
@@ -188,6 +189,10 @@ internal class Update : AnAction(), ProjectActivity, DumbAware {
                     changeUVOverrides { add(::updateMethod.name) }
                 }
             }
+            addOpenBrowserAction(
+                message("notificationActions.seeWhatsNew"),
+                "https://github.com/astral-sh/uv/releases/tag/${latestVersion}"
+            )
         }
     }
     
