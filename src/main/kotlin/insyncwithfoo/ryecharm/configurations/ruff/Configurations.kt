@@ -96,6 +96,7 @@ internal class RuffConfigurations : DisplayableState() {
     var snoozeFormattingTaskError by property(false)
     var letNativeClientPullDiagnostics by property(false)
     var showImportGraphOnCallHierarchyForFile by property(false)
+    var analyzeGraphTypeCheckingImports by property(true)
 }
 
 

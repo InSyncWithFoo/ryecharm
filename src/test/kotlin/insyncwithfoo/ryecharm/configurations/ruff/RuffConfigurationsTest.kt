@@ -11,7 +11,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 38) {
+        doShapeTest(expectedSize = 39) {
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
             assertEquals(null, configurationFile)
@@ -60,6 +60,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
             assertEquals(false, snoozeFormattingTaskError)
             assertEquals(false, letNativeClientPullDiagnostics)
             assertEquals(false, showImportGraphOnCallHierarchyForFile)
+            assertEquals(true, analyzeGraphTypeCheckingImports)
         }
     }
     

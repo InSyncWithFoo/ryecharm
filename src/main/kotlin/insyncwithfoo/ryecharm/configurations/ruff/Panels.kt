@@ -192,6 +192,10 @@ private fun Row.showImportGraphOnCallHierarchyForFileInput(block: Cell<JBCheckBo
 }
 
 
+private fun Row.analyzeGraphTypeCheckingImportsInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ruff.analyzeGraphTypeCheckingImports.label")).apply(block)
+
+
 @Suppress("DialogTitleCapitalization")
 private fun RuffPanel.makeComponent() = panel {
     
@@ -406,6 +410,12 @@ private fun RuffPanel.makeComponent() = panel {
         row {
             showImportGraphOnCallHierarchyForFileInput { bindSelected(state::showImportGraphOnCallHierarchyForFile) }
             overrideCheckbox(state::showImportGraphOnCallHierarchyForFile)
+        }
+        indent {
+            row {
+                analyzeGraphTypeCheckingImportsInput { bindSelected(state::analyzeGraphTypeCheckingImports) }
+                overrideCheckbox(state::analyzeGraphTypeCheckingImports)
+            }
         }
     }
     

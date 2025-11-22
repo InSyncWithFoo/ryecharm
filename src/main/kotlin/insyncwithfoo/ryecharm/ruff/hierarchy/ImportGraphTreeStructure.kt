@@ -12,6 +12,7 @@ import com.jetbrains.python.hierarchy.call.PyCallerFunctionTreeStructure
 import com.jetbrains.python.psi.PyElement
 import com.jetbrains.python.psi.PyFile
 import insyncwithfoo.ryecharm.completedAbnormally
+import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.interpreterPath
 import insyncwithfoo.ryecharm.isNormalPyFile
 import insyncwithfoo.ryecharm.module
@@ -115,9 +116,16 @@ internal class ImportGraphTreeStructure(file: PyFile, scopeType: String, private
     
     private fun Module.getImportGraph(file: Path? = null): ImportGraph? {
         val projectPath = project.path ?: return null
+        val configurations = project.ruffConfigurations
         
         val ruff = project.ruff ?: return null
-        val command = ruff.analyzeGraph(file, interpreterPath, direction)
+        val command = ruff.analyzeGraph(
+            file,
+            interpreterPath,
+            direction,
+            // TODO: Make this a Hierarchy panel toggle action
+            configurations.analyzeGraphTypeCheckingImports
+        )
         
         val output = runBlockingCancellable {
             project.runInBackground(command)

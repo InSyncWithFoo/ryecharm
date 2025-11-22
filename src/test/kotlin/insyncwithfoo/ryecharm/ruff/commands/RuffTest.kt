@@ -46,9 +46,9 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
     
     @Test
-    fun `test analyzeGraph 1 - dependencies, no path, no interpreter`() {
+    fun `test analyzeGraph 1 - dependencies, no path, no interpreter, analyze type-checking imports`() {
         val direction = AnalyzeGraphDirection.DEPENDENCIES
-        val command = ruff.analyzeGraph(file = null, interpreter = null, direction)
+        val command = ruff.analyzeGraph(file = null, interpreter = null, direction, typeCheckingImports = true)
         
         commandTest<AnalyzeGraphCommand>(command) {
             assertArgumentsContain("--direction" to "dependencies")
@@ -56,13 +56,13 @@ internal class RuffTest : CommandFactoryTest(RuffCommand::class.java) {
     }
     
     @Test
-    fun `test analyzeGraph 2 - dependents, with path, with interpreter`() {
+    fun `test analyzeGraph 2 - dependents, with path, with interpreter, don't analyze type-checking imports`() {
         val (file, interpreter) = Pair(randomPath(), randomPath())
         val direction = AnalyzeGraphDirection.DEPENDENTS
-        val command = ruff.analyzeGraph(file, interpreter, direction)
+        val command = ruff.analyzeGraph(file, interpreter, direction, typeCheckingImports = false)
         
         commandTest<AnalyzeGraphCommand>(command) {
-            assertArgumentsContain(file.toString())
+            assertArgumentsContain(file.toString(), "--no-type-checking-imports")
             assertArgumentsContain("--python" to interpreter.toString())
             assertArgumentsContain("--direction" to "dependents")
         }
