@@ -14,6 +14,47 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-20] - 2025-11-23
+
+See [the documentation][0.1.0-a20-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.14.6][0.1.0-a20-2]
+* uv: [0.9.11][0.1.0-a20-3]
+* Rye: [0.44.0][0.1.0-a20-4]
+* ty: [0.0.1-alpha.27][0.1.0-a20-5]
+
+
+### Added
+
+* uv update notifications now also have a "See what's new" action
+  that will open the corresponding GitHub release in your browser.
+
+
+### Fixed
+
+* Ruff's `rule` JSON output schema was changed in 0.14.2,
+  causing several RyeCharm features to stop working.
+  RyeCharm now supports both old and new schemas.
+* Previously, Ruff's "run on save" actions would not be triggered
+  on scratch files. This has been fixed.
+  Consequently, the "Project files only" setting
+  has been replaced with "Files to run on".
+
+
+### Removed
+
+* 2025.2.3 and older versions are no longer supported.
+
+
+  [0.1.0-a20-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a20-2]: https://github.com/astral-sh/ruff/releases/tag/0.14.6
+  [0.1.0-a20-3]: https://github.com/astral-sh/uv/releases/tag/0.9.11
+  [0.1.0-a20-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a20-5]: https://github.com/astral-sh/ty/releases/tag/0.0.1-alpha.27
+
+
 ## [0.1.0-alpha-19] - 2025-09-21
 
 See [the documentation][0.1.0-a19-1] for more information.
@@ -988,7 +1029,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-19..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-20..HEAD
+  [0.1.0-alpha-20]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-19..v0.1.0-alpha-20
   [0.1.0-alpha-19]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..v0.1.0-alpha-19
   [0.1.0-alpha-18]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..v0.1.0-alpha-18
   [0.1.0-alpha-17]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..v0.1.0-alpha-17

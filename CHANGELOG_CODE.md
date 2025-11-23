@@ -14,6 +14,36 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-20] - 2025-11-23
+
+### Dependencies
+
+* [@gradle/actions][_0.1.0-a20-d1]: 4 &rarr; 5
+* [@astral-sh/setup-uv][_0.1.0-a20-d2]: 6 &rarr; 7
+* [Material for MkDocs][_0.1.0-a20-d3]: 9.6.18 &rarr; 9.6.22
+* [LSP4IJ][_0.1.0-a20-d4]: 0.16.1 &rarr; 0.18.0
+* [Gradle][_0.1.0-a20-d5]: 9.0.0 &rarr; 9.2.1
+* [IntelliJ Platform Gradle Plugin][_0.1.0-a20-d6]: 2.3.0 &rarr; 2.10.4
+* [Kover][_0.1.0-a20-d7]: 0.9.2 &rarr; 0.9.3
+* [Kotlin JVM plugin][_0.1.0-a20-d8]: 2.2.20 &rarr; 2.2.21
+* [@actions/upload-artifact][_0.1.0-a20-d9]: 4 &rarr; 5
+* [Qodana][_0.1.0-a20-d10]: 2025.2.1 &rarr; 2025.2.2
+* [@actions/checkout][_0.1.0-a20-d11]: 5 &rarr; 6
+
+
+  [_0.1.0-a20-d1]: https://github.com/gradle/actions
+  [_0.1.0-a20-d2]: https://github.com/astral-sh/setup-uv
+  [_0.1.0-a20-d3]: https://github.com/squidfunk/mkdocs-material
+  [_0.1.0-a20-d4]: https://github.com/redhat-developer/lsp4ij
+  [_0.1.0-a20-d5]: https://github.com/gradle/gradle
+  [_0.1.0-a20-d6]: https://github.com/JetBrains/intellij-platform-gradle-plugin
+  [_0.1.0-a20-d7]: https://github.com/Kotlin/kotlinx-kover
+  [_0.1.0-a20-d8]: https://github.com/JetBrains/kotlin
+  [_0.1.0-a20-d9]: https://github.com/actions/upload-artifact
+  [_0.1.0-a20-d10]: https://github.com/JetBrains/qodana-action
+  [_0.1.0-a20-d11]: https://github.com/actions/checkout
+
+
 ## [0.1.0-alpha-19] - 2025-09-21
 
 ### Dependencies
@@ -367,7 +397,8 @@ Commands and settings integrated:
   [_0.1.0-a1-4]: https://rye.astral.sh/guide/commands/
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-19..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-20..HEAD
+  [0.1.0-alpha-20]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-19..v0.1.0-alpha-20
   [0.1.0-alpha-19]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..v0.1.0-alpha-19
   [0.1.0-alpha-18]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-17..v0.1.0-alpha-18
   [0.1.0-alpha-17]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-16..v0.1.0-alpha-17
