@@ -26,8 +26,8 @@ internal val ProcessOutput.completedAbnormally: Boolean
  * [ProcessOutput] in serializable form,
  * to be used in logging functions.
  */
-@Suppress("unused")
 @Serializable
+@Suppress("unused")
 internal class ProcessOutputSurrogate(
     val stdout: String,
     val stderr: String,

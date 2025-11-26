@@ -26,8 +26,8 @@ internal class InitCommand : Command(), UVCommand {
 
 internal class InstallDependenciesCommand(private val kind: String) : Command(), UVCommand {
     
-    @Suppress("unused")
     @Deprecated("This constructor must not be used", level = DeprecationLevel.HIDDEN)
+    @Suppress("unused")
     constructor() : this("")
     
     override val subcommands = listOf("sync")
