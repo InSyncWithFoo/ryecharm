@@ -11,9 +11,19 @@ internal class TYConfigurationsTest : ConfigurationsTest<TYConfigurations>() {
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 2) {
+        doShapeTest(expectedSize = 9) {
             assertEquals(null, executable)
             assertEquals(RunningMode.DISABLED, runningMode)
+            
+            assertEquals(true, diagnostics)
+            assertEquals(DiagnosticMode.OPEN_FILES_ONLY, diagnosticMode)
+            
+            assertEquals(true, inlayHints)
+            assertEquals(true, inlayHintsVariableTypes)
+            assertEquals(true, inlayHintsCallArgumentNames)
+            
+            assertEquals(false, experimentalRename)
+            assertEquals(false, experimentalAutoImport)
         }
     }
     
