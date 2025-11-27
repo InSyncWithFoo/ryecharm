@@ -2,7 +2,7 @@
 # libraries
 annotations = "26.0.2-1"
 kotlinxSerialization = "1.9.0"
-ktorClientCIO = "3.3.2"
+ktorClientCIO = "3.3.3"
 junit = "4.13.2"
 reflections = "0.10.2"
 
