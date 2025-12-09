@@ -28,7 +28,7 @@ import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.DependencyVersion
  * @see isDependencySpecifierString
  * @see DependencyVersionInlayHintsProvider
  */
-internal class RequirementsInjector : LanguageInjectionContributor, DumbAware {  // TODO: Revert this on 2025.3
+internal class RequirementsInjector : LanguageInjectionContributor, DumbAware {
     
     override fun getInjection(context: PsiElement): Injection? {
         val project = context.project
