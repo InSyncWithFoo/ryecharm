@@ -46,7 +46,6 @@ repositories {
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 dependencies {
     compileOnly(libs.kotlinxSerialization)
-    compileOnly(libs.ktorClientCIO)
     testImplementation(kotlin("test"))
     testImplementation(libs.junit)
     testImplementation(libs.reflections)
