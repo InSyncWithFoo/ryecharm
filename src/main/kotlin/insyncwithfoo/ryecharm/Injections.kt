@@ -1,8 +1,6 @@
 package insyncwithfoo.ryecharm
 
-import com.intellij.lang.Language
 import com.intellij.lang.injection.InjectedLanguageManager
-import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -27,10 +25,3 @@ internal val PsiElement.host: PsiElement?
 internal val PsiElement.injectedFiles: List<PsiElement>
     get() = project.injectedLanguageManager.getInjectedPsiFiles(this)?.map { (element, _) -> element }
         ?: emptyList()
-
-
-internal inline fun MultiHostRegistrar.inject(language: Language, addRanges: MultiHostRegistrar.() -> Unit) {
-    startInjecting(language, language.associatedFileType?.defaultExtension)
-    addRanges()
-    doneInjecting()
-}

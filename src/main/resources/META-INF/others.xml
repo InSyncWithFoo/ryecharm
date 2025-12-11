@@ -47,10 +47,10 @@
 			implementationClass="insyncwithfoo.ryecharm.others.scriptmetadata.ScriptMetadataFoldingBuilder"
 		/>
 		
-		<multiHostInjector
+		<languageInjectionContributor
 			id="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
-			order="first"
-			implementation="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
+			language="TOML"
+			implementationClass="insyncwithfoo.ryecharm.others.requirementsinjection.RequirementsInjector"
 		/>
 		
 		<psi.referenceContributor

@@ -3,12 +3,12 @@ package insyncwithfoo.ryecharm.ruff.linting
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurations
+import insyncwithfoo.ryecharm.ruff.DiagnosticID
 import insyncwithfoo.ryecharm.ruff.OneBasedRange
 import insyncwithfoo.ryecharm.ruff.ZeroBasedIndex
 import insyncwithfoo.ryecharm.ruff.getOffsetRange
-import insyncwithfoo.ryecharm.ruff.toZeroBased
-import insyncwithfoo.ryecharm.ruff.DiagnosticID
 import insyncwithfoo.ryecharm.ruff.isLikelySyntaxError
+import insyncwithfoo.ryecharm.ruff.toZeroBased
 
 
 /**

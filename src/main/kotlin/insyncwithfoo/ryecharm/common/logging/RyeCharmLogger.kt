@@ -9,8 +9,8 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import insyncwithfoo.ryecharm.Command
-import insyncwithfoo.ryecharm.toSurrogate
 import insyncwithfoo.ryecharm.message
+import insyncwithfoo.ryecharm.toSurrogate
 
 
 internal const val COMMAND_LOG_LINE_PREFIX = "Running"

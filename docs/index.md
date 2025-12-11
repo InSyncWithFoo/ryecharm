@@ -4,7 +4,7 @@ RyeCharm is the all-in-one PyCharm plugin for Astral-backed Python tools:
 [Ruff][1], [uv][2] and [Rye][3].
 
 This plugin only supports the latest versions of the tools
-and can only be installed on PyCharm 2025.2.4 and later.
+and can only be installed on PyCharm 2025.3 and later.
 
 
 ## Usage
