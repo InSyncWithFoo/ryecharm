@@ -28,7 +28,7 @@ internal sealed class DiagnosticID(val value: String) {
 }
 
 
-private class DiagnosticIDSerializer : KSerializer<DiagnosticID> {
+internal class DiagnosticIDSerializer : KSerializer<DiagnosticID> {
     
     override val descriptor: SerialDescriptor =
         buildClassSerialDescriptor("DiagnosticID")

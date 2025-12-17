@@ -8,7 +8,7 @@ reflections = "0.10.2"
 # plugins
 changelog = "2.5.0"
 intelliJPlatform = "2.10.5"
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 kover = "0.9.4"
 qodana = "2025.2.4"
 

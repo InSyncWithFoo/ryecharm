@@ -51,4 +51,4 @@ internal val globalRuffConfigurations: RuffConfigurations
 
 
 internal val Project.ruffConfigurations: RuffConfigurations
-    get() = getMergedState<RuffGlobalService, RuffLocalService, RuffOverrideService, _>()
+    get() = getMergedState<RuffGlobalService, RuffLocalService, RuffOverrideService, _, _>()

@@ -51,4 +51,4 @@ internal val globalUVConfigurations: UVConfigurations
 
 
 internal val Project.uvConfigurations: UVConfigurations
-    get() = getMergedState<UVGlobalService, UVLocalService, UVOverrideService, _>()
+    get() = getMergedState<UVGlobalService, UVLocalService, UVOverrideService, _, _>()
