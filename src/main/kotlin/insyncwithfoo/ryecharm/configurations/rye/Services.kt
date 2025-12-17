@@ -51,4 +51,4 @@ internal val globalRyeConfigurations: RyeConfigurations
 
 
 internal val Project.ryeConfigurations: RyeConfigurations
-    get() = getMergedState<RyeGlobalService, RyeLocalService, RyeOverrideService, _>()
+    get() = getMergedState<RyeGlobalService, RyeLocalService, RyeOverrideService, _, _>()

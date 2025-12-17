@@ -145,9 +145,12 @@ private inline fun <reified S : DisplayableState> S.mergeWith(other: S, override
 internal inline fun <
     reified GlobalService : ConfigurationService<S>,
     reified LocalService : ConfigurationService<S>,
-    reified OverrideService : ConfigurationService<out ProjectOverrideState>,
-    reified S : DisplayableState
-> Project.getMergedState(): S {
+    reified OverrideService : ConfigurationService<out OS>,
+    reified S : DisplayableState,
+    reified OS,
+> Project.getMergedState(): S
+    where OS : DisplayableState, OS : ProjectOverrideState
+{
     val globalState = applicationService<GlobalService>().getState()
     val projectState = service<LocalService>().getState()
     val overrides = service<OverrideService>().getState().names

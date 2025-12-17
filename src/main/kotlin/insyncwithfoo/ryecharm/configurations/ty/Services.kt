@@ -51,4 +51,4 @@ internal val globalTYConfigurations: TYConfigurations
 
 
 internal val Project.tyConfigurations: TYConfigurations
-    get() = getMergedState<TYGlobalService, TYLocalService, TYOverrideService, _>()
+    get() = getMergedState<TYGlobalService, TYLocalService, TYOverrideService, _, _>()

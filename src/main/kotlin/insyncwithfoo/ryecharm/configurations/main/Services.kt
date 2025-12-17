@@ -51,4 +51,4 @@ internal val globalMainConfigurations: MainConfigurations
 
 
 internal val Project.mainConfigurations: MainConfigurations
-    get() = getMergedState<MainGlobalService, MainLocalService, MainOverrideService, _>()
+    get() = getMergedState<MainGlobalService, MainLocalService, MainOverrideService, _, _>()
