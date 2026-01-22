@@ -1,7 +1,7 @@
 [versions]
 # libraries
 annotations = "26.0.2-1"
-kotlinxSerialization = "1.9.0"
+kotlinxSerialization = "1.10.0"
 junit = "4.13.2"
 reflections = "0.10.2"
 
