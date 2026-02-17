@@ -7,6 +7,7 @@ import insyncwithfoo.ryecharm.configurations.ty.tyConfigurations
 import insyncwithfoo.ryecharm.configurations.tyExecutable
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.ty.createInitializationOptionsObject
+import insyncwithfoo.ryecharm.ty.createWorkspaceConfigurationObject
 
 
 internal class TYServerClient(project: Project) : LanguageClientImpl(project) {
@@ -30,5 +31,20 @@ internal class TYServerClient(project: Project) : LanguageClientImpl(project) {
             logger?.info("$it")
             logger?.info("")
         }
+    
+    override fun findSettings(section: String?): Any? {
+        val value = when (section) {
+            "ty" -> project.createWorkspaceConfigurationObject()
+            else -> null
+        }
+        
+        return value.also {
+            val logger = project.tyLogger
+            
+            logger?.info("Sending workspace configuration item for $section:")
+            logger?.info("$it")
+            logger?.info("")
+        }
+    }
     
 }

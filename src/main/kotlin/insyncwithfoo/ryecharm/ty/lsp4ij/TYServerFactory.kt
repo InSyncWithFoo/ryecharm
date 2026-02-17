@@ -4,6 +4,7 @@ import com.intellij.openapi.project.Project
 import com.redhat.devtools.lsp4ij.LanguageServerEnablementSupport
 import com.redhat.devtools.lsp4ij.LanguageServerFactory
 import com.redhat.devtools.lsp4ij.client.LanguageClientImpl
+import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.configurations.add
@@ -48,6 +49,12 @@ internal class TYServerFactory : LanguageServerFactory, LanguageServerEnablement
     
     override fun createLanguageClient(project: Project): LanguageClientImpl {
         return TYServerClient(project)
+    }
+    
+    @Suppress("UnstableApiUsage")
+    override fun createClientFeatures() = LSPClientFeatures().apply {
+        diagnosticFeature = DiagnosticFeature()
+        inlayHintFeature = InlayHintFeature()
     }
     
 }
