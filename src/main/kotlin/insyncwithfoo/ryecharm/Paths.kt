@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.execution.configurations.PathEnvironmentVariableUtil
-import com.intellij.openapi.util.SystemInfo
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import java.io.File
@@ -51,7 +50,7 @@ internal fun String.toPathIfItExists() =
  * Append `.exe` to the string if the current system is Windows.
  */
 internal fun String.toOSDependentFileName() = when {
-    SystemInfo.isWindows -> "$this.exe"
+    osIsWindows -> "$this.exe"
     else -> this
 }
 

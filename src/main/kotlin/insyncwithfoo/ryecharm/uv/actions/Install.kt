@@ -9,7 +9,6 @@ import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
-import com.intellij.openapi.util.SystemInfo
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.CoroutineService
 import insyncwithfoo.ryecharm.RyeCharm
@@ -25,6 +24,7 @@ import insyncwithfoo.ryecharm.information
 import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.notifyIfProcessIsUnsuccessfulOr
+import insyncwithfoo.ryecharm.osIsWindows
 import insyncwithfoo.ryecharm.processCompletedSuccessfully
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runThenNotify
@@ -93,7 +93,7 @@ internal class Install : AnAction(), ProjectActivity, DumbAware {
     }
     
     private fun Project.installUV() = launch<Coroutine> {
-        when (SystemInfo.isWindows) {
+        when (osIsWindows) {
             true -> installOnWindows()
             else -> installOnOtherPlatforms()
         }
@@ -142,7 +142,7 @@ internal class Install : AnAction(), ProjectActivity, DumbAware {
     }
     
     private val ProcessOutput.streamWithDownloadNotice: String
-        get() = when (SystemInfo.isWindows) {
+        get() = when (osIsWindows) {
             // https://github.com/axodotdev/cargo-dist/blob/96bef18d/cargo-dist/templates/installer/installer.ps1.j2#L224
             true -> stdout
             // https://github.com/axodotdev/cargo-dist/blob/96bef18d/cargo-dist/templates/installer/installer.sh.j2#L219

@@ -1,12 +1,12 @@
 package insyncwithfoo.ryecharm.rye.commands
 
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.SystemInfo
 import insyncwithfoo.ryecharm.CommandArguments
 import insyncwithfoo.ryecharm.CommandFactory
 import insyncwithfoo.ryecharm.configurations.globalRyeExecutable
 import insyncwithfoo.ryecharm.configurations.ryeExecutable
 import insyncwithfoo.ryecharm.findExecutableInPath
+import insyncwithfoo.ryecharm.osIsWindows
 import insyncwithfoo.ryecharm.path
 import insyncwithfoo.ryecharm.toNullIfNotExists
 import java.nio.file.Path
@@ -52,7 +52,7 @@ internal val Rye.Companion.homeDirectory: Path?
 
 private val binarySubdirectoryName: String
     get() = when {
-        SystemInfo.isWindows -> "Scripts"
+        osIsWindows -> "Scripts"
         else -> "bin"
     }
 

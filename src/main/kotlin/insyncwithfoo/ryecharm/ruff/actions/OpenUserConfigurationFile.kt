@@ -4,7 +4,6 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.SystemInfo
 import insyncwithfoo.ryecharm.addCopyPathAction
 import insyncwithfoo.ryecharm.error
 import insyncwithfoo.ryecharm.importantNotificationGroup
@@ -13,6 +12,7 @@ import insyncwithfoo.ryecharm.localFileSystem
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.noProjectFound
 import insyncwithfoo.ryecharm.openFile
+import insyncwithfoo.ryecharm.osIsWindows
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.runThenNotify
 import insyncwithfoo.ryecharm.runUnderUIThread
@@ -68,7 +68,7 @@ internal class OpenUserConfigurationFile : AnAction(), DumbAware {
         
         val configHome = when {
             xdgConfigHome != null -> xdgConfigHome
-            SystemInfo.isWindows -> userHome / Path.of("AppData/Roaming")
+            osIsWindows -> userHome / Path.of("AppData/Roaming")
             else -> userHome / Path.of(".config")
         }
         val parent = configHome / "ruff"
