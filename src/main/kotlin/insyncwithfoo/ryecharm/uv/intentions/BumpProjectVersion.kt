@@ -152,7 +152,7 @@ private class Bumper(private val bumpType: VersionBumpType) :
 }
 
 
-private class BumperContainer() : IntentionContainer {
+private class BumperContainer : IntentionContainer {
     
     override fun getTitle() = message("dialogs.bumpProjectVersion.title")
     

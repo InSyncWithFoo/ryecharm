@@ -47,7 +47,7 @@ private enum class FileScope {
     PROJECT,
     NON_PROJECT,
     SCRATCH;
-
+    
     companion object {
         fun from(project: Project, file: VirtualFile) = when {
             ScratchUtil.isScratch(file) -> SCRATCH

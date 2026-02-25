@@ -75,6 +75,7 @@ internal object RuleStatusSerializer : KSerializer<RuleGroup> {
         
         return RuleGroup::class.sealedSubclasses.firstNotNullOf { `class` ->
             val type = `class`.createType()
+            
             @Suppress("UNCHECKED_CAST")
             val serializer = serializer(type) as KSerializer<RuleGroup>
             

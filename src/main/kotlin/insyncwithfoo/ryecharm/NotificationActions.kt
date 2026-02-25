@@ -88,7 +88,6 @@ internal fun Notification.addOpenFileAction(text: String? = null, path: String) 
 }
 
 
-
 internal class OpenTemporaryFileAction(
     text: String,
     private val filename: String,

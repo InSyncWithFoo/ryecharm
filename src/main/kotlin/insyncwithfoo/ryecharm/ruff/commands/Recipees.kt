@@ -10,7 +10,8 @@ import java.nio.file.Path
 
 
 internal enum class AnalyzeGraphDirection {
-    DEPENDENCIES, DEPENDENTS;
+    DEPENDENCIES,
+    DEPENDENTS;
     
     override fun toString() = name.lowercase()
 }

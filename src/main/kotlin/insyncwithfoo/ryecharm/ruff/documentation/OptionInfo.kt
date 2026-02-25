@@ -55,7 +55,6 @@ private val definitionHighlightedKeySegment = """(?x)
 """.toRegex()
 
 
-
 /**
  * Before: `lint_flake8-annotations_allow-star-arg-any`
  * 
