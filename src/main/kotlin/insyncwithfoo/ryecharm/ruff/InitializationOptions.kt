@@ -32,7 +32,7 @@ internal data class InitializationOptions(
     var fixAll: Boolean = true,
     var organizeImports: Boolean = true,
     var showSyntaxErrors: Boolean = true,
-    var logLevel: String = "info",
+    var logLevel: String? = null,
     var logFile: String? = null,
     
     val codeAction: CodeAction = CodeAction(),

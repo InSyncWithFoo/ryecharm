@@ -2,6 +2,8 @@ package insyncwithfoo.ryecharm
 
 import org.reflections.Reflections
 import java.lang.reflect.Modifier
+import kotlin.reflect.KFunction
+import kotlin.reflect.KParameter
 
 
 private inline fun <T> List<T>.filterIf(condition: Boolean, predicate: (T) -> Boolean) =
@@ -27,3 +29,7 @@ internal inline fun <reified C> Reflections.getSubtypesOf(concrete: Boolean = tr
 
 internal inline fun <reified Super> Class<*>.isSubtypeOf() =
     Super::class.java.isAssignableFrom(this)
+
+
+internal inline val <reified T : Any> T.constructorParameters: List<KParameter>
+    get() = T::class.constructors.toList<KFunction<Any>>().first().parameters
