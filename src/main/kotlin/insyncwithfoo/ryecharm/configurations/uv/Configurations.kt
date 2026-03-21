@@ -17,6 +17,7 @@ internal enum class UpdateMethod(override val label: String) : Labeled {
 internal class UVConfigurations : DisplayableState() {
     var executable by string(null)
     var configurationFile by string(null)
+    var project by string(null)
     
     var showDependencyTreesOnHover by property(true)
     var showVersionSpecifiersForDependencies by property(true)
