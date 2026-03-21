@@ -11,9 +11,10 @@ internal class UVConfigurationsTest : ConfigurationsTest<UVConfigurations>() {
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 11) {
+        doShapeTest(expectedSize = 12) {
             assertEquals(null, executable)
             assertEquals(null, configurationFile)
+            assertEquals(null, project)
             
             assertEquals(true, showDependencyTreesOnHover)
             assertEquals(true, showVersionSpecifiersForDependencies)
