@@ -58,7 +58,7 @@ jobs:
         run: ${{ matrix.runIde }}
       -
         name: Health check
-        uses: jtalk/url-health-check-action@v4
+        uses: jtalk/url-health-check-action@v5
         with:
           url: http://127.0.0.1:8082
           max-attempts: 15
