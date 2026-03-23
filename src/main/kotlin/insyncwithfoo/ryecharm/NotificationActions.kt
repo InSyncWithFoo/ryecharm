@@ -10,6 +10,7 @@ import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.options.ShowSettingsUtil
 import com.intellij.openapi.project.Project
 import com.intellij.util.ui.EmptyClipboardOwner
+import kotlinx.serialization.SerializationException
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 import java.nio.file.Path
@@ -128,4 +129,12 @@ private fun Notification.addSeeStderrAction(content: String) {
 internal fun Notification.addSeeOutputActions(processOutput: ProcessOutput) {
     addSeeStdoutAction(processOutput.stdout)
     addSeeStderrAction(processOutput.stderr)
+}
+
+
+internal fun Notification.addSeeErrorAction(error: SerializationException) {
+    val text = message("notificationActions.seeErrorInEditor")
+    val content = error.stackTraceToString()
+    
+    addOpenTemporaryFileAction(text, "error-message.txt", content)
 }
