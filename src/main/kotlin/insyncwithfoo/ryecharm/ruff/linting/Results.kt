@@ -47,12 +47,24 @@ internal data class Fix(
 )
 
 
+// https://github.com/astral-sh/ruff/blob/2daaf29d90/crates/ruff_db/src/diagnostic/mod.rs#L1284
+@Suppress("unused")
+internal enum class Severity {
+    @SerialName("info") INFO,
+    @SerialName("warning") WARNING,
+    @SerialName("error") ERROR,
+    @SerialName("fatal") FATAL;
+}
+
+
+// https://github.com/astral-sh/ruff/blob/2daaf29d90/crates/ruff_db/src/diagnostic/render/json.rs#L227
 @Serializable
 internal data class Diagnostic(
     @SerialName("code")
     val id: DiagnosticID,
     val url: String?,
     val message: String,
+    val severity: Severity,
     val fix: Fix?,
     val cell: OneBasedIndex?,
     override val location: SourceLocation,
