@@ -21,6 +21,10 @@ internal inline fun <reified T : Any> String.parseAsJSONLeniently() =
     }
 
 
+internal inline fun <reified T : Any> String.parseAsJSONStrictly() =
+    Json.decodeFromString<T>(this)
+
+
 /**
  * Parse the given string as JSON, returning `null` on failure.
  */
