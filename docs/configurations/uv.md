@@ -16,6 +16,13 @@ If specified, this file will be passed to uv on every invocation.
 This corresponds to the `--config-file` command-line option.
 
 
+## Project
+
+If specified, this file or directory will be passed to uv on every invocation.
+
+This corresponds to the `--project` command-line option.
+
+
 ## Main functionalities
 
 

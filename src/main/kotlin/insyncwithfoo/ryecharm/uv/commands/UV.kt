@@ -96,9 +96,14 @@ internal class UV private constructor(
     override fun CommandArguments.withGlobalOptions() = this.apply {
         val configurations = project?.uvConfigurations
         val configurationFile = configurations?.configurationFile
+        val project = configurations?.project
         
         if (configurationFile != null) {
             this["--config-file"] = configurationFile
+        }
+        
+        if (project != null) {
+            this["--project"] = project
         }
     }
     

@@ -37,6 +37,10 @@ private fun Row.configurationFileInput(block: Cell<TextFieldWithBrowseButton>.()
     singleFileTextField().makeFlexible().apply(block)
 
 
+private fun Row.projectInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+    singleFileTextField().makeFlexible().apply(block)
+
+
 private fun Row.showDependencyTreesOnHoverInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.uv.showDependencyTreesOnHover.label")).apply(block)
 
@@ -86,6 +90,10 @@ private fun UVPanel.makeComponent() = panel {
     row(message("configurations.uv.configurationFile.label")) {
         configurationFileInput { bindText(state::configurationFile) }
         overrideCheckbox(state::configurationFile)
+    }
+    row(message("configurations.uv.project.label")) {
+        projectInput { bindText(state::project) }
+        overrideCheckbox(state::project)
     }
     
     group(message("configurations.uv.groups.main")) {
