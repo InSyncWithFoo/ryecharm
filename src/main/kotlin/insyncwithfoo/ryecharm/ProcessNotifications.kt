@@ -11,6 +11,7 @@ import insyncwithfoo.ryecharm.configurations.rye.ryeConfigurations
 import insyncwithfoo.ryecharm.configurations.ryeExecutable
 import insyncwithfoo.ryecharm.configurations.uv.uvConfigurations
 import insyncwithfoo.ryecharm.configurations.uvExecutable
+import kotlinx.serialization.SerializationException
 import java.nio.file.Path
 
 
@@ -161,6 +162,41 @@ private fun NotificationGroup.unknownError(
  */
 internal fun Project.unknownError(command: Command, processOutput: ProcessOutput? = null) =
     importantNotificationGroup.unknownError(command, processOutput).notify(this)
+
+
+private fun NotificationGroup.deserializationError(
+    command: Command,
+    processOutput: ProcessOutput,
+    error: SerializationException
+): Notification {
+    val title = message("notifications.deserializationError.title")
+    val body = message("notifications.deserializationError.body", command.shortenedForm)
+    
+    return error(title, body).apply {
+        addSeeErrorAction(error)
+        addSeeOutputActions(processOutput)
+        addCopyCommandAction(command)
+        addOpenPluginIssueTrackerAction()
+    }
+}
+
+
+/**
+ * Emit a notification saying that the output of [command] could not be parsed.
+ * 
+ * To assist with debugging, the following actions are provided:
+ * 
+ * * See error (see [addSeeErrorAction])
+ * * See stdout/stderr (see [addSeeOutputActions])
+ * * Copy command (see [addCopyCommandAction])
+ * * Open plugin issue tracker (see [addOpenPluginIssueTrackerAction])
+ */
+internal fun Project.deserializationError(
+    command: Command,
+    processOutput: ProcessOutput,
+    error: SerializationException
+) =
+    importantNotificationGroup.deserializationError(command, processOutput, error).notify(this)
 
 
 private fun NotificationGroup.processTimeout(command: Command): Notification {
