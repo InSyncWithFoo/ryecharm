@@ -41,7 +41,7 @@ jobs:
           python-version: 3.x
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
       -
         name: Export properties
         id: properties
@@ -148,7 +148,7 @@ jobs:
             xargs -I '{}' gh cache delete '{}'
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: true
       -
@@ -249,7 +249,7 @@ jobs:
           java-version: 21
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: true
       -
@@ -326,7 +326,7 @@ jobs:
           python-version: 3.x
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: true
       -
