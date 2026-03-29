@@ -11,7 +11,9 @@ For user-facing changes, see [`CHANGELOG.md`][_-1].
 
 ## [Unreleased]
 
-<i>This section is currently empty.</i>
+### Dependencies
+
+<i>Too many to be listed.</i>
 
 
 ## [0.1.0-alpha-20] - 2025-11-23

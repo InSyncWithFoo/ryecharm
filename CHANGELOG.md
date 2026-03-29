@@ -11,7 +11,41 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 
 ## [Unreleased]
 
-<i>This section is currently empty.</i>
+See [the documentation][0.1.0-a21-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.15.8][0.1.0-a21-2]
+* uv: [0.11.2][0.1.0-a21-3]
+* Rye: [0.44.0][0.1.0-a21-4]
+* ty: [0.0.26][0.1.0-a21-5]
+
+
+### Added
+
+* It is now possible to pass a custom argument to uv's `--project` option
+  using the corresponding setting.
+* More ty setttings have been added to allow for more granular control.
+
+
+### Fixed
+
+* Ruff 0.15.7 adds a new property (`severity`) to its CLI output.
+  This would cause RyeCharm to emit "unknown error" notifications.
+  The property is now recognized correctly.
+  Additionally, serialization errors will be reported more clearly.
+
+
+### Removed
+
+* 2025.3.2.1 and older versions are no longer supported.
+
+
+  [0.1.0-a21-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a21-2]: https://github.com/astral-sh/ruff/releases/tag/0.15.8
+  [0.1.0-a21-3]: https://github.com/astral-sh/uv/releases/tag/0.11.2
+  [0.1.0-a21-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a21-5]: https://github.com/astral-sh/ty/releases/tag/0.0.26
 
 
 ## [0.1.0-alpha-20] - 2025-11-23
