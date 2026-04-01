@@ -71,8 +71,12 @@ private fun ArgumentBuilder.fromNode(node: OptionOrArgumentNode) = invoke {
     displayName(node.name.removePrefix("--"))
     node.suggestions?.let { suggestions(it) }
     
-    isVariadic = node.variadic
-    isOptional = node.optional
+    if (node.variadic) {
+        variadic()
+    }
+    if (node.optional) {
+        optional()
+    }
 }
 
 
@@ -98,7 +102,7 @@ private fun ShellCommandContext.option(optionNode: OptionOrArgumentNode) = optio
 
 
 private fun CommandNode.makeContentBuilder(suggestionPriority: SuggestionPriority): ShellCommandContext.() -> Unit = {
-    priority = suggestionPriority.coerceIn(SUGGESTION_PRIORITY_RANGE)
+    priority(suggestionPriority.coerceIn(SUGGESTION_PRIORITY_RANGE))
     
     description?.let { description(it.toHTML()) }
     arguments.forEach { argument(it) }
