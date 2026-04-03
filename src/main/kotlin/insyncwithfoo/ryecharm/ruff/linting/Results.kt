@@ -64,7 +64,7 @@ internal data class Diagnostic(
     val id: DiagnosticID,
     val url: String?,
     val message: String,
-    val severity: Severity,
+    val severity: Severity? = null,
     val fix: Fix?,
     val cell: OneBasedIndex?,
     override val location: SourceLocation,
