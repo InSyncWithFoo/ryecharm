@@ -7,7 +7,7 @@ import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.jetbrains.python.sdk.PythonSdkUtil
-import com.jetbrains.python.sdk.baseDir
+import com.jetbrains.python.sdk.basePath
 import java.nio.file.Path
 
 
@@ -30,7 +30,7 @@ internal val Module.rootManager: ModuleRootManager
 
 
 internal val Module.path: Path?
-    get() = baseDir?.path?.toPathOrNull()
+    get() = basePath?.toPathOrNull()
 
 
 /**

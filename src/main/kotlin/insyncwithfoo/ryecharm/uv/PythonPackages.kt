@@ -1,12 +1,13 @@
 package insyncwithfoo.ryecharm.uv
 
+import com.jetbrains.python.packaging.common.PythonPackage
 import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-internal data class PythonPackage(
+private data class PythonPackageSurrogate(
     val name: String,
     val version: String,
     @SerialName("editable_project_location")
@@ -14,5 +15,17 @@ internal data class PythonPackage(
 )
 
 
+private fun PythonPackage(surrogate: PythonPackageSurrogate) =
+    with(surrogate) {
+        PythonPackage(
+            name,
+            version,
+            isEditableMode = editableProjectLocation != null
+        )
+    }
+
+
 internal fun parsePipListOutput(raw: String) =
-    raw.parseAsJSONLeniently<List<PythonPackage>>()
+    raw.parseAsJSONLeniently<List<PythonPackageSurrogate>>()?.map {
+        PythonPackage(it)
+    }

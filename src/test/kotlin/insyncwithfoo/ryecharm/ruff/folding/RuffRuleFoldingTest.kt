@@ -27,7 +27,6 @@ internal class RuffRuleFoldingTest : PlatformTestCase() {
     @Test
     fun `test ruff toml`() = doTest("ruff.toml")
     
-    // TODO: In 2026.1, ranges are expanded by default. Why?
     @Test
     fun `test noqa`() = doTest("foo.py")
     
