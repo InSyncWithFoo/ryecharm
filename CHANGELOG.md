@@ -14,6 +14,33 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-22] - 2026-04-05
+
+See [the documentation][0.1.0-a22-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.15.8][0.1.0-a22-2]
+* uv: [0.11.2][0.1.0-a22-3]
+* Rye: [0.44.0][0.1.0-a22-4]
+* ty: [0.0.26][0.1.0-a22-5]
+
+
+### Fixed
+
+* In the previous version, RyeCharm fully expected the `severity` property
+  in the CLI output. In other words, it would throw deserialization errors
+  if the Ruff executable in use was older than 0.15.7.
+  The property is now considered optional, for backwards compatibility.
+
+
+  [0.1.0-a22-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a22-2]: https://github.com/astral-sh/ruff/releases/tag/0.15.8
+  [0.1.0-a22-3]: https://github.com/astral-sh/uv/releases/tag/0.11.2
+  [0.1.0-a22-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a22-5]: https://github.com/astral-sh/ty/releases/tag/0.0.26
+
+
 ## [0.1.0-alpha-21] - 2026-03-29
 
 See [the documentation][0.1.0-a21-1] for more information.
@@ -1068,7 +1095,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-21..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-22..HEAD
+  [0.1.0-alpha-22]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-21..v0.1.0-alpha-22
   [0.1.0-alpha-21]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-20..v0.1.0-alpha-21
   [0.1.0-alpha-20]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-19..v0.1.0-alpha-20
   [0.1.0-alpha-19]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-18..v0.1.0-alpha-19
