@@ -10,7 +10,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.endOffset
-import com.jetbrains.python.packaging.common.PythonPackage
 import insyncwithfoo.ryecharm.TOMLPath
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.completedAbnormally
@@ -24,6 +23,7 @@ import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.stringArrayTomlKey
 import insyncwithfoo.ryecharm.stringContent
 import insyncwithfoo.ryecharm.traverse
+import insyncwithfoo.ryecharm.uv.PythonPackage
 import insyncwithfoo.ryecharm.uv.commands.pipList
 import insyncwithfoo.ryecharm.uv.commands.uv
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.Settings
@@ -32,6 +32,7 @@ import insyncwithfoo.ryecharm.uv.parsePipListOutput
 import org.toml.lang.psi.TomlFile
 import org.toml.lang.psi.TomlLiteral
 import java.nio.file.Path
+import kotlin.collections.associate
 
 
 internal typealias DependencyName = String
