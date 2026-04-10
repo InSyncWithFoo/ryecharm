@@ -58,23 +58,6 @@ This corresponds to the [`diagnosticMode`][5] language server setting.
 Default: <i>Open files only</i>
 
 
-## Completions
-
-Whether autocompletions should be offered.
-
-Default: `true`
-
-
-### Auto-import
-
-Whether auto-import suggestions should be offered.
-
-This corresponds to the [`completions.autoImport`][7]
-language server setting.
-
-Default: `true`
-
-
 ## Inlay hints
 
 Whether inlay hints should be shown.
@@ -96,6 +79,23 @@ Default: `true`
 Whether to show argument names in call expressions as inline hints.
 
 This corresponds to the [`inlayHints.callArgumentNames`][7]
+language server setting.
+
+Default: `true`
+
+
+## Completions
+
+Whether autocompletions should be offered.
+
+Default: `true`
+
+
+### Auto-import
+
+Whether auto-import suggestions should be offered.
+
+This corresponds to the [`completions.autoImport`][7]
 language server setting.
 
 Default: `true`

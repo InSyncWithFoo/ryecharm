@@ -144,17 +144,6 @@ private fun TYPanel.makeComponent() = panel {
         }
         
         row {
-            completionsInput { bindSelected(state::completions) }
-            overrideCheckbox(state::completions)
-        }
-        indent {
-            row {
-                completionsAutoImportInput { bindSelected(state::completionsAutoImport) }
-                overrideCheckbox(state::completionsAutoImport)
-            }
-        }
-        
-        row {
             inlayHintsInput { bindSelected(state::inlayHints) }
             overrideCheckbox(state::inlayHints)
         }
@@ -166,6 +155,17 @@ private fun TYPanel.makeComponent() = panel {
             row {
                 inlayHintsCallArgumentNamesInput { bindSelected(state::inlayHintsCallArgumentNames) }
                 overrideCheckbox(state::inlayHintsCallArgumentNames)
+            }
+        }
+        
+        row {
+            completionsInput { bindSelected(state::completions) }
+            overrideCheckbox(state::completions)
+        }
+        indent {
+            row {
+                completionsAutoImportInput { bindSelected(state::completionsAutoImport) }
+                overrideCheckbox(state::completionsAutoImport)
             }
         }
         
