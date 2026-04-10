@@ -55,6 +55,8 @@ internal class TYServerFactory : LanguageServerFactory, LanguageServerEnablement
     override fun createClientFeatures() = LSPClientFeatures().apply {
         diagnosticFeature = DiagnosticFeature()
         inlayHintFeature = InlayHintFeature()
+        completionFeature = CompletionFeature()
+        definitionFeature = DefinitionFeature()
     }
     
 }
