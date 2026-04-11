@@ -4,10 +4,11 @@ import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
-import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.RyeCharm
+import insyncwithfoo.ryecharm.loaderID
 import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.propertiesComponent
 import insyncwithfoo.ryecharm.ruff.documentation.RuleName
@@ -39,10 +40,11 @@ private operator fun PropertiesComponent.set(property: KProperty<*>, value: Stri
 
 
 @Service(Service.Level.PROJECT)
-private class ParseCache : Disposable {
+private class ParseCache(private val project: Project) : Disposable {
     
     init {
-        Disposer.register(RootDisposable.getInstance(), this)
+        thisLogger().info("ParseCache initialized; $project; ${this::class.loaderID}")
+        thisLogger().info(Throwable().stackTraceToString())
     }
     
     private val parsed = mutableMapOf<String, CachedResult<*>>()
@@ -63,6 +65,8 @@ private class ParseCache : Disposable {
     }
     
     override fun dispose() {
+        thisLogger().info("ParseCache disposed; $project; ${this::class.loaderID}")
+        thisLogger().info(Throwable().stackTraceToString())
         clear()
     }
     
@@ -72,8 +76,13 @@ private class ParseCache : Disposable {
 @Service(Service.Level.PROJECT)
 internal class RuffCache(private val project: Project) : Disposable {
     
+    init {
+        thisLogger().info("RuffCache initialized; $project; ${this::class.loaderID}")
+        thisLogger().info(Throwable().stackTraceToString())
+    }
+    
     private val parseCache: ParseCache
-        get() = project.service<ParseCache>()
+        get() = project.service<ParseCache>().also { Disposer.register(this, it) }
     
     private val storage: PropertiesComponent
         get() = project.propertiesComponent
@@ -108,7 +117,8 @@ internal class RuffCache(private val project: Project) : Disposable {
     }
     
     override fun dispose() {
-        clear()
+        thisLogger().info("RuffCache disposed; $project; ${this::class.loaderID}")
+        thisLogger().info(Throwable().stackTraceToString())
     }
     
     companion object {
