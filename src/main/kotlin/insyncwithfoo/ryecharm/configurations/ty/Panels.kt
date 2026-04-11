@@ -81,6 +81,10 @@ private fun Row.completionsAutoImportInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ty.completionsAutoImport.label")).apply(block)
 
 
+private fun Row.goToDefinitionInput(block: Cell<JBCheckBox>.() -> Unit) =
+    checkBox(message("configurations.ty.goToDefinition.label")).apply(block)
+
+
 private fun Row.logLevelInput(block: Cell<ComboBox<LogLevel>>.() -> Unit) =
     comboBox<LogLevel>().apply(block)
 
@@ -163,6 +167,11 @@ private fun TYPanel.makeComponent() = panel {
                 inlayHintsCallArgumentNamesInput { bindSelected(state::inlayHintsCallArgumentNames) }
                 overrideCheckbox(state::inlayHintsCallArgumentNames)
             }
+        }
+        
+        row {
+            goToDefinitionInput { bindSelected(state::goToDefinition) }
+            overrideCheckbox(state::goToDefinition)
         }
         
         separator()

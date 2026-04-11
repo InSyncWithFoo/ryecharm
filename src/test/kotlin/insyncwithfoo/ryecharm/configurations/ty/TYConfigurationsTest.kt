@@ -12,7 +12,7 @@ internal class TYConfigurationsTest : ConfigurationsTest<TYConfigurations>() {
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 14) {
+        doShapeTest(expectedSize = 15) {
             assertEquals(null, executable)
             assertEquals(null, configurationFile)
             
@@ -30,6 +30,8 @@ internal class TYConfigurationsTest : ConfigurationsTest<TYConfigurations>() {
             
             assertEquals(true, completions)
             assertEquals(true, completionsAutoImport)
+            
+            assertEquals(true, goToDefinition)
             
             assertEquals(LogLevel.INFO, logLevel)
             assertEquals(null, logFile)

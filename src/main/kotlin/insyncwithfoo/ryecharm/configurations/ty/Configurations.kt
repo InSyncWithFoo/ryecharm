@@ -60,6 +60,8 @@ internal class TYConfigurations : DisplayableState(), Copyable {
     var completions by property(true)
     var completionsAutoImport by property(true)
     
+    var goToDefinition by property(true)
+    
     var logLevel by enum(LogLevel.INFO)
     var logFile by string(null)
 }

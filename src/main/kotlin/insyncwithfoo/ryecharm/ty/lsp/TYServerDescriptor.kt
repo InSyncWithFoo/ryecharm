@@ -9,6 +9,8 @@ import com.intellij.platform.lsp.api.customization.LspCompletionDisabled
 import com.intellij.platform.lsp.api.customization.LspCustomization
 import com.intellij.platform.lsp.api.customization.LspDiagnosticsCustomizer
 import com.intellij.platform.lsp.api.customization.LspDiagnosticsDisabled
+import com.intellij.platform.lsp.api.customization.LspGoToDefinitionCustomizer
+import com.intellij.platform.lsp.api.customization.LspGoToDefinitionDisabled
 import com.intellij.platform.lsp.api.customization.LspInlayHintCustomizer
 import com.intellij.platform.lsp.api.customization.LspInlayHintDisabled
 import insyncwithfoo.ryecharm.common.logging.tyLogger
@@ -48,6 +50,12 @@ internal class TYServerDescriptor(project: Project, private val executable: Path
             get() = when (configurations.completions) {
                 true -> CompletionSupport()
                 else -> LspCompletionDisabled
+            }
+        
+        override val goToDefinitionCustomizer: LspGoToDefinitionCustomizer
+            get() = when (configurations.goToDefinition) {
+                true -> GoToDefinitionSupport()
+                else -> LspGoToDefinitionDisabled
             }
         
     }

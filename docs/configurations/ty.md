@@ -101,6 +101,14 @@ language server setting.
 Default: `true`
 
 
+## Go to definition
+
+Whether PyCharm's <i>Go to Declaration</i>
+and related features should defer to ty.
+
+Default: `true`
+
+
 ## Log level
 
 The amount of logs the language server will emit.
