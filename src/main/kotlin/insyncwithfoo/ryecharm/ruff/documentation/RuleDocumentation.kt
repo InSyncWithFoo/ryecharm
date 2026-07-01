@@ -45,6 +45,9 @@ private const val ALL: RuleSelector = "ALL"
 internal val ruleSelector = """(?<linter>[A-Z]+)(?<number>[0-9]*)""".toRegex()
 
 
+internal val ruleName = "[a-z0-9]+(?>-[a-z0-9]+)*".toRegex()
+
+
 private val enabledRulesArray = """(?x)
     linter\.rules\.enabled\h*=\h*\[(?<list>[^\[\]]*)]
 """.toRegex()
@@ -78,7 +81,11 @@ private val ruleLink = """https://docs\.astral\.sh/ruff/rules/(?<rule>[a-z-]+)/?
 
 
 internal val String.isRuleSelector: Boolean
-    get() = ruleSelector.matchEntire(this) != null
+    get() = ruleSelector.matches(this)
+
+
+internal val String.isRuleName: Boolean
+    get() = ruleName.matches(this)
 
 
 internal val RuleSelectorOrName.isPylintCodePrefix: Boolean

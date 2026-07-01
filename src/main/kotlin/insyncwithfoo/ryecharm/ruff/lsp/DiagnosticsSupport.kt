@@ -27,12 +27,12 @@ internal class DiagnosticsSupport(project: Project) : LspDiagnosticsSupport() {
     override fun shouldAskServerForDiagnostics(file: VirtualFile) =
         configurations.letNativeClientPullDiagnostics
     
-    override fun getTooltip(diagnostic: Diagnostic): String {
-        val rule = diagnostic.id.ruleCode
-        val message = diagnostic.message
-        
-        return configurations.getFormattedTooltip(message, rule)
-    }
+    override fun getTooltip(diagnostic: Diagnostic) =
+        configurations.getFormattedTooltip(
+            message = diagnostic.message,
+            ruleName = null,
+            ruleCode = diagnostic.id.ruleCode
+        )
     
     override fun getHighlightSeverity(diagnostic: Diagnostic) =
         super.getHighlightSeverity(diagnostic)

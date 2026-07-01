@@ -5,12 +5,12 @@ import com.intellij.openapi.editor.Editor
 import insyncwithfoo.ryecharm.DocumentationURI
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.ruff.documentation.getRuleDocumentationByFullCode
+import insyncwithfoo.ryecharm.ruff.documentation.getRuleDocumentationByRuleName
 import insyncwithfoo.ryecharm.ruff.documentation.isRuleSelector
-import insyncwithfoo.ryecharm.toHTML
+import insyncwithfoo.ryecharm.toHTMLInReadAction
 import kotlinx.coroutines.runBlocking
 
 
-private const val IGNORE_THIS_LINK = true
 private const val PROCEED_TO_CALL_GET_DESCRIPTION = false
 
 
@@ -23,13 +23,13 @@ private const val PROCEED_TO_CALL_GET_DESCRIPTION = false
 internal class RuleTooltipLinkHandler : TooltipLinkHandler() {
     
     override fun handleLink(refSuffix: String, editor: Editor) =
-        when (refSuffix.isRuleSelector) {
-            true -> PROCEED_TO_CALL_GET_DESCRIPTION
-            else -> IGNORE_THIS_LINK
-        }
+        PROCEED_TO_CALL_GET_DESCRIPTION
     
     override fun getDescription(refSuffix: String, editor: Editor) = runBlocking {
-        editor.project?.getRuleDocumentationByFullCode(refSuffix)?.toHTML()
+        when (refSuffix.isRuleSelector) {
+            true -> editor.project?.getRuleDocumentationByFullCode(refSuffix)?.toHTMLInReadAction()
+            else -> editor.project?.getRuleDocumentationByRuleName(refSuffix)?.toHTMLInReadAction()
+        }
     }
     
     override fun getDescriptionTitle(refSuffix: String, editor: Editor) =
