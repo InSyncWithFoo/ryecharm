@@ -57,7 +57,7 @@ internal enum class Severity {
 }
 
 
-// https://github.com/astral-sh/ruff/blob/2daaf29d90/crates/ruff_db/src/diagnostic/render/json.rs#L227
+// https://github.com/astral-sh/ruff/blob/e6856de97d/crates/ruff_db/src/diagnostic/render/json.rs#L229
 @Serializable
 internal data class Diagnostic(
     @SerialName("code")
