@@ -61,7 +61,9 @@ internal enum class Severity {
 @Serializable
 internal data class Diagnostic(
     @SerialName("code")
-    val id: DiagnosticID,
+    val id: DiagnosticID = DiagnosticID.None,
+    @SerialName("name")
+    val ruleName: String? = null,
     val url: String?,
     val message: String,
     val severity: Severity? = null,

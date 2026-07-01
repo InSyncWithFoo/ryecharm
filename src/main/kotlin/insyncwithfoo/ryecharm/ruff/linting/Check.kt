@@ -5,7 +5,7 @@ import com.intellij.openapi.project.Project
 import insyncwithfoo.ryecharm.Command
 import insyncwithfoo.ryecharm.deserializationError
 import insyncwithfoo.ryecharm.isSuccessful
-import insyncwithfoo.ryecharm.parseAsJSONStrictly
+import insyncwithfoo.ryecharm.parseAsJSONLeniently
 import insyncwithfoo.ryecharm.processTimeout
 import insyncwithfoo.ryecharm.runInBackground
 import insyncwithfoo.ryecharm.unknownError
@@ -27,7 +27,7 @@ internal fun Project.runCheckCommand(command: Command): List<Diagnostic>? {
     }
     
     val results = try {
-        output.stdout.parseAsJSONStrictly<List<Diagnostic>>()
+        output.stdout.parseAsJSONLeniently<List<Diagnostic>>()
     } catch (error: SerializationException) {
         deserializationError(command, output, error)
         return null
