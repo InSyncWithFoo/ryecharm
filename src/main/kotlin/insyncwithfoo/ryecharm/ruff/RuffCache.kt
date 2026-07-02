@@ -73,7 +73,7 @@ private class ParseCache : Disposable {
 internal class RuffCache(private val project: Project) : Disposable {
     
     private val parseCache: ParseCache
-        get() = project.service<ParseCache>()
+        get() = project.service<ParseCache>().also { Disposer.register(this, it) }
     
     private val storage: PropertiesComponent
         get() = project.propertiesComponent
@@ -107,9 +107,7 @@ internal class RuffCache(private val project: Project) : Disposable {
         parseCache.clear()
     }
     
-    override fun dispose() {
-        clear()
-    }
+    override fun dispose() {}
     
     companion object {
         fun getInstance(project: Project) = project.service<RuffCache>()
