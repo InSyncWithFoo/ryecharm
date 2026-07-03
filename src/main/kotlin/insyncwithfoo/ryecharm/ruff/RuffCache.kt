@@ -6,7 +6,6 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
-import insyncwithfoo.ryecharm.RootDisposable
 import insyncwithfoo.ryecharm.RyeCharm
 import insyncwithfoo.ryecharm.parseAsJSON
 import insyncwithfoo.ryecharm.propertiesComponent
@@ -40,10 +39,6 @@ private operator fun PropertiesComponent.set(property: KProperty<*>, value: Stri
 
 @Service(Service.Level.PROJECT)
 private class ParseCache : Disposable {
-    
-    init {
-        Disposer.register(RootDisposable.getInstance(), this)
-    }
     
     private val parsed = mutableMapOf<String, CachedResult<*>>()
     

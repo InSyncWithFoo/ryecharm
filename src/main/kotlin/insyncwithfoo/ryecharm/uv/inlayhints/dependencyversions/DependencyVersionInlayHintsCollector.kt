@@ -32,7 +32,6 @@ import insyncwithfoo.ryecharm.uv.parsePipListOutput
 import org.toml.lang.psi.TomlFile
 import org.toml.lang.psi.TomlLiteral
 import java.nio.file.Path
-import kotlin.collections.associate
 
 
 internal typealias DependencyName = String
