@@ -11,7 +11,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
     
     @Test
     fun `test shape`() {
-        doShapeTest(expectedSize = 39) {
+        doShapeTest(expectedSize = 40) {
             assertEquals(null, executable)
             assertEquals(true, crossPlatformExecutableResolution)
             assertEquals(null, configurationFile)
@@ -23,6 +23,7 @@ internal class RuffConfigurationsTest : ConfigurationsTest<RuffConfigurations>()
             assertEquals(false, fileLevelBanner)
             assertEquals(false, renderTooltips)
             assertEquals(TooltipFormat.RULE_MESSAGE, tooltipFormat)
+            assertEquals(TooltipRuleFormat.NAME_THEN_CODE, tooltipRuleFormat)
             
             assertEquals(true, quickFixes)
             assertEquals(true, fixAll)

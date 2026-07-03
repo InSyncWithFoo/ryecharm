@@ -36,6 +36,16 @@ internal enum class TooltipFormat(private val key: String) : Labeled {
 
 
 @Suppress("unused")
+internal enum class TooltipRuleFormat(override val label: String) : Labeled {
+    ONLY_CODE(message("configurations.ruff.tooltipRuleFormat.onlyCode")),
+    CODE_THEN_NAME(message("configurations.ruff.tooltipRuleFormat.codeThenName")),
+    ONLY_NAME(message("configurations.ruff.tooltipRuleFormat.onlyName")),
+    NAME_THEN_CODE(message("configurations.ruff.tooltipRuleFormat.nameThenCode")),
+    CODE_AND_NAME(message("configurations.ruff.tooltipRuleFormat.codeAndName"));
+}
+
+
+@Suppress("unused")
 internal enum class LogLevel(override val label: String) : Labeled {
     TRACE(message("configurations.ruff.logLevel.trace")),
     DEBUG(message("configurations.ruff.logLevel.debug")),
@@ -59,6 +69,7 @@ internal class RuffConfigurations : DisplayableState() {
     var fileLevelBanner by property(false)
     var renderTooltips by property(false)
     var tooltipFormat by enum(TooltipFormat.RULE_MESSAGE)
+    var tooltipRuleFormat by enum(TooltipRuleFormat.NAME_THEN_CODE)
     
     var quickFixes by property(true)
     var fixAll by property(true)

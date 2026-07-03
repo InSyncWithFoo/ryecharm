@@ -70,6 +70,10 @@ private fun Row.tooltipFormatInput(block: Cell<ComboBox<TooltipFormat>>.() -> Un
     comboBox<TooltipFormat>().label(message("configurations.ruff.tooltipFormat.label")).apply(block)
 
 
+private fun Row.tooltipRuleFormatInput(block: Cell<ComboBox<TooltipRuleFormat>>.() -> Unit) =
+    comboBox<TooltipRuleFormat>().label(message("configurations.ruff.tooltipRuleFormat.label")).apply(block)
+
+
 private fun Row.quickFixesInput(block: Cell<JBCheckBox>.() -> Unit) =
     checkBox(message("configurations.ruff.quickFixes.label")).apply(block)
 
@@ -249,6 +253,12 @@ private fun RuffPanel.makeComponent() = panel {
             row {
                 tooltipFormatInput { bindItem(state::tooltipFormat) }
                 overrideCheckbox(state::tooltipFormat)
+            }
+            indent {
+                row {
+                    tooltipRuleFormatInput { bindItem(state::tooltipRuleFormat) }
+                    overrideCheckbox(state::tooltipRuleFormat)
+                }
             }
         }
         

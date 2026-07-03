@@ -107,6 +107,13 @@ Default: <i>A123: Message</i>
     ![](../assets/configurations-ruff-tooltip-format-demo-message-ruff-rule.png)
 
 
+##### Tooltip rule format
+
+How should the rule code and name be displayed within the tooltip.
+
+Default: <i>Name, falling back to code</i>
+
+
 ### Quick fixes
 
 Whether [quick fixes][8] (code actions) should be suggested.
