@@ -14,6 +14,51 @@ For code changes, see [`CHANGELOG_CODE.md`][_-1].
 <i>This section is currently empty.</i>
 
 
+## [0.1.0-alpha-23] - 2026-07-05
+
+See [the documentation][0.1.0-a23-1] for more information.
+
+Latest tool versions at the time of release:
+
+* Ruff: [0.15.20][0.1.0-a23-2]
+* uv: [0.11.26][0.1.0-a23-3]
+* Rye: [0.44.0][0.1.0-a23-4]
+* ty: [0.0.56][0.1.0-a23-5]
+
+
+### Added
+
+* In native client mode, when ty is enabled,
+  the <i>Go to Declaration or Usages</i> action always jumps to
+  the current definition if it is triggered on one.
+  This is due to how the client is implemented.
+  The behaviour can now be disabled entirely using a setting,
+  which would cause <i>Go to Declaration or Usages</i>
+  to use PyCharm's native implementation instead of deferring to ty.
+
+
+### Fixed
+
+* Previously, in LSP4IJ mode, some settings would not take effect.
+  This has been fixed.
+* In rare circumstances, RyeCharm might cause a `ClassCastException`.
+  Some of such cases have been fixed.
+* RyeCharm now correctly recognizes the JSON output format of Ruff 0.15.18
+  and later, which adds the `name` property.
+
+
+### Removed
+
+* 2025.3.6 and older versions are no longer supported.
+
+
+  [0.1.0-a23-1]: https://insyncwithfoo.github.io/ryecharm/
+  [0.1.0-a23-2]: https://github.com/astral-sh/ruff/releases/tag/0.15.20
+  [0.1.0-a23-3]: https://github.com/astral-sh/uv/releases/tag/0.11.26
+  [0.1.0-a23-4]: https://github.com/astral-sh/rye/releases/tag/0.44.0
+  [0.1.0-a23-5]: https://github.com/astral-sh/ty/releases/tag/0.0.56
+
+
 ## [0.1.0-alpha-22] - 2026-04-05
 
 See [the documentation][0.1.0-a22-1] for more information.
@@ -1095,7 +1140,8 @@ See [the documentation][0.1.0-a1-5] for more information.
   [0.1.0-a1-5]: https://insyncwithfoo.github.io/ryecharm
 
 
-  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-22..HEAD
+  [Unreleased]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-23..HEAD
+  [0.1.0-alpha-23]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-22..v0.1.0-alpha-23
   [0.1.0-alpha-22]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-21..v0.1.0-alpha-22
   [0.1.0-alpha-21]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-20..v0.1.0-alpha-21
   [0.1.0-alpha-20]: https://github.com/InSyncWithFoo/ryecharm/compare/v0.1.0-alpha-19..v0.1.0-alpha-20
