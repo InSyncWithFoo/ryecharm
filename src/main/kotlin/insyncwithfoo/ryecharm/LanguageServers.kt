@@ -1,18 +1,18 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.project.Project
-import com.intellij.platform.lsp.api.LspServerManager
-import com.intellij.platform.lsp.api.LspServerSupportProvider
+import com.intellij.platform.lsp.api.LspClientManager
+import com.intellij.platform.lsp.api.LspIntegrationProvider
 import com.redhat.devtools.lsp4ij.LanguageServerManager
 
 
-internal val Project.lspServerManager: LspServerManager
-    get() = LspServerManager.getInstance(this)
+internal val Project.lspClientManager: LspClientManager
+    get() = LspClientManager.getInstance(this)
 
 
-internal inline fun <reified T : LspServerSupportProvider> Project.restartNativeServers() {
+internal inline fun <reified T : LspIntegrationProvider> Project.restartNativeServers() {
     if (lspIsAvailable) {
-        lspServerManager.stopAndRestartIfNeeded(T::class.java)
+        lspClientManager.stopAndRestartClientsIfNeeded(T::class.java)
     }
 }
 

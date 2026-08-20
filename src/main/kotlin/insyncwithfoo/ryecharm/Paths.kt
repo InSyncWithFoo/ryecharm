@@ -49,7 +49,7 @@ internal fun String.toPathIfItExists() =
 /**
  * Append `.exe` to the string if the current system is Windows.
  */
-internal fun String.toOSDependentFileName() = when {
+internal fun String.toOSDependentFileName(osIsWindows: Boolean) = when {
     osIsWindows -> "$this.exe"
     else -> this
 }
@@ -91,7 +91,7 @@ internal fun Path.findChildIgnoringExtension(childNameWithoutExtension: String) 
  * if it is occupied.
  */
 internal fun Path.findExecutableChild(name: String) =
-    resolve(name.toOSDependentFileName()).toNullIfNotExists()
+    resolve(name.toOSDependentFileName(osIsWindows)).toNullIfNotExists()
 
 
 /**

@@ -1,23 +1,23 @@
 package insyncwithfoo.ryecharm.ruff.lsp
 
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.platform.lsp.api.LspServer
-import com.intellij.platform.lsp.api.lsWidget.LspServerWidgetItem
+import com.intellij.platform.lsp.api.LspClient
+import com.intellij.platform.lsp.api.lsWidget.LspClientWidgetItem
 import insyncwithfoo.ryecharm.RuffIcons
 import insyncwithfoo.ryecharm.configurations.ruff.RuffConfigurable
 import insyncwithfoo.ryecharm.message
 
 
-internal class WidgetItem(lspServer: LspServer, currentFile: VirtualFile?) :
-    LspServerWidgetItem(lspServer, currentFile, RuffIcons.TINY_16_WHITE, RuffConfigurable::class.java)
+internal class WidgetItem(lspClient: LspClient, currentFile: VirtualFile?) :
+    LspClientWidgetItem(lspClient, currentFile, RuffIcons.TINY_16_WHITE, RuffConfigurable::class.java)
 {
     
     private val nameWithVersion: String
-        get() = lspServer.initializeResult?.serverInfo?.version
+        get() = lspClient.initializeResult?.serverInfo?.version
             ?.let { message("languageServers.ruff.nameWithVersion", it) }
-            ?: lspServer.descriptor.presentableName
+            ?: lspClient.descriptor.presentableName
     
-    override val serverLabel: String
+    override val itemLabel: String
         get() = nameWithVersion + rootPostfix
     
 }

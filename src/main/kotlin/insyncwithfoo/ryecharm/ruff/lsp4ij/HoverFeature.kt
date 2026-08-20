@@ -6,7 +6,7 @@ import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 
 
 /**
- * @see insyncwithfoo.ryecharm.ruff.lsp.RuffServerDescriptor.lspHoverSupport
+ * @see insyncwithfoo.ryecharm.ruff.lsp.RuffDescriptor.lspCustomization
  */
 @Suppress("UnstableApiUsage")
 internal class HoverFeature : LSPHoverFeature() {

@@ -7,14 +7,14 @@ import insyncwithfoo.ryecharm.configurations.copy
 import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.openProjects
 import insyncwithfoo.ryecharm.restartNativeServers
-import insyncwithfoo.ryecharm.ruff.lsp.RuffServerSupportProvider
+import insyncwithfoo.ryecharm.ruff.lsp.RuffIntegrationProvider
 import insyncwithfoo.ryecharm.ruff.lsp4ij.SERVER_ID
 import insyncwithfoo.ryecharm.toggleLSP4IJServers
 
 
 private fun Project.toggleServers() {
     if (ruffConfigurations.autoRestartServers) {
-        restartNativeServers<RuffServerSupportProvider>()
+        restartNativeServers<RuffIntegrationProvider>()
         toggleLSP4IJServers(SERVER_ID, restart = ruffConfigurations.runningMode == RunningMode.LSP4IJ)
     }
 }

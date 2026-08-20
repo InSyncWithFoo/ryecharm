@@ -39,13 +39,13 @@ import insyncwithfoo.ryecharm.uv.commands.pipCompile
 import insyncwithfoo.ryecharm.uv.commands.selfVersion
 import insyncwithfoo.ryecharm.uv.commands.uv
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
 import java.nio.file.Path
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Instant
 
 
 private const val EXECUTABLES_TO_LAST_CHECKED = "${RyeCharm.ID}.uv.actions.Update.executablesToLastChecked"

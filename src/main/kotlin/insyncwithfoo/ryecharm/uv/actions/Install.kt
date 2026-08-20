@@ -130,9 +130,15 @@ internal class Install : AnAction(), ProjectActivity, DumbAware {
     private fun Project.notifyResult(command: Command, output: ProcessOutput) {
         notifyIfProcessIsUnsuccessfulOr(command, output) {
             val downloadNotice = """(?i)downloading uv (?<version>\S+)""".toRegex()
-            val version = downloadNotice.find(output.streamWithDownloadNotice)?.groups["version"]?.value
+            val streamWithDownloadNotice = when (osIsWindows) {
+                // https://github.com/axodotdev/cargo-dist/blob/96bef18d/cargo-dist/templates/installer/installer.ps1.j2#L224
+                true -> output.stdout
+                // https://github.com/axodotdev/cargo-dist/blob/96bef18d/cargo-dist/templates/installer/installer.sh.j2#L219
+                else -> output.stderr
+            }
             
-            val message = when (version) {
+            val match = downloadNotice.find(streamWithDownloadNotice)
+            val message = when (val version = match?.groups["version"]?.value) {
                 null -> message("notifications.installedUV.body")
                 else -> message("notifications.installedUV.body.versioned", version)
             }
@@ -140,14 +146,6 @@ internal class Install : AnAction(), ProjectActivity, DumbAware {
             processCompletedSuccessfully(message)
         }
     }
-    
-    private val ProcessOutput.streamWithDownloadNotice: String
-        get() = when (osIsWindows) {
-            // https://github.com/axodotdev/cargo-dist/blob/96bef18d/cargo-dist/templates/installer/installer.ps1.j2#L224
-            true -> stdout
-            // https://github.com/axodotdev/cargo-dist/blob/96bef18d/cargo-dist/templates/installer/installer.sh.j2#L219
-            else -> stderr
-        }
     
     @Service(Service.Level.APP)
     private class Coroutine(override val scope: CoroutineScope) : CoroutineService

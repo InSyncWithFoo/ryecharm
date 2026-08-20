@@ -8,12 +8,12 @@ import insyncwithfoo.ryecharm.message
 import insyncwithfoo.ryecharm.openProjects
 import insyncwithfoo.ryecharm.restartNativeServers
 import insyncwithfoo.ryecharm.toggleLSP4IJServers
-import insyncwithfoo.ryecharm.ty.lsp.TYServerSupportProvider
+import insyncwithfoo.ryecharm.ty.lsp.TYIntegrationProvider
 import insyncwithfoo.ryecharm.ty.lsp4ij.SERVER_ID
 
 
 private fun Project.toggleServers() {
-    restartNativeServers<TYServerSupportProvider>()
+    restartNativeServers<TYIntegrationProvider>()
     toggleLSP4IJServers(SERVER_ID, restart = tyConfigurations.runningMode == RunningMode.LSP4IJ)
 }
 

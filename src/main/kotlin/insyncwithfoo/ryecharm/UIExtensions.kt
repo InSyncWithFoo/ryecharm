@@ -4,11 +4,11 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.observable.properties.ObservableMutableProperty
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.ui.emptyText
-import com.intellij.ui.SimpleListCellRenderer
 import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.builder.bindText
+import com.intellij.ui.dsl.listCellRenderer.textListCellRenderer
 import javax.swing.JComponent
 
 
@@ -63,14 +63,8 @@ internal interface Commented : Labeled {
 }
 
 
-internal inline fun <reified L : Labeled> createListCellRenderer() =
-    SimpleListCellRenderer.create<L> { label, item, _ ->
-        label.text = item.label
-    }
-
-
 internal inline fun <reified E> Row.comboBox() where E : Enum<E>, E : Labeled =
-    comboBox(enumValues<E>().toList(), createListCellRenderer<E>())
+    comboBox(enumValues<E>().toList(), textListCellRenderer { item -> item?.label })
 
 
 internal fun Row.radioButtonFor(item: Labeled) =

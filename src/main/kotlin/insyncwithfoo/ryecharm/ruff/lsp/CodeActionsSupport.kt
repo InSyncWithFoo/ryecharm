@@ -1,7 +1,7 @@
 package insyncwithfoo.ryecharm.ruff.lsp
 
 import com.intellij.openapi.project.Project
-import com.intellij.platform.lsp.api.LspServer
+import com.intellij.platform.lsp.api.LspClient
 import com.intellij.platform.lsp.api.customization.LspCodeActionsSupport
 import insyncwithfoo.ryecharm.configurations.ruff.ruffConfigurations
 import insyncwithfoo.ryecharm.ruff.isRuffDisableRuleComment
@@ -21,16 +21,16 @@ internal class CodeActionsSupport(project: Project) : LspCodeActionsSupport() {
     
     private val configurations = project.ruffConfigurations
     
-    override fun createIntentionAction(lspServer: LspServer, codeAction: CodeAction) = when {
+    override fun createIntentionAction(lspClient: LspClient, codeAction: CodeAction) = when {
         codeAction.isRuffFixAll && !configurations.fixAll -> null
         codeAction.isRuffOrganizeImports && !configurations.organizeImports -> null
-        else -> super.createIntentionAction(lspServer, codeAction)
+        else -> super.createIntentionAction(lspClient, codeAction)
     }
     
-    override fun createQuickFix(lspServer: LspServer, codeAction: CodeAction) = when {
+    override fun createQuickFix(lspClient: LspClient, codeAction: CodeAction) = when {
         codeAction.isRuffDisableRuleComment && !configurations.disableRuleComment -> null
         codeAction.isRuffFixViolation && !configurations.fixViolation -> null
-        else -> super.createQuickFix(lspServer, codeAction)
+        else -> super.createQuickFix(lspClient, codeAction)
     }
     
 }

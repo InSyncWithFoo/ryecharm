@@ -3,7 +3,7 @@ package insyncwithfoo.ryecharm.ty.lsp
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
+import com.intellij.platform.lsp.api.ProjectWideLspClientDescriptor
 import com.intellij.platform.lsp.api.customization.LspCompletionCustomizer
 import com.intellij.platform.lsp.api.customization.LspCompletionDisabled
 import com.intellij.platform.lsp.api.customization.LspCustomization
@@ -26,8 +26,8 @@ import org.eclipse.lsp4j.ConfigurationItem
 import java.nio.file.Path
 
 
-internal class TYServerDescriptor(project: Project, private val executable: Path) :
-    ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME)
+internal class TYDescriptor(project: Project, private val executable: Path) :
+    ProjectWideLspClientDescriptor(project, PRESENTABLE_NAME)
 {
     
     private val configurations = project.tyConfigurations

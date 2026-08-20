@@ -50,15 +50,16 @@ internal val Rye.Companion.homeDirectory: Path?
     }
 
 
-private val binarySubdirectoryName: String
-    get() = when {
-        osIsWindows -> "Scripts"
-        else -> "bin"
-    }
-
-
 internal val Rye.Companion.binaryDirectory: Path?
-    get() = homeDirectory?.let { it / "self" / binarySubdirectoryName }
+    get() {
+        val homeDirectory = this.homeDirectory ?: return null
+        val binarySubdirectoryName = when (homeDirectory.osIsWindows) {
+            true -> "Scripts"
+            else -> "bin"
+        }
+        
+        return homeDirectory / "self" / binarySubdirectoryName
+    }
 
 
 internal fun Rye.Companion.detectExecutable() = findExecutableInPath("rye")

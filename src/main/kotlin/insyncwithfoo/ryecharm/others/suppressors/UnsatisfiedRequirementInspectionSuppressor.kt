@@ -4,7 +4,6 @@ import com.intellij.codeInspection.InspectionSuppressor
 import com.intellij.codeInspection.SuppressQuickFix
 import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
-import com.jetbrains.python.requirements.inspections.tools.NotInstalledRequirementInspection
 import insyncwithfoo.ryecharm.TOMLPath
 import insyncwithfoo.ryecharm.absoluteName
 import insyncwithfoo.ryecharm.configurations.main.mainConfigurations
@@ -17,7 +16,7 @@ import insyncwithfoo.ryecharm.stringArrayTomlKey
  * Suppress `UnsatisfiedRequirementInspection`
  * for `build-system.requires` in `pyproject.toml`
  * 
- * @see NotInstalledRequirementInspection
+ * @see com.jetbrains.python.requirements.inspections.tools.NotInstalledRequirementInspection
  */
 internal class UnsatisfiedRequirementInspectionSuppressor : InspectionSuppressor, DumbAware {
     
