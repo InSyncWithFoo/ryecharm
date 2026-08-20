@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 25
       -
         name: Set up Python
         uses: actions/setup-python@v7
@@ -135,7 +135,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 25
       -
         name: Clear Gradle home cache
         if: matrix.platform == 'windows-latest' && github.event_name != 'pull_request'
@@ -212,7 +212,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 25
       -
         name: Switch to Qodana Community
         if: github.event_name == 'pull_request' || github.repository != 'InSyncWithFoo/ryecharm'
@@ -246,7 +246,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 25
       -
         name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6.3.0
@@ -318,7 +318,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: zulu
-          java-version: 21
+          java-version: 25
       -
         name: Set up Python
         uses: actions/setup-python@v7
