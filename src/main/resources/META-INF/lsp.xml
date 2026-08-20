@@ -1,15 +1,13 @@
 <idea-plugin>
 	<extensions defaultExtensionNs="com.intellij">
-		<!--suppress PluginXmlValidity -->
-		<platform.lsp.serverSupportProvider
-			id="insyncwithfoo.ryecharm.ruff.lsp.RuffServerSupportProvider"
-			implementation="insyncwithfoo.ryecharm.ruff.lsp.RuffServerSupportProvider"
+		<platform.lsp.integrationProvider
+			id="insyncwithfoo.ryecharm.ruff.lsp.RuffIntegrationProvider"
+			implementation="insyncwithfoo.ryecharm.ruff.lsp.RuffIntegrationProvider"
 		/>
 		
-		<!--suppress PluginXmlValidity -->
-		<platform.lsp.serverSupportProvider
-			id="insyncwithfoo.ryecharm.ty.lsp.TYServerSupportProvider"
-			implementation="insyncwithfoo.ryecharm.ty.lsp.TYServerSupportProvider"
+		<platform.lsp.integrationProvider
+			id="insyncwithfoo.ryecharm.ty.lsp.TYIntegrationProvider"
+			implementation="insyncwithfoo.ryecharm.ty.lsp.TYIntegrationProvider"
 		/>
 	</extensions>
 </idea-plugin>

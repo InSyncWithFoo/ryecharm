@@ -3,7 +3,7 @@ package insyncwithfoo.ryecharm.ruff.lsp
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
+import com.intellij.platform.lsp.api.ProjectWideLspClientDescriptor
 import com.intellij.platform.lsp.api.customization.LspCodeActionsCustomizer
 import com.intellij.platform.lsp.api.customization.LspCodeActionsDisabled
 import com.intellij.platform.lsp.api.customization.LspCustomization
@@ -23,8 +23,8 @@ import org.eclipse.lsp4j.ClientCapabilities
 import java.nio.file.Path
 
 
-internal class RuffServerDescriptor(project: Project, private val executable: Path) :
-    ProjectWideLspServerDescriptor(project, PRESENTABLE_NAME)
+internal class RuffDescriptor(project: Project, private val executable: Path) :
+    ProjectWideLspClientDescriptor(project, PRESENTABLE_NAME)
 {
     
     private val configurations = project.ruffConfigurations

@@ -19,10 +19,10 @@ import insyncwithfoo.ryecharm.launch
 import insyncwithfoo.ryecharm.module
 import insyncwithfoo.ryecharm.uv.inlayhints.dependencyversions.settings.DependencyVersionInlayHintsCustomSettingsProvider
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import java.nio.file.Path
+import kotlin.time.Clock
 import kotlin.time.DurationUnit
+import kotlin.time.Instant
 import kotlin.time.toDuration
 
 

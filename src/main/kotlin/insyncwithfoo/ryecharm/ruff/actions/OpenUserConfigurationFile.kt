@@ -32,7 +32,7 @@ internal class OpenUserConfigurationFile : AnAction(), DumbAware {
     
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return noProjectFound()
-        val path = findUserConfigurationFile() ?: return project.fileNotFound()
+        val path = project.findUserConfigurationFile() ?: return project.fileNotFound()
         
         project.findAndOpenFile(path)
     }
@@ -62,7 +62,7 @@ internal class OpenUserConfigurationFile : AnAction(), DumbAware {
      * and `~/Library/Application Support/` (macOS),
      * both of which are deliberately not added here.
      */
-    private fun findUserConfigurationFile(): Path? {
+    private fun Project.findUserConfigurationFile(): Path? {
         val userHome = System.getProperty("user.home")?.toPathOrNull() ?: return null
         val xdgConfigHome = System.getenv("XDG_CONFIG_HOME")?.toPathOrNull()
         

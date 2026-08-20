@@ -3,7 +3,7 @@ package insyncwithfoo.ryecharm
 import com.intellij.execution.wsl.target.WslTargetEnvironmentConfiguration
 import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.platform.lsp.api.LspServerSupportProvider
+import com.intellij.platform.lsp.api.LspIntegrationProvider
 
 
 // https://stackoverflow.com/q/79750919
@@ -37,7 +37,7 @@ internal val lsp4ijIsAvailable: Boolean
  */
 internal val lspIsAvailable by lazy {
     try {
-        load<LspServerSupportProvider>()
+        load<LspIntegrationProvider>()
         true
     } catch (_: NoClassDefFoundError) {
         false
@@ -49,7 +49,8 @@ internal val lspIsAvailable by lazy {
  * Whether the IDE has WSL-specific support.
  */
 internal val wslIsSupported by lazy {
-    osIsWindows && try {
+    // TODO: Return false on Windows
+    try {
         load<WslTargetEnvironmentConfiguration>()
         true
     } catch (_: NoClassDefFoundError) {

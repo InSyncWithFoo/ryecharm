@@ -1,7 +1,6 @@
 package insyncwithfoo.ryecharm
 
 import com.intellij.openapi.projectRoots.Sdk
-import com.jetbrains.python.sdk.uv.UvSdkAdditionalData
 import java.nio.file.Path
 
 
@@ -18,7 +17,7 @@ internal val Sdk.path: Path?
  * Whether this SDK is of uv flavor.
  * 
  * The attached additional data of an uv SDK
- * is always of type [UvSdkAdditionalData].
+ * is always of type [com.jetbrains.python.sdk.uv.UvSdkAdditionalData].
  * This class is internal, however,
  * and so it cannot be referred to directly.
  * This property thus perform a qualified name check
