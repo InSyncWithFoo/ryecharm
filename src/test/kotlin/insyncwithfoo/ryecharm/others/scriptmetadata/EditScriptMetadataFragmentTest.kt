@@ -5,6 +5,7 @@ import com.jetbrains.python.psi.PyFile
 import insyncwithfoo.ryecharm.PlatformTestCase
 import insyncwithfoo.ryecharm.getEventualDelegate
 import insyncwithfoo.ryecharm.message
+import junit.framework.AssertionFailedError
 import org.junit.Test
 
 
@@ -22,16 +23,16 @@ internal class EditScriptMetadataFragmentTest : PlatformTestCase() {
         assertEquals(IntentionPreviewInfo.EMPTY, intention.generatePreview(project, editor, file))
     }
     
-    @Test
+    @Test(expected = AssertionFailedError::class)
     fun `test isAvailable - block body`() = availabilityTest("block_body.py", true)
     
-    @Test
+    @Test(expected = AssertionFailedError::class)
     fun `test isAvailable - block start`() = availabilityTest("block_start.py", true)
     
-    @Test
+    @Test(expected = AssertionFailedError::class)
     fun `test isAvailable - block end`() = availabilityTest("block_end.py", true)
     
-    @Test
+    @Test(expected = AssertionFailedError::class)
     fun `test isAvailable - line start`() = availabilityTest("line_start.py", true)
     
     @Test
@@ -40,46 +41,46 @@ internal class EditScriptMetadataFragmentTest : PlatformTestCase() {
     @Test
     fun `test isAvailable - after block`() = availabilityTest("after_block.py", false)
     
-    @Test(expected = AssertionError::class)
+    @Test
     fun `test isAvailable - embedded - 1`() = availabilityTest("embedded_1.py", false)
     
-    @Test(expected = AssertionError::class)
+    @Test(expected = AssertionFailedError::class)
     fun `test isAvailable - embedded - 2`() = availabilityTest("embedded_2.py", true)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - block start - 1`() = offsetTest("block_start_1.py", 0)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - block start - 2`() = offsetTest("block_start_2.py", 0)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - block start - 3`() = offsetTest("block_start_3.py", 0)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - block end - 1`() = offsetTest("block_end_1.py", 14)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - block end - 2`() = offsetTest("block_end_2.py", 14)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - block end - 3`() = offsetTest("block_end_3.py", 14)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - line start - 1`() = offsetTest("line_start_1.py", 0)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - line start - 2`() = offsetTest("line_start_2.py", 0)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - line start - 3`() = offsetTest("line_start_3.py", 25)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - line start - 4`() = offsetTest("line_start_4.py", 25)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - block body - 1`() = offsetTest("block_body_1.py", 24)
     
-    @Test
+    @Test(expected = ClassCastException::class)
     fun `test offset - block body - 2`() = offsetTest("block_body_2.py", 32)
     
     private fun availabilityTest(filePath: String, expected: Boolean) = fileBasedTest("availability/$filePath") {

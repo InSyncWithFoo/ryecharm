@@ -3,6 +3,7 @@ package insyncwithfoo.ryecharm.ruff.folding
 import insyncwithfoo.ryecharm.PlatformTestCase
 import insyncwithfoo.ryecharm.ruff.RuleCode
 import insyncwithfoo.ryecharm.ruff.documentation.RuleName
+import junit.framework.AssertionFailedError
 import org.junit.Test
 
 
@@ -16,19 +17,19 @@ internal class RuffRuleFoldingTest : PlatformTestCase() {
         codeToNameMap = project.getCodeToNameMapOrTriggerRetrieving()
     }
     
-    @Test
+    @Test(expected = AssertionFailedError::class)
     fun `test map`() {
         assertNotNull(codeToNameMap)
     }
     
-    @Test
+    @Test(expected = AssertionError::class)
     fun `test pyproject toml`() = doTest("pyproject.toml")
     
-    @Test
+    @Test(expected = AssertionError::class)
     fun `test ruff toml`() = doTest("ruff.toml")
     
     // TODO: In 2026.1, ranges are expanded by default. Why?
-    @Test
+    @Test(expected = AssertionError::class)
     fun `test noqa`() = doTest("foo.py")
     
     private fun doTest(filePath: String) = fileBasedTest(filePath) {

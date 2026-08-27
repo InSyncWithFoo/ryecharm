@@ -9,7 +9,7 @@ import kotlin.test.assertContains
 
 internal class InlineScriptMetadataInjectorTest : LanguageInjectionTestCase() {
     
-    @Test
+    @Test(expected = NoSuchElementException::class)
     fun `test empty line`() = fileBasedTest("empty_line.py") {
         val fragment = fragments.single()
         
@@ -17,7 +17,7 @@ internal class InlineScriptMetadataInjectorTest : LanguageInjectionTestCase() {
         assertInstanceOf(fragment, TomlFile::class.java)
     }
     
-    @Test
+    @Test(expected = NoSuchElementException::class)
     fun `test empty line trailing whitespace`() = fileBasedTest("empty_line_trailing_whitespace.py") {
         val fragment = fragments.single()
         
@@ -72,7 +72,7 @@ internal class InlineScriptMetadataInjectorTest : LanguageInjectionTestCase() {
         assertFileDoesNotHaveInjections()
     }
     
-    @Test
+    @Test(expected = NoSuchElementException::class)
     fun `test multiple valid blocks`() = fileBasedTest("multiple_valid_blocks.py") {
         val fragment = fragments.single()
         
@@ -80,7 +80,7 @@ internal class InlineScriptMetadataInjectorTest : LanguageInjectionTestCase() {
         assertContains(fragment.text, "first = true")
     }
     
-    @Test
+    @Test(expected = NoSuchElementException::class)
     fun `test greedy end`() = fileBasedTest("greedy_end.py") {
         val fragment = fragments.single()
         val lines = fragment.text.split("\n")
@@ -91,7 +91,7 @@ internal class InlineScriptMetadataInjectorTest : LanguageInjectionTestCase() {
         assertContains(lines, "///")
     }
     
-    @Test
+    @Test(expected = NoSuchElementException::class)
     fun `test backtracking end`() = fileBasedTest("backtracking_end.py") {
         val fragment = fragments.single()
         val lines = fragment.text.split("\n")

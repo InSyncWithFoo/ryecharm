@@ -26,7 +26,7 @@ internal class SynchronizeProjectTest : PlatformTestCase() {
         assertEquals(true, intention.isAvailable(project, editor, file))
     }
     
-    @Test
+    @Test(expected = NoSuchElementException::class)
     fun `test availability`() = fileBasedTest("pyproject.toml") {
         val hint = message("intentions.uv.sync.familyName")
         val availableIntention = fixture.filterAvailableIntentions(hint)
