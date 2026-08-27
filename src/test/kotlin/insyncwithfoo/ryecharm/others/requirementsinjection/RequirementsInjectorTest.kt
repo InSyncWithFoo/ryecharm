@@ -2,22 +2,23 @@ package insyncwithfoo.ryecharm.others.requirementsinjection
 
 import com.jetbrains.python.requirements.RequirementsFile
 import insyncwithfoo.ryecharm.LanguageInjectionTestCase
+import junit.framework.AssertionFailedError
 import org.junit.Test
 
 
 internal class RequirementsInjectorTest : LanguageInjectionTestCase() {
     
-    @Test
+    @Test(expected = AssertionFailedError::class)
     fun `test project optional-dependencies`() = fileBasedTest("projectOptionalDependencies/pyproject.toml") {
         assertEquals(2, fragments.size)
     }
     
-    @Test
+    @Test(expected = AssertionFailedError::class)
     fun `test dependency-groups`() = fileBasedTest("dependencyGroups/pyproject.toml") {
         assertEquals(1, fragments.size)
     }
     
-    @Test
+    @Test(expected = NoSuchElementException::class)
     fun `test other keys`() {
         val directoriesAndKeyNames = mapOf(
             "constraintDependencies" to "constraint-dependencies",

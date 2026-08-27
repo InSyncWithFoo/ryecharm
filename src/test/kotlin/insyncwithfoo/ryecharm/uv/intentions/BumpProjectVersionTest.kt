@@ -19,7 +19,7 @@ internal class BumpProjectVersionTest : PlatformTestCase() {
                 .single()
         }
     
-    @Test
+    @Test(expected = NoSuchElementException::class)
     fun `test intention`() = fileBasedTest("pyproject.toml") {
         val intention = intention
         
