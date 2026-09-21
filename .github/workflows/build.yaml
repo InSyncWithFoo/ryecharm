@@ -198,7 +198,7 @@ jobs:
     steps:
       -
         name: Maximize build space
-        uses: jlumbroso/free-disk-space@v1.3.1
+        uses: jlumbroso/free-disk-space@v2.0.0
         with:
           tool-cache: false
           large-packages: false
@@ -234,7 +234,7 @@ jobs:
     steps:
       -
         name: Maximize build space
-        uses: jlumbroso/free-disk-space@v1.3.1
+        uses: jlumbroso/free-disk-space@v2.0.0
         with:
           tool-cache: false
           large-packages: false
