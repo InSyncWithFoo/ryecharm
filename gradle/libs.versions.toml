@@ -9,7 +9,7 @@ reflections = "0.10.2"
 changelog = "2.5.0"
 intelliJPlatform = "2.17.0"
 kotlin = "2.4.20"
-kover = "0.9.9"
+kover = "0.9.11"
 qodana = "2026.2.1"
 
 [libraries.annotations]
