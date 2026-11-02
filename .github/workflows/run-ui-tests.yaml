@@ -50,7 +50,7 @@ jobs:
           java-version: 25
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v6.3.0
+        uses: gradle/actions/setup-gradle@v6.4.1
         with:
           cache-read-only: true
       -
